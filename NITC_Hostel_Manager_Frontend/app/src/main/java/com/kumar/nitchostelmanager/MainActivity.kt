@@ -11,11 +11,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fragmentManager : FragmentManager = supportFragmentManager
-        val fragmentTransaction : FragmentTransaction = fragmentManager.beginTransaction()
-        val adminDashboardFragment = LoginFragment()
 
-        fragmentTransaction.add(R.id.fragmentContainerView,adminDashboardFragment)
-        fragmentTransaction.commit()
     }
 }

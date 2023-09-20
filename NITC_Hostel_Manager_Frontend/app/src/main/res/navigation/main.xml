@@ -9,5 +9,27 @@
         android:id="@+id/loginFragment"
         android:name="com.kumar.nitchostelmanager.authentication.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_adminDashboardFragment"
+            app:destination="@id/adminDashboardFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_studentDashboardFragment"
+            app:destination="@id/studentDashboardFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_wardenDashboardFragment"
+            app:destination="@id/wardenDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminDashboardFragment"
+        android:name="com.kumar.nitchostelmanager.admin.fragments.AdminDashboardFragment"
+        android:label="AdminDashboardFragment" />
+    <fragment
+        android:id="@+id/studentDashboardFragment"
+        android:name="com.kumar.nitchostelmanager.student.fragments.StudentDashboardFragment"
+        android:label="StudentDashboardFragment" />
+    <fragment
+        android:id="@+id/wardenDashboardFragment"
+        android:name="com.kumar.nitchostelmanager.warden.fragments.WardenDashboardFragment"
+        android:label="WardenDashboardFragment" />
 </navigation>

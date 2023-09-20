@@ -1,20 +1,24 @@
 const Admin = require('../models/adminModel')
 const Student = require('../models/studentModel')
 
-module.exports = async(user) => {
-    if(user.userType == "Admin"){
+module.exports = async(userType,username,password) => {
+    if(userType == "Admin"){
         const adminModel = new Admin()
-        const admin = await adminModel.findAdminByEmailAndPassword(user.email, user.password)
-        if(admin)
-            return adminModel.generateAuthToken(user.email, user.userType)
-        else
-            return null
+        await adminModel.findAdminByEmailAndPassword(username, password).then(function(admin){
+            
+        }).catch(function(exc){
+            console.log("Exception = "+exc);
+            return null;
+        });
+        const token = await adminModel.generateAuthToken(username, userType);
+        console.log(token);
+        return token;
     }
-    else if(user.userType == "Student"){
+    else if(userType == "Student"){
         const studentModel = new Student()
-        const student = await studentModel.findStudentByRollAndPassword(user.studentRoll, user.password)
+        const student = await studentModel.findStudentByRollAndPassword(username, password)
         if(student)
-            return adminModel.generateAuthToken(user.studentRoll, user.userType)
+            return adminModel.generateAuthToken(username, userType)
         else
             return null
     }

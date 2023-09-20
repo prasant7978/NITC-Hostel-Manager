@@ -1,5 +1,6 @@
 const db = require('../db/db_connection');
-
+const jwt = require("jsonwebtoken")
+const config = require("config")
 module.exports = class Model{
     async getAllAdmin(){
         db.query('SELECT * FROM admin',async(err,result)=>{
@@ -21,7 +22,7 @@ module.exports = class Model{
             }else{
                 console.log("admin found : \n");
                 console.log(result);
-                return result;
+                return result[0];
             }
         });
     }
@@ -32,8 +33,8 @@ module.exports = class Model{
                 return null;
             }else{
                 console.log("admin found : \n");
-                console.log(result);
-                return result;
+                // console.log(result);
+                return result[0];
             }
         });
     }
