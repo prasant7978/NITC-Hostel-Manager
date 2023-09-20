@@ -46,12 +46,11 @@ db.connect(function(err){
         });
 
         var adminquery = `CREATE TABLE admin(
-            adminID int NOT NULL AUTO_INCREMENT,
             email VARCHAR(255),
             password VARCHAR(255),
             name VARCHAR(255),
             phone VARCHAR(255),
-            PRIMARY KEY(adminID)
+            PRIMARY KEY(email)
         )`;
         
         db.query(adminquery,function(erradmin,result){

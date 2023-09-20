@@ -2,7 +2,7 @@ const db = require("../db/db_connection");
 const jwt = require("jsonwebtoken");
 const config = require('config');
 
-module.exports = async(req,res,next)=>{
+module.exports = async(req, res, next)=>{
     const token = req.headers["auth-token"];
     if(!token){
         console.log("No token sent");
@@ -11,7 +11,8 @@ module.exports = async(req,res,next)=>{
         console.log("Token = "+token);
         var decoded = jwt.verify(token,config.get("hostel_manager_private_key"));
         console.log("user = "+decoded);
-        req.user = decoded;
+        req.username = decoded.username;
+        req.userType = decoded.userType;
         next();
     }
 }

@@ -15,7 +15,7 @@ module.exports = class Model{
             }
         });
     }
-    async find(id){
+    async findWarden(id){
         db.query('SELECT * FROM wardens WHERE studentRoll=?',async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
@@ -27,7 +27,7 @@ module.exports = class Model{
             }
         });
     }
-    async create(data){
+    async createWarden(data){
         db.query('INSERT INTO wardens SET ?',[data],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
@@ -39,7 +39,7 @@ module.exports = class Model{
             }
         });
     }
-    async update(id,data){
+    async updateWarden(id,data){
         db.query('UPDATE wardens SET ? WHERE id=?',[data,id],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
@@ -51,7 +51,7 @@ module.exports = class Model{
             }
         });
     }
-    async deleteStudent(id){
+    async deleteWarden(id){
         db.query('DELETE FROM wardens WHERE id=?',[id],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);

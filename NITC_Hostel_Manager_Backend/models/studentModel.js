@@ -1,8 +1,6 @@
 const db = require('../db/db_connection');
 
 module.exports = class Model{
-    constructor(){
-    }
     async get_all(){
         db.query('SELECT * FROM students',async(err,result)=>{
             if(err){
@@ -16,7 +14,7 @@ module.exports = class Model{
         });
     }
     async find(id){
-        db.query('SELECT * FROM students WHERE studentRoll=?',async(err,result)=>{
+        db.query('SELECT * FROM students WHERE studentRoll=?', [id], async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
                 return null;
@@ -27,7 +25,22 @@ module.exports = class Model{
             }
         });
     }
-    async create(data){
+
+    async findStudentByRollAndPassword(studentRoll, password){
+        db.query('SELECT * FROM students WHERE studentRoll = ? AND password = ?', [studentRoll, password], async(err, result) => {
+            if(err){
+                console.log("Error : " + err)
+                return null
+            }
+            else{
+                console.log("student found : \n")
+                console.log(result)
+                return result
+            }
+        })
+    }
+
+    async createStudent(data){
         db.query('INSERT INTO students SET ?',[data],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
@@ -39,7 +52,7 @@ module.exports = class Model{
             }
         });
     }
-    async update(id,data){
+    async updateStudent(id,data){
         db.query('UPDATE students SET ? WHERE id=?',[data,id],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
@@ -62,6 +75,11 @@ module.exports = class Model{
                 return result;
             }
         });
+    }
+
+    async generateAuthToken(id, userType){
+        const jwtGenerated = jwt.sign({username: id, userType: userType}, config.get('hostel_manager_private_key'))
+        return jwtGenerated
     }
 
 }
