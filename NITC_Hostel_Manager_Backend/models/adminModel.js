@@ -1,78 +1,96 @@
 const db = require('../db/db_connection');
 const jwt = require("jsonwebtoken")
 const config = require("config")
+
 module.exports = class Model{
     async getAllAdmin(){
-        db.query('SELECT * FROM admin',async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("admin : \n");
-                console.log(result);
-                return result;
-            }
-        });
+        return new Promise((resolve, reject) => {
+            db.query('SELECT * FROM admin', async(err, result)=>{
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("admin : \n");
+                    console.log(result);
+                    resolve(result)
+                }
+            });
+        })
     }
+
     async findAdmin(email){
-        db.query('SELECT * FROM admin WHERE email=?', [email], async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("admin found : \n");
-                console.log(result);
-                return result[0];
-            }
-        });
+        return new Promise((resolve, reject) => {
+            db.query('SELECT * FROM admin WHERE email=?', [email], async(err, result) => {
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("admin found :");
+                    console.log(result);
+                    resolve(result)
+                }
+            });
+        })
     }
+
     async findAdminByEmailAndPassword(email, password){
-        db.query('SELECT * FROM admin WHERE email = ? AND password = ?', [email, password], async(err, result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("admin found : \n");
-                // console.log(result);
-                return result[0];
-            }
-        });
+        return new Promise((resolve, reject) => {
+            db.query('SELECT * FROM admin WHERE email = ? AND password = ?', [email, password], async(err, result)=>{
+                if(err || !result || result.length==0){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("admin found :");
+                    console.log(result);
+                    resolve(result[0])
+                }
+            });
+        })
     }
+
     async createAdmin(data){
-        db.query('INSERT INTO admin SET ?',[data],async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("admin added : \n");
-                console.log(result);
-                return result;
-            }
-        });
+        return new Promise((resolve, reject) => {
+            db.query('INSERT INTO admin SET ?', [data], async(err, result) => {
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("admin added :");
+                    console.log(result);
+                    resolve(result)
+                }
+            });
+        })
     }
+
     async updateAdmin(id,data){
-        db.query('UPDATE admin SET ? WHERE id=?',[data,id],async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("student updated : \n");
-                console.log(result);
-                return result;
-            }
-        });
+        return new Promise((resolve, reject) => {
+            db.query('UPDATE admin SET ? WHERE id=?',[data,id],async(err,result)=>{
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("student updated :");
+                    console.log(result);
+                    resolve(result)
+                }
+            });
+        })
     }
+
     async deleteAdmin(id){
-        db.query('DELETE FROM admin WHERE id=?',[id],async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("admin deleted : \n");
-                console.log(result);
-                return result;
-            }
-        });
+        return new Promise((resolve, reject) => {
+            db.query('DELETE FROM admin WHERE id=?', [id], async(err, result) => {
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("admin deleted :");
+                    console.log(result);
+                    resolve(result)
+                }
+            });
+        })
     }
 
     async generateAuthToken(email, userType){

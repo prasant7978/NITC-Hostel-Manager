@@ -1,80 +1,97 @@
 const db = require('../db/db_connection');
+const jwt = require("jsonwebtoken")
+const config = require("config")
 
 module.exports = class Model{
-    async get_all(){
-        db.query('SELECT * FROM students',async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("students : \n");
-                console.log(result);
-                return result;
-            }
-        });
+    async getAllStudents(){
+        return new Promise((resolve, reject) => {
+            db.query('SELECT * FROM students',async(err,result)=>{
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("students :");
+                    console.log(result);
+                    resolve(result)
+                }
+            });
+        })
     }
+
     async find(id){
-        db.query('SELECT * FROM students WHERE studentRoll=?', [id], async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("student found : \n");
-                console.log(result);
-                return result;
-            }
-        });
+        return new Promise((resolve, reject) => {
+            db.query('SELECT * FROM students WHERE studentRoll=?', [id], async(err,result)=>{
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("student found :");
+                    console.log(result);
+                    resolve(result)
+                }
+            })
+        })
     }
 
     async findStudentByRollAndPassword(studentRoll, password){
-        db.query('SELECT * FROM students WHERE studentRoll = ? AND password = ?', [studentRoll, password], async(err, result) => {
-            if(err){
-                console.log("Error : " + err)
-                return null
-            }
-            else{
-                console.log("student found : \n")
-                console.log(result)
-                return result
-            }
+        return new Promise((resolve, reject) => {
+            db.query('SELECT * FROM students WHERE studentRoll = ? AND password = ?', [studentRoll, password], async(err, result) => {
+                if(err || !result || result.length == 0){
+                    console.log("Error : " + err)
+                    reject(err)
+                }
+                else{
+                    console.log("student found :")
+                    console.log(result)
+                    resolve(result[0])
+                }
+            })
         })
     }
 
     async createStudent(data){
-        db.query('INSERT INTO students SET ?',[data],async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("student added : \n");
-                console.log(result);
-                return result;
-            }
-        });
+        return new Promise((resolve, reject) => {
+            db.query('INSERT INTO students SET ?', [data], async(err, result) => {
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("student added :");
+                    console.log(result[0]);
+                    resolve(result)
+                }
+            });
+        })
     }
-    async updateStudent(id,data){
-        db.query('UPDATE students SET ? WHERE id=?',[data,id],async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("student updated : \n");
-                console.log(result);
-                return result;
+
+    async updateStudent(id, data) {
+        return new Promise((resolve, reject) => {
+          db.query('UPDATE students SET ? WHERE studentRoll=?', [data, id], (err, result) => {
+            if (err) {
+              console.log("Error : " + err);
+              reject(err); // Reject the promise with the error
+            } else {
+              console.log("student updated :");
+              console.log(result);
+              resolve(result); // Resolve the promise with the result
             }
+          });
         });
-    }
+      }
+
     async deleteStudent(id){
-        db.query('DELETE FROM students WHERE id=?',[id],async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                return null;
-            }else{
-                console.log("student deleted : \n");
-                console.log(result);
-                return result;
-            }
-        });
+        return new Promise((resolve, reject) => {
+            db.query('DELETE FROM students WHERE studentRoll = ?', [id], async(err, result) => {
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err);
+                }else{
+                    console.log("student deleted :");
+                    console.log(result);
+                    resolve(result);
+                }
+            })
+        })
     }
 
     async generateAuthToken(id, userType){
