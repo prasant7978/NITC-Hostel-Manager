@@ -24,4 +24,73 @@
     <color name="generate_bill_shape_bg">#F5F0BB</color>
     <color name="add_student_input_bg">#FAF7F0</color>
     <color name="mess_menu_card_bg">#E6E6FA</color>
+
+    <color name="light_blue">#E0E1FF</color>
+    <color name="navy_blue">#191970</color>
+    <color name="normal_blue">#80C5C6FF</color>
+    <color name="sky_blue">#BBDEFB</color>
+    <color name="dark_white">#F8F1F1</color>
+    <color name="dark_grey">#333333</color>
+    <color name="mint_cream">#F3FBF8</color>
+    <color name="dark_mint_cream">#FDF5EF</color>
+    <color name="ivory">#FFFFF0</color>
+    <color name="ivory_beige">#F0ECE8</color>
+    <color name="light_gray">#F5F5F5</color>
+    <color name="very_light_gray">#F8FAFC</color>
+    <color name="powder_blue">#B0E0E6</color>
+    <color name="beige">#F5F5DC</color>
+    <color name="darker_blue">#B0C4DE</color>
+    <color name="warm_peach">#FFE4E1</color>
+    <color name="dark_beige">#D2B48C</color>
+    <color name="cool_gray">#ECECEC</color>
+    <color name="soft_blue">#AED6F1</color>
+    <color name="old_lace">#FDF5E6</color>
+    <color name="creamy_blue">#F3DEFF</color>
+    <color name="cream">#FEFBEA</color>
+    <color name="blue_cream">#DDE4FF</color>
+    <color name="stroke_color_card_profile">#F3F2F1</color>
+
+    <color name="red">#F44336</color>
+    <color name="wheat">#F5DEB3</color>
+
+    <color name="cream_wheat">#FFFDD0</color>
+    <color name="ivory_wheat">#FFF8DC</color>
+    <color name="beige_wheat">#F5F5DC</color>
+    <color name="pale_wheat">#FAE7CD</color>
+    <color name="light_wheat">#F5DEB3</color>
+
+    <!-- Green -->
+    <!--    <color name="light_green">#8BC34A</color>-->
+    <color name="dark_green">#4CAF50</color>
+
+    <!-- Blue -->
+    <color name="dark_blue">#2196F3</color>
+
+    <!-- Red -->
+    <color name="light_red">#FF5252</color>
+    <color name="dark_red">#F44336</color>
+
+
+    <color name="lime">#00FF00</color>
+    <color name="olive">#808000</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="maroon">#800000</color>
+    <color name="aqua">#00FFFF</color>
+    <color name="lightSalmon">#FFA07A</color>
+    <color name="fuchsia">#FF00FF</color>
+
+    <!-- Orange -->
+    <color name="light_orange">#FF9800</color>
+    <color name="dark_orange">#FF5722</color>
+
+    <!-- Yellow -->
+    <color name="light_yellow">#FFEB3B</color>
+    <color name="dark_yellow">#FFC107</color>
+
+    <!-- Purple -->
+    <color name="light_purple">#9C27B0</color>
+    <color name="dark_purple">#673AB7</color>
+
+    <color name="light_green">#90EE90</color>
+
 </resources>

@@ -1,6 +1,334 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/ivory_wheat"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/headingTVInAdminDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome Admin"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:fontFamily="@font/inter_semibold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/inter_semibold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.02"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/totalsLayoutInAdminDashboard"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintTop_toBottomOf="@id/headingTVInAdminDashboard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.2">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardElevation="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/totalGirlsCardInAdminDashboard"
+        app:layout_constraintWidth_percent="0.4"
+        app:cardBackgroundColor="@color/ivory"
+        app:strokeWidth="0dp"
+        app:layout_constraintHeight_percent="0.9"
+        app:cardCornerRadius="25dp"
+        app:layout_constraintVertical_bias="0.5"
+        android:id="@+id/totalBoysCardInAdminDashboard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9324"
+                android:textSize="17sp"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_semibold"
+                android:id="@+id/totalBoysTextInAdminDashboard"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total \nBoys"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/totalBoysTextInAdminDashboard"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/black"
+                android:id="@+id/totalBoysTVInAdminDashboard"
+                app:layout_constraintVertical_bias="0.2"
+                android:fontFamily="@font/inter"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/totalBoysCardInAdminDashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="25dp"
+        app:cardBackgroundColor="@color/mint_cream"
+        app:strokeWidth="0dp"
+        app:cardElevation="10dp"
+        app:layout_constraintHeight_percent="0.9"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintVertical_bias="0.5"
+        android:id="@+id/totalGirlsCardInAdminDashboard">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9324"
+                android:textSize="17sp"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_semibold"
+                android:id="@+id/totalGirlsTextInAdminDashboard"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total \nGirls"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/totalGirlsTextInAdminDashboard"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/black"
+                android:id="@+id/totalGirlsTVInAdminDashboard"
+                app:layout_constraintVertical_bias="0.2"
+                android:fontFamily="@font/inter"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/complaintsAndNoticesLayoutInAdminDashboard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.07"
+        app:layout_constraintHeight_percent="0.4"
+        android:id="@+id/wardensLayoutInAdminDashboard">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/wardensTVLayoutInAdminDashboard"
+        app:layout_constraintVertical_bias="0.01"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wardens"
+        android:textSize="17sp"
+        android:fontFamily="@font/inter_semibold"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show All"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/showALlWardensButtonInAdminDashboard"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/red"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:textAllCaps="false"
+            android:letterSpacing="0.01"
+            android:backgroundTint="#00000000"
+            android:textSize="17sp"
+            app:layout_constraintHorizontal_bias="0.99"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/wardensTVLayoutInAdminDashboard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/wardensRecyclerViewInAdminDashboard"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/complaintsAndNoticesLayoutInAdminDashboard"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/totalsLayoutInAdminDashboard"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardElevation="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/noticesCardInAdminDashboard"
+            app:layout_constraintWidth_percent="0.4"
+            app:cardBackgroundColor="@color/light_red"
+            app:strokeWidth="0dp"
+            app:layout_constraintHeight_percent="0.8"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintVertical_bias="0.5"
+            android:id="@+id/complaintsCardInAdminDashboard">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9324"
+                    android:textSize="17sp"
+                    app:layout_constraintVertical_bias="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter_semibold"
+                    android:id="@+id/complaintsTextInAdminDashboard"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total \nComplaints"
+                    android:gravity="center"
+                    app:layout_constraintTop_toBottomOf="@id/complaintsTextInAdminDashboard"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/black"
+                    android:id="@+id/complaintsTVInAdminDashboard"
+                    app:layout_constraintVertical_bias="0.2"
+                    android:fontFamily="@font/inter"/>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/complaintsCardInAdminDashboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="25dp"
+            app:cardBackgroundColor="@color/light_blue"
+            app:strokeWidth="0dp"
+            app:cardElevation="10dp"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintVertical_bias="0.5"
+            android:id="@+id/noticesCardInAdminDashboard">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9324"
+                    android:textSize="17sp"
+                    app:layout_constraintVertical_bias="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter_semibold"
+                    android:id="@+id/noticesTextInAdminDashboard"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total \nNotices"
+                    android:gravity="center"
+                    app:layout_constraintTop_toBottomOf="@id/noticesTextInAdminDashboard"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/black"
+                    android:id="@+id/noticesTVInAdminDashboard"
+                    app:layout_constraintVertical_bias="0.2"
+                    android:fontFamily="@font/inter"/>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.15"
+        android:src="@drawable/logout_icon_50"
+        android:backgroundTint="#00000000"
+        app:layout_constraintHorizontal_bias="0.999"
+        app:layout_constraintTop_toBottomOf="@+id/wardensLayoutInAdminDashboard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/logoutButtonInAdminDashboard"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

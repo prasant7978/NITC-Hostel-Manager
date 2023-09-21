@@ -59,7 +59,6 @@ db.connect(function(err){
         });
 
         var wardenquery = `CREATE TABLE wardens(
-            wardenID int NOT NULL AUTO_INCREMENT,
             email VARCHAR(255),
             password VARCHAR(255),
             name VARCHAR(255),
@@ -67,7 +66,7 @@ db.connect(function(err){
             gender VARCHAR(200),
             hostelID VARCHAR(255),
             FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
-            PRIMARY KEY(wardenID)
+            PRIMARY KEY(email)
         )`;
 
         db.query(wardenquery,function(errwarden,result){
@@ -80,8 +79,8 @@ db.connect(function(err){
             capacity int,
             charges int,
             totalDues DOUBLE(11,2) DEFAULT 0.00,
-            wardenID int,
-            FOREIGN KEY(wardenID) REFERENCES wardens(wardenID) ON DELETE SET NULL,
+            wardenEmail int,
+            FOREIGN KEY(wardenEmail) REFERENCES wardens(email) ON DELETE SET NULL,
             PRIMARY KEY(hostelID)
         )`;
         
