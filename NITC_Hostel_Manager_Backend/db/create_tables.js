@@ -126,8 +126,10 @@ db.connect(function(err){
             noticeID int NOT NULL AUTO_INCREMENT,
             date DATE,
             time TIME,
+            issuerID VARCHAR(200),
             message VARCHAR(2000),
             hostelID VARCHAR(255),
+            referTo VARCHAR(255),
             FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(noticeID)
         )`;

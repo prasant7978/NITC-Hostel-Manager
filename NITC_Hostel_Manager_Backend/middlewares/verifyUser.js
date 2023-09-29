@@ -1,5 +1,6 @@
 const Admin = require('../models/adminModel')
 const Student = require('../models/studentModel')
+const WardenModel = require('../models/wardenModel')
 
 module.exports = async(userType,username,password) => {
     if(userType == "Admin"){
@@ -36,5 +37,19 @@ module.exports = async(userType,username,password) => {
         }
         else
             return null
+    }else{
+        const wardenModel = new WardenModel()
+        var authenticated = false
+        await wardenModel.findWarden(username, password).then(function(_){
+            authenticated = true
+        }).catch(function(error){
+            console.log("Email or password does not match: " + error);
+            return null
+        });
+        if(authenticated){
+            const token = await wardenModel.generateAuthToken(username, userType);
+            console.log("token = "+token);
+            return token;
+        }
     }
 }

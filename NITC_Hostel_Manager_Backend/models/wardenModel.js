@@ -15,8 +15,8 @@ module.exports = class Model{
             }
         });
     }
-    async findWarden(id){
-        db.query('SELECT * FROM wardens WHERE studentRoll=?',async(err,result)=>{
+    async findWarden(email){
+        db.query('SELECT * FROM wardens WHERE email=?',[email],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
                 return null;
@@ -39,8 +39,8 @@ module.exports = class Model{
             }
         });
     }
-    async updateWarden(id,data){
-        db.query('UPDATE wardens SET ? WHERE id=?',[data,id],async(err,result)=>{
+    async updateWarden(email,data){
+        db.query('UPDATE wardens SET ? WHERE email=?',[data,email],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
                 return null;
@@ -51,8 +51,8 @@ module.exports = class Model{
             }
         });
     }
-    async deleteWarden(id){
-        db.query('DELETE FROM wardens WHERE id=?',[id],async(err,result)=>{
+    async deleteWarden(email){
+        db.query('DELETE FROM wardens WHERE email=?',[email],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
                 return null;
