@@ -24,10 +24,11 @@ class ManageWardensAccess(
         return suspendCoroutine { continuation ->
             var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)
             var requestCall = manageWardenService.getWardens(profileViewModel.loginToken.toString())
-            requestCall.enqueue(object: Callback<Array<Warden>> {
+
+            requestCall.enqueue(object: Callback<Array<Warden>?> {
                 override fun onResponse(
-                    call: Call<Array<Warden>>,
-                    response: Response<Array<Warden>>
+                    call: Call<Array<Warden>?>,
+                    response: Response<Array<Warden>?>
                 ) {
                     if(response.isSuccessful){
                         continuation.resume(response.body())
@@ -37,8 +38,9 @@ class ManageWardensAccess(
                     }
                 }
 
-                override fun onFailure(call: Call<Array<Warden>>, t: Throwable) {
+                override fun onFailure(call: Call<Array<Warden>?>, t: Throwable) {
                     Toast.makeText(context,"Error : $t",Toast.LENGTH_SHORT).show()
+                    Log.d("getWardens","Error : $t")
                     continuation.resume(null)
                 }
 
@@ -51,6 +53,7 @@ class ManageWardensAccess(
         return suspendCoroutine { continuation ->
             var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)
             var requestCall = manageWardenService.addWarden(profileViewModel.loginToken.toString(),newWarden)
+
             requestCall.enqueue(object: Callback<Warden?> {
                 override fun onResponse(
                     call: Call<Warden?>,
@@ -66,7 +69,7 @@ class ManageWardensAccess(
 
                 override fun onFailure(call: Call<Warden?>, t: Throwable) {
                     Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
-                    Log.d("getWardensCount","Error : $t")
+                    Log.d("addWarden","Error : $t")
                     continuation.resume(null)
                 }
             })
@@ -92,7 +95,7 @@ class ManageWardensAccess(
 
                 override fun onFailure(call: Call<Warden?>, t: Throwable) {
                     Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
-                    Log.d("getWardensCount","Error : $t")
+                    Log.d("updateWarden","Error : $t")
                     continuation.resume(null)
                 }
             })
@@ -105,6 +108,7 @@ class ManageWardensAccess(
         return suspendCoroutine { continuation ->
             var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)
             var requestCall = manageWardenService.deleteWarden(profileViewModel.loginToken.toString(),wardenEmail)
+
             requestCall.enqueue(object: Callback<Boolean> {
                 override fun onResponse(
                     call: Call<Boolean>,
@@ -120,7 +124,7 @@ class ManageWardensAccess(
 
                 override fun onFailure(call: Call<Boolean>, t: Throwable) {
                     Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
-                    Log.d("getWardensCount","Error : $t")
+                    Log.d("deleteWarden","Error : $t")
                     continuation.resume(false)
                 }
             })

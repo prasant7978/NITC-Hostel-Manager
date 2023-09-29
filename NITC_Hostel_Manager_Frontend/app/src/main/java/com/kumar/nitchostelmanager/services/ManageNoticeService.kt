@@ -6,13 +6,10 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 
-interface NoticeService {
-
+interface ManageNoticeService {
     @GET("notices/all")
-    fun getNotices(@Header("auth-token") loginToken:String):Call<Array<Notice>>
-
-
+    fun getNotices(@Header("auth-token") loginToken:String): Call<Array<Notice>?>
 
     @GET("notices/add")
-    fun addNotice(@Header ("auth-token") loginToken: String,@Body notice: Notice):Call<Boolean>
+    fun addNotice(@Header("auth-token") loginToken: String, @Body notice: Notice): Call<Boolean>
 }

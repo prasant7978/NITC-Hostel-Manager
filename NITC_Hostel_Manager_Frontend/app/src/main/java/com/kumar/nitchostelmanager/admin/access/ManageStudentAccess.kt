@@ -73,27 +73,27 @@ class ManageStudentAccess(
         }
     }
 
-    suspend fun addStudent(newStudent: Student):Student?{
+    suspend fun addStudent(newStudent: Student):Boolean{
         return suspendCoroutine { continuation ->
             var manageStudentService = ServiceBuilder.buildService(ManageStudentsService::class.java)
             var requestCall = manageStudentService.addStudent(profileViewModel.loginToken.toString(),newStudent)
-            requestCall.enqueue(object: Callback<Student?> {
+            requestCall.enqueue(object: Callback<Boolean> {
                 override fun onResponse(
-                    call: Call<Student?>,
-                    response: Response<Student?>
+                    call: Call<Boolean>,
+                    response: Response<Boolean>
                 ) {
                     if(response.isSuccessful){
-                        continuation.resume(response.body())
+                        continuation.resume(true)
                     }else{
                         Toast.makeText(context,"Some error occurred",Toast.LENGTH_SHORT).show()
-                        continuation.resume(null)
+                        continuation.resume(false)
                     }
                 }
 
-                override fun onFailure(call: Call<Student?>, t: Throwable) {
+                override fun onFailure(call: Call<Boolean>, t: Throwable) {
                     Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
                     Log.d("getStudentsCount","Error : $t")
-                    continuation.resume(null)
+                    continuation.resume(false)
                 }
             })
         }
@@ -103,6 +103,7 @@ class ManageStudentAccess(
         return suspendCoroutine { continuation ->
             var manageStudentService = ServiceBuilder.buildService(ManageStudentsService::class.java)
             var requestCall = manageStudentService.updateStudent(profileViewModel.loginToken.toString(),studentRoll,newStudent)
+
             requestCall.enqueue(object: Callback<Student?> {
                 override fun onResponse(
                     call: Call<Student?>,
@@ -131,6 +132,7 @@ class ManageStudentAccess(
         return suspendCoroutine { continuation ->
             var manageStudentService = ServiceBuilder.buildService(ManageStudentsService::class.java)
             var requestCall = manageStudentService.deleteStudent(profileViewModel.loginToken.toString(),studentRoll)
+
             requestCall.enqueue(object: Callback<Boolean> {
                 override fun onResponse(
                     call: Call<Boolean>,
