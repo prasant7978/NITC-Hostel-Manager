@@ -1,4 +1,4 @@
-const db = require('../db-config/db_connection');
+const db = require('../db/db_connection');
 
 module.exports = class Model{
     constructor(){
