@@ -2,13 +2,14 @@ package com.kumar.nitchostelmanager.admin.access
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import com.kumar.nitchostelmanager.ProfileViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.models.Student
-import com.kumar.nitchostelmanager.models.Warden
 import com.kumar.nitchostelmanager.services.ManageStudentsService
-import com.kumar.nitchostelmanager.services.ManageWardensService
 import com.kumar.nitchostelmanager.services.ServiceBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,7 +34,12 @@ class ManageStudentAccess(
                 ) {
                     if(response.isSuccessful){
                         continuation.resume(response.body())
-                    }else{
+                    }
+                    else if(response.code() == 404){
+                        Toast.makeText(context,"Email already taken",Toast.LENGTH_SHORT).show()
+                        continuation.resume(null)
+                    }
+                    else{
                         Toast.makeText(context,"Some error occurred",Toast.LENGTH_SHORT).show()
                         continuation.resume(null)
                     }
@@ -47,24 +53,30 @@ class ManageStudentAccess(
             })
         }
     }
-    suspend fun getStudents():Array<Student>?{
+    suspend fun getStudents(layout: ConstraintLayout):ArrayList<Student>?{
         return suspendCoroutine { continuation ->
             var manageStudentService = ServiceBuilder.buildService(ManageStudentsService::class.java)
             var requestCall = manageStudentService.getAllStudents(profileViewModel.loginToken.toString())
-            requestCall.enqueue(object: Callback<Array<Student>?> {
+            requestCall.enqueue(object: Callback<ArrayList<Student>?> {
                 override fun onResponse(
-                    call: Call<Array<Student>?>,
-                    response: Response<Array<Student>?>
+                    call: Call<ArrayList<Student>?>,
+                    response: Response<ArrayList<Student>?>
                 ) {
                     if(response.isSuccessful){
                         continuation.resume(response.body())
-                    }else{
+                    }
+                    else if(response.code() == 500){
                         Toast.makeText(context,"Some error occurred",Toast.LENGTH_SHORT).show()
+                        continuation.resume(null)
+                    }
+                    else{
+                        Snackbar.make(layout,"No students found", Snackbar.LENGTH_LONG).setAction("close",
+                            View.OnClickListener { }).show()
                         continuation.resume(null)
                     }
                 }
 
-                override fun onFailure(call: Call<Array<Student>?>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<Student>?>, t: Throwable) {
                     Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
                     Log.d("getStudentsCount","Error : $t")
                     continuation.resume(null)

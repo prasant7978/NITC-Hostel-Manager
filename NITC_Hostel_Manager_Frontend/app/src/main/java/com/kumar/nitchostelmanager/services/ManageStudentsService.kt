@@ -14,7 +14,7 @@ interface ManageStudentsService {
     fun getStudentsCount(@Header("auth-token") loginToken:String): Call<HashMap<String,Int>>
 
     @GET("admin/students/all")
-    fun getAllStudents(@Header("auth-token") loginToken: String):Call<Array<Student>?>
+    fun getAllStudents(@Header("auth-token") loginToken: String):Call<ArrayList<Student>?>
 
     @POST("admin/students/add")
     fun addStudent(@Header("auth-token") loginToken: String,@Body student: Student):Call<Boolean>

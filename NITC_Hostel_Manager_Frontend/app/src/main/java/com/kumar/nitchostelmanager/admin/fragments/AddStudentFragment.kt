@@ -11,8 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
-import com.kumar.nitchostelmanager.ProfileViewModel
-import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.admin.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.databinding.FragmentAddStudentBinding
 import com.kumar.nitchostelmanager.models.Student

@@ -7,7 +7,7 @@
     android:id="@+id/constraintLayout"
     android:layout_marginBottom="5dp"
     android:background="#DEF5E5"
-    android:elevation="15dp"
+    android:elevation="10dp"
     android:padding="5dp">
 
     <TextView

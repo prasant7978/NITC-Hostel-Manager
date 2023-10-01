@@ -1,4 +1,4 @@
-package com.kumar.nitchostelmanager
+package com.kumar.nitchostelmanager.viewModel
 
 import androidx.lifecycle.ViewModel
 
