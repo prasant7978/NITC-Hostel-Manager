@@ -5,7 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.kumar.nitchostelmanager.LocalStorageAccess
-import com.kumar.nitchostelmanager.ProfileViewModel
+import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.services.AuthService
 import com.kumar.nitchostelmanager.services.ServiceBuilder
 import retrofit2.Call
@@ -13,7 +13,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
-import kotlin.math.log
 
 class LoginAccess(
     var context:Context,

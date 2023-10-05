@@ -3,7 +3,7 @@ package com.kumar.nitchostelmanager.warden.access
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import com.kumar.nitchostelmanager.ProfileViewModel
+import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.models.Notice
 import com.kumar.nitchostelmanager.services.ManageNoticeService
 import com.kumar.nitchostelmanager.services.ServiceBuilder

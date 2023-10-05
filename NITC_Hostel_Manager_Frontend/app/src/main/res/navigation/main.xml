@@ -32,4 +32,14 @@
         android:id="@+id/wardenDashboardFragment"
         android:name="com.kumar.nitchostelmanager.warden.fragments.WardenDashboardFragment"
         android:label="WardenDashboardFragment" />
+    <fragment
+        android:id="@+id/viewStudentFragment"
+        android:name="com.kumar.nitchostelmanager.admin.fragments.ViewStudentFragment"
+        android:label="fragment_view_student"
+        tools:layout="@layout/fragment_view_student" />
+    <fragment
+        android:id="@+id/viewWardenFragment"
+        android:name="com.kumar.nitchostelmanager.admin.fragments.ViewWardenFragment"
+        android:label="fragment_view_warden"
+        tools:layout="@layout/fragment_view_warden" />
 </navigation>

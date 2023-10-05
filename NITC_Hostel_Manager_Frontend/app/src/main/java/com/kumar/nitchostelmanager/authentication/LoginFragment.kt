@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.kumar.nitchostelmanager.ProfileViewModel
+import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.authentication.access.LoginAccess
 import com.kumar.nitchostelmanager.databinding.FragmentLoginBinding
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private var userType: String = "Student"
-    private val profileViewModel:ProfileViewModel by activityViewModels()
+    private val profileViewModel: ProfileViewModel by activityViewModels()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.progressBarLogin.visibility = View.INVISIBLE

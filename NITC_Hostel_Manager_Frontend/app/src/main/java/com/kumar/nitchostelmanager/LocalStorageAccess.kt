@@ -2,6 +2,7 @@ package com.kumar.nitchostelmanager
 
 import android.content.Context
 import androidx.fragment.app.Fragment
+import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 
 class LocalStorageAccess(
     var parentFragment: Fragment,

@@ -12,7 +12,7 @@ import retrofit2.http.Query
 interface ManageWardensService {
 
     @GET("admin/wardens/getAll")
-    fun getWardens(loginToken:String): Call<Array<Warden>?>
+    fun getWardens(loginToken:String): Call<ArrayList<Warden>?>
 
     @POST("admin/wardens/add")
     fun addWarden(@Header("auth-token") loginToken: String, @Body warden: Warden):Call<Warden?>
