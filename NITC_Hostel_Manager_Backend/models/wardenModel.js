@@ -68,7 +68,7 @@ module.exports = class Model{
             }else{
                 console.log("student deleted : \n");
                 console.log(result);
-                resolve(;
+                resolve(result);
             }
         });
     });

@@ -42,4 +42,9 @@
         android:name="com.kumar.nitchostelmanager.admin.fragments.ViewWardenFragment"
         android:label="fragment_view_warden"
         tools:layout="@layout/fragment_view_warden" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.kumar.nitchostelmanager.student.fragments.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
 </navigation>

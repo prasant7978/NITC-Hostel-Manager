@@ -42,6 +42,29 @@ class ProfileAccess(var context: Context, private var profileViewModel: ProfileV
         }
     }
 
+    suspend fun getDue(): Double{
+        return suspendCoroutine { continuation ->
+            val profileService = ServiceBuilder.buildService(ProfileService::class.java)
+            val requestCall = profileService.getBill(profileViewModel.loginToken.toString())
+
+            requestCall.enqueue(object: Callback<Double>{
+                override fun onResponse(call: Call<Double>, response: Response<Double>) {
+                    if(response.isSuccessful && response.body() != null)
+                        continuation.resume(response.body()!!.toDouble())
+                    else
+                        continuation.resume(0.0)
+                }
+
+                override fun onFailure(call: Call<Double>, t: Throwable) {
+                    Toast.makeText(context,"Error : $t", Toast.LENGTH_SHORT).show()
+                    Log.d("getDue","Error : $t")
+                    continuation.resume(0.0)
+                }
+
+            })
+        }
+    }
+
     suspend fun getAdminProfile(): Admin?{
         return suspendCoroutine { continuation ->
             val profileService = ServiceBuilder.buildService(ProfileService::class.java)
