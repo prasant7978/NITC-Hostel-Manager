@@ -33,6 +33,21 @@ module.exports = class Model{
         })
     }
     
+    async getBoysCount(){
+        return new Promise((resolve, reject) => {
+            db.query('SELECT COUNT(*) FROM students WHERE GENDER=?',["Male"],async(err,result)=>{
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("Boys total :");
+                    console.log(result[0]["COUNT(*)"]);
+                    resolve(result[0]["COUNT(*)"])
+                }
+            });
+        })
+    }
+    
     async getGirls(){
         return new Promise((resolve, reject) => {
             db.query('SELECT * FROM students WHERE GENDER=?',["Female"],async(err,result)=>{
@@ -42,7 +57,22 @@ module.exports = class Model{
                 }else{
                     console.log("students :");
                     console.log(result);
-                    resolve(result)
+                    resolve(result[0])
+                }
+            });
+        });
+    }
+    
+    async getGirlsCount(){
+        return new Promise((resolve, reject) => {
+            db.query('SELECT COUNT(*) FROM students WHERE GENDER=?',["Female"],async(err,result)=>{
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("Girls count :");
+                    console.log(result[0]["COUNT(*)"]);
+                    resolve(result[0]["COUNT(*)"])
                 }
             });
         });

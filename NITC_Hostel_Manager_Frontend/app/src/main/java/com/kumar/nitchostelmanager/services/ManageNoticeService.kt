@@ -7,6 +7,10 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 
 interface ManageNoticeService {
+
+
+    @GET("notices/count")
+    fun getNoticesCount(@Header("auth-token") loginToken:String): Call<Int>
     @GET("notices/all")
     fun getNotices(@Header("auth-token") loginToken:String): Call<Array<Notice>?>
 

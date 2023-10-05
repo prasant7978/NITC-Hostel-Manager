@@ -41,6 +41,32 @@ class ManageComplaintAccess(var context: Context, private var profileViewModel: 
         }
     }
 
+
+    suspend fun getComplaintsCount(): Int{
+        return suspendCoroutine { continuation ->
+            val manageComplaintService = ServiceBuilder.buildService(ManageComplaintService::class.java)
+            val requestCall = manageComplaintService.getComplaintsCount(profileViewModel.loginToken.toString())
+
+            requestCall.enqueue(object: Callback<Int>{
+                override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                    if(response.isSuccessful && response.body() != null){
+                        continuation.resume(response.body()!!)
+                    }
+                    else{
+                        Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show()
+                        continuation.resume(0)
+                    }
+                }
+                override fun onFailure(call: Call<Int>, t: Throwable) {
+                    Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
+                    Log.d("issueComplaint","Error : $t")
+                    continuation.resume(0)
+                }
+
+            })
+        }
+    }
+
     suspend fun viewOwnComplaint(): Array<Complaint>?{
         return suspendCoroutine { continuation ->
             val manageComplaintService = ServiceBuilder.buildService(ManageComplaintService::class.java)

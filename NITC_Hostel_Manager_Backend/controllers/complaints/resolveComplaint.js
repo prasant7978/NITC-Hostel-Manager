@@ -1,4 +1,4 @@
-var ComplaintModel = require("../models/complaintModel");
+var ComplaintModel = require("../../models/complaintModel");
 
 module.exports = async(req,res)=>{
     if(req.userType == "Admin" || req.userType == "Warden"){

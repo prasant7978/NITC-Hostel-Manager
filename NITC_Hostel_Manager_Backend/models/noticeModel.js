@@ -41,8 +41,34 @@ module.exports = class Notice{
     
     async getNoticesForWarden(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM notices WHERE (hostelID=NULL OR hostelID=?) and referTo=?',[hostelID,"Warden"],async(err,result)=>{
+            db.query('SELECT * FROM notices WHERE (hostelID=NULL OR hostelID=?) and (referTo=? OR referTo=?)',[hostelID,"Warden","Students"],async(err,result)=>{
                 if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    resolve(result[0]);
+                }
+            })
+        });
+    }
+
+    async getNoticesCountForStudents(hostelID){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT COUNT(*) FROM notices WHERE (hostelID=NULL OR hostelID=?) AND referTo=?',[hostelID,"Students"],async(err,result)=>{
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    resolve(result[0]);
+                }
+            })
+        });
+    }
+    
+    async getNoticesCountForWarden(hostelID){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT COUNT(*) FROM notices WHERE (hostelID=NULL OR hostelID=?) and (referTo=? OR referTo=?)',[hostelID,"Warden","Students"],async(err,result)=>{
+                if(err){  
                     console.log(err);
                     reject(err);
                 }else{
@@ -55,6 +81,19 @@ module.exports = class Notice{
     async getNoticesForAdmin(){
         return new Promise((resolve,reject)=>{
             db.query('SELECT * FROM notices',async(err,result)=>{
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    resolve(result[0]);
+                }
+            })
+        });
+    }
+    
+    async getNoticesCountForAdmin(){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT COUNT(*) FROM notices',async(err,result)=>{
                 if(err){
                     console.log(err);
                     reject(err);

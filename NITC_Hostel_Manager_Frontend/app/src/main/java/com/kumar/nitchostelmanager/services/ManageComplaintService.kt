@@ -11,21 +11,24 @@ import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface ManageComplaintService {
-    @POST("complaint/add")
+    @POST("complaints/add")
     fun issueComplaint(@Header("auth-token") loginToken:String, @Body complaint: Complaint): Call<Boolean>
 
-    @GET("complaint/viewOwn")
+    @GET("complaints/own")
     fun viewOwnComplaint(@Header("auth-token") loginToken: String): Call<Array<Complaint>?>
 
-    @GET("complaint/viewAll")
+    @GET("complaints/all")
     fun viewAllComplaints(@Header("auth-token") loginToken: String): Call<ArrayList<Complaint>?>
 
-    @PUT("complaint/resolveComplaint")
+    @PUT("complaints/resolve")
     fun resolveComplaint(@Header("auth-token") loginToken: String, @Query("complaintId") complaintID: Int): Call<Boolean>
 
-    @PUT("complaint/rejectComplaint")
+    @GET("complaints/count")
+    fun getComplaintsCount(@Header ("auth-token") loginToken: String):Call<Int>
+
+    @PUT("complaints/reject")
     fun rejectComplaint(@Header("auth-token") loginToken: String, @Query("complaintId") complaintID: Int): Call<Boolean>
 
-    @DELETE("complaint/deleteComplaint")
+    @DELETE("complaints/delete")
     fun deleteComplaint(@Header("auth-token") loginToken: String, @Query("complaintId") complaintID: Int): Call<Boolean>
 }

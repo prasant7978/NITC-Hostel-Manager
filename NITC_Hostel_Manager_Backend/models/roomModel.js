@@ -51,10 +51,24 @@ module.exports = class Model{
         })
     }
 
-    async createRooms(hostelID,capacity){
+    async createRooms(hostelID,roomType,capacity){
         return new Promise((resolve,reject)=>{
-            db.query('')
-        })
+            var query = "INSERT INTO rooms(roomNumber,hostelID,roomType)";
+            for(var i = 1;i<capacity;i++){
+                query += "SELECT "+i+", "+hostelID+", "+roomType;
+            }
+            query += "SELECT "+capacity+", "+hostelID+", "+roomType;
+            console.log("Query to insert rooms = "+query);
+            db.query(query,async(exc,result)=>{
+                if(exc){
+                    console.log(exc);
+                    reject(exc);
+                }else{
+                    console.log("inserted rooms");
+                    resolve(true);
+                }
+            });
+        });
     }
 
 

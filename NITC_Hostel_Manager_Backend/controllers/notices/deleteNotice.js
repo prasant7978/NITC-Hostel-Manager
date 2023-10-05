@@ -1,13 +1,13 @@
-var ComplaintModel = require("../models/complaintModel");
+var NoticeModel = require("../../models/noticeModel");
 
 module.exports = async(req,res)=>{
     if(req.userType == "Admin" || req.userType == "Warden"){
-        var complaintModel = new ComplaintModel();
-        complaintModel.rejectComplaint(req.query.complaintID,req.username).then(function(result){
+        var noticeModel = new NoticeModel();
+        await noticeModel.deleteNotice(req.query.noticeID).then(function(result){
             if(result && result == true){
                 res.status(200).send(true);
             }else{
-                console.log("result is not true");
+                console.log("Result is not true");
                 res.status(500).send(false);
             }
         }).catch(function(exc){

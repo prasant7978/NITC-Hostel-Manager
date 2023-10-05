@@ -41,9 +41,21 @@ module.exports = class Complaint{
         });
     }
 
+    async getComplaintsCount(userID){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT COUNT(*) FROM complaints WHERE referTo=?',[userID],async(err,result)=>{
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    resolve(result[0]);
+                }
+            });
+        });
+    }
     async getComplaints(userID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM complaints WHERE referTo=',[userID],async(err,result)=>{
+            db.query('SELECT * FROM complaints WHERE referTo=?',[userID],async(err,result)=>{
                 if(err){
                     console.log(err);
                     reject(err);

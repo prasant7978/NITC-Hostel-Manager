@@ -2,13 +2,13 @@ const StudentModel = require("../../models/studentModel")
 
 module.exports = async(req, res) => {
     var studentModel = new StudentModel()
-    studentModel.getAllStudents().then(function(boys) {
-        var boysCount = boys.length;
-        studentModel.getGirls().then(function(girls){
-            var girlsCount = girls.length;
+    studentModel.getBoysCount().then(function(boys) {
+        var boysCount = boys;
+        studentModel.getGirlsCount().then(function(girls){
+            var girlsCount = girls;
             var result = {
-                boysCount:boysCount,
-                girlsCount:girlsCount
+                "BoysCount":boysCount,
+                "GirlsCount":girlsCount
             };
             res.status(200).send(JSON.stringify(result));
         }).catch(function(err){
