@@ -8,18 +8,12 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kumar.nitchostelmanager.R
-import com.kumar.nitchostelmanager.admin.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.admin.access.ManageWardensAccess
-import com.kumar.nitchostelmanager.admin.adapters.StudentListAdapter
 import com.kumar.nitchostelmanager.admin.adapters.WardenListAdapter
-import com.kumar.nitchostelmanager.databinding.FragmentStudentListBinding
 import com.kumar.nitchostelmanager.databinding.FragmentWardenListBinding
-import com.kumar.nitchostelmanager.models.Student
 import com.kumar.nitchostelmanager.models.Warden
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
-import com.kumar.nitchostelmanager.viewModel.StudentViewModel
-import com.kumar.nitchostelmanager.viewModel.WardenViewModel
+import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -29,7 +23,7 @@ class WardenListFragment : Fragment() {
     private lateinit var wardenListBinding: FragmentWardenListBinding
     private lateinit var wardenListAdapter: WardenListAdapter
     private var wardenList = ArrayList<Warden>()
-    private val wardenViewModel: WardenViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -66,7 +60,7 @@ class WardenListFragment : Fragment() {
             if(wardenList != null){
                 wardenList.reverse()
                 wardenListBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
-                wardenListAdapter = WardenListAdapter(wardenList, wardenViewModel, this@WardenListFragment)
+                wardenListAdapter = WardenListAdapter(wardenList, sharedViewModel, this@WardenListFragment)
                 wardenListBinding.recyclerView.adapter = wardenListAdapter
             }
             else{

@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.StudentCardBinding
 import com.kumar.nitchostelmanager.models.Student
-import com.kumar.nitchostelmanager.viewModel.StudentViewModel
+import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 
-class StudentListAdapter(private var studentList: ArrayList<Student>, private var studentViewModel: StudentViewModel, private var parentFragment: Fragment): RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>() {
+class StudentListAdapter(private var studentList: ArrayList<Student>, private var sharedViewModel: SharedViewModel, private var parentFragment: Fragment): RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>() {
     class StudentViewHolder(val adapterBinding: StudentCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
 
     }
@@ -32,7 +32,7 @@ class StudentListAdapter(private var studentList: ArrayList<Student>, private va
         holder.adapterBinding.roomNumber.text = studentList[position].roomNumber
 
         holder.adapterBinding.constraintLayout.setOnClickListener {
-            studentViewModel.viewingStudentRoll = studentList[position].studentRoll
+            sharedViewModel.viewingStudentRoll = studentList[position].studentRoll
 
             parentFragment.findNavController().navigate(R.id.viewStudentFragment)
         }

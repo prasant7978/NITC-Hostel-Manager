@@ -8,14 +8,12 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
-import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.admin.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.admin.adapters.StudentListAdapter
 import com.kumar.nitchostelmanager.databinding.FragmentStudentListBinding
 import com.kumar.nitchostelmanager.models.Student
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
-import com.kumar.nitchostelmanager.viewModel.StudentViewModel
+import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -25,7 +23,7 @@ class StudentListFragment : Fragment() {
     private lateinit var studentListBinding: FragmentStudentListBinding
     private lateinit var studentListAdapter: StudentListAdapter
     private var studentList = ArrayList<Student>()
-    private val studentViewModel: StudentViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -62,7 +60,7 @@ class StudentListFragment : Fragment() {
             if(studentList != null){
                 studentList.reverse()
                 studentListBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
-                studentListAdapter = StudentListAdapter(studentList, studentViewModel, this@StudentListFragment)
+                studentListAdapter = StudentListAdapter(studentList, sharedViewModel, this@StudentListFragment)
                 studentListBinding.recyclerView.adapter = studentListAdapter
             }
             else{

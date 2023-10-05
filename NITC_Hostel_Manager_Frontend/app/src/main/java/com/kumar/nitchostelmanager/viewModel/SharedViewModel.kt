@@ -2,6 +2,8 @@ package com.kumar.nitchostelmanager.viewModel
 
 import androidx.lifecycle.ViewModel
 
-class WardenViewModel: ViewModel() {
+class SharedViewModel:ViewModel() {
+
     var viewingWardenEmail: String? = null
+    var viewingStudentRoll: String? = null
 }

@@ -66,13 +66,9 @@ module.exports = class Model{
                 console.log("Error : "+err);
                 reject(err);
             }else{
-                console.log("student deleted : \n");
-                console.log(result);
-<<<<<<< HEAD
+                console.log("warden deleted : \n");
+                console.log(true);
                 resolve(true);
-=======
-                resolve(result);
->>>>>>> 6d2163d9ef74e76c289ab7d91626da90de0721e5
             }
         });
     });

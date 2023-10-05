@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.WardenCardBinding
 import com.kumar.nitchostelmanager.models.Warden
-import com.kumar.nitchostelmanager.viewModel.WardenViewModel
+import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 
-class WardenListAdapter(private var wardenList: ArrayList<Warden>, private var wardenViewModel: WardenViewModel, private var parentFragment: Fragment): RecyclerView.Adapter<WardenListAdapter.WardenViewHolder>() {
+class WardenListAdapter(private var wardenList: ArrayList<Warden>, private var sharedViewModel: SharedViewModel, private var parentFragment: Fragment): RecyclerView.Adapter<WardenListAdapter.WardenViewHolder>() {
     class WardenViewHolder(val adapterBinding: WardenCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
 
     }
@@ -31,7 +31,7 @@ class WardenListAdapter(private var wardenList: ArrayList<Warden>, private var w
         holder.adapterBinding.hostelName.text = wardenList[position].hostelID
 
         holder.adapterBinding.constraintLayout.setOnClickListener {
-            wardenViewModel.viewingWardenEmail = wardenList[position].email
+            sharedViewModel.viewingWardenEmail = wardenList[position].email
 
             parentFragment.findNavController().navigate(R.id.viewWardenFragment)
         }

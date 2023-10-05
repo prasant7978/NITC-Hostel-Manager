@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kumar.nitchostelmanager.ManageComplaintAccess
 import com.kumar.nitchostelmanager.ManageNoticesAccess
 import com.kumar.nitchostelmanager.admin.access.ManageStudentAccess
+import com.kumar.nitchostelmanager.admin.access.ManageWardensAccess
+import com.kumar.nitchostelmanager.admin.adapters.WardenListAdapter
 import com.kumar.nitchostelmanager.databinding.FragmentAdminDashboardBinding
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
+import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -20,6 +24,7 @@ import kotlinx.coroutines.launch
 class AdminDashboardFragment:Fragment() {
     private lateinit var binding:FragmentAdminDashboardBinding
     private val profileViewModel:ProfileViewModel by activityViewModels()
+    private val sharedViewModel:SharedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,7 +35,7 @@ class AdminDashboardFragment:Fragment() {
         getStudentsCount()
         getTotalComplaints()
         getTotalNotices()
-
+        getWardens()
         binding.swipeRefreshLayoutInAdminDashboard.setOnRefreshListener {
 
             getStudentsCount()
@@ -41,6 +46,28 @@ class AdminDashboardFragment:Fragment() {
 
 
         return binding.root
+    }
+
+    private fun getWardens() {
+        var getwardenCoroutineScope = CoroutineScope(Dispatchers.Main)
+        getwardenCoroutineScope.launch {
+            var wardens = ManageWardensAccess(
+                requireContext(),
+                this@AdminDashboardFragment,
+                profileViewModel
+            ).getWardens(binding.parentLayoutInAdminDashboard)
+            if(!wardens.isNullOrEmpty()){
+                binding.wardensRecyclerViewInAdminDashboard.layoutManager = LinearLayoutManager(context)
+                binding.wardensRecyclerViewInAdminDashboard.adapter = WardenListAdapter(
+                    wardens,
+                    sharedViewModel,
+                    this@AdminDashboardFragment
+                )
+            }else{
+                Toast.makeText(context,"No wardens till now",Toast.LENGTH_SHORT).show()
+            }
+            getwardenCoroutineScope.cancel()
+        }
     }
 
     private fun getTotalNotices() {

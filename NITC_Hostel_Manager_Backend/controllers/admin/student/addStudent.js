@@ -1,4 +1,4 @@
-var StudentModel = require('../../models/studentModel');
+var StudentModel = require('../../../models/studentModel');
 
 module.exports = async(req,res)=>{
     console.log("user = " + req.body);
