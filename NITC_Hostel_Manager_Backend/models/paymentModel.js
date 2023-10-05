@@ -18,8 +18,6 @@ module.exports = class Model{
         });
     }
 
-    
-
     async getStudentPayments(studentRoll){
         db.query('SELECT * FROM payments WHERE studentRoll=?',[studentRoll],async(exc,result)=>{
             if(exc){

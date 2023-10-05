@@ -68,7 +68,11 @@ module.exports = class Model{
             }else{
                 console.log("student deleted : \n");
                 console.log(result);
+<<<<<<< HEAD
                 resolve(true);
+=======
+                resolve(result);
+>>>>>>> 6d2163d9ef74e76c289ab7d91626da90de0721e5
             }
         });
     });

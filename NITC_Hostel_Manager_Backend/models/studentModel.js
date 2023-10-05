@@ -93,6 +93,19 @@ module.exports = class Model{
         });
     }
 
+    async getDues(studentRoll){
+        return new Promise((resolve, reject) => {
+            db.query('SELECT dues FROM students WHERE studentRoll = ?', [studentRoll], async(err, result) => {
+                if(err){
+                    reject(err)
+                }
+                else{
+                    resolve(result[0])
+                }
+            })
+        })
+    }
+
     async generateBill(amount,studentRoll){
         return new Promise((resolve,reject)=>{
             db.query('SELECT dues FROM students WHERE studentRoll=?',[studentRoll],async(errDues,duesResult)=>{
@@ -115,8 +128,6 @@ module.exports = class Model{
             });
         });
     }
-
-    
 
     async findStudentByRollAndPassword(studentRoll, password){
         return new Promise((resolve, reject) => {
