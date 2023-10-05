@@ -45,8 +45,9 @@ module.exports = class Model{
                     resolve(result)
                 }
             });
-        })
+        });
     }
+
     async find(id){
         return new Promise((resolve, reject) => {
             db.query('SELECT * FROM students WHERE studentRoll=?', [id], async(err,result)=>{
@@ -56,11 +57,36 @@ module.exports = class Model{
                 }else{
                     console.log("student found :");
                     console.log(result);
-                    resolve(result)
+                    resolve(result[0]);
                 }
-            })
-        })
+            });
+        });
     }
+
+    async generateBill(amount,studentRoll){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT dues FROM students WHERE studentRoll=?',[studentRoll],async(errDues,duesResult)=>{
+                if(errDues){
+                    console.log("Error : "+errDues);
+                    reject(errDues);
+                }else{
+                    var dues = duesResult[0];
+                    var newDues = dues+amount;
+                    db.query('UPDATE students SET dues=? WHERE studentRoll=?',[newDues,studentRoll],async(errUpdate,result)=>{
+                        if(errUpdate){
+                            console.log("Error: "+errUpdate);
+                            reject(errUpdate);
+                        }else{
+                            console.log("Bill generated");
+                            resolve(true);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    
 
     async findStudentByRollAndPassword(studentRoll, password){
         return new Promise((resolve, reject) => {
@@ -74,8 +100,8 @@ module.exports = class Model{
                     console.log(result)
                     resolve(result[0])
                 }
-            })
-        })
+            });
+        });
     }
 
     async createStudent(data){

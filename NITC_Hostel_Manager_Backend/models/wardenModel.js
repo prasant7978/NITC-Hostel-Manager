@@ -4,64 +4,74 @@ module.exports = class Model{
     constructor(){
     }
     async get_all(){
-        db.query('SELECT * FROM wardens',async(err,result)=>{
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT * FROM wardens',async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
-                return null;
+                reject(err);
             }else{
                 console.log("wardens : \n");
                 console.log(result);
-                return result;
+                resolve(result[0]);
             }
         });
+    });
     }
     async findWarden(email){
-        db.query('SELECT * FROM wardens WHERE email=?',[email],async(err,result)=>{
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT * FROM wardens WHERE email=?',[email],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
-                return null;
+                reject(err);
             }else{
                 console.log("student found : \n");
                 console.log(result);
-                return result;
+                resolve(result[0]);
             }
         });
+    });
     }
     async createWarden(data){
-        db.query('INSERT INTO wardens SET ?',[data],async(err,result)=>{
+        return new Promise((resolve,reject)=>{
+            db.query('INSERT INTO wardens SET ?',[data],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
-                return null;
+                reject(err);
             }else{
                 console.log("student added : \n");
                 console.log(result);
-                return result;
+                resolve(result[0]);
             }
         });
+    });
     }
     async updateWarden(email,data){
-        db.query('UPDATE wardens SET ? WHERE email=?',[data,email],async(err,result)=>{
+        return new Promise((resolve,reject)=>{
+            db.query('UPDATE wardens SET ? WHERE email=?',[data,email],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
-                return null;
+                reject
             }else{
                 console.log("student updated : \n");
                 console.log(result);
-                return result;
+                resolve(result[0]);
             }
         });
+    });
     }
     async deleteWarden(email){
-        db.query('DELETE FROM wardens WHERE email=?',[email],async(err,result)=>{
+        return new Promise((resolve,reject)=>{
+            db.query('DELETE FROM wardens WHERE email=?',[email],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
-                return null;
+                reject(err);
             }else{
                 console.log("student deleted : \n");
                 console.log(result);
-                return result;
+                resolve(;
             }
         });
+    });
     }
 
 }

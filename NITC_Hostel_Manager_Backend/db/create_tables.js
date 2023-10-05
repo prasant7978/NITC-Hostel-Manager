@@ -78,6 +78,7 @@ db.connect(function(err){
             hostelID VARCHAR(255),
             capacity int,
             charges int,
+            hostelType VARCHAR(20),
             totalDues DOUBLE(11,2) DEFAULT 0.00,
             wardenEmail int,
             FOREIGN KEY(wardenEmail) REFERENCES wardens(email) ON DELETE SET NULL,
@@ -92,12 +93,11 @@ db.connect(function(err){
         var roomquery = `CREATE TABLE rooms(
             roomNumber VARCHAR(20),
             roomType VARCHAR(20),
-            status VARCHAR(30),
             hostelID VARCHAR(255),
             studentRoll VARCHAR(10),
-            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE SET NULL,
+            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE SET NULL,
-            PRIMARY KEY(roomNumber)
+            PRIMARY KEY(roomNumber,hostelID)
         )`;
 
         db.query(roomquery,function(errroom,result){

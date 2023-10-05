@@ -28,7 +28,7 @@ module.exports = class Notice{
     }
     async getNoticesForStudents(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM notices WHERE IF NOT NULL hostelID=? and referTo=?',[hostelID,"Students"],async(err,result)=>{
+            db.query('SELECT * FROM notices WHERE (hostelID=NULL OR hostelID=?) AND referTo=?',[hostelID,"Students"],async(err,result)=>{
                 if(err){
                     console.log(err);
                     reject(err);
@@ -41,7 +41,7 @@ module.exports = class Notice{
     
     async getNoticesForWarden(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM notices WHERE IF NOT NULL hostelID=? and referTo=?',[hostelID,"Warden"],async(err,result)=>{
+            db.query('SELECT * FROM notices WHERE (hostelID=NULL OR hostelID=?) and referTo=?',[hostelID,"Warden"],async(err,result)=>{
                 if(err){
                     console.log(err);
                     reject(err);
