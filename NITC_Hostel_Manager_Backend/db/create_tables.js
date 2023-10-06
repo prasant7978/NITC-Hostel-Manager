@@ -74,10 +74,29 @@ db.connect(function(err){
             else console.log("warden created");
         });
 
+        var billquery = `CREATE TABLE bills(
+            billID VARCHAR(255),
+            studentRoll VARCHAR(255),
+            amount int,
+            paid BOOLEAN,
+            month VARCHAR(255),
+            year VARCHAR(255),
+            paymentID VARCHAR(255),
+            hostelID VARCHAR(255),
+            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll),
+            FOREIGN KEY(hostelID) REFERENCES students(hostelID),
+            FOREIGN KEY(paymentID) REFERENCES students(paymentID),
+            PRIMARY KEY(billID)
+        )`;
+        db.query(billquery,function(errbill,result){
+            if(errbill) console.log(errbill);
+            else console.log("Bill created");
+        });
         var hostelquery = `CREATE TABLE hostels(
             hostelID VARCHAR(255),
             capacity int,
             charges int,
+            totalStudents int,
             hostelType VARCHAR(20),
             totalDues DOUBLE(11,2) DEFAULT 0.00,
             wardenEmail int,

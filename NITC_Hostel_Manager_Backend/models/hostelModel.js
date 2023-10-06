@@ -15,6 +15,19 @@ module.exports = class Model{
         });
     }
 
+    async findHostel(hostelID){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT * FROM hostels WHERE hostelID=?',[hostelID],async(err,hostel)=>{
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    resolve(hostel[0]);
+                }
+            });
+        });
+    }
+
 
     
     async assignWarden(wardenEmail,hostelID){

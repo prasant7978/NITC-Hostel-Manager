@@ -77,7 +77,18 @@ module.exports = class Model{
             });
         });
     }
-
+    async findStudentsOfHostel(hostelID){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT studentRoll FROM students WHERE hostelID=?',[hostelID],async(exc,students)=>{
+                if(exc){
+                    console.log(exc);
+                    reject(exc);
+                }else{
+                    resolve(students[0]);
+                }
+            })
+        })
+    }
     async find(id){
         return new Promise((resolve, reject) => {
             db.query('SELECT * FROM students WHERE studentRoll=?', [id], async(err,result)=>{
