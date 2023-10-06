@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kumar.nitchostelmanager.ManageComplaintAccess
-import com.kumar.nitchostelmanager.ManageNoticesAccess
 import com.kumar.nitchostelmanager.admin.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.admin.access.ManageWardensAccess
 import com.kumar.nitchostelmanager.admin.adapters.WardenListAdapter
 import com.kumar.nitchostelmanager.databinding.FragmentAdminDashboardBinding
+import com.kumar.nitchostelmanager.notice.access.NoticeAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -73,8 +73,9 @@ class AdminDashboardFragment:Fragment() {
     private fun getTotalNotices() {
         var noticesCountCoroutineScope = CoroutineScope(Dispatchers.Main)
         noticesCountCoroutineScope.launch {
-            var noticesCount = ManageNoticesAccess(requireContext(),
-                profileViewModel.loginToken.toString()
+            var noticesCount = NoticeAccess(
+                profileViewModel,
+                requireContext()
             ).getNoticesCount()
             binding.noticesTextInAdminDashboard.text = noticesCount.toString()
             noticesCountCoroutineScope.cancel()

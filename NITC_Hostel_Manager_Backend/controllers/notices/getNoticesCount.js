@@ -1,13 +1,11 @@
 var NoticeModel = require("../../models/noticeModel");
 const getUser = require("../../functions/getUser");
 
-
-    
 module.exports = async(req,res)=>{
     var user = await getUser(req.username,req.userType);
     var noticeModel = new NoticeModel();
     if(req.userType == "Students") {
-        noticeModel.getNoticesCountForAdmin(user.hostelID).then(function(result){
+        noticeModel.getNoticesCountForStudents(user.hostelID).then(function(result){
         if(result){
             res.status(200).send(JSON.stringify(result['COUNT(*)']));
         }else{

@@ -14,6 +14,7 @@ module.exports = class Notice{
             });
         });
     }
+
     async deleteNotice(noticeID,userID){
         return new Promise((resolve,reject)=>{
             db.query('DELETE FROM notices WHERE noticeID=? AND issuerID=?',[noticeID,userID],async(err,_)=>{
@@ -26,6 +27,7 @@ module.exports = class Notice{
             });
         });
     }
+    
     async getNoticesForStudents(hostelID){
         return new Promise((resolve,reject)=>{
             db.query('SELECT * FROM notices WHERE (hostelID=NULL OR hostelID=?) AND referTo=?',[hostelID,"Students"],async(err,result)=>{
