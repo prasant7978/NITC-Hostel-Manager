@@ -18,6 +18,20 @@ module.exports = class Model{
         })
     }
 
+    async countHostelOccupants(hostelID){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT COUNT(*) FROM students WHERE hostelID=?',[hostelID],async(exc,studentsCount)=>{
+                if(exc){
+                    console.log(exc);
+                    reject(exc);
+                }else{
+                    console.log("students count = ");
+                    console.log(studentsCount);
+                    resolve(studentsCount[0]['COUNT(*)']);
+                }
+            });
+        });
+    }
     async getBoys(){
         return new Promise((resolve, reject) => {
             db.query('SELECT * FROM students WHERE GENDER=?',["Male"],async(err,result)=>{
@@ -77,9 +91,21 @@ module.exports = class Model{
             });
         });
     }
-    async findStudentsOfHostel(hostelID){
+    async getStudentsRollOfHostel(hostelID){
         return new Promise((resolve,reject)=>{
             db.query('SELECT studentRoll FROM students WHERE hostelID=?',[hostelID],async(exc,students)=>{
+                if(exc){
+                    console.log(exc);
+                    reject(exc);
+                }else{
+                    resolve(students[0]);
+                }
+            })
+        })
+    }
+    async getHostelOccupants(hostelID){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT * FROM students WHERE hostelID=?',[hostelID],async(exc,students)=>{
                 if(exc){
                     console.log(exc);
                     reject(exc);

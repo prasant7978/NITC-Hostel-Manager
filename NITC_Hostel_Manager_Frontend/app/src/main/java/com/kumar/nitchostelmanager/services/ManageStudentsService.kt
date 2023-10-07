@@ -13,6 +13,10 @@ interface ManageStudentsService {
     @GET("admin/students/count")
     fun getStudentsCount(@Header("auth-token") loginToken:String): Call<HashMap<String,Int>>
 
+    @GET("warden/students/count")
+    fun getStudentsInHostelCount(@Header("auth-token") loginToken:String): Call<Int>
+
+
     @GET("admin/students/all")
     fun getAllStudents(@Header("auth-token") loginToken: String):Call<ArrayList<Student>?>
 

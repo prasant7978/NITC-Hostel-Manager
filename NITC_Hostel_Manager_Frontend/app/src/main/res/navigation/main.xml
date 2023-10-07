@@ -22,29 +22,29 @@
     </fragment>
     <fragment
         android:id="@+id/adminDashboardFragment"
-        android:name="com.kumar.nitchostelmanager.admin.fragments.AdminDashboardFragment"
+        android:name="com.kumar.nitchostelmanager.profile.fragments.AdminDashboardFragment"
         android:label="AdminDashboardFragment" />
     <fragment
         android:id="@+id/studentDashboardFragment"
-        android:name="com.kumar.nitchostelmanager.student.fragments.StudentDashboardFragment"
+        android:name="com.kumar.nitchostelmanager.profile.fragments.StudentDashboardFragment"
         android:label="StudentDashboardFragment" />
     <fragment
         android:id="@+id/wardenDashboardFragment"
-        android:name="com.kumar.nitchostelmanager.warden.fragments.WardenDashboardFragment"
+        android:name="com.kumar.nitchostelmanager.profile.fragments.WardenDashboardFragment"
         android:label="WardenDashboardFragment" />
     <fragment
         android:id="@+id/viewStudentFragment"
-        android:name="com.kumar.nitchostelmanager.admin.fragments.ViewStudentFragment"
+        android:name="com.kumar.nitchostelmanager.students.fragments.ViewStudentFragment"
         android:label="fragment_view_student"
         tools:layout="@layout/fragment_view_student" />
     <fragment
         android:id="@+id/viewWardenFragment"
-        android:name="com.kumar.nitchostelmanager.admin.fragments.ViewWardenFragment"
+        android:name="com.kumar.nitchostelmanager.wardens.fragments.ViewWardenFragment"
         android:label="fragment_view_warden"
         tools:layout="@layout/fragment_view_warden" />
     <fragment
         android:id="@+id/paymentFragment"
-        android:name="com.kumar.nitchostelmanager.student.fragments.PaymentFragment"
+        android:name="com.kumar.nitchostelmanager.students.fragments.PaymentFragment"
         android:label="fragment_payment"
         tools:layout="@layout/fragment_payment" />
 </navigation>

@@ -10,7 +10,7 @@ module.exports = async(req,res)=>{
         var studentModel = new StudentModel();
         const monthForBill = req.query.monthForBill;
         const yearForBill = req.query.yearForBill;
-        studentModel.findStudentsOfHostel(hostelID).then(function(studentsRoll){
+        studentModel.getStudentsRollOfHostel(hostelID).then(function(studentsRoll){
             if(studentsRoll){
                 var generatedFlag = true;
                 

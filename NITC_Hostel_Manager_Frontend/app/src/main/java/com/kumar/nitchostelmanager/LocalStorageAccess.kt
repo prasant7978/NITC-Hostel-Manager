@@ -23,6 +23,19 @@ class LocalStorageAccess(
         }else return false
     }
 
+    fun Data(userType:String,loginToken:String):Boolean{
+        var sharedPreferences = parentFragment.requireActivity().getSharedPreferences("storedData",Context.MODE_PRIVATE)
+        if(sharedPreferences != null){
+            val editor=  sharedPreferences.edit()
+            if(editor != null){
+                editor.putString("userType",userType)
+                editor.putString("loginToken",loginToken)
+                editor.apply()
+                return true
+            }else return false
+        }else return false
+    }
+
 
     fun getData():Boolean{
         var sharedPreferences = parentFragment.requireActivity().getSharedPreferences("storedData",Context.MODE_PRIVATE)

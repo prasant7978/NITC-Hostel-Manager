@@ -17,6 +17,8 @@ module.exports = class Model{
         });
     });
     }
+
+    
     async findWarden(email){
         return new Promise((resolve,reject)=>{
             db.query('SELECT * FROM wardens WHERE email=?',[email],async(err,result)=>{
