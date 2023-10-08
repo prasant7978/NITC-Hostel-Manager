@@ -51,7 +51,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         }
 
         binding.addWardensButtonInAdminDashboard.setOnClickListener{
-            findNavController().navigate(R.id.)
+//            findNavController().navigate(R.id.)
         }
 
         binding.logoutButtonInWardenDashboard.setOnClickListener {

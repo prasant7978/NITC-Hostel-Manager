@@ -38,15 +38,15 @@ class NoticeAccess(private var profileViewModel: ProfileViewModel, var context: 
         }
     }
 
-    suspend fun getAllNotices(): Array<Notice>?{
+    suspend fun getAllNotices(): ArrayList<Notice>?{
         return suspendCoroutine { continuation ->
             val noticeService = ServiceBuilder.buildService(ManageNoticeService::class.java)
             val requestCall = noticeService.getAllNotices(profileViewModel.loginToken.toString())
 
-            requestCall.enqueue(object: Callback<Array<Notice>?>{
+            requestCall.enqueue(object: Callback<ArrayList<Notice>?>{
                 override fun onResponse(
-                    call: Call<Array<Notice>?>,
-                    response: Response<Array<Notice>?>
+                    call: Call<ArrayList<Notice>?>,
+                    response: Response<ArrayList<Notice>?>
                 ) {
                     if(response.isSuccessful)
                         continuation.resume(response.body())
@@ -56,7 +56,7 @@ class NoticeAccess(private var profileViewModel: ProfileViewModel, var context: 
                     }
                 }
 
-                override fun onFailure(call: Call<Array<Notice>?>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<Notice>?>, t: Throwable) {
                     Toast.makeText(context,"Error : $t",Toast.LENGTH_SHORT).show()
                     Log.d("getNotices","Error : $t")
                     continuation.resume(null)
