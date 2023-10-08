@@ -11,7 +11,7 @@ module.exports = async(req,res)=>{
                 res.status(200).send(JSON.stringify(wardens));
                 console.log("Wardens are returned");
             }else{
-                res.status(500).send(JSON.stringify(null));
+                res.status(200).send(JSON.stringify([]));
                 console.log("Wardens are undefined");
             }
         }).catch(function(exc){

@@ -70,4 +70,18 @@
         android:name="com.kumar.nitchostelmanager.notice.fragments.IssueNoticeFragment"
         android:label="fragment_issue_notice"
         tools:layout="@layout/fragment_issue_notice" />
+    <fragment
+        android:id="@+id/addWardenFragment"
+        android:name="com.kumar.nitchostelmanager.wardens.fragments.AddWardenFragment"
+        android:label="AddWardenFragment" />
+    <fragment
+        android:id="@+id/wardenListFragment"
+        android:name="com.kumar.nitchostelmanager.wardens.fragments.WardenListFragment"
+        android:label="fragment_warden_list"
+        tools:layout="@layout/fragment_warden_list" />
+    <fragment
+        android:id="@+id/studentListFragment"
+        android:name="com.kumar.nitchostelmanager.students.fragments.StudentListFragment"
+        android:label="fragment_student_list"
+        tools:layout="@layout/fragment_student_list" />
 </navigation>

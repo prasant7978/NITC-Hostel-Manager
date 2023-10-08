@@ -43,10 +43,15 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         getWardens()
         binding.swipeRefreshLayoutInAdminDashboard.setOnRefreshListener {
 
+            getWardens()
             getStudentsCount()
             getTotalComplaints()
             getTotalNotices()
             binding.swipeRefreshLayoutInAdminDashboard.isRefreshing = false
+        }
+
+        binding.addWardensButtonInAdminDashboard.setOnClickListener{
+            findNavController().navigate(R.id.)
         }
 
         binding.logoutButtonInWardenDashboard.setOnClickListener {
@@ -69,6 +74,8 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 profileViewModel
             ).getWardens(binding.parentLayoutInAdminDashboard)
             if(!wardens.isNullOrEmpty()){
+                binding.addWardensButtonInAdminDashboard.visibility = View.GONE
+                binding.wardensRecyclerViewInAdminDashboard.visibility = View.VISIBLE
                 binding.wardensRecyclerViewInAdminDashboard.layoutManager = LinearLayoutManager(context)
                 binding.wardensRecyclerViewInAdminDashboard.adapter = WardenListAdapter(
                     wardens,
@@ -76,6 +83,8 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                     this@AdminDashboardFragment
                 )
             }else{
+                binding.wardensRecyclerViewInAdminDashboard.visibility = View.GONE
+                binding.addWardensButtonInAdminDashboard.visibility = View.VISIBLE
                 Toast.makeText(context,"No wardens till now",Toast.LENGTH_SHORT).show()
             }
             getwardenCoroutineScope.cancel()

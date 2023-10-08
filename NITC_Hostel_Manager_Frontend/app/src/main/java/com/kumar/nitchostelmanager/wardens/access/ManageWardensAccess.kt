@@ -58,7 +58,7 @@ class ManageWardensAccess(
     }
 
 
-    suspend fun addWarden(newWarden: Warden): Warden?{
+    suspend fun addWarden(newWarden: Warden): Boolean{
         return suspendCoroutine { continuation ->
             var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)
             var requestCall = manageWardenService.addWarden(profileViewModel.loginToken.toString(),newWarden)
@@ -69,17 +69,17 @@ class ManageWardensAccess(
                     response: Response<Warden?>
                 ) {
                     if(response.isSuccessful){
-                        continuation.resume(response.body())
+                        continuation.resume(true)
                     }else{
                         Toast.makeText(context,"Some error occurred",Toast.LENGTH_SHORT).show()
-                        continuation.resume(null)
+                        continuation.resume(false)
                     }
                 }
 
                 override fun onFailure(call: Call<Warden?>, t: Throwable) {
                     Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
                     Log.d("addWarden","Error : $t")
-                    continuation.resume(null)
+                    continuation.resume(false)
                 }
             })
         }

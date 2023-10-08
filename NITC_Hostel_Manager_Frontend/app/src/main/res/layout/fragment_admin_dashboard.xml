@@ -198,6 +198,23 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/wardensTVLayoutInAdminDashboard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Add Wardens"
+            android:id="@+id/addWardensButtonInAdminDashboard"
+            android:textSize="16sp"
+            android:backgroundTint="@color/navy_blue"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintHeight_percent="0.21"
+            android:fontFamily="@font/inter_semibold"
+            android:letterSpacing="0"/>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
