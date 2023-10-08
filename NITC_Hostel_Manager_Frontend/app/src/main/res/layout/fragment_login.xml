@@ -4,14 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".authentication.LoginFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NITC Hostel Manager"
+        android:textSize="25sp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_semibold"
+        android:id="@+id/headingInLoginFragment"/>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="10dp"
         android:background="@drawable/login_shape"
         android:elevation="10dp"
         android:gravity="center_horizontal|center_vertical"
@@ -26,7 +39,9 @@
             android:id="@+id/loginTypeChooseCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:strokeColor="@color/black"
             android:layout_marginHorizontal="30dp"
+            app:strokeWidth="1dp"
             android:layout_marginTop="50dp"
             android:backgroundTint="@color/white"
             android:elevation="5dp"
@@ -63,6 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:backgroundTint="#00000000"
+                        android:fontFamily="@font/inter_semibold"
                         android:letterSpacing="0"
                         android:text="Admin"
                         android:textAllCaps="false"
@@ -94,6 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/inter_semibold"
                         android:backgroundTint="#00000000"
                         android:letterSpacing="0"
                         android:text="Student"
@@ -128,6 +145,7 @@
                         android:layout_gravity="center"
                         android:backgroundTint="#00000000"
                         android:letterSpacing="0"
+                        android:fontFamily="@font/inter_semibold"
                         android:text="Warden"
                         android:textAllCaps="false"
                         android:textColor="@color/black"

@@ -43,6 +43,7 @@ class LoginAccess(
                             if(stored){
                                 profileViewModel.userType = userType
                                 profileViewModel.loginToken = loginToken
+                                profileViewModel.loggedIn = true
                                 Log.d("loginToken","stored")
                                 continuation.resume(true)
                             }else{

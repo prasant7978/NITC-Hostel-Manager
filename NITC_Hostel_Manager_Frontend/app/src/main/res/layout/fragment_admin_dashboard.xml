@@ -327,18 +327,40 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <ImageButton
-        android:layout_width="0dp"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.15"
-        android:src="@drawable/logout_icon_50"
-        android:backgroundTint="#00000000"
-        app:layout_constraintHorizontal_bias="0.999"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintTop_toBottomOf="@+id/wardensLayoutInAdminDashboard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/logoutButtonInAdminDashboard"/>
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintWidth_percent="0.4">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/logoutButtonInWardenDashboard"
+            android:id="@+id/logoutTVInWardenDashboard"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/logout_icon_50"
+            android:backgroundTint="#00000000"
+            app:layout_constraintStart_toEndOf="@id/logoutTVInWardenDashboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/logoutButtonInWardenDashboard"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

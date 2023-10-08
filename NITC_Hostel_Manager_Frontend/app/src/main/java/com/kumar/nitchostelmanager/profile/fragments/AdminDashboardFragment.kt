@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kumar.nitchostelmanager.CircleLoadingDialog
+import com.kumar.nitchostelmanager.LocalStorageAccess
+import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.complaints.access.ComplaintsDataAccess
 import com.kumar.nitchostelmanager.complaints.access.ManageComplaintAccess
 import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
@@ -22,7 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class AdminDashboardFragment:Fragment() {
+class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
     private lateinit var binding:FragmentAdminDashboardBinding
     private val profileViewModel:ProfileViewModel by activityViewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
@@ -45,7 +49,14 @@ class AdminDashboardFragment:Fragment() {
             binding.swipeRefreshLayoutInAdminDashboard.isRefreshing = false
         }
 
-
+        binding.logoutButtonInWardenDashboard.setOnClickListener {
+            var deleted = LocalStorageAccess(
+                this@AdminDashboardFragment,
+                requireContext(),
+                profileViewModel
+            ).deleteData()
+            findNavController().navigate(R.id.loginFragment)
+        }
         return binding.root
     }
 
