@@ -13,11 +13,9 @@ import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.LocalStorageAccess
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.complaints.access.ComplaintsDataAccess
-import com.kumar.nitchostelmanager.complaints.access.ManageComplaintAccess
 import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
-import com.kumar.nitchostelmanager.wardens.access.ManageWardensAccess
-import com.kumar.nitchostelmanager.wardens.adapter.WardenListAdapter
 import com.kumar.nitchostelmanager.databinding.FragmentAdminDashboardBinding
+import com.kumar.nitchostelmanager.hostels.access.ManageHostelsAccess
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
@@ -40,24 +38,21 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         getStudentsCount()
         getTotalComplaints()
         getTotalNotices()
-        getWardens()
+        getHostels()
         binding.swipeRefreshLayoutInAdminDashboard.setOnRefreshListener {
 
-            getWardens()
+            getHostels()
             getStudentsCount()
             getTotalComplaints()
             getTotalNotices()
             binding.swipeRefreshLayoutInAdminDashboard.isRefreshing = false
         }
 
-<<<<<<< HEAD
-        binding.addHostelsButtonInAdminDashboard.setOnClickListener{
-            findNavController().navigate(R.id.addWardenFragment)
-=======
-        binding.addWardensButtonInAdminDashboard.setOnClickListener{
-//            findNavController().navigate(R.id.)
->>>>>>> 7f0df38e047e30673873193b9d372b553b66bd94
+
+        binding.addHostelsButtonInAdminDashboard.setOnClickListener {
+            findNavController().navigate(R.id.addHostelFragment)
         }
+
 
         binding.logoutButtonInWardenDashboard.setOnClickListener {
             var deleted = LocalStorageAccess(
@@ -70,26 +65,26 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         return binding.root
     }
 
-    private fun getWardens() {
+    private fun getHostels() {
         var getwardenCoroutineScope = CoroutineScope(Dispatchers.Main)
         getwardenCoroutineScope.launch {
-            var wardens = ManageWardensAccess(
+            var hostels = ManageHostelsAccess(
                 requireContext(),
-                this@AdminDashboardFragment,
-                profileViewModel
-            ).getWardens(binding.parentLayoutInAdminDashboard)
-            if(!wardens.isNullOrEmpty()){
-                binding.addWardensButtonInAdminDashboard.visibility = View.GONE
-                binding.wardensRecyclerViewInAdminDashboard.visibility = View.VISIBLE
-                binding.wardensRecyclerViewInAdminDashboard.layoutManager = LinearLayoutManager(context)
-                binding.wardensRecyclerViewInAdminDashboard.adapter = WardenListAdapter(
-                    wardens,
+                profileViewModel.loginToken.toString(),
+                this@AdminDashboardFragment
+            ).getHostels()
+            if(!hostels.isNullOrEmpty()){
+                binding.addHostelsButtonInAdminDashboard.visibility = View.GONE
+                binding.hostelsRecyclerViewInAdminDashboard.visibility = View.VISIBLE
+                binding.hostelsRecyclerViewInAdminDashboard.layoutManager = LinearLayoutManager(context)
+                binding.hostelsRecyclerViewInAdminDashboard.adapter = HostelListAdapter(
+                    hostels,
                     sharedViewModel,
                     this@AdminDashboardFragment
                 )
             }else{
-                binding.wardensRecyclerViewInAdminDashboard.visibility = View.GONE
-                binding.addWardensButtonInAdminDashboard.visibility = View.VISIBLE
+                binding.hostelsRecyclerViewInAdminDashboard.visibility = View.GONE
+                binding.addHostelsButtonInAdminDashboard.visibility = View.VISIBLE
                 Toast.makeText(context,"No wardens till now",Toast.LENGTH_SHORT).show()
             }
             getwardenCoroutineScope.cancel()

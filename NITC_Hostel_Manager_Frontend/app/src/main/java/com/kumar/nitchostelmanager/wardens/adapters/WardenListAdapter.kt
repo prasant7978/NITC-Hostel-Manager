@@ -1,4 +1,4 @@
-package com.kumar.nitchostelmanager.wardens.adapter
+package com.kumar.nitchostelmanager.wardens.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,11 @@ import com.kumar.nitchostelmanager.databinding.WardenCardBinding
 import com.kumar.nitchostelmanager.models.Warden
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 
-class WardenListAdapter(private var wardenList: ArrayList<Warden>, private var sharedViewModel: SharedViewModel, private var parentFragment: Fragment): RecyclerView.Adapter<WardenListAdapter.WardenViewHolder>() {
+class WardenListAdapter(
+    private var wardenList: ArrayList<Warden>,
+    private var sharedViewModel: SharedViewModel,
+    private var parentFragment: Fragment
+): RecyclerView.Adapter<WardenListAdapter.WardenViewHolder>() {
     class WardenViewHolder(val adapterBinding: WardenCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
 
     }

@@ -60,7 +60,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewGenderInAddWardenFragment"
+        android:id="@+id/userTypesCardInAddWardenFragment"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"

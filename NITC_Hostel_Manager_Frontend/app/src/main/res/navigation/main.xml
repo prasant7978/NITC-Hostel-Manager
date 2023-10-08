@@ -84,4 +84,8 @@
         android:name="com.kumar.nitchostelmanager.students.fragments.StudentListFragment"
         android:label="fragment_student_list"
         tools:layout="@layout/fragment_student_list" />
+    <fragment
+        android:id="@+id/addHostelFragment"
+        android:name="com.kumar.nitchostelmanager.hostels.fragments.AddHostelFragment"
+        android:label="AddHostelFragment" />
 </navigation>

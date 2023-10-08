@@ -9,7 +9,7 @@ import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kumar.nitchostelmanager.wardens.access.ManageWardensAccess
-import com.kumar.nitchostelmanager.wardens.adapter.WardenListAdapter
+import com.kumar.nitchostelmanager.wardens.adapters.WardenListAdapter
 import com.kumar.nitchostelmanager.databinding.FragmentWardenListBinding
 import com.kumar.nitchostelmanager.models.Warden
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel

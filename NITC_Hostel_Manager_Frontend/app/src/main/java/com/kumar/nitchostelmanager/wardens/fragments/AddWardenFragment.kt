@@ -60,7 +60,6 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog {
                 return@setOnClickListener
             }
             var newWarden = Warden(
-                0,
                 wardenEmail,
                 wardenEmail,
                 wardenName,
