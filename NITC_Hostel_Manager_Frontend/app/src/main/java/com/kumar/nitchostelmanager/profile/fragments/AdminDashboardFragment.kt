@@ -50,8 +50,13 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
             binding.swipeRefreshLayoutInAdminDashboard.isRefreshing = false
         }
 
+<<<<<<< HEAD
         binding.addHostelsButtonInAdminDashboard.setOnClickListener{
             findNavController().navigate(R.id.addWardenFragment)
+=======
+        binding.addWardensButtonInAdminDashboard.setOnClickListener{
+//            findNavController().navigate(R.id.)
+>>>>>>> 7f0df38e047e30673873193b9d372b553b66bd94
         }
 
         binding.logoutButtonInWardenDashboard.setOnClickListener {

@@ -14,7 +14,7 @@ interface ManageNoticeService {
     fun getNoticesCount(@Header("auth-token") loginToken:String): Call<Int>
 
     @GET("notices/getAllNotices")
-    fun getAllNotices(@Header("auth-token") loginToken:String): Call<Array<Notice>?>
+    fun getAllNotices(@Header("auth-token") loginToken:String): Call<ArrayList<Notice>?>
 
     @POST("notices/addNotice")
     fun issueNotice(@Header("auth-token") loginToken: String, @Body notice: Notice): Call<Boolean>
