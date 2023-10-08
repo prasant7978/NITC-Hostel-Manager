@@ -8,6 +8,7 @@ module.exports = async(req,res)=>{
         var wardenModel = new WardenModel();
         wardenModel.createWarden(req.body).then(function(result){
             if(result){
+
                 res.status(200).send(true);
                 console.log("Warden is added");
             }else{

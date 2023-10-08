@@ -162,17 +162,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/wardensTVLayoutInAdminDashboard"
+        android:id="@+id/hostelsTVLayoutInAdminDashboard"
         app:layout_constraintVertical_bias="0.01"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wardens"
+        android:text="Hostels"
         android:textSize="17sp"
         android:fontFamily="@font/inter_semibold"
-        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -201,12 +201,12 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/wardensTVLayoutInAdminDashboard"
+            app:layout_constraintTop_toBottomOf="@+id/hostelsTVLayoutInAdminDashboard"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Add Wardens"
-            android:id="@+id/addWardensButtonInAdminDashboard"
+            android:text="Add Hostel"
+            android:id="@+id/addHostelsButtonInAdminDashboard"
             android:textSize="16sp"
             android:backgroundTint="@color/navy_blue"
             app:layout_constraintWidth_percent="0.4"
@@ -218,9 +218,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/wardensTVLayoutInAdminDashboard"
+            app:layout_constraintTop_toBottomOf="@id/hostelsTVLayoutInAdminDashboard"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/wardensRecyclerViewInAdminDashboard"/>
+            android:id="@+id/hostelsRecyclerViewInAdminDashboard"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
