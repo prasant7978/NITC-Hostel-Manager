@@ -6,4 +6,5 @@ class SharedViewModel:ViewModel() {
 
     var viewingWardenEmail: String? = null
     var viewingStudentRoll: String? = null
+    var updatingHostelID:String? = null
 }

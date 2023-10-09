@@ -13,8 +13,15 @@ interface HostelsService {
     @POST("admin/hostels/add")
     fun addHostel(@Header ("auth-token") loginToken:String, @Body newHostel:Hostel):Call<Boolean>
 
+    @POST("admin/hostels/update")
+    fun updateHostel(@Header ("auth-token") loginToken:String, @Body newHostel:Hostel):Call<Boolean>
+
     @GET("admin/hostels/all")
     fun getHostels(@Header ("auth-token") loginToken: String):Call<Array<Hostel>>
+
+
+    @GET("admin/hostels/find")
+    fun getHostelDetails(@Header ("auth-token") loginToken: String,@Query("hostelID") hostelID:String):Call<Hostel>
 
 
 

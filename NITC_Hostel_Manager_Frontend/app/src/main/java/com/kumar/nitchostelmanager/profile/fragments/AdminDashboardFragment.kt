@@ -16,6 +16,7 @@ import com.kumar.nitchostelmanager.complaints.access.ComplaintsDataAccess
 import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.databinding.FragmentAdminDashboardBinding
 import com.kumar.nitchostelmanager.hostels.access.ManageHostelsAccess
+import com.kumar.nitchostelmanager.hostels.adapters.HostelListAdapter
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
@@ -78,9 +79,10 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 binding.hostelsRecyclerViewInAdminDashboard.visibility = View.VISIBLE
                 binding.hostelsRecyclerViewInAdminDashboard.layoutManager = LinearLayoutManager(context)
                 binding.hostelsRecyclerViewInAdminDashboard.adapter = HostelListAdapter(
-                    hostels,
+                    requireContext(),
+                    this@AdminDashboardFragment,
                     sharedViewModel,
-                    this@AdminDashboardFragment
+                    hostels
                 )
             }else{
                 binding.hostelsRecyclerViewInAdminDashboard.visibility = View.GONE
@@ -124,8 +126,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 profileViewModel = profileViewModel
             ).getAllStudentsCount()
             if(studentsCount != null){
-                binding.totalBoysTextInAdminDashboard.text = studentsCount["BoysCount"].toString()
-                binding.totalGirlsTextInAdminDashboard.text = studentsCount["GirlsCount"].toString()
+                binding.totalStudentsTextInAdminDashboard.text = ((studentsCount["BoysCount"]!! + studentsCount["GirlsCount"]!!)).toString()
             }else{
 //                Toast.makeText(requireContext(),"Error in getting students count", Toast.LENGTH_SHORT).show()
             }

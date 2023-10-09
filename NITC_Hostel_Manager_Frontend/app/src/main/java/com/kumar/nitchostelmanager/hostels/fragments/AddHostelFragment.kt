@@ -10,9 +10,11 @@ import androidx.navigation.fragment.findNavController
 import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentAddHostelBinding
+import com.kumar.nitchostelmanager.hostels.access.HostelDataAccess
 import com.kumar.nitchostelmanager.hostels.access.ManageHostelsAccess
 import com.kumar.nitchostelmanager.models.Hostel
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
+import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +22,7 @@ import kotlinx.coroutines.launch
 class AddHostelFragment:Fragment(),CircleLoadingDialog {
 
     private val profileViewModel:ProfileViewModel by activityViewModels()
+    private val sharedViewModel:SharedViewModel by activityViewModels()
     private lateinit var binding:FragmentAddHostelBinding
 
     override fun onCreateView(
@@ -31,6 +34,10 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
 
         binding.buttonClearAllInAddHostelFragment.setOnClickListener {
             clearAll()
+        }
+        if(sharedViewModel.updatingHostelID != null){
+            binding.wardenEmailInputCardInAddHostelFragment.visibility = View.VISIBLE
+            getData(sharedViewModel.updatingHostelID.toString())
         }
 
         binding.addHostelButtonInAddHostelFragment.setOnClickListener {
@@ -79,10 +86,50 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 occupantsGender,
                 null
             )
-            addHostel(newHostel)
+            if(sharedViewModel.updatingHostelID != null) updateHostel(newHostel)
+            else addHostel(newHostel)
         }
 
         return binding.root
+    }
+
+    private fun updateHostel(newHostel: Hostel) {
+        val updateHostelCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(),this@AddHostelFragment)
+        updateHostelCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+            val added = ManageHostelsAccess(
+                requireContext(),
+                profileViewModel.loginToken.toString(),
+                this@AddHostelFragment
+            ).updateHostel(newHostel)
+            loadingDialog.cancel()
+            if(added){
+                clearAll()
+            }
+        }
+    }
+
+    private fun getData(hostelID:String) {
+        val getHostelCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(),this@AddHostelFragment)
+        getHostelCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+            val hostel = HostelDataAccess(
+                requireContext(),
+                this@AddHostelFragment,
+                profileViewModel.loginToken.toString()
+            ).getHostelDetails(hostelID)
+            if(hostel != null){
+                binding.wardenEmailInputInAddHostelFragment.setText(hostel.wardenEmail.toString())
+                binding.chargesInputInAddHostelFragment.setText(hostel.charges.toString())
+                binding.capacityInputInAddHostelFragment.setText(hostel.capacity.toString())
+                binding.hostelNameInputInAddHostelFragment.setText(hostel.hostelID.toString())
+                binding.addHostelButtonInAddHostelFragment.setText("Update Hostel")
+            }
+        }
     }
 
     private fun clearAll() {
