@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/swipeRefreshLayoutInAvailableRoomsFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available rooms"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_semibold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.02"
+        app:layout_constraintHorizontal_bias="0.05"
+        android:id="@+id/availableRoomsTVInAvailableRoomsFragment"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hostel Name"
+        android:textSize="18sp"
+        app:layout_constraintHorizontal_bias="0.9"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/availableRoomsTVInAvailableRoomsFragment"
+        app:layout_constraintBottom_toBottomOf="@id/availableRoomsTVInAvailableRoomsFragment"
+        app:layout_constraintStart_toEndOf="@id/availableRoomsTVInAvailableRoomsFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/inter_semibold"
+        android:id="@+id/hostelNameTVInAvailableRoomsFragment"/>
+
+
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutInAvailableRoomsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#00000000"
+        app:layout_constraintTop_toBottomOf="@id/availableRoomsTVInAvailableRoomsFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintVertical_bias="0.03"
+        app:tabTextColor="@color/black"
+        app:tabSelectedTextColor="@color/navy_blue"
+        app:tabIndicatorColor="@android:color/black"
+        app:tabIndicatorHeight="3dp"
+        style="@style/CustomTabLayout"
+        app:tabTextAppearance="@style/CustomTabTextAppearance"
+        app:tabMode="fixed"
+        app:tabGravity="fill"/>
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tabLayoutInAvailableRoomsFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/viewPagerInAvailableRoomsFragment"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
