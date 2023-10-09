@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.kumar.nitchostelmanager.models.Hostel
 import com.kumar.nitchostelmanager.services.HostelsService
 import com.kumar.nitchostelmanager.services.ServiceBuilder
@@ -23,7 +24,7 @@ class ManageHostelsAccess(
         return suspendCoroutine { continuation ->
 
             var hostelService = ServiceBuilder.buildService(HostelsService::class.java)
-            val requestCall = hostelService.addHostel(loginToken,newHostel)
+            val requestCall = hostelService.addHostel(loginToken, newHostel)
             requestCall.enqueue(object: Callback<Boolean> {
                 override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                     if(response.isSuccessful){
@@ -50,7 +51,7 @@ class ManageHostelsAccess(
         return suspendCoroutine { continuation ->
 
             var hostelService = ServiceBuilder.buildService(HostelsService::class.java)
-            val requestCall = hostelService.updateHostel(loginToken,newHostel)
+            val requestCall = hostelService.updateHostel(loginToken, newHostel)
             requestCall.enqueue(object: Callback<Boolean> {
                 override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                     if(response.isSuccessful){
@@ -78,7 +79,7 @@ class ManageHostelsAccess(
         return suspendCoroutine { continuation ->
 
             var hostelService = ServiceBuilder.buildService(HostelsService::class.java)
-            val requestCall = hostelService.getHostels(loginToken)
+            val requestCall = hostelService.getAllHostels(loginToken)
             requestCall.enqueue(object: Callback<Array<Hostel>> {
                 override fun onResponse(call: Call<Array<Hostel>>, response: Response<Array<Hostel>>) {
                     if(response.isSuccessful){
@@ -96,6 +97,33 @@ class ManageHostelsAccess(
                     Log.d("getHostels","Error : $t")
                     Toast.makeText(context,"Error : $t",Toast.LENGTH_SHORT).show()
                     continuation.resume(null)
+                }
+
+            })
+        }
+    }
+
+    suspend fun deleteHostel(hostelId: String): Boolean{
+        return suspendCoroutine { continuation ->
+            var hostelService = ServiceBuilder.buildService(HostelsService::class.java)
+            val requestCall = hostelService.deleteHostel(loginToken, hostelId)
+
+            requestCall.enqueue(object: Callback<Boolean>{
+                override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                    if(response.isSuccessful) {
+                        continuation.resume(true)
+                        Toast.makeText(context, "Hostel deleted successfully" ,Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        continuation.resume(false)
+                        Toast.makeText(context, "Hostel not deleted" ,Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                    Log.d("deleteHostel","Error : $t")
+                    Toast.makeText(context,"Error : $t",Toast.LENGTH_SHORT).show()
+                    continuation.resume(false)
                 }
 
             })

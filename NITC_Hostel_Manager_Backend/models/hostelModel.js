@@ -9,15 +9,28 @@ module.exports = class Model{
                     console.log("Error : "+exc);
                     reject(exc);
                 }else{
-                    resolve(result[0]);
+                    resolve(true);
                 }
             });
         });
     }
 
-    async findHostel(hostelID){
-        return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM hostels WHERE hostelID=?',[hostelID],async(err,hostel)=>{
+    async updateHostel(hostel){
+        return new Promise((resolve, reject) => {
+            db.query('UPDATE hostels SET ? WHERE hostelID = ?', [hostel, hostel.hostelID], async(err, hostel) => {
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }
+                else
+                    resolve(true);
+            })
+        })
+    }
+
+    async getHostelDetails(hostelID){
+        return new Promise((resolve, reject)=>{
+            db.query('SELECT * FROM hostels WHERE hostelID = ?', [hostelID], async(err,hostel)=>{
                 if(err){
                     console.log(err);
                     reject(err);
@@ -28,8 +41,32 @@ module.exports = class Model{
         });
     }
 
+    async deleteHostel(hostelID){
+        return new Promise((resolve, reject)=>{
+            db.query('DELETE FROM hostels WHERE hostelID = ?', [hostelID], async(err, hostel)=>{
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    resolve(true);
+                }
+            });
+        });
+    }
 
-    
+    async getAllHostel(){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT * FROM hostels',async(err, hostel)=>{
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    resolve(hostel);
+                }
+            });
+        });
+    }
+
     async assignWarden(wardenEmail,hostelID){
         return new Promise((resolve,reject)=>{
             db.query('UPDATE hostels SET wardenEmail=? WHERE hostelID=',[wardenEmail,hostelID],async(exc,_)=>{
