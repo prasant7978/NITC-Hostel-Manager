@@ -2,6 +2,7 @@ const express =require("express");
 var router = express.Router();
 
 var verifyToken = require("../middlewares/verifyToken");
+
 var addStudent = require("../controllers/admin/student/addStudent");
 var deleteStudent = require("../controllers/admin/student/deleteStudent");
 var updateStudent = require("../controllers/students/updateStudent");
