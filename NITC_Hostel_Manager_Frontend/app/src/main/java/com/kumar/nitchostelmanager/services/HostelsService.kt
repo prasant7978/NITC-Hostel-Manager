@@ -11,19 +11,19 @@ import retrofit2.http.Query
 
 interface HostelsService {
 
-    @POST("admin/hostels/add")
+    @POST("hostels/add")
     fun addHostel(@Header ("auth-token") loginToken:String, @Body newHostel:Hostel): Call<Boolean>
 
-    @POST("admin/hostels/update")
+    @POST("hostels/update")
     fun updateHostel(@Header ("auth-token") loginToken:String, @Body newHostel:Hostel): Call<Boolean>
 
-    @GET("admin/hostels/all")
+    @GET("hostels/all")
     fun getAllHostels(@Header ("auth-token") loginToken: String): Call<Array<Hostel>>
 
-    @GET("admin/hostels/details")
+    @GET("hostels/details")
     fun getHostelDetails(@Header ("auth-token") loginToken: String, @Query("hostelID") hostelID:String): Call<Hostel>
 
-    @DELETE("admin/hostels/delete")
+    @DELETE("hostels/delete")
     fun deleteHostel(@Header ("auth-token") loginToken: String, @Query("hostelID") hostelID: String): Call<Boolean>
 
 }

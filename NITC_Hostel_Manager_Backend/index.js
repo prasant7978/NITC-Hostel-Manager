@@ -8,13 +8,17 @@ app.use(express.json());
 
 app.use("/auth", require('./routes/auth'));
 
-app.use("/admin",require('./routes/admin'));
+app.use("/admin", require('./routes/admin'));
 
-app.use("/complaints",require("./routes/complaints"))
+app.use("/complaints", require("./routes/complaints"))
 
-app.use("/notices",require("./routes/notices"))
+app.use("/notices", require("./routes/notices"))
 
-app.use("/students",require("./routes/students"))
+app.use("/students", require("./routes/students"))
+
+app.use("/hostels", require("./routes/hostel"))
+
+app.use("/rooms", require("./routes/room"))
 
 var server = app.listen(3001,'192.168.50.134',function(req,res){
     var host= server.address().address;
