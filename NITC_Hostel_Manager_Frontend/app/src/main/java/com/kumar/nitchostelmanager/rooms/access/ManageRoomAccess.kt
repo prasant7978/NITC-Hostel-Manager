@@ -49,13 +49,13 @@ class ManageRoomAccess(
         }
     }
 
-    suspend fun getAvailableRooms(hostelId: String): ArrayList<Room>?{
+    suspend fun getAvailableRooms(hostelId: String): Array<Room>?{
         return suspendCoroutine { continuation ->
             val roomServices = ServiceBuilder.buildService(ManageRoomsService::class.java)
             val requestCall = roomServices.getAvailableRooms(loginToken, hostelId)
 
-            requestCall.enqueue(object: Callback<ArrayList<Room>>{
-                override fun onResponse(call: Call<ArrayList<Room>>, response: Response<ArrayList<Room>>) {
+            requestCall.enqueue(object: Callback<Array<Room>>{
+                override fun onResponse(call: Call<Array<Room>>, response: Response<Array<Room>>) {
                     if(response.isSuccessful){
                         if(response.body() != null)
                             continuation.resume(response.body())
@@ -70,7 +70,7 @@ class ManageRoomAccess(
                     }
                 }
 
-                override fun onFailure(call: Call<ArrayList<Room>>, t: Throwable) {
+                override fun onFailure(call: Call<Array<Room>>, t: Throwable) {
                     Log.d("getAvailableRooms","Error : $t")
                     Toast.makeText(context,"Error : $t", Toast.LENGTH_SHORT).show()
                     continuation.resume(null)

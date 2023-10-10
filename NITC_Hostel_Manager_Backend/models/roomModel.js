@@ -14,11 +14,13 @@ module.exports = class Model{
 
     async getAvailableRooms(hostelID){
         return new Promise((resolve, reject) => {
-            db.query('SELECT * from rooms WHERE hostelID = ? AND studentRoll = NULL', [hostelID], async(err, result) => {
+            db.query('SELECT * from rooms WHERE hostelID=? AND studentRoll IS NULL', [hostelID], async(err, result) => {
                 if(err)
                     reject(err)
-                else
+                else{
+                    console.log(result);
                     resolve(result)
+                }
             })
         })
     }

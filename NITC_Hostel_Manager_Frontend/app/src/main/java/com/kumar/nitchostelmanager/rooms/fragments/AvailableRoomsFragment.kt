@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.databinding.FragmentAvailableRoomsBinding
 import com.kumar.nitchostelmanager.models.Room
+import com.kumar.nitchostelmanager.rooms.access.ManageRoomAccess
 import com.kumar.nitchostelmanager.rooms.adapters.AvailableRoomsPagerAdapter
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
@@ -22,8 +23,9 @@ class AvailableRoomsFragment:Fragment(),CircleLoadingDialog {
 
     private val sharedViewModel:SharedViewModel by activityViewModels()
     private val profileViewModel:ProfileViewModel by activityViewModels()
-    private lateinit var binding:FragmentAvailableRoomsBinding
-    val rooms = emptyArray<Room>()
+    private lateinit var binding: FragmentAvailableRoomsBinding
+//    var rooms = emptyArray<Room>()
+    var rooms:Array<Room>? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,10 +33,12 @@ class AvailableRoomsFragment:Fragment(),CircleLoadingDialog {
     ): View? {
         binding = FragmentAvailableRoomsBinding.inflate(inflater,container,false)
 
-        getRooms()
-        binding.swipeRefreshLayoutInAvailableRoomsFragment.setOnRefreshListener {
+        if(sharedViewModel.viewingHostelID != null){
             getRooms()
-            binding.swipeRefreshLayoutInAvailableRoomsFragment.isRefreshing = false
+//            binding.swipeRefreshLayoutInAvailableRoomsFragment.setOnRefreshListener {
+//                getRooms()
+//                binding.swipeRefreshLayoutInAvailableRoomsFragment.isRefreshing = false
+//            }
         }
         return binding.root
     }
@@ -45,18 +49,24 @@ class AvailableRoomsFragment:Fragment(),CircleLoadingDialog {
         getRoomsCoroutineScope.launch {
             loadingDialog.create()
             loadingDialog.show()
-//            val rooms = emptyArray<Room>()
+            rooms = ManageRoomAccess(
+                requireContext(),
+                profileViewModel.loginToken.toString(),
+                this@AvailableRoomsFragment
+            ).getAvailableRooms(sharedViewModel.viewingHostelID.toString())
+            loadingDialog.cancel()
+            getRoomsCoroutineScope.cancel()
             if(!rooms.isNullOrEmpty()){
+                
                 sharedViewModel.availableRooms = rooms
                 sharedViewModel.currentFloor = 0
                 loadViewPager()
             }
-            getRoomsCoroutineScope.cancel()
         }
     }
 
     private fun loadViewPager() {
-        var floors = rooms.size/100
+        var floors = rooms!!.size/100
         for(i in 0..<floors){
             var floorString = "${i} floor"
             binding.tabLayoutInAvailableRoomsFragment.addTab(binding.tabLayoutInAvailableRoomsFragment.newTab().setText(floorString))

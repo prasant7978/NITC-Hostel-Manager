@@ -66,6 +66,23 @@ module.exports = class Model{
             });
         });
     }
+    
+    async getHostelsNames(){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT hostelID FROM hostels',async(err, hostelNames)=>{
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    var names = [];
+                    for(let i = 0;i<hostelNames.length;i++){
+                        names.push(hostelNames[i]['hostelID']);
+                    }
+                    resolve(names);
+                }
+            });
+        });
+    }
 
     async assignWarden(wardenEmail,hostelID){
         return new Promise((resolve,reject)=>{

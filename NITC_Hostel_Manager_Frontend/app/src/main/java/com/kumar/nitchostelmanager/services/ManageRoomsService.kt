@@ -15,7 +15,7 @@ interface ManageRoomsService {
     fun getAllRooms(@Header("auth-token") loginToken: String, @Query("hostelID") hostelID: String): Call<ArrayList<Room>>
 
     @GET("rooms/availableRooms")
-    fun getAvailableRooms(@Header("auth-token") loginToken: String, @Query("hostelID") hostelID: String): Call<ArrayList<Room>>
+    fun getAvailableRooms(@Header("auth-token") loginToken: String, @Query("hostelID") hostelID: String): Call<Array<Room>>
 
     @PUT("rooms/allocateRoom")
     fun allocateRoom(@Header("auth-token") loginToken: String, @Query("roomID") roomID: String, @Query("hostelID") hostelID: String): Call<Boolean>

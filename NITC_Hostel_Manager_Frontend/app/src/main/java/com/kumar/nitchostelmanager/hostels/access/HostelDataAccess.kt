@@ -47,6 +47,33 @@ class HostelDataAccess(
         }
     }
 
+    suspend fun getHostelNames():Array<String>?{
+        return suspendCoroutine { continuation ->
+            var hostelService = ServiceBuilder.buildService(HostelsService::class.java)
+            var requestCall = hostelService.getAllHostelsNames(loginToken)
+            requestCall.enqueue(object:Callback<Array<String>>{
+                override fun onResponse(
+                    call: Call<Array<String>>,
+                    response: Response<Array<String>>
+                ) {
+                    if(response.isSuccessful && response.body() != null){
+                        continuation.resume(response.body())
+                    }else{
+                        Toast.makeText(context,"Could not get hostels",Toast.LENGTH_SHORT).show()
+                        continuation.resume(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<Array<String>>, t: Throwable) {
+                    Log.d("getHostelNames","Error : $t")
+                    Toast.makeText(context,"Error : $t",Toast.LENGTH_SHORT).show()
+                    continuation.resume(null)
+                }
+
+            })
+        }
+    }
+
     suspend fun getHostelDetails(hostelID:String): Hostel?{
         return suspendCoroutine { continuation ->
             val hostelService = ServiceBuilder.buildService(HostelsService::class.java)

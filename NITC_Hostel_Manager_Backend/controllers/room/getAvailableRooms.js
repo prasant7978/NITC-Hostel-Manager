@@ -2,8 +2,9 @@ const RoomModel = require('../../models/roomModel')
 
 module.exports = async(req, res) => {
     const roomModel = new RoomModel()
+    console.log(req.query.hostelID);
     roomModel.getAvailableRooms(req.query.hostelID).then(function(rooms){
-        if(rooms.length > 0 && rooms != null){
+        if(rooms){
             console.log("all available rooms are retrieved")
             res.status(200).send(JSON.stringify(rooms))
         }

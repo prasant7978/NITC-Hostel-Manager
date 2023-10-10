@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".rooms.fragments.ChangeRoomFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Room"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_semibold"
+        android:textSize="25sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        android:id="@+id/headingInChangeRoomFragment"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Hostel : "
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintVertical_bias="0.3"
+        android:fontFamily="@font/inter_semibold"
+        app:layout_constraintTop_toBottomOf="@id/headingInChangeRoomFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/selectHostelTVInChangeRoomFragment"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/selectHostelTVInChangeRoomFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/selectHostelTVInChangeRoomFragment"
+        app:layout_constraintBottom_toBottomOf="@id/selectHostelTVInChangeRoomFragment"
+        android:id="@+id/spinnerInChangeRoomFragment"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/selectHostelTVInChangeRoomFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/searchRoomsButtonInChangeRoomFragment"
+        android:text="Get Rooms"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintHeight_percent="0.1"
+        android:backgroundTint="@color/navy_blue"
+        app:layout_constraintVertical_bias="0.3"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
