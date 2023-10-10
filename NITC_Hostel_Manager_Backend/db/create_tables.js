@@ -124,12 +124,13 @@ db.connect(function(err){
 
         var complaintquery = `CREATE TABLE complaints(
             complaintID int NOT NULL AUTO_INCREMENT,
-            referTo VARCHAR(25),
             status VARCHAR(25),
             studentRoll VARCHAR(10),
             message VARCHAR(2000),
-            date DATE,
-            time TIME,
+            date VARCHAR(255),
+            time VARCHAR(255),
+            hostelID VARCHAR(255),
+            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
             PRIMARY KEY(complaintID)
         )`;
