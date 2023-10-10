@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".students.fragments.PaymentFragment">
+    tools:context=".payments.fragments.StudentPaymentFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/totalDueTopLayout"

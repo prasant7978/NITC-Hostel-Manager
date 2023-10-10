@@ -25,11 +25,13 @@ module.exports = async(userType,username,password) => {
         const studentModel = new Student()
         var authenticated = false
         await studentModel.findStudentByRollAndPassword(username, password).then(function(student){
+            console.log("hererere");
             authenticated = true
         }).catch(function(error){
             console.log("Rollno or Password doesn't match: " + error);
             return null
         })
+        console.log("\n\n\n\n\n "+authenticated);
         if(authenticated){
             const token = await studentModel.generateAuthToken(username, userType);
             console.log("token = "+token);

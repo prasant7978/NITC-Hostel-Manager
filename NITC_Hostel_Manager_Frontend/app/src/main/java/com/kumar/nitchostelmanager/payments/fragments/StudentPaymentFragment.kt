@@ -1,4 +1,4 @@
-package com.kumar.nitchostelmanager.students.fragments
+package com.kumar.nitchostelmanager.payments.fragments
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class PaymentFragment : Fragment() {
+class StudentPaymentFragment : Fragment() {
     private lateinit var paymentBinding: FragmentPaymentBinding
     private var totalDue: Double = 0.0
     private val profileViewModel: ProfileViewModel by activityViewModels()
@@ -103,7 +103,7 @@ class PaymentFragment : Fragment() {
             if(payBill){
                 Snackbar.make(paymentBinding.constraintLayoutStudentPayment,"Your payment was successful", Snackbar.LENGTH_LONG).setAction("Close", View.OnClickListener { }).show()
 
-                this@PaymentFragment.findNavController().navigate(R.id.studentDashboardFragment)
+                this@StudentPaymentFragment.findNavController().navigate(R.id.studentDashboardFragment)
             }
         }
     }

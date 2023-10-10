@@ -44,7 +44,7 @@
         tools:layout="@layout/fragment_view_warden" />
     <fragment
         android:id="@+id/paymentFragment"
-        android:name="com.kumar.nitchostelmanager.students.fragments.PaymentFragment"
+        android:name="com.kumar.nitchostelmanager.payments.fragments.StudentPaymentFragment"
         android:label="fragment_payment"
         tools:layout="@layout/fragment_payment" />
     <fragment
@@ -89,6 +89,7 @@
         android:name="com.kumar.nitchostelmanager.hostels.fragments.AddHostelFragment"
         android:label="AddHostelFragment" />
     <fragment
+<<<<<<< HEAD
         android:id="@+id/allStudentsFragment"
         android:name="com.kumar.nitchostelmanager.students.fragments.AllStudentsFragment"
         android:label="AllStudentsFragment" />
@@ -96,4 +97,35 @@
         android:id="@+id/availableRoomsFragment"
         android:name="com.kumar.nitchostelmanager.rooms.fragments.AvailableRoomsFragment"
         android:label="AvailableRoomsFragment" />
+=======
+        android:id="@+id/studentProfileFragment"
+        android:name="com.kumar.nitchostelmanager.profile.fragments.StudentProfileFragment"
+        android:label="fragment_student_profile"
+        tools:layout="@layout/fragment_student_profile" />
+    <fragment
+        android:id="@+id/viewOwnComplaintsFragment"
+        android:name="com.kumar.nitchostelmanager.complaints.fragments.ViewOwnComplaintsFragment"
+        android:label="fragment_view_own_complaints"
+        tools:layout="@layout/fragment_view_own_complaints" />
+    <fragment
+        android:id="@+id/viewAllComplaintsFragment"
+        android:name="com.kumar.nitchostelmanager.complaints.fragments.ViewAllComplaintsFragment"
+        android:label="fragment_view_all_complaints"
+        tools:layout="@layout/fragment_view_all_complaints" />
+    <fragment
+        android:id="@+id/studentPaymentHistoryFragment"
+        android:name="com.kumar.nitchostelmanager.payments.fragments.StudentPaymentHistoryFragment"
+        android:label="fragment_student_payment_history"
+        tools:layout="@layout/fragment_student_payment_history" />
+    <fragment
+        android:id="@+id/changeRoomFragment"
+        android:name="com.kumar.nitchostelmanager.rooms.fragments.ChangeRoomFragment"
+        android:label="fragment_change_room"
+        tools:layout="@layout/fragment_change_room" />
+    <fragment
+        android:id="@+id/viewHostelFragment"
+        android:name="com.kumar.nitchostelmanager.hostels.fragments.ViewHostelFragment"
+        android:label="fragment_view_hostel"
+        tools:layout="@layout/fragment_view_hostel" />
+>>>>>>> 942a7fb1fb92c1147531b22746dc60c1bf69d566
 </navigation>
