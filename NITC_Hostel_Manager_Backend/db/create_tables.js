@@ -36,7 +36,6 @@ db.connect(function(err){
             hostelID VARCHAR(255),
             roomNumber int,
             FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
-            FOREIGN KEY(roomNumber) REFERENCES rooms(roomNumber) ON DELETE CASCADE,
             PRIMARY KEY(studentRoll)
         )`;
 
@@ -53,10 +52,10 @@ db.connect(function(err){
             PRIMARY KEY(email)
         )`;
         
-        db.query(adminquery,function(erradmin,result){
-            if(erradmin) console.log(erradmin);
-            else console.log("admin created");
-        });
+        // db.query(adminquery,function(erradmin,result){
+        //     if(erradmin) console.log(erradmin);
+        //     else console.log("admin created");
+        // });
 
         var wardenquery = `CREATE TABLE wardens(
             email VARCHAR(255),

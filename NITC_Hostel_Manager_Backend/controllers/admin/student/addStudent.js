@@ -8,7 +8,11 @@ module.exports = async(req,res)=>{
         res.status(500).send(false);
     }else{
         var studentModel = new StudentModel();
-        studentModel.createStudent(req.body).then(function(result){
+        var newStudent = req.body;
+        // delete newStudent.roomNumber;
+        // console.log(newStudent);
+        // newStudent = newStudent.toObject();
+        studentModel.createStudent(newStudent).then(function(result){
             console.log("student created");
             res.status(200).send(true);
         }).catch(function(errStudent){

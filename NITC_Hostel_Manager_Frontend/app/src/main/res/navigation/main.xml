@@ -89,7 +89,6 @@
         android:name="com.kumar.nitchostelmanager.hostels.fragments.AddHostelFragment"
         android:label="AddHostelFragment" />
     <fragment
-<<<<<<< HEAD
         android:id="@+id/allStudentsFragment"
         android:name="com.kumar.nitchostelmanager.students.fragments.AllStudentsFragment"
         android:label="AllStudentsFragment" />
@@ -97,7 +96,7 @@
         android:id="@+id/availableRoomsFragment"
         android:name="com.kumar.nitchostelmanager.rooms.fragments.AvailableRoomsFragment"
         android:label="AvailableRoomsFragment" />
-=======
+    <fragment
         android:id="@+id/studentProfileFragment"
         android:name="com.kumar.nitchostelmanager.profile.fragments.StudentProfileFragment"
         android:label="fragment_student_profile"
@@ -127,5 +126,4 @@
         android:name="com.kumar.nitchostelmanager.hostels.fragments.ViewHostelFragment"
         android:label="fragment_view_hostel"
         tools:layout="@layout/fragment_view_hostel" />
->>>>>>> 942a7fb1fb92c1147531b22746dc60c1bf69d566
 </navigation>

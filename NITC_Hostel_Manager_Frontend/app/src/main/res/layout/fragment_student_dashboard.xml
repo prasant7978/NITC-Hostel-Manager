@@ -62,19 +62,20 @@
 
             <TextView
                 android:fontFamily="@font/inter_semibold"
-                android:id="@+id/textViewHostelNameInStudentDashboard"
+                android:id="@+id/hostelNameTVInStudentDashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hostel Name"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:layout_marginLeft="30dp"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/lineViewInDetailsCardInStudentDashboard"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="50dp"
+                android:id="@+id/lineViewInDetailsCardInStudentDashboard"
                 android:layout_weight="1"
                 android:background="@color/black"
                 app:layout_constraintTop_toTopOf="parent"
@@ -83,44 +84,44 @@
 
             <TextView
                 android:fontFamily="@font/inter_semibold"
-                android:id="@+id/textViewRoomInStudentDashboard"
+                android:id="@+id/roomTVInStudentDashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Room No."
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:layout_marginRight="30dp"
+                app:layout_constraintStart_toEndOf="@id/lineViewInDetailsCardInStudentDashboard"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewHostelNameInStudentDashboard"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewHostelNameInStudentDashboard"/>
+                app:layout_constraintTop_toTopOf="@+id/hostelNameTVInStudentDashboard"
+                app:layout_constraintBottom_toBottomOf="@+id/hostelNameTVInStudentDashboard"/>
 
             <TextView
-                android:fontFamily="@font/inter_semibold"
                 android:id="@+id/hostelNameInStudentDashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="MHB - 1"
+                android:textColor="@color/contractor_dashboard_profile_bg"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="@color/contractor_dashboard_profile_bg"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="32dp"
-                app:layout_constraintTop_toBottomOf="@id/textViewHostelNameInStudentDashboard"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintEnd_toEndOf="@id/hostelNameTVInStudentDashboard"
+                app:layout_constraintStart_toStartOf="@id/hostelNameTVInStudentDashboard"
+                app:layout_constraintTop_toBottomOf="@id/hostelNameTVInStudentDashboard" />
 
             <TextView
-                android:fontFamily="@font/inter_semibold"
                 android:id="@+id/roomNumberInStudentDashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="B - 16"
+                android:fontFamily="@font/inter_semibold"
+                android:text="15"
+                android:textColor="@color/contractor_dashboard_profile_bg"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="@color/contractor_dashboard_profile_bg"
-                android:layout_marginRight="33dp"
-                app:layout_constraintTop_toTopOf="@id/hostelNameInStudentDashboard"
                 app:layout_constraintBottom_toBottomOf="@id/hostelNameInStudentDashboard"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="@id/roomTVInStudentDashboard"
+                app:layout_constraintStart_toStartOf="@+id/roomTVInStudentDashboard"
+                app:layout_constraintTop_toTopOf="@id/hostelNameInStudentDashboard" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -133,19 +134,22 @@
         android:layout_height="wrap_content"
         android:text="General"
         android:textSize="16sp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="27dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.05"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="@id/generalLayoutInStudentDashboard"
         app:layout_constraintTop_toBottomOf="@id/profileLayoutInStudentDashboard"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/generalLayoutInStudentDashboard"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.14"
+        app:layout_constraintWidth_percent="0.87"
+        app:layout_constraintVertical_bias="0.02"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:padding="5dp"
         android:elevation="10dp"
         android:background="@drawable/student_profile_general_section_shape"
@@ -157,7 +161,7 @@
             android:id="@+id/studentProfileBoxInStudentDashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="25dp"
             android:elevation="5dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -191,7 +195,7 @@
             android:id="@+id/noticeBoxInStudentDashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="25dp"
             android:elevation="5dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -225,7 +229,7 @@
             android:id="@+id/complaintBoxInStudentDashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="25dp"
             android:elevation="5dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -264,32 +268,32 @@
         android:layout_height="wrap_content"
         android:text="Payment"
         android:textSize="16sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="27dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.07"
+        app:layout_constraintStart_toStartOf="@id/textViewGeneralInStudentDashboard"
         app:layout_constraintTop_toBottomOf="@id/generalLayoutInStudentDashboard"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/paymentLayout"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:padding="5dp"
+        app:layout_constraintHeight_percent="0.14"
+        app:layout_constraintVertical_bias="0.03"
         android:elevation="10dp"
         android:background="@drawable/student_profile_general_section_shape"
         app:layout_constraintTop_toBottomOf="@+id/textViewPayment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/generalLayoutInStudentDashboard"
+        app:layout_constraintEnd_toEndOf="@id/generalLayoutInStudentDashboard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/paymentBoxInStudentDashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:elevation="5dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -322,7 +326,7 @@
             android:id="@+id/paymentHistoryBoxInStudentDashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="30dp"
             android:elevation="5dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -361,31 +365,31 @@
         android:layout_height="wrap_content"
         android:text="Hostel"
         android:textSize="16sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="27dp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/textViewPayment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.14"
         app:layout_constraintTop_toBottomOf="@id/paymentLayout"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/hostelLayout"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.14"
+        app:layout_constraintVertical_bias="0.1"
         android:elevation="10dp"
         android:background="@drawable/student_profile_general_section_shape"
         app:layout_constraintTop_toBottomOf="@+id/textViewHostel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintStart_toStartOf="@id/paymentLayout"
+        app:layout_constraintEnd_toEndOf="@id/paymentLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/roomBoxInStudentDashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="25dp"
             android:elevation="5dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -418,7 +422,7 @@
             android:id="@+id/hostelBoxInStudentDashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="30dp"
             android:elevation="5dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -451,14 +455,16 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
-        android:layout_width="70dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/exit"
         android:scaleType="centerCrop"
         android:backgroundTint="#00000000"
         android:id="@+id/logoutButtonInStudentDashboard"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@id/hostelLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.15"
+        app:layout_constraintHorizontal_bias="0.96"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

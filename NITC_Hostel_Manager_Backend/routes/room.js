@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 var express = require("express")
-=======
-const express = require('express');
->>>>>>> 942a7fb1fb92c1147531b22746dc60c1bf69d566
 var router = express.Router();
 
 var verifyToken = require("../middlewares/verifyToken");

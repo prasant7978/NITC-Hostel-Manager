@@ -86,10 +86,10 @@ class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
                 else
                     binding.hostelNameInStudentDashboard.text = "NA"
 
-                if(studentProfile.roomNumber != null)
-                    binding.roomNumberInStudentDashboard.text = studentProfile.roomNumber
+                if(studentProfile.roomNumber != -1)
+                    binding.roomNumberInStudentDashboard.text = studentProfile.roomNumber.toString()
                 else
-                    binding.hostelNameInStudentDashboard.text = "NA"
+                    binding.roomNumberInStudentDashboard.text = "NA"
             }
             else{
                 binding.studentNameInStudentDashboard.text = ""

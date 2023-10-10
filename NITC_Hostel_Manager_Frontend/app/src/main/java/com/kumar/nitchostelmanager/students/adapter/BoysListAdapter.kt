@@ -29,7 +29,7 @@ class BoysListAdapter(private var studentList: ArrayList<Student>, private var s
         holder.adapterBinding.studentRoll.text = studentList[position].studentRoll
         holder.adapterBinding.studentEmail.text = studentList[position].email
         holder.adapterBinding.hostelName.text = studentList[position].hostelID
-        holder.adapterBinding.roomNumber.text = studentList[position].roomNumber
+        holder.adapterBinding.roomNumber.text = studentList[position].roomNumber.toString()
 
         holder.adapterBinding.constraintLayout.setOnClickListener {
             sharedViewModel.viewingStudentRoll = studentList[position].studentRoll

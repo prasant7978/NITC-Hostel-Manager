@@ -6,13 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.databinding.FragmentStudentProfileBinding
 
 class StudentProfileFragment : Fragment() {
+
+    private lateinit var binding:FragmentStudentProfileBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_profile, container, false)
+
+        binding = FragmentStudentProfileBinding.inflate(inflater,container,false)
+
+        return binding.root
     }
 }
