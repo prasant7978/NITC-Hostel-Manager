@@ -12,7 +12,7 @@ module.exports = class Model{
             }else{
                 console.log("wardens : \n");
                 console.log(result);
-                resolve(result[0]);
+                resolve(result);
             }
         });
     });
@@ -40,9 +40,9 @@ module.exports = class Model{
                 console.log("Error : "+err);
                 reject(err);
             }else{
-                console.log("student added : \n");
+                console.log("warden added : \n");
                 console.log(result);
-                resolve(result[0]);
+                resolve(true);
             }
         });
     });
@@ -60,6 +60,21 @@ module.exports = class Model{
             }
         });
     });
+    }
+
+    async getWardensCount(){
+        return new Promise((resolve, reject) => {
+            db.query('SELECT COUNT(*) FROM wardens',async(err,result)=>{
+                if(err){
+                    console.log("Error : "+err);
+                    reject(err)
+                }else{
+                    console.log("Wardens total :");
+                    console.log(result[0]["COUNT(*)"]);
+                    resolve(result[0]["COUNT(*)"])
+                }
+            });
+        })
     }
     async deleteWarden(email){
         return new Promise((resolve,reject)=>{

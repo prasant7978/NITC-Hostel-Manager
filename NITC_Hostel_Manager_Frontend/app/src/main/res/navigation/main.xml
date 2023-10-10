@@ -81,11 +81,19 @@
         tools:layout="@layout/fragment_warden_list" />
     <fragment
         android:id="@+id/studentListFragment"
-        android:name="com.kumar.nitchostelmanager.students.fragments.StudentListFragment"
+        android:name="com.kumar.nitchostelmanager.students.fragments.BoysListFragment"
         android:label="fragment_student_list"
-        tools:layout="@layout/fragment_student_list" />
+        tools:layout="@layout/fragment_boys_list" />
     <fragment
         android:id="@+id/addHostelFragment"
         android:name="com.kumar.nitchostelmanager.hostels.fragments.AddHostelFragment"
         android:label="AddHostelFragment" />
+    <fragment
+        android:id="@+id/allStudentsFragment"
+        android:name="com.kumar.nitchostelmanager.students.fragments.AllStudentsFragment"
+        android:label="AllStudentsFragment" />
+    <fragment
+        android:id="@+id/availableRoomsFragment"
+        android:name="com.kumar.nitchostelmanager.rooms.fragments.AvailableRoomsFragment"
+        android:label="AvailableRoomsFragment" />
 </navigation>

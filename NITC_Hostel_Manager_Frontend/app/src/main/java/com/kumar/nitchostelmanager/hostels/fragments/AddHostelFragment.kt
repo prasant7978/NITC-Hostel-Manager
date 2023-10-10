@@ -83,6 +83,7 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 capacity,
                 charges,
                 0.0,
+                0,
                 occupantsGender,
                 null
             )
@@ -122,6 +123,7 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 this@AddHostelFragment,
                 profileViewModel.loginToken.toString()
             ).getHostelDetails(hostelID)
+            loadingDialog.cancel()
             if(hostel != null){
                 binding.wardenEmailInputInAddHostelFragment.setText(hostel.wardenEmail.toString())
                 binding.chargesInputInAddHostelFragment.setText(hostel.charges.toString())
@@ -142,6 +144,7 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
     private fun addHostel(newHostel:Hostel) {
         val addHostelCoroutineScope = CoroutineScope(Dispatchers.Main)
         val loadingDialog = getLoadingDialog(requireContext(),this@AddHostelFragment)
+        loadingDialog.setCancelable(true)
         addHostelCoroutineScope.launch {
             loadingDialog.create()
             loadingDialog.show()

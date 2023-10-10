@@ -1,4 +1,6 @@
 var WardenModel = require("../../../models/wardenModel");
+var HostelModel = require("../../../models/hostelModel");
+
 
 module.exports = async(req,res)=>{
     if(req.userType != "Admin"){
@@ -7,10 +9,20 @@ module.exports = async(req,res)=>{
     }else{
         var wardenModel = new WardenModel();
         wardenModel.createWarden(req.body).then(function(result){
-            if(result){
-
-                res.status(200).send(true);
-                console.log("Warden is added");
+            if(result == true){
+                var hostelModel = new HostelModel();
+                hostelModel.assignWarden(req.body.email).then(function(assigned){
+                    if(assigned == true){
+                        res.status(200).send(true);
+                        console.log("Warden is added");
+                    }else{
+                        res.status(500).send(false);
+                        console.log("Warden is not assigned");
+                    }
+                }).catch(function(excAssigned){
+                    console.log(excAssigned);
+                    res.status(500).send(false);
+                });
             }else{
                 res.status(500).send(false);
                 console.log("Warden is not added");

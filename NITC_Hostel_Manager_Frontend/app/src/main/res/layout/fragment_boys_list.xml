@@ -5,10 +5,10 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".wardens.fragments.WardenListFragment">
+    tools:context=".students.fragments.BoysListFragment">
 
     <SearchView
-        android:id="@+id/search"
+        android:id="@+id/searchViewInBoysListFragment"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.7"
         android:layout_height="wrap_content"
@@ -29,28 +29,14 @@
     </SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewInWardenListFragment"
+        android:id="@+id/recyclerViewInBoysListFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.83"
-        app:layout_constraintVertical_bias="0.04"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search"
+        app:layout_constraintTop_toBottomOf="@id/searchViewInBoysListFragment"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/warden_card" />
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Add Warden"
-        app:layout_constraintWidth_percent="0.37"
-        android:fontFamily="@font/inter_semibold"
-        android:backgroundTint="@color/navy_blue"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewInWardenListFragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/addWardenButtonInWardenListFragment"/>
+        tools:listitem="@layout/student_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

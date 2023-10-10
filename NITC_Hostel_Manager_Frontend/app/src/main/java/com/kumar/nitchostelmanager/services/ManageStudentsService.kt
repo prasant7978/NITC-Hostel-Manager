@@ -20,6 +20,14 @@ interface ManageStudentsService {
     @GET("admin/students/all")
     fun getAllStudents(@Header("auth-token") loginToken: String):Call<ArrayList<Student>?>
 
+
+    @GET("admin/students/girls")
+    fun getGirls(@Header("auth-token") loginToken: String):Call<ArrayList<Student>?>
+
+
+    @GET("admin/students/boys")
+    fun getBoys(@Header("auth-token") loginToken: String):Call<ArrayList<Student>?>
+
     @POST("admin/students/add")
     fun addStudent(@Header("auth-token") loginToken: String,@Body student: Student):Call<Boolean>
 

@@ -91,13 +91,14 @@ module.exports = class Model{
         })
     }
 
-    async createRooms(hostelID, roomType, capacity){
+    async createRooms(hostelID, capacity){
         return new Promise((resolve,reject)=>{
-            var query = "INSERT INTO rooms(roomNumber,hostelID,roomType)";
+            var query = "INSERT INTO rooms(roomNumber,hostelID) VALUES ";
             for(var i = 1;i<capacity;i++){
-                query += "SELECT "+i+", "+hostelID+", "+roomType;
+                query = query+"("+i+", '"+hostelID+"'),";
             }
-            query += "SELECT "+capacity+", "+hostelID+", "+roomType;
+            // query += "SELECT "+capacity+", "+hostelID;
+            query = query + "("+capacity+",'"+hostelID+"')";
             console.log("Query to insert rooms = "+query);
             db.query(query,async(exc,result)=>{
                 if(exc){

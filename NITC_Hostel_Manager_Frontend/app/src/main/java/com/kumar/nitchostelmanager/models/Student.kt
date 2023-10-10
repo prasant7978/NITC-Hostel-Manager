@@ -12,6 +12,5 @@ data class Student(
     var dues: Double = 0.0,
     var address: String = "",
     var course: String = "",
-    var hostelID: String = "",
-    var roomNumber: String = ""){
-}
+    var hostelID: String? = null,
+    var roomNumber: String? = null)

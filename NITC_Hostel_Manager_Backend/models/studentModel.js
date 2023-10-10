@@ -34,7 +34,7 @@ module.exports = class Model{
     }
     async getBoys(){
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM students WHERE GENDER=?',["Male"],async(err,result)=>{
+            db.query('SELECT * FROM students WHERE gender=?',["Male"],async(err,result)=>{
                 if(err){
                     console.log("Error : "+err);
                     reject(err)
@@ -49,7 +49,7 @@ module.exports = class Model{
     
     async getBoysCount(){
         return new Promise((resolve, reject) => {
-            db.query('SELECT COUNT(*) FROM students WHERE GENDER=?',["Male"],async(err,result)=>{
+            db.query('SELECT COUNT(*) FROM students WHERE gender=?',["Male"],async(err,result)=>{
                 if(err){
                     console.log("Error : "+err);
                     reject(err)
@@ -64,14 +64,14 @@ module.exports = class Model{
     
     async getGirls(){
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM students WHERE GENDER=?',["Female"],async(err,result)=>{
+            db.query('SELECT * FROM students WHERE gender=?',["Female"],async(err,result)=>{
                 if(err){
                     console.log("Error : "+err);
                     reject(err)
                 }else{
                     console.log("students :");
                     console.log(result);
-                    resolve(result[0])
+                    resolve(result)
                 }
             });
         });
@@ -79,7 +79,7 @@ module.exports = class Model{
     
     async getGirlsCount(){
         return new Promise((resolve, reject) => {
-            db.query('SELECT COUNT(*) FROM students WHERE GENDER=?',["Female"],async(err,result)=>{
+            db.query('SELECT COUNT(*) FROM students WHERE gender=?',["Female"],async(err,result)=>{
                 if(err){
                     console.log("Error : "+err);
                     reject(err)

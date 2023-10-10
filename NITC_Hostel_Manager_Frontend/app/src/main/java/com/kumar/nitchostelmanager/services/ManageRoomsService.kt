@@ -1,18 +1,14 @@
 package com.kumar.nitchostelmanager.services
 
-<<<<<<< HEAD
 import retrofit2.http.GET
-=======
 import com.kumar.nitchostelmanager.models.Room
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
-import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Query
->>>>>>> 04602457a858cd7747c93749985c88b205cbbb63
 
 interface ManageRoomsService {
     @GET("rooms/allRooms")

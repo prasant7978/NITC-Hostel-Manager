@@ -21,23 +21,23 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class AddStudentFragment : Fragment() {
-    private lateinit var addStudentBinding: FragmentAddStudentBinding
+    private lateinit var binding: FragmentAddStudentBinding
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        addStudentBinding = FragmentAddStudentBinding.inflate(inflater, container, false)
+        binding = FragmentAddStudentBinding.inflate(inflater, container, false)
 
-        addStudentBinding.buttonAddStudent.setOnClickListener {
-            val studentName = addStudentBinding.textInputName.text.toString()
-            val studentEmail = addStudentBinding.textInputEmail.text.toString()
-            val studentPhone = addStudentBinding.textInputPhone.text.toString()
-            val studentParentPhone = addStudentBinding.textInputParentPhone.text.toString()
-            val studentGender = addStudentBinding.textInputGender.text.toString()
-            val studentDOB = addStudentBinding.textInputDob.text.toString()
-            val studentAddress = addStudentBinding.textInputAddress.text.toString()
+        binding.addStudentButton.setOnClickListener {
+            val studentName = binding.nameInputInAddStudentFragment.text.toString()
+            val studentEmail = binding.emailInputInAddStudentFragment.text.toString()
+            val studentPhone = binding.phoneInputInAddStudentFragment.text.toString()
+            val studentParentPhone = binding.parentPhoneInAddStudentFragment.text.toString()
+            val studentGender = binding.genderInputInAddStudentFragment.text.toString()
+            val studentDOB = binding.dobInputInAddStudentFragment.text.toString()
+            val studentAddress = binding.addressInputInAddStudentFragment.text.toString()
 
             // obtain rollno from email
             val str: List<String>? = studentEmail?.split("_")
@@ -46,7 +46,7 @@ class AddStudentFragment : Fragment() {
             Log.d("roll", studentRoll)
 
             // obtain course from email
-            var courseEnrolled = studentRoll.substring(0, 1) + studentRoll.substring(studentRoll.length - 3)
+            var courseEnrolled = studentRoll.substring(0, 1) + studentRoll.substring(studentRoll.length - 2)
             courseEnrolled = courseEnrolled.uppercase()
             Log.d("course", courseEnrolled)
 
@@ -60,24 +60,36 @@ class AddStudentFragment : Fragment() {
                     Toast.makeText(context,"Enter a valid nitc email id", Toast.LENGTH_SHORT).show()
                 }
                 else {
-                    addStudentBinding.buttonAddStudent.isCheckable = false
-                    addStudentBinding.progressBar.visibility = View.VISIBLE
+                    binding.addStudentButton.isCheckable = false
+                    binding.progressBarInAddStudentFragment.visibility = View.VISIBLE
 
-                    val student: Student = Student(studentRoll, studentEmail, studentPassword, studentName, studentPhone, studentParentPhone, studentGender, studentDOB, 0.0, studentAddress, courseEnrolled)
+                    val student: Student = Student(
+                        studentRoll,
+                        studentEmail,
+                        studentPassword,
+                        studentName,
+                        studentPhone,
+                        studentParentPhone,
+                        studentGender,
+                        studentDOB,
+                        0.0,
+                        studentAddress,
+                        courseEnrolled
+                    )
 
                     showAlertMessageForAdd(student)
 
-                    addStudentBinding.buttonAddStudent.isCheckable = true
-                    addStudentBinding.progressBar.visibility = View.INVISIBLE
+                    binding.addStudentButton.isCheckable = true
+                    binding.progressBarInAddStudentFragment.visibility = View.INVISIBLE
                 }
             }
         }
 
-        addStudentBinding.buttonClearAll.setOnClickListener {
+        binding.buttonClearAll.setOnClickListener {
             clearAllTextArea()
         }
 
-        return addStudentBinding.root
+        return binding.root
     }
 
     private fun showAlertMessageForAdd(student: Student){
@@ -97,15 +109,19 @@ class AddStudentFragment : Fragment() {
     private fun addStudent(student: Student){
         val manageStudentCoroutineScope = CoroutineScope(Dispatchers.Main)
         manageStudentCoroutineScope.launch {
-            val addedStudent: Boolean = ManageStudentAccess(requireContext(), this@AddStudentFragment, profileViewModel).addStudent(student)
+            val addedStudent: Boolean = ManageStudentAccess(
+                requireContext(),
+                this@AddStudentFragment,
+                profileViewModel
+            ).addStudent(student)
             manageStudentCoroutineScope.cancel()
 
             if(addedStudent){
-                Snackbar.make(addStudentBinding.linearLayout,"Student account created", Snackbar.LENGTH_LONG).setAction("close",View.OnClickListener { }).show()
+                Snackbar.make(binding.linearLayout,"Student account created", Snackbar.LENGTH_LONG).setAction("close",View.OnClickListener { }).show()
                 clearAllTextArea()
             }
             else
-                Snackbar.make(addStudentBinding.linearLayout,"Oops! We encountered a problem while creating your account, please try again", Snackbar.LENGTH_LONG).setAction("close",View.OnClickListener { }).show()
+                Snackbar.make(binding.linearLayout,"Oops! We encountered a problem while creating your account, please try again", Snackbar.LENGTH_LONG).setAction("close",View.OnClickListener { }).show()
         }
     }
 
@@ -130,12 +146,12 @@ class AddStudentFragment : Fragment() {
     }
 
     private fun clearAllTextArea(){
-        addStudentBinding.textInputName.setText("")
-        addStudentBinding.textInputEmail.setText("")
-        addStudentBinding.textInputPhone.setText("")
-        addStudentBinding.textInputParentPhone.setText("")
-        addStudentBinding.textInputGender.setText("")
-        addStudentBinding.textInputDob.setText("")
-        addStudentBinding.textInputAddress.setText("")
+        binding.nameInputInAddStudentFragment.setText("")
+        binding.emailInputInAddStudentFragment.setText("")
+        binding.phoneInputInAddStudentFragment.setText("")
+        binding.parentPhoneInAddStudentFragment.setText("")
+        binding.genderInputInAddStudentFragment.setText("")
+        binding.dobInputInAddStudentFragment.setText("")
+        binding.addressInputInAddStudentFragment.setText("")
     }
 }

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentNoticeListBinding
 import com.kumar.nitchostelmanager.models.Notice
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
@@ -20,7 +19,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class NoticeListFragment : Fragment() {
-    private lateinit var noticeListBinding: FragmentNoticeListBinding
+    private lateinit var binding: FragmentNoticeListBinding
     private lateinit var noticeListAdapter: NoticeListAdapter
     val profileViewModel: ProfileViewModel by activityViewModels()
 
@@ -28,11 +27,11 @@ class NoticeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        noticeListBinding = FragmentNoticeListBinding.inflate(inflater, container, false)
+        binding = FragmentNoticeListBinding.inflate(inflater, container, false)
 
         getAllNotices()
 
-        return noticeListBinding.root
+        return binding.root
     }
 
     private fun getAllNotices(){
@@ -43,9 +42,9 @@ class NoticeListFragment : Fragment() {
 
             if(!noticeList.isNullOrEmpty()){
                 noticeList.reverse()
-                noticeListBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
+                binding.recyclerViewInNoticeListFragment.layoutManager = LinearLayoutManager(activity)
                 noticeListAdapter = NoticeListAdapter(noticeList)
-                noticeListBinding.recyclerView.adapter = noticeListAdapter
+                binding.recyclerViewInNoticeListFragment.adapter = noticeListAdapter
             }
             else
                 Toast.makeText(context, "No notices available", Toast.LENGTH_SHORT).show()

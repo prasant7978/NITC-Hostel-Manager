@@ -9,8 +9,8 @@ import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
-import com.kumar.nitchostelmanager.students.adapter.StudentListAdapter
-import com.kumar.nitchostelmanager.databinding.FragmentStudentListBinding
+import com.kumar.nitchostelmanager.students.adapter.BoysListAdapter
+import com.kumar.nitchostelmanager.databinding.FragmentBoysListBinding
 import com.kumar.nitchostelmanager.models.Student
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
@@ -19,10 +19,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class StudentListFragment : Fragment() {
-    private lateinit var studentListBinding: FragmentStudentListBinding
-    private lateinit var studentListAdapter: StudentListAdapter
-    private var studentList = ArrayList<Student>()
+class BoysListFragment : Fragment() {
+    private lateinit var binding: FragmentBoysListBinding
+    private lateinit var boysListAdapter: BoysListAdapter
+    private var boysList = ArrayList<Student>()
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
@@ -30,14 +30,14 @@ class StudentListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        studentListBinding = FragmentStudentListBinding.inflate(inflater, container, false)
+        binding = FragmentBoysListBinding.inflate(inflater, container, false)
 
         retrieveAllStudents()
 
-        studentListBinding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+        binding.searchViewInBoysListFragment.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    studentListBinding.search.clearFocus()
+                    binding.searchViewInBoysListFragment.clearFocus()
                     return false
                 }
 
@@ -48,34 +48,34 @@ class StudentListFragment : Fragment() {
             }
         )
 
-        return studentListBinding.root
+        return binding.root
     }
 
     private fun retrieveAllStudents(){
         val manageStudentCoroutineScope = CoroutineScope(Dispatchers.Main)
         manageStudentCoroutineScope.launch {
-            studentList = ManageStudentAccess(requireContext(), this@StudentListFragment, profileViewModel).getStudents(studentListBinding.constraintLayout)!!
+            boysList = ManageStudentAccess(requireContext(), this@BoysListFragment, profileViewModel).getBoys(binding.constraintLayout)!!
             manageStudentCoroutineScope.cancel()
 
-            if(studentList != null){
-                studentList.reverse()
-                studentListBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
-                studentListAdapter = StudentListAdapter(studentList, sharedViewModel, this@StudentListFragment)
-                studentListBinding.recyclerView.adapter = studentListAdapter
+            if(boysList != null){
+                boysList.reverse()
+                binding.recyclerViewInBoysListFragment.layoutManager = LinearLayoutManager(activity)
+                boysListAdapter = BoysListAdapter(boysList, sharedViewModel, this@BoysListFragment)
+                binding.recyclerViewInBoysListFragment.adapter = boysListAdapter
             }
             else{
-                studentListBinding.search.visibility = View.INVISIBLE
+                binding.searchViewInBoysListFragment.visibility = View.INVISIBLE
             }
         }
     }
 
     private fun searchList(text: String){
         val searchList = ArrayList<Student>()
-        for(student in studentList){
+        for(student in boysList){
             if(student.studentRoll.lowercase().contains(text.lowercase())){
                 searchList.add(student)
             }
         }
-        studentListAdapter.searchByRollNo(searchList)
+        boysListAdapter.searchByRollNo(searchList)
     }
 }

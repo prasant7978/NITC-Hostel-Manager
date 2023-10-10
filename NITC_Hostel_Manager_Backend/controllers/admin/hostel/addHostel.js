@@ -10,7 +10,7 @@ module.exports = async(req, res)=>{
                 var hostelID = req.body.hostelID;
                 var capacity = req.body.capacity;
                 var roomModel = new RoomModel();
-                roomModel.createRooms(hostelID, req.body.roomType, capacity).then(function(addedRooms){
+                roomModel.createRooms(hostelID,capacity).then(function(addedRooms){
                     if(addedRooms == true){
                         res.status(200).send(true);
                         console.log("rooms are added to the hostel");

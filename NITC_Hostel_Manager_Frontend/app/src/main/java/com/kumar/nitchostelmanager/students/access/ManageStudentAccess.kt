@@ -53,6 +53,72 @@ class ManageStudentAccess(
             })
         }
     }
+    suspend fun getGirls(layout: ConstraintLayout):ArrayList<Student>?{
+        return suspendCoroutine { continuation ->
+            var manageStudentService = ServiceBuilder.buildService(ManageStudentsService::class.java)
+            var requestCall = manageStudentService.getGirls(profileViewModel.loginToken.toString())
+            requestCall.enqueue(object: Callback<ArrayList<Student>?> {
+                override fun onResponse(
+                    call: Call<ArrayList<Student>?>,
+                    response: Response<ArrayList<Student>?>
+                ) {
+                    if(response.isSuccessful){
+                        continuation.resume(response.body())
+                    }
+                    else if(response.code() == 500){
+                        Toast.makeText(context,"Some error occurred",Toast.LENGTH_SHORT).show()
+                        continuation.resume(null)
+                    }
+                    else{
+                        Snackbar.make(layout,"No students found", Snackbar.LENGTH_LONG).setAction("close",
+                            View.OnClickListener { }).show()
+                        continuation.resume(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Student>?>, t: Throwable) {
+                    Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
+                    Log.d("getStudentsCount","Error : $t")
+                    continuation.resume(null)
+                }
+            })
+        }
+    }
+
+
+
+    suspend fun getBoys(layout: ConstraintLayout):ArrayList<Student>?{
+        return suspendCoroutine { continuation ->
+            var manageStudentService = ServiceBuilder.buildService(ManageStudentsService::class.java)
+            var requestCall = manageStudentService.getBoys(profileViewModel.loginToken.toString())
+            requestCall.enqueue(object: Callback<ArrayList<Student>?> {
+                override fun onResponse(
+                    call: Call<ArrayList<Student>?>,
+                    response: Response<ArrayList<Student>?>
+                ) {
+                    if(response.isSuccessful){
+                        continuation.resume(response.body())
+                    }
+                    else if(response.code() == 500){
+                        Toast.makeText(context,"Some error occurred",Toast.LENGTH_SHORT).show()
+                        continuation.resume(null)
+                    }
+                    else if(response.isSuccessful && response.body().isNullOrEmpty()){
+                        Snackbar.make(layout,"No students found", Snackbar.LENGTH_LONG).setAction("close",
+                            View.OnClickListener { }).show()
+                        continuation.resume(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Student>?>, t: Throwable) {
+                    Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
+                    Log.d("getStudentsCount","Error : $t")
+                    continuation.resume(null)
+                }
+            })
+        }
+    }
+
     suspend fun getStudents(layout: ConstraintLayout):ArrayList<Student>?{
         return suspendCoroutine { continuation ->
             var manageStudentService = ServiceBuilder.buildService(ManageStudentsService::class.java)

@@ -23,39 +23,6 @@ class ManageWardensAccess(
     var profileViewModel: ProfileViewModel
 ) {
 
-    suspend fun getWardens(layout: ConstraintLayout):ArrayList<Warden>?{
-        return suspendCoroutine { continuation ->
-            var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)
-            var requestCall = manageWardenService.getWardens(profileViewModel.loginToken.toString())
-
-            requestCall.enqueue(object: Callback<ArrayList<Warden>?> {
-                override fun onResponse(
-                    call: Call<ArrayList<Warden>?>,
-                    response: Response<ArrayList<Warden>?>
-                ) {
-                    if(response.isSuccessful){
-                        continuation.resume(response.body())
-                    }
-                    else if(response.code() == 500){
-                        Toast.makeText(context,"Some error occurred",Toast.LENGTH_SHORT).show()
-                        continuation.resume(null)
-                    }
-                    else{
-                        Snackbar.make(layout,"No wardens found", Snackbar.LENGTH_LONG).setAction("close",
-                            View.OnClickListener { }).show()
-                        continuation.resume(null)
-                    }
-                }
-
-                override fun onFailure(call: Call<ArrayList<Warden>?>, t: Throwable) {
-                    Toast.makeText(context,"Error : $t",Toast.LENGTH_SHORT).show()
-                    Log.d("getWardens","Error : $t")
-                    continuation.resume(null)
-                }
-
-            })
-        }
-    }
 
 
     suspend fun addWarden(newWarden: Warden): Boolean{

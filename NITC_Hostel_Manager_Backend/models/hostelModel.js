@@ -69,7 +69,7 @@ module.exports = class Model{
 
     async assignWarden(wardenEmail,hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('UPDATE hostels SET wardenEmail=? WHERE hostelID=',[wardenEmail,hostelID],async(exc,_)=>{
+            db.query('UPDATE hostels SET wardenEmail=? WHERE hostelID=?',[wardenEmail,hostelID],async(exc,_)=>{
                 if(exc){
                     console.log("Error : "+exc);
                     reject(exc);

@@ -26,15 +26,15 @@ db.connect(function(err){
             email VARCHAR(255),
             password VARCHAR(255),
             name VARCHAR(455),
-            phone VARCHAR(255),
+            phone VARCHAR(55),
             parentPhone VARCHAR(255),
             gender VARCHAR(25),
-            dob DATE,
+            dob VARCHAR(255),
             dues DOUBLE(9,2) DEFAULT 0.00,
             address VARCHAR(755),
             course VARCHAR(255),
             hostelID VARCHAR(255),
-            roomNumber VARCHAR(20),
+            roomNumber int,
             FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             FOREIGN KEY(roomNumber) REFERENCES rooms(roomNumber) ON DELETE CASCADE,
             PRIMARY KEY(studentRoll)
@@ -81,11 +81,11 @@ db.connect(function(err){
             paid BOOLEAN,
             month VARCHAR(255),
             year VARCHAR(255),
-            paymentID VARCHAR(255),
+            paymentID int,
             hostelID VARCHAR(255),
             FOREIGN KEY(studentRoll) REFERENCES students(studentRoll),
-            FOREIGN KEY(hostelID) REFERENCES students(hostelID),
-            FOREIGN KEY(paymentID) REFERENCES students(paymentID),
+            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID),
+            FOREIGN KEY(paymentID) REFERENCES payments(paymentID),
             PRIMARY KEY(billID)
         )`;
         db.query(billquery,function(errbill,result){
@@ -97,9 +97,9 @@ db.connect(function(err){
             capacity int,
             charges int,
             totalStudents int,
-            hostelType VARCHAR(20),
+            occupantsGender VARCHAR(20),
             totalDues DOUBLE(11,2) DEFAULT 0.00,
-            wardenEmail int,
+            wardenEmail VARCHAR(255),
             FOREIGN KEY(wardenEmail) REFERENCES wardens(email) ON DELETE SET NULL,
             PRIMARY KEY(hostelID)
         )`;
@@ -110,8 +110,7 @@ db.connect(function(err){
         });
 
         var roomquery = `CREATE TABLE rooms(
-            roomNumber VARCHAR(20),
-            roomType VARCHAR(20),
+            roomNumber int,
             hostelID VARCHAR(255),
             studentRoll VARCHAR(10),
             FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,

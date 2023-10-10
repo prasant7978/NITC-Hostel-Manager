@@ -38,7 +38,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update Warden"
+            android:text="Update"
             android:id="@+id/updateWardenButtonInHostelCard"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

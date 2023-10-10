@@ -7,20 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.wardens.access.ManageWardensAccess
 import com.kumar.nitchostelmanager.wardens.adapters.WardenListAdapter
 import com.kumar.nitchostelmanager.databinding.FragmentWardenListBinding
 import com.kumar.nitchostelmanager.models.Warden
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.wardens.access.WardensDataAccess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class WardenListFragment : Fragment() {
-    private lateinit var wardenListBinding: FragmentWardenListBinding
+    private lateinit var binding: FragmentWardenListBinding
     private lateinit var wardenListAdapter: WardenListAdapter
     private var wardenList = ArrayList<Warden>()
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -30,14 +33,14 @@ class WardenListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        wardenListBinding = FragmentWardenListBinding.inflate(inflater, container, false)
+        binding = FragmentWardenListBinding.inflate(inflater, container, false)
 
         retrieveAllWardens()
 
-        wardenListBinding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    wardenListBinding.search.clearFocus()
+                    binding.search.clearFocus()
                     return false
                 }
 
@@ -47,24 +50,30 @@ class WardenListFragment : Fragment() {
                 }
             }
         )
+        binding.addWardenButtonInWardenListFragment.setOnClickListener {
+            findNavController().navigate(R.id.addWardenFragment)
+        }
 
-        return wardenListBinding.root
+        return binding.root
     }
 
     private fun retrieveAllWardens(){
         val manageWardenCoroutineScope = CoroutineScope(Dispatchers.Main)
         manageWardenCoroutineScope.launch {
-            wardenList = ManageWardensAccess(requireContext(), this@WardenListFragment, profileViewModel).getWardens(wardenListBinding.constraintLayout)!!
+            wardenList = WardensDataAccess(
+                requireContext(),
+                profileViewModel.loginToken.toString()
+            ).getWardens(binding.constraintLayout)!!
             manageWardenCoroutineScope.cancel()
 
             if(wardenList != null){
                 wardenList.reverse()
-                wardenListBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
+                binding.recyclerViewInWardenListFragment.layoutManager = LinearLayoutManager(activity)
                 wardenListAdapter = WardenListAdapter(wardenList, sharedViewModel, this@WardenListFragment)
-                wardenListBinding.recyclerView.adapter = wardenListAdapter
+                binding.recyclerViewInWardenListFragment.adapter = wardenListAdapter
             }
             else{
-                wardenListBinding.search.visibility = View.INVISIBLE
+                binding.search.visibility = View.INVISIBLE
             }
         }
     }

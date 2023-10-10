@@ -10,7 +10,7 @@ import com.kumar.nitchostelmanager.databinding.StudentCardBinding
 import com.kumar.nitchostelmanager.models.Student
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 
-class StudentListAdapter(private var studentList: ArrayList<Student>, private var sharedViewModel: SharedViewModel, private var parentFragment: Fragment): RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>() {
+class BoysListAdapter(private var studentList: ArrayList<Student>, private var sharedViewModel: SharedViewModel, private var parentFragment: Fragment): RecyclerView.Adapter<BoysListAdapter.StudentViewHolder>() {
     class StudentViewHolder(val adapterBinding: StudentCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
 
     }

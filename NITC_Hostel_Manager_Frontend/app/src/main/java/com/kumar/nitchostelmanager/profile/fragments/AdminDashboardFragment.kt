@@ -20,6 +20,8 @@ import com.kumar.nitchostelmanager.hostels.adapters.HostelListAdapter
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.wardens.access.ManageWardensAccess
+import com.kumar.nitchostelmanager.wardens.access.WardensDataAccess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -40,9 +42,18 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         getTotalComplaints()
         getTotalNotices()
         getHostels()
+        getWardensCount()
+
+        binding.totalWardensCardInAdminDashboard.setOnClickListener {
+            findNavController().navigate(R.id.wardenListFragment)
+        }
+        binding.totalStudentsCardInAdminDashboard.setOnClickListener {
+            findNavController().navigate(R.id.allStudentsFragment)
+        }
         binding.swipeRefreshLayoutInAdminDashboard.setOnRefreshListener {
 
             getHostels()
+            getWardensCount()
             getStudentsCount()
             getTotalComplaints()
             getTotalNotices()
@@ -64,6 +75,18 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
             findNavController().navigate(R.id.loginFragment)
         }
         return binding.root
+    }
+
+    private fun getWardensCount() {
+        var getWardensCoroutineScope = CoroutineScope(Dispatchers.Main)
+        getWardensCoroutineScope.launch {
+            var wardensCount = WardensDataAccess(
+                requireContext(),
+                profileViewModel.loginToken.toString()
+            ).getWardensCount(binding.parentLayoutInAdminDashboard)
+            getWardensCoroutineScope.cancel()
+            binding.totalWardensTextInAdminDashboard.text = wardensCount.toString()
+        }
     }
 
     private fun getHostels() {

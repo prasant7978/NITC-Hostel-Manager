@@ -14,6 +14,10 @@ interface ManageWardensService {
     @GET("admin/wardens/all")
     fun getWardens(@Header ("auth-token") loginToken:String): Call<ArrayList<Warden>?>
 
+
+    @GET("admin/wardens/count")
+    fun getWardensCount(@Header ("auth-token") loginToken:String): Call<Int>
+
     @POST("admin/wardens/add")
     fun addWarden(@Header("auth-token") loginToken: String, @Body warden: Warden):Call<Warden?>
 

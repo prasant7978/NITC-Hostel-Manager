@@ -1,3 +1,6 @@
+var express = require("express")
+var router = express.Router();
+
 var verifyToken = require("../middlewares/verifyToken");
 
 const getAllRooms = require('../controllers/room/getAllRooms')
@@ -13,3 +16,5 @@ router.get("/allocateRoom", verifyToken, allocateRoom)
 router.get("/deallocateRoom", verifyToken, deallocateRoom)
 router.get("/deleteRoom", verifyToken, deleteRoom)
 router.get("/addRoom", verifyToken, addRoom)
+
+module.exports = router;
