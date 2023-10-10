@@ -122,8 +122,8 @@ module.exports = class Model{
                     console.log("Error : "+err);
                     reject(err)
                 }else{
-                    console.log("student found :");
-                    console.log(result);
+                    // console.log("student found :");
+                    // console.log(result);
                     resolve(result[0]);
                 }
             });
@@ -168,13 +168,13 @@ module.exports = class Model{
 
     async findStudentByRollAndPassword(studentRoll, password){
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM students WHERE studentRoll = ? AND password = ?', [studentRoll, password], async(err, result) => {
+            db.query('SELECT * FROM students WHERE studentRoll = ? AND password = ?', [studentRoll.toUpperCase(), password], async(err, result) => {
                 if(err || !result || result.length == 0){
                     console.log("Error : " + err)
                     reject(err)
                 }
                 else{
-                    console.log("student found :")
+                    console.log("\n\nstudent found :")
                     console.log(result)
                     resolve(result[0])
                 }

@@ -20,7 +20,7 @@ module.exports = async(req, res, next) => {
         console.log("verifying for student = " + req.body);
         var studentModel = new StudentModel()
         await studentModel.find(req.body.username).then(function(student){
-            console.log(student);
+            // console.log(student);
             req.userType = req.body.userType;
             req.username = req.body.username;
             next(); 

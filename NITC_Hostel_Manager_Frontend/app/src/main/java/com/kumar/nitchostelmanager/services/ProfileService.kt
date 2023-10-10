@@ -8,10 +8,10 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 
 interface ProfileService {
-    @GET("student/profile")
+    @GET("students/profile")
     fun getStudentProfile(@Header("auth-token") loginToken: String): Call<Student?>
 
-    @GET("student/getBill")
+    @GET("students/getBill")
     fun getBill(@Header("auth-token") loginToken: String): Call<Double>
 
     @GET("admin/profile")
