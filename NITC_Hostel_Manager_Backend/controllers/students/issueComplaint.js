@@ -4,6 +4,7 @@ var ComplaintModel = require("../../models/complaintModel");
 module.exports = async(req,res)=>{
     if(req.userType == "Student"){
         if(req.body){
+            console.log("issuing complaint");
             var complaintModel  = new ComplaintModel();
             complaintModel.issueComplaint(req.body).then(function(result){
                 if(result != undefined && result == true){

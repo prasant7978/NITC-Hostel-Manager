@@ -1,60 +1,70 @@
 package com.kumar.nitchostelmanager.complaints.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.complaints.access.ComplaintsDataAccess
+import com.kumar.nitchostelmanager.complaints.adapters.OwnComplaintsAdapter
+import com.kumar.nitchostelmanager.databinding.FragmentViewOwnComplaintsBinding
+import com.kumar.nitchostelmanager.models.Complaint
+import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ViewOwnComplaintsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ViewOwnComplaintsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentViewOwnComplaintsBinding
+    private lateinit var complaintsListAdapter: OwnComplaintsAdapter
+    private var complaintsList: Array<Complaint>? = null
+    private val profileViewModel: ProfileViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_own_complaints, container, false)
+        binding = FragmentViewOwnComplaintsBinding.inflate(inflater, container, false)
+
+        getOwnComplaints()
+
+        binding.addComplaintInViewOwnComplaints.setOnClickListener {
+            Log.d("click", "click")
+            findNavController().navigate(R.id.addComplaintFragment)
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ViewOwnComplaintsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ViewOwnComplaintsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun getOwnComplaints(){
+        val complaintCoroutineScope = CoroutineScope(Dispatchers.Main)
+        complaintCoroutineScope.launch {
+            complaintsList = ComplaintsDataAccess(
+                requireContext(),
+                this@ViewOwnComplaintsFragment,
+                profileViewModel.loginToken.toString()
+            ).viewOwnComplaint()
+            complaintCoroutineScope.cancel()
+
+            if(!complaintsList.isNullOrEmpty()){
+                complaintsList!!.reverse()
+                binding.recyclerviewInViewOwnComplaints.layoutManager = LinearLayoutManager(activity)
+                complaintsListAdapter = OwnComplaintsAdapter(complaintsList!!, requireContext())
+                binding.recyclerviewInViewOwnComplaints.adapter = complaintsListAdapter
             }
+            else {
+                binding.recyclerviewInViewOwnComplaints.visibility = View.INVISIBLE
+                Toast.makeText(context, "No complaints are available", Toast.LENGTH_LONG).show()
+            }
+        }
     }
+
 }

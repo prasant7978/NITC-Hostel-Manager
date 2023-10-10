@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.LocalStorageAccess
 import com.kumar.nitchostelmanager.R
@@ -40,7 +41,14 @@ class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
         }
 
         binding.complaintBoxInStudentDashboard.setOnClickListener {
-            findNavController().navigate(R.id.viewOwnComplaintsFragment)
+            if(profileViewModel.currentStudent.hostelID != null)
+                findNavController().navigate(R.id.viewOwnComplaintsFragment)
+            else
+                Snackbar.make(
+                    binding.studentDashboardLayout,
+                    "Only current residents of the hostel are eligible to submit complaints.",
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction("Close", View.OnClickListener { }).show()
         }
 
         binding.paymentBoxInStudentDashboard.setOnClickListener {
@@ -78,6 +86,8 @@ class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
             val studentProfile = ProfileAccess(requireContext(), profileViewModel).getStudentProfile()
 
             if(studentProfile != null){
+                profileViewModel.currentStudent = studentProfile
+
                 binding.studentNameInStudentDashboard.text = studentProfile.name
                 binding.studentRollInStudentDashboard.text = studentProfile.studentRoll
 

@@ -68,7 +68,7 @@ module.exports = class Complaint{
     
     async getOwnComplaints(studentRoll){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM complaints WHERE studentRoll=',[studentRoll],async(err,result)=>{
+            db.query('SELECT * FROM complaints WHERE studentRoll = ?',[studentRoll],async(err,result)=>{
                 if(err){
                     console.log(err);
                     reject(err);

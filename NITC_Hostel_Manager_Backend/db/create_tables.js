@@ -39,10 +39,10 @@ db.connect(function(err){
             PRIMARY KEY(studentRoll)
         )`;
 
-        db.query(studentquery,function(errStudent,result){
-            if(errStudent) console.log(errStudent);
-            else console.log("Student created");
-        });
+        // db.query(studentquery,function(errStudent,result){
+        //     if(errStudent) console.log(errStudent);
+        //     else console.log("Student created");
+        // });
 
         var adminquery = `CREATE TABLE admin(
             email VARCHAR(255),
@@ -68,10 +68,10 @@ db.connect(function(err){
             PRIMARY KEY(email)
         )`;
 
-        db.query(wardenquery,function(errwarden,result){
-            if(errwarden) console.log(errwarden);
-            else console.log("warden created");
-        });
+        // db.query(wardenquery,function(errwarden,result){
+        //     if(errwarden) console.log(errwarden);
+        //     else console.log("warden created");
+        // });
 
         var billquery = `CREATE TABLE bills(
             billID VARCHAR(255),
@@ -87,10 +87,12 @@ db.connect(function(err){
             FOREIGN KEY(paymentID) REFERENCES payments(paymentID),
             PRIMARY KEY(billID)
         )`;
-        db.query(billquery,function(errbill,result){
-            if(errbill) console.log(errbill);
-            else console.log("Bill created");
-        });
+
+        // db.query(billquery,function(errbill,result){
+        //     if(errbill) console.log(errbill);
+        //     else console.log("Bill created");
+        // });
+
         var hostelquery = `CREATE TABLE hostels(
             hostelID VARCHAR(255),
             capacity int,
@@ -103,10 +105,10 @@ db.connect(function(err){
             PRIMARY KEY(hostelID)
         )`;
         
-        db.query(hostelquery,function(errhostel,result){
-            if(errhostel) console.log(errhostel);
-            else console.log("hostel created");
-        });
+        // db.query(hostelquery,function(errhostel,result){
+        //     if(errhostel) console.log(errhostel);
+        //     else console.log("hostel created");
+        // });
 
         var roomquery = `CREATE TABLE rooms(
             roomNumber int,
@@ -117,10 +119,10 @@ db.connect(function(err){
             PRIMARY KEY(roomNumber,hostelID)
         )`;
 
-        db.query(roomquery,function(errroom,result){
-            if(errroom) console.log(errroom);
-            else console.log("room created");
-        });
+        // db.query(roomquery,function(errroom,result){
+        //     if(errroom) console.log(errroom);
+        //     else console.log("room created");
+        // });
 
         var complaintquery = `CREATE TABLE complaints(
             complaintID int NOT NULL AUTO_INCREMENT,
@@ -152,10 +154,10 @@ db.connect(function(err){
             PRIMARY KEY(noticeID)
         )`;
 
-        db.query(noticequery,function(errnotice,result){
-            if(errnotice) console.log(errnotice);
-            else console.log("notice created");
-        });
+        // db.query(noticequery,function(errnotice,result){
+        //     if(errnotice) console.log(errnotice);
+        //     else console.log("notice created");
+        // });
 
         var paymentquery = `CREATE TABLE payments(
             paymentID int NOT NULL AUTO_INCREMENT,
@@ -168,10 +170,10 @@ db.connect(function(err){
             PRIMARY KEY(paymentID)
         )`;
 
-        db.query(paymentquery,function(errpayment,result){
-            if(errpayment) console.log(errpayment);
-            else console.log("payment created");
-        });
+        // db.query(paymentquery,function(errpayment,result){
+        //     if(errpayment) console.log(errpayment);
+        //     else console.log("payment created");
+        // });
     
         db.query('SET FOREIGN_KEY_CHECKS = 1', (error) => {
             if (error) {
