@@ -2,13 +2,6 @@ const PaymentModel = require('../../models/paymentModel')
 const BillModel = require("../../models/billModel");
 
 module.exports = async(req, res) => {
-    var payment = {
-        "studentRoll": req.username,
-        "status": "success",
-        "amount": req.body.amount,
-        "date": req.body.date,
-        "time": req.body.time
-    }
     var billID = req.body.billID;
     
     var paymentModel = new PaymentModel();

@@ -14,6 +14,7 @@ import com.kumar.nitchostelmanager.payments.access.PaymentAccess
 import com.kumar.nitchostelmanager.profile.access.ProfileAccess
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentPaymentBinding
+import com.kumar.nitchostelmanager.models.Payment
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -90,14 +91,17 @@ class StudentPaymentFragment : Fragment() {
 
         val dateAndTime: List<String> = currentDate.split(" ")
 
-        val payment = HashMap<String, String>()
-        payment["amount"] = totalDue.toString()
-        payment["date"] = dateAndTime[0]
-        payment["time"] = dateAndTime[1]
+        val payment = Payment(
+            studentRoll = profileViewModel.currentStudent.studentRoll,
+            status = "success",
+            date = dateAndTime[0],
+            time = dateAndTime[1],
+            amount = totalDue
+        )
 
         val issueBillCoroutineScope = CoroutineScope(Dispatchers.Main)
         issueBillCoroutineScope.launch {
-            val payBill: Boolean = PaymentAccess(requireContext(), profileViewModel).issueBill(payment)
+            val payBill: Boolean = PaymentAccess(requireContext(), profileViewModel).payDues(payment)
             issueBillCoroutineScope.cancel()
 
             if(payBill){
