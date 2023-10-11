@@ -42,7 +42,7 @@ module.exports = async(userType,username,password) => {
     }else{
         const wardenModel = new WardenModel()
         var authenticated = false
-        await wardenModel.findWarden(username, password).then(function(_){
+        await wardenModel.findWardenWithEmailAndPassword(username, password).then(function(_){
             authenticated = true
         }).catch(function(error){
             console.log("Email or password does not match: " + error);

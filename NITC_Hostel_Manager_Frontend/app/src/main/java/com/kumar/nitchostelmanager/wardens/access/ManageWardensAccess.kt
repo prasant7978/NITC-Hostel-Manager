@@ -23,8 +23,6 @@ class ManageWardensAccess(
     var profileViewModel: ProfileViewModel
 ) {
 
-
-
     suspend fun addWarden(newWarden: Warden): Boolean{
         return suspendCoroutine { continuation ->
             var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)

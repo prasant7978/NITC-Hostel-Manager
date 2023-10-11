@@ -3,8 +3,8 @@ const verifyUser = require('../../middlewares/verifyUser')
 
 module.exports = async(req, res) => {
     console.log(req.body);
-    if(req.userType && req.username){
-        const token = await verifyUser(req.userType, req.username, req.body.password)
+    if(req.body.userType && req.body.username){
+        const token = await verifyUser(req.body.userType, req.body.username, req.body.password)
         if(token == null){
             console.log("Wrong Credentials...")
             res.status(401).send(false)

@@ -23,6 +23,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private var userType: String = "Student"
     private val profileViewModel: ProfileViewModel by activityViewModels()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.progressBarLogin.visibility = View.INVISIBLE
@@ -103,6 +104,7 @@ class LoginFragment : Fragment() {
                 return
             }
         }
+
         val loginCoroutineScope = CoroutineScope(Dispatchers.Main)
         loginCoroutineScope.launch {
             val loggedIn = LoginAccess(requireContext(),this@LoginFragment,profileViewModel).login(
@@ -110,7 +112,9 @@ class LoginFragment : Fragment() {
                 password,
                 userType
             )
+
             loginCoroutineScope.cancel()
+
             if(loggedIn){
                 when(userType){
                     "Student" ->findNavController().navigate(R.id.studentDashboardFragment)
@@ -124,6 +128,7 @@ class LoginFragment : Fragment() {
                 Toast.makeText(context,"Not true",Toast.LENGTH_SHORT).show()
             }
         }
+
         binding.progressBarLogin.visibility = View.INVISIBLE
         binding.buttonSignin.isClickable = true
     }

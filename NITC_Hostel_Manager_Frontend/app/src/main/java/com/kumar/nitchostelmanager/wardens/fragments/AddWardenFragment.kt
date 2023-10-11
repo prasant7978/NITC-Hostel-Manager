@@ -16,6 +16,7 @@ import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.wardens.access.ManageWardensAccess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class AddWardenFragment:Fragment(),CircleLoadingDialog {
@@ -85,6 +86,8 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog {
                 this@AddWardenFragment,
                 profileViewModel
             ).addWarden(newWarden)
+            loadingDialog.cancel()
+            addWardenCoroutineScope.cancel()
             if(added){
                 findNavController().navigate(R.id.wardenListFragment)
             }

@@ -14,10 +14,10 @@ module.exports = class Complaint{
             });
         });
     }
-    async resolveComplaint(complaintID,referToID){
+    async resolveComplaint(complaintID){
         return new Promise((resolve,reject)=>{
             // db.query('INSERT INTO complaints(referTo,status,studentRoll,message,date,time) VALUES(?,?,?,?,?,?)',)
-            db.query('UPDATE complaints SET status=? WHERE complaintID=? and referTo=?',["Resolved",complaintID,referToID],async(err,_)=>{
+            db.query('UPDATE complaints SET status=? WHERE complaintID=?',["Resolved",complaintID],async(err,_)=>{
                 if(err){
                     console.log(err);
                     reject(err);
@@ -27,10 +27,10 @@ module.exports = class Complaint{
             });
         });
     }
-    async rejectComplaint(complaintID,referToID){
+    async rejectComplaint(complaintID){
         return new Promise((resolve,reject)=>{
             // db.query('INSERT INTO complaints(referTo,status,studentRoll,message,date,time) VALUES(?,?,?,?,?,?)',)
-            db.query('UPDATE complaints SET status=? WHERE complaintID=? and referTo=?',["Rejected",complaintID,referToID],async(err,_)=>{
+            db.query('UPDATE complaints SET status=? WHERE complaintID=?',["Rejected",complaintID],async(err,_)=>{
                 if(err){
                     console.log(err);
                     reject(err);
@@ -41,9 +41,9 @@ module.exports = class Complaint{
         });
     }
 
-    async getComplaintsCount(userID){
+    async getComplaintsCount(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT COUNT(*) FROM complaints WHERE referTo=?',[userID],async(err,result)=>{
+            db.query('SELECT COUNT(*) FROM complaints WHERE hostelID=?',[hostelID],async(err,result)=>{
                 if(err){
                     console.log(err);
                     reject(err);
@@ -53,9 +53,9 @@ module.exports = class Complaint{
             });
         });
     }
-    async getComplaints(userID){
+    async getComplaints(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM complaints WHERE referTo=?',[userID],async(err,result)=>{
+            db.query('SELECT * FROM complaints WHERE hostelID=?',[hostelID],async(err,result)=>{
                 if(err){
                     console.log(err);
                     reject(err);
