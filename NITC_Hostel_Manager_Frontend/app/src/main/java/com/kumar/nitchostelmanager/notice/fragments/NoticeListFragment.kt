@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentNoticeListBinding
 import com.kumar.nitchostelmanager.models.Notice
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
@@ -30,6 +33,13 @@ class NoticeListFragment : Fragment() {
         binding = FragmentNoticeListBinding.inflate(inflater, container, false)
 
         getAllNotices()
+
+        val backCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.wardenDashboardFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
 
         return binding.root
     }

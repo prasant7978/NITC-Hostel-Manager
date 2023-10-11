@@ -24,9 +24,9 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
-
     private lateinit var binding: FragmentWardenDashboardBinding
     private val profileViewModel:ProfileViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +38,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         getStudentsCount()
         getNoticesCount()
         getComplaintsCount()
+
         binding.logoutButtonInWardenDashboard.setOnClickListener {
             var deleted = LocalStorageAccess(
                 this@WardenDashboardFragment,
@@ -45,14 +46,23 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 profileViewModel
             ).deleteData()
         }
+
         binding.swipeRefreshLayoutInWardenDashboard.setOnRefreshListener {
             getProfile()
             getStudentsCount()
             getNoticesCount()
             getComplaintsCount()
+
             binding.swipeRefreshLayoutInWardenDashboard.isRefreshing = false
         }
 
+        binding.complaintsCardInWardenDashboard.setOnClickListener {
+            findNavController().navigate(R.id.viewAllComplaintsFragment)
+        }
+
+        binding.noticesCardInWardenDashboard.setOnClickListener {
+            findNavController().navigate(R.id.noticeListFragment)
+        }
 
         val backCallback = object: OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
@@ -60,6 +70,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
+
         return binding.root
     }
 
@@ -69,13 +80,16 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             var loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
             loadingDialog.create()
             loadingDialog.show()
+
             var complaintsCount = ComplaintsDataAccess(
                 requireContext(),
                 this@WardenDashboardFragment,
                 profileViewModel.loginToken.toString()
             ).getComplaintsCount()
+
             loadingDialog.cancel()
             complaintsCoroutineScope.cancel()
+
             binding.totalComplaintsTextInWardenDashboard.text = complaintsCount.toString()
         }
     }
@@ -85,11 +99,14 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             var loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
             loadingDialog.create()
             loadingDialog.show()
+
             var noticesCount = NoticeAccess(
                 profileViewModel,
                 requireContext()
             ).getNoticesCount()
+
             binding.totalNoticesTextInWardenDashboard.text = noticesCount.toString()
+
             loadingDialog.cancel()
             noticesCountCoroutineScope.cancel()
         }
@@ -100,13 +117,16 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             var loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
             loadingDialog.create()
             loadingDialog.show()
+
             var studentsCount = HostelDataAccess(
                 requireContext(),
                 this@WardenDashboardFragment,
                 profileViewModel.loginToken.toString()
             ).getHostelOccupantsCount()
+
             loadingDialog.cancel()
             studentsCountCoroutineScope.cancel()
+
             if(studentsCount>=0){
                 binding.totalStudentsTextInWardenDashboard.text = studentsCount.toString()
             }
@@ -119,9 +139,12 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             var loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
             loadingDialog.create()
             loadingDialog.show()
+
             val warden = ProfileAccess(requireContext(),profileViewModel).getWardenProfile()
+
             loadingDialog.cancel()
             getProfileCoroutineScope.cancel()
+
             if(warden != null){
                 binding.nameTextInWardenDashboard.text = warden.name.toString()
                 binding.emailTextInWardenDashboard.text = warden.email.toString()

@@ -18,15 +18,16 @@ module.exports = class Model{
         })
     }
 
-    async countHostelOccupants(hostelID){
+    async countHostelOccupants(email){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT COUNT(*) FROM students WHERE hostelID=?',[hostelID],async(exc,studentsCount)=>{
+            db.query('SELECT COUNT(*) FROM students WHERE email = ?',[email],async(exc,studentsCount)=>{
                 if(exc){
                     console.log(exc);
                     reject(exc);
                 }else{
                     console.log("students count = ");
                     console.log(studentsCount);
+                    console.log(studentsCount[0]['COUNT(*)']);
                     resolve(studentsCount[0]['COUNT(*)']);
                 }
             });
@@ -105,7 +106,7 @@ module.exports = class Model{
     }
     async getHostelOccupants(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM students WHERE hostelID=?',[hostelID],async(exc,students)=>{
+            db.query('SELECT * FROM students WHERE hostelID = ?',[hostelID],async(exc,students)=>{
                 if(exc){
                     console.log(exc);
                     reject(exc);

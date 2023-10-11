@@ -26,13 +26,16 @@ class LoginAccess(
             loginBody["username"] = username
             loginBody["password"] = password
             loginBody["userType"] = userType
+
             val authService = ServiceBuilder.buildService(AuthService::class.java)
             var loginMethod = authService.loginAdmin(loginBody)
+
             when(userType){
                 "Student"-> loginMethod = authService.loginStudent(loginBody)
                 "Admin"-> loginMethod = authService.loginAdmin(loginBody)
                 "Warden"-> loginMethod = authService.loginWarden(loginBody)
             }
+
             loginMethod.enqueue(object: Callback<Boolean> {
                 override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                     if(response.isSuccessful){

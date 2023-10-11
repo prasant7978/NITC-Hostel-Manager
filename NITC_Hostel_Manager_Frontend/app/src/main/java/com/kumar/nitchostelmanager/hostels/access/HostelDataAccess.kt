@@ -23,7 +23,8 @@ class HostelDataAccess(
     suspend fun getHostelOccupantsCount():Int{
         return suspendCoroutine { continuation ->
             var manageStudentsService = ServiceBuilder.buildService(ManageStudentsService::class.java)
-            var requestCall = manageStudentsService.getStudentsInHostelCount(loginToken.toString())
+            var requestCall = manageStudentsService.getStudentsInHostelCount(loginToken)
+
             requestCall.enqueue(object: Callback<Int> {
                 override fun onResponse(
                     call: Call<Int>,

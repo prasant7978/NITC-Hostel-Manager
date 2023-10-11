@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -127,6 +129,13 @@ class ViewAllComplaintsFragment : Fragment() {
             }
 
         }).attachToRecyclerView(binding.recyclerViewInViewAllComplaints)
+
+        val backCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.wardenDashboardFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
 
         return binding.root
     }
