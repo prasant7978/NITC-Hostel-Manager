@@ -12,7 +12,7 @@ import retrofit2.http.Query
 
 interface ManageRoomsService {
     @GET("rooms/allRooms")
-    fun getAllRooms(@Header("auth-token") loginToken: String, @Query("hostelID") hostelID: String): Call<ArrayList<Room>>
+    fun getAllRooms(@Header("auth-token") loginToken: String, @Query("hostelID") hostelID: String): Call<Array<Room>>
 
     @GET("rooms/availableRooms")
     fun getAvailableRooms(@Header("auth-token") loginToken: String, @Query("hostelID") hostelID: String): Call<Array<Room>>

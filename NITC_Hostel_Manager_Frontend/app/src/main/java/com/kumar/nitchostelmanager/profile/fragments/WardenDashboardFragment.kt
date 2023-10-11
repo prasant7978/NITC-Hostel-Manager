@@ -17,6 +17,7 @@ import com.kumar.nitchostelmanager.complaints.access.ComplaintsDataAccess
 import com.kumar.nitchostelmanager.databinding.FragmentWardenDashboardBinding
 import com.kumar.nitchostelmanager.hostels.access.HostelDataAccess
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
+import com.kumar.nitchostelmanager.services.HostelsService
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,9 +36,6 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         binding = FragmentWardenDashboardBinding.inflate(inflater,container,false)
 
         getProfile()
-        getStudentsCount()
-        getNoticesCount()
-        getComplaintsCount()
 
         binding.logoutButtonInWardenDashboard.setOnClickListener {
             var deleted = LocalStorageAccess(
@@ -49,9 +47,6 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
 
         binding.swipeRefreshLayoutInWardenDashboard.setOnRefreshListener {
             getProfile()
-            getStudentsCount()
-            getNoticesCount()
-            getComplaintsCount()
 
             binding.swipeRefreshLayoutInWardenDashboard.isRefreshing = false
         }
@@ -60,8 +55,14 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             findNavController().navigate(R.id.viewAllComplaintsFragment)
         }
 
+        binding.roomsCardInWardenDashboard.setOnClickListener {
+            findNavController().navigate(R.id.availableRoomsFragment)
+        }
         binding.noticesCardInWardenDashboard.setOnClickListener {
             findNavController().navigate(R.id.noticeListFragment)
+        }
+        binding.studentsCardInWardenDashboard.setOnClickListener {
+            findNavController().navigate(R.id.occupantsFragment)
         }
 
         val backCallback = object: OnBackPressedCallback(true){
@@ -122,7 +123,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 requireContext(),
                 this@WardenDashboardFragment,
                 profileViewModel.loginToken.toString()
-            ).getHostelOccupantsCount()
+            ).getHostelOccupantsCount(profileViewModel.currentWarden.hostelID.toString())
 
             loadingDialog.cancel()
             studentsCountCoroutineScope.cancel()
@@ -149,8 +150,32 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 binding.nameTextInWardenDashboard.text = warden.name.toString()
                 binding.emailTextInWardenDashboard.text = warden.email.toString()
                 profileViewModel.currentWarden = warden
+                getHostelDetails()
+                getStudentsCount()
+                getNoticesCount()
+                getComplaintsCount()
             }else{
                 findNavController().navigate(R.id.loginFragment)
+            }
+        }
+    }
+
+    private fun getHostelDetails() {
+        val getHostelCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
+        loadingDialog.create()
+        getHostelCoroutineScope.launch {
+            loadingDialog.show()
+            val hostel = HostelDataAccess(
+                requireContext(),
+                this@WardenDashboardFragment,
+                profileViewModel.loginToken.toString()
+            ).getHostelDetails(profileViewModel.currentWarden.hostelID.toString())
+            loadingDialog.cancel()
+            getHostelCoroutineScope.cancel()
+            if(hostel != null){
+                binding.hostelNameTextInWardenDashboard.text = hostel.hostelID.toString()
+                binding.totalRoomsTextInWardenDashboard.text = hostel.capacity.toString()
             }
         }
     }

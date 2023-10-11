@@ -9,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -45,17 +46,29 @@ class RoomsGridAdapter(
 
     override fun onBindViewHolder(holder: RoomsGridViewHolder, position: Int) {
         holder.binding.roomNumberInRoomCard.text = rooms[position].roomNumber.toString()
-        holder.binding.roomCardInRoomCard.setOnClickListener {
-            AlertDialog.Builder(context)
-                .setTitle("Select this room")
-                .setPositiveButton("Yes"){dialog,which->
-                    allocateRoom(position)
-                }
-                .setNegativeButton("No"){dialog,which->
-                    dialog.cancel()
-                }
-                .create().show()
 
+        if(profileViewModel.userType == "Warden"){
+            if(rooms[position].studentRoll != null) holder.binding.roomCardInRoomCard.setBackgroundColor(ContextCompat.getColor(context,R.color.ivory_wheat))
+            else holder.binding.roomCardInRoomCard.setBackgroundColor(ContextCompat.getColor(context,R.color.light_green))
+
+            holder.binding.roomCardInRoomCard.setOnClickListener {
+                if(rooms[position].studentRoll != null){
+
+                }
+            }
+
+        }else{
+            holder.binding.roomCardInRoomCard.setOnClickListener {
+                AlertDialog.Builder(context)
+                    .setTitle("Select this room")
+                    .setPositiveButton("Yes"){dialog,which->
+                        allocateRoom(position)
+                    }
+                    .setNegativeButton("No"){dialog,which->
+                        dialog.cancel()
+                    }
+                    .create().show()
+            }
         }
     }
 

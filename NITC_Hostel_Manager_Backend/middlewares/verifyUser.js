@@ -50,7 +50,7 @@ module.exports = async(userType,username,password) => {
         });
         if(authenticated){
             const token = await wardenModel.generateAuthToken(username, userType);
-            console.log("token = "+token);
+            console.log("\n\ntoken = "+token);
             return token;
         }
     }

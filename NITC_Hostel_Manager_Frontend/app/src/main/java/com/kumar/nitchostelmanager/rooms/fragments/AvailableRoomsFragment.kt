@@ -33,17 +33,55 @@ class AvailableRoomsFragment:Fragment(),CircleLoadingDialog {
     ): View? {
         binding = FragmentAvailableRoomsBinding.inflate(inflater,container,false)
 
-        if(sharedViewModel.viewingHostelID != null){
-            getRooms()
+        if(profileViewModel.userType == "Student"){
+
+            if(sharedViewModel.viewingHostelID != null){
+                binding.hostelNameTVInAvailableRoomsFragment.text = sharedViewModel.viewingHostelID.toString()
+                getAvailableRooms()
 //            binding.swipeRefreshLayoutInAvailableRoomsFragment.setOnRefreshListener {
 //                getRooms()
 //                binding.swipeRefreshLayoutInAvailableRoomsFragment.isRefreshing = false
 //            }
+            }
+        }else{
+            binding.availableRoomsTVInAvailableRoomsFragment.text = "All Rooms"
+            binding.hostelNameTVInAvailableRoomsFragment.text = profileViewModel.currentWarden.hostelID.toString()
+            getRooms()
         }
         return binding.root
     }
 
     private fun getRooms() {
+
+        val getRoomsCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(),this@AvailableRoomsFragment)
+        getRoomsCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+            rooms = ManageRoomAccess(
+                requireContext(),
+                profileViewModel.loginToken.toString(),
+                this@AvailableRoomsFragment
+            ).getAllRooms(profileViewModel.currentWarden.hostelID.toString())
+            loadingDialog.cancel()
+            getRoomsCoroutineScope.cancel()
+            if(!rooms.isNullOrEmpty()){
+                sharedViewModel.currentFloor = 0
+                for(room in rooms!!){
+                    if(room.roomNumber>400){
+                        sharedViewModel.fourthFloorRooms.add(room)
+                    }else if(room.roomNumber>300) sharedViewModel.thirdFloorRooms.add(room)
+                    else if(room.roomNumber>200) sharedViewModel.secondFloorRooms.add(room)
+                    else if(room.roomNumber>100) sharedViewModel.firstFloorRooms.add(room)
+                    else sharedViewModel.groundFloorRooms.add(room)
+                }
+
+                loadViewPager()
+            }
+        }
+    }
+
+    private fun getAvailableRooms() {
         val getRoomsCoroutineScope = CoroutineScope(Dispatchers.Main)
         val loadingDialog = getLoadingDialog(requireContext(),this@AvailableRoomsFragment)
         getRoomsCoroutineScope.launch {

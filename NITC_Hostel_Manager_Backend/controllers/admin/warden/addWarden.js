@@ -11,7 +11,7 @@ module.exports = async(req,res)=>{
         wardenModel.createWarden(req.body).then(function(result){
             if(result == true){
                 var hostelModel = new HostelModel();
-                hostelModel.assignWarden(req.body.email).then(function(assigned){
+                hostelModel.assignWarden(req.body.email,req.body.hostelID).then(function(assigned){
                     if(assigned == true){
                         res.status(200).send(true);
                         console.log("Warden is added");
