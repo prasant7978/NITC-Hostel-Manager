@@ -126,4 +126,9 @@
         android:name="com.kumar.nitchostelmanager.hostels.fragments.ViewHostelFragment"
         android:label="fragment_view_hostel"
         tools:layout="@layout/fragment_view_hostel" />
+    <fragment
+        android:id="@+id/addComplaintFragment"
+        android:name="com.kumar.nitchostelmanager.complaints.fragments.AddComplaintFragment"
+        android:label="fragment_add_complaint"
+        tools:layout="@layout/fragment_add_complaint" />
 </navigation>

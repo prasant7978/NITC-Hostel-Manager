@@ -20,7 +20,7 @@ app.use("/hostels", require("./routes/hostel"))
 
 app.use("/rooms", require("./routes/room"))
 
-var server = app.listen(3001,'192.168.217.62',function(req,res){
+var server = app.listen(3001,'192.168.50.134',function(req,res){
     var host= server.address().address;
     var port = server.address().port;
     console.log(`Server running at http://${host}:${port}/`);

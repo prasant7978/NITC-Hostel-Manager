@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutInComplaintCard"
+    android:layout_margin="5dp"
+    android:background="@drawable/complaint_shape"
+    android:elevation="10dp"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/complaintStatusInComplaintCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Complaint Status"
+        android:fontFamily="@font/inter_semibold"
+        android:textStyle="bold|italic"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/complaintMessageInComplaintCard"/>
+
+    <TextView
+        android:id="@+id/complaintMessageInComplaintCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Complaint Message"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/black"
+        android:layout_margin="5dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/complaintStatusInComplaintCard"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="21/09/2023"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintTop_toTopOf="@+id/complaintStatusInComplaintCard"
+        app:layout_constraintBottom_toBottomOf="@+id/complaintStatusInComplaintCard"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface ManageComplaintService {
-    @POST("complaints/add")
+    @POST("complaints/issue")
     fun issueComplaint(@Header("auth-token") loginToken:String, @Body complaint: Complaint): Call<Boolean>
 
     @GET("complaints/own")
