@@ -46,6 +46,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         binding.complaintsCardInWardenDashboard.setOnClickListener {
             findNavController().navigate(R.id.viewAllComplaintsFragment)
         }
+
         binding.logoutButtonInWardenDashboard.setOnClickListener {
             LocalStorageAccess(
                 this@WardenDashboardFragment,
@@ -58,11 +59,17 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         binding.roomsCardInWardenDashboard.setOnClickListener {
             findNavController().navigate(R.id.availableRoomsFragment)
         }
+
         binding.noticesCardInWardenDashboard.setOnClickListener {
             findNavController().navigate(R.id.noticeListFragment)
         }
+
         binding.studentsCardInWardenDashboard.setOnClickListener {
             findNavController().navigate(R.id.occupantsFragment)
+        }
+
+        binding.generateBillBoxInWardenDashboard.setOnClickListener {
+            findNavController().navigate(R.id.wardenGenerateBillFragment)
         }
 
         val backCallback = object: OnBackPressedCallback(true){

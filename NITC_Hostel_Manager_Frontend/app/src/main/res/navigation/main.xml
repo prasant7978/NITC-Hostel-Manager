@@ -136,4 +136,9 @@
         android:name="com.kumar.nitchostelmanager.students.fragments.OccupantsFragment"
         android:label="fragment_occupants"
         tools:layout="@layout/fragment_occupants" />
+    <fragment
+        android:id="@+id/wardenGenerateBillFragment"
+        android:name="com.kumar.nitchostelmanager.bills.fragments.WardenGenerateBillFragment"
+        android:label="fragment_warden_generate_bill"
+        tools:layout="@layout/fragment_warden_generate_bill" />
 </navigation>
