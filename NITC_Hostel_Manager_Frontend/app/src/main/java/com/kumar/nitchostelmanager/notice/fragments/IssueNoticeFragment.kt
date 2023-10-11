@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.kumar.nitchostelmanager.CircleLoadingDialog
+import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentIssueNoticeBinding
 import com.kumar.nitchostelmanager.models.Notice
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
@@ -40,6 +43,7 @@ class IssueNoticeFragment : Fragment(),CircleLoadingDialog {
                 binding.headingInputInIssueNoticeFragment.requestFocus()
                 return@setOnClickListener
             }
+
             val messageText = binding.editTextNoticeMessage.text.toString()
             if(messageText.isEmpty()){
                 binding.editTextNoticeMessage.error = "Enter heading"
@@ -60,11 +64,14 @@ class IssueNoticeFragment : Fragment(),CircleLoadingDialog {
 
         }
 
+        val backCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.noticeListFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
+
         return binding.root
-    }
-
-
-    private fun showDialog(){
     }
 
     private fun publishNotice(headingText:String,messageText:String){
@@ -102,7 +109,7 @@ class IssueNoticeFragment : Fragment(),CircleLoadingDialog {
         }
 
         binding.progressBar.visibility = View.INVISIBLE
-//        binding.buttonPublishNotice.isClickable = true
+        binding.publishNoticeButtonInIssueNoticeFragment.isClickable = true
     }
 
     private fun clearAllTextArea(){

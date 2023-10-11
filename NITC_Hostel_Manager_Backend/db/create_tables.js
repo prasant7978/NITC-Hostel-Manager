@@ -90,10 +90,10 @@ db.connect(function(err){
             PRIMARY KEY(billID)
         )`;
 
-        db.query(billquery,function(errbill,result){
-            if(errbill) console.log(errbill);
-            else console.log("Bill created");
-        });
+        // db.query(billquery,function(errbill,result){
+        //     if(errbill) console.log(errbill);
+        //     else console.log("Bill created");
+        // });
 
         var hostelquery = `CREATE TABLE hostels(
             hostelID VARCHAR(255),
