@@ -49,6 +49,8 @@ class ManageRoomAccess(
         }
     }
 
+
+
     suspend fun getAvailableRooms(hostelId: String): Array<Room>?{
         return suspendCoroutine { continuation ->
             val roomServices = ServiceBuilder.buildService(ManageRoomsService::class.java)
@@ -80,7 +82,7 @@ class ManageRoomAccess(
         }
     }
 
-    suspend fun allocateRoom(roomId: String, hostelId: String): Boolean{
+    suspend fun allocateRoom(roomId: Int, hostelId: String): Boolean{
         return suspendCoroutine { continuation ->
             val roomServices = ServiceBuilder.buildService(ManageRoomsService::class.java)
             val requestCall = roomServices.allocateRoom(loginToken, roomId, hostelId)

@@ -97,7 +97,7 @@ db.connect(function(err){
             hostelID VARCHAR(255),
             capacity int,
             charges int,
-            totalStudents int,
+            occupants int,
             occupantsGender VARCHAR(20),
             totalDues DOUBLE(11,2) DEFAULT 0.00,
             wardenEmail VARCHAR(255),
