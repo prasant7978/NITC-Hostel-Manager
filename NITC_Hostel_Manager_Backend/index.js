@@ -22,7 +22,7 @@ app.use("/rooms", require("./routes/room"))
 
 app.use("/warden", require("./routes/warden"))
 
-app.use("/payment")
+app.use("/payment", require("./routes/payment"))
 
 var server = app.listen(3001,'192.168.50.134',function(req,res){
     var host= server.address().address;

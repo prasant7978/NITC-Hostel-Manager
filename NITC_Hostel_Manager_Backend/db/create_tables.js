@@ -74,24 +74,26 @@ db.connect(function(err){
         // });
 
         var billquery = `CREATE TABLE bills(
-            billID VARCHAR(255),
-            studentRoll VARCHAR(255),
-            amount int,
+            billID int NOT NULL AUTO_INCREMENT,
+            studentRoll VARCHAR(10),
+            amount DOUBLE(9,2),
             paid BOOLEAN,
-            month VARCHAR(255),
-            year VARCHAR(255),
+            billMonth VARCHAR(10),
+            billYear VARCHAR(10),
             paymentID int,
+            paymentDate DATE,
+            paymentTime TIME,
             hostelID VARCHAR(255),
-            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll),
-            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID),
-            FOREIGN KEY(paymentID) REFERENCES payments(paymentID),
+            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
+            FOREIGN KEY(paymentID) REFERENCES payments(paymentID) ON DELETE CASCADE,
+            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(billID)
         )`;
 
-        // db.query(billquery,function(errbill,result){
-        //     if(errbill) console.log(errbill);
-        //     else console.log("Bill created");
-        // });
+        db.query(billquery,function(errbill,result){
+            if(errbill) console.log(errbill);
+            else console.log("Bill created");
+        });
 
         var hostelquery = `CREATE TABLE hostels(
             hostelID VARCHAR(255),
@@ -138,10 +140,10 @@ db.connect(function(err){
             PRIMARY KEY(complaintID)
         )`;
 
-        db.query(complaintquery,function(errcomplaint,result){
-            if(errcomplaint) console.log(errcomplaint);
-            else console.log("complaint created");
-        });
+        // db.query(complaintquery,function(errcomplaint,result){
+        //     if(errcomplaint) console.log(errcomplaint);
+        //     else console.log("complaint created");
+        // });
 
         var noticequery = `CREATE TABLE notices(
             noticeID int NOT NULL AUTO_INCREMENT,
