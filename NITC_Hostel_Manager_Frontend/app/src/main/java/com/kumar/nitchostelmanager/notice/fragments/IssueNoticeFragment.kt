@@ -7,11 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
-import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.databinding.FragmentIssueNoticeBinding
 import com.kumar.nitchostelmanager.models.Notice
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
@@ -23,8 +22,8 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class IssueNoticeFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    private lateinit var issueNoticeBinding: FragmentIssueNoticeBinding
+class IssueNoticeFragment : Fragment(),CircleLoadingDialog {
+    private lateinit var binding: FragmentIssueNoticeBinding
     private var referTo: String = ""
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
@@ -32,56 +31,59 @@ class IssueNoticeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        issueNoticeBinding = FragmentIssueNoticeBinding.inflate(inflater, container, false)
+        binding = FragmentIssueNoticeBinding.inflate(inflater, container, false)
 
-        issueNoticeBinding.referTo.onItemSelectedListener = this
-        val referToAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.referTo, android.R.layout.simple_spinner_item)
-        referToAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        issueNoticeBinding.referTo.adapter = referToAdapter
+        binding.publishNoticeButtonInIssueNoticeFragment.setOnClickListener {
+            val headingText = binding.headingInputInIssueNoticeFragment.text.toString()
+            if(headingText.isEmpty()){
+                binding.headingInputInIssueNoticeFragment.error = "Enter heading"
+                binding.headingInputInIssueNoticeFragment.requestFocus()
+                return@setOnClickListener
+            }
+            val messageText = binding.editTextNoticeMessage.text.toString()
+            if(messageText.isEmpty()){
+                binding.editTextNoticeMessage.error = "Enter heading"
+                binding.editTextNoticeMessage.requestFocus()
+                return@setOnClickListener
+            }
 
-        issueNoticeBinding.buttonPublishNotice.setOnClickListener {
-            showDialog()
+            AlertDialog.Builder(context)
+                .setTitle("Publish Notice")
+                .setMessage("Are you sure you want to publish this notice?")
+                .setCancelable(false)
+                .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, which ->
+                    dialogInterface.cancel()
+                })
+                .setPositiveButton("Yes", DialogInterface.OnClickListener { dialogInterface, which ->
+                    publishNotice(headingText,messageText)
+                }).create().show()
+
         }
 
-        return issueNoticeBinding.root
+        return binding.root
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, index: Int, id: Long) {
-        if(parent != null)
-            referTo = parent.getItemAtPosition(index).toString()
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-
-    }
 
     private fun showDialog(){
-        var dialog = AlertDialog.Builder(activity)
-        dialog.setTitle("Publish Notice")
-            .setMessage("Are you sure you want to publish this notice?")
-            .setCancelable(false)
-            .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, which ->
-                dialogInterface.cancel()
-            })
-            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialogInterface, which ->
-                publishNotice()
-            })
-        dialog.create().show()
     }
 
-    private fun publishNotice(){
-        issueNoticeBinding.progressBar.visibility = View.VISIBLE
-        issueNoticeBinding.buttonPublishNotice.isClickable = false
+    private fun publishNotice(headingText:String,messageText:String){
+        binding.progressBar.visibility = View.VISIBLE
+        binding.publishNoticeButtonInIssueNoticeFragment.isClickable = false
 
         val simpleDate = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = simpleDate.format(Date())
 
         val dateAndTime: List<String> = currentDate.split(" ")
+        var hostelID:String? = null
+        if(profileViewModel.userType == "Warden") hostelID = profileViewModel.currentWarden.hostelID.toString()
 
         val notice = Notice(
             date = dateAndTime[0],
-            title = issueNoticeBinding.editTextNoticeTitle.text.toString(),
-            message = issueNoticeBinding.editTextNoticeMessage.text.toString()
+            heading = headingText,
+            messageText,
+            hostelID,
+            profileViewModel.username.toString()
         )
 
         val publishNoticeCoroutineScope = CoroutineScope(Dispatchers.Main)
@@ -91,7 +93,7 @@ class IssueNoticeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
             if(createNotice) {
                 Snackbar.make(
-                    issueNoticeBinding.issueNoticeOuterLayout,
+                    binding.issueNoticeOuterLayout,
                     "Notice has been published successfully",
                     Snackbar.LENGTH_LONG
                 ).setAction("Close", View.OnClickListener { }).show()
@@ -99,12 +101,12 @@ class IssueNoticeFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         }
 
-        issueNoticeBinding.progressBar.visibility = View.INVISIBLE
-        issueNoticeBinding.buttonPublishNotice.isClickable = true
+        binding.progressBar.visibility = View.INVISIBLE
+//        binding.buttonPublishNotice.isClickable = true
     }
 
     private fun clearAllTextArea(){
-        issueNoticeBinding.editTextNoticeTitle.setText("")
-        issueNoticeBinding.editTextNoticeMessage.setText("")
+        binding.headingInputInIssueNoticeFragment.setText("")
+        binding.editTextNoticeMessage.setText("")
     }
 }

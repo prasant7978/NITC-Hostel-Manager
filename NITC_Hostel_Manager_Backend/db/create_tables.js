@@ -138,27 +138,26 @@ db.connect(function(err){
             PRIMARY KEY(complaintID)
         )`;
 
-        db.query(complaintquery,function(errcomplaint,result){
-            if(errcomplaint) console.log(errcomplaint);
-            else console.log("complaint created");
-        });
+        // db.query(complaintquery,function(errcomplaint,result){
+        //     if(errcomplaint) console.log(errcomplaint);
+        //     else console.log("complaint created");
+        // });
 
         var noticequery = `CREATE TABLE notices(
             noticeID int NOT NULL AUTO_INCREMENT,
-            date DATE,
-            time TIME,
+            date VARCHAR(255),
             issuerID VARCHAR(200),
+            heading VARCHAR(500),
             message VARCHAR(2000),
             hostelID VARCHAR(255),
-            referTo VARCHAR(255),
             FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(noticeID)
         )`;
 
-        // db.query(noticequery,function(errnotice,result){
-        //     if(errnotice) console.log(errnotice);
-        //     else console.log("notice created");
-        // });
+        db.query(noticequery,function(errnotice,result){
+            if(errnotice) console.log(errnotice);
+            else console.log("notice created");
+        });
 
         var paymentquery = `CREATE TABLE payments(
             paymentID int NOT NULL AUTO_INCREMENT,
@@ -167,7 +166,9 @@ db.connect(function(err){
             date DATE,
             time TIME,
             amount DOUBLE(9,2),
+            billID VARCHAR(255),
             FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
+
             PRIMARY KEY(paymentID)
         )`;
 

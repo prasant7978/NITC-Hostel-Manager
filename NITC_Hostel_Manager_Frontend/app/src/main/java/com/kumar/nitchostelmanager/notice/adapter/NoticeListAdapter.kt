@@ -21,7 +21,7 @@ class NoticeListAdapter(private var noticeList: ArrayList<Notice>): RecyclerView
     }
 
     override fun onBindViewHolder(holder: NoticeViewHolder, position: Int) {
-        holder.adapterBinding.noticeTitle.text = noticeList[position].title
+        holder.adapterBinding.noticeTitle.text = noticeList[position].heading
         holder.adapterBinding.noticeBody.text = noticeList[position].message
         holder.adapterBinding.date.text = noticeList[position].date
 

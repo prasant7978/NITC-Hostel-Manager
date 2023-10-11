@@ -18,6 +18,7 @@ import com.kumar.nitchostelmanager.databinding.FragmentAdminDashboardBinding
 import com.kumar.nitchostelmanager.hostels.access.ManageHostelsAccess
 import com.kumar.nitchostelmanager.hostels.adapters.HostelListAdapter
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
+import com.kumar.nitchostelmanager.profile.access.ProfileAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import com.kumar.nitchostelmanager.wardens.access.ManageWardensAccess
@@ -37,12 +38,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAdminDashboardBinding.inflate(inflater,container,false)
-
-        getStudentsCount()
-        getTotalComplaints()
-        getTotalNotices()
-        getHostels()
-        getWardensCount()
+        getProfile()
 
         binding.totalWardensCardInAdminDashboard.setOnClickListener {
             findNavController().navigate(R.id.wardenListFragment)
@@ -52,11 +48,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         }
         binding.swipeRefreshLayoutInAdminDashboard.setOnRefreshListener {
 
-            getHostels()
-            getWardensCount()
-            getStudentsCount()
-            getTotalComplaints()
-            getTotalNotices()
+            getProfile()
             binding.swipeRefreshLayoutInAdminDashboard.isRefreshing = false
         }
 
@@ -75,6 +67,28 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
             findNavController().navigate(R.id.loginFragment)
         }
         return binding.root
+    }
+
+    private fun getProfile() {
+        val getProfileCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(),this@AdminDashboardFragment)
+        getProfileCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+            val admin = ProfileAccess(
+                requireContext(),
+                profileViewModel
+            ).getAdminProfile()
+            if(admin!= null){
+                profileViewModel.username = admin.email.toString()
+                profileViewModel.currentAdmin = admin
+                getStudentsCount()
+                getTotalComplaints()
+                getTotalNotices()
+                getHostels()
+                getWardensCount()
+            }
+        }
     }
 
     private fun getWardensCount() {

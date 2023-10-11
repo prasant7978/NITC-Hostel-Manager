@@ -9,6 +9,7 @@ class ProfileViewModel: ViewModel() {
     var userType:String? = null
     var loginToken:String? = null
     var loggedIn:Boolean = false
+    var username:String? = null
     lateinit var currentStudent:Student
     lateinit var currentWarden:Warden
     lateinit var currentAdmin:Admin

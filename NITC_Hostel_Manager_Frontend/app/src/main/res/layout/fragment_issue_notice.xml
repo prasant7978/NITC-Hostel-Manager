@@ -17,52 +17,38 @@
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.8"
+        app:layout_constraintHeight_percent="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.9">
+        app:layout_constraintWidth_percent="0.95">
 
-        <TextView
-            android:id="@+id/textView3"
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:text="Refer to:"
+            android:text="Issue Notice"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/referTo"
-            app:layout_constraintEnd_toStartOf="@+id/referTo"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/referTo" />
-
-        <Spinner
-            android:id="@+id/referTo"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:elevation="5dp"
-            app:layout_constraintBottom_toTopOf="@id/textInputLayoutNoticeTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
+            android:fontFamily="@font/inter_semibold"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.03" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/headingTVInIssueNoticeFragment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.02"
+            android:textSize="22sp"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutNoticeTitle"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:id="@+id/headingInputLayoutInIssueNoticeFragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.8"
             app:boxBackgroundColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/headingTVInIssueNoticeFragment"
             app:layout_constraintBottom_toTopOf="@id/textInputLayoutNoticeMessage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/referTo">
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextNoticeTitle"
+                android:id="@+id/headingInputInIssueNoticeFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -73,14 +59,15 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutNoticeMessage"
-            android:layout_width="300dp"
-            android:layout_height="280dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
+            app:layout_constraintHeight_percent="0.5"
             app:boxBackgroundColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/buttonPublishNotice"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNoticeTitle">
+            app:layout_constraintBottom_toTopOf="@id/publishNoticeButtonInIssueNoticeFragment"
+            app:layout_constraintEnd_toEndOf="@id/headingInputLayoutInIssueNoticeFragment"
+            app:layout_constraintStart_toStartOf="@id/headingInputLayoutInIssueNoticeFragment"
+            app:layout_constraintTop_toBottomOf="@+id/headingInputLayoutInIssueNoticeFragment">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextNoticeMessage"
@@ -93,7 +80,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/buttonPublishNotice"
+            android:id="@+id/publishNoticeButtonInIssueNoticeFragment"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"

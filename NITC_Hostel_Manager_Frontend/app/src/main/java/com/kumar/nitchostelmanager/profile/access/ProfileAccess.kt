@@ -72,7 +72,7 @@ class ProfileAccess(var context: Context, private var profileViewModel: ProfileV
 
             requestCall.enqueue(object: Callback<Admin?>{
                 override fun onResponse(call: Call<Admin?>, response: Response<Admin?>) {
-                    if(response.isSuccessful)
+                    if(response.isSuccessful && response.body() != null)
                         continuation.resume(response.body())
                     else{
                         Toast.makeText(context, "Some Error Occurred", Toast.LENGTH_SHORT).show()

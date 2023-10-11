@@ -33,7 +33,11 @@ class NoticeListFragment : Fragment() {
         binding = FragmentNoticeListBinding.inflate(inflater, container, false)
 
         getAllNotices()
-
+        if(profileViewModel.userType == "Warden" || profileViewModel.userType == "Admin"){
+            binding.addNoticeInNoticeListFragment.setOnClickListener {
+                findNavController().navigate(R.id.issueNoticeFragment)
+            }
+        }
         val backCallback = object: OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 findNavController().navigate(R.id.wardenDashboardFragment)

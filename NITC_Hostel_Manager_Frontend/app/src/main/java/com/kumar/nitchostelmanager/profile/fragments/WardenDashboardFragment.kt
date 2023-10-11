@@ -37,14 +37,6 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
 
         getProfile()
 
-        binding.logoutButtonInWardenDashboard.setOnClickListener {
-            var deleted = LocalStorageAccess(
-                this@WardenDashboardFragment,
-                requireContext(),
-                profileViewModel
-            ).deleteData()
-        }
-
         binding.swipeRefreshLayoutInWardenDashboard.setOnRefreshListener {
             getProfile()
 
@@ -53,6 +45,14 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
 
         binding.complaintsCardInWardenDashboard.setOnClickListener {
             findNavController().navigate(R.id.viewAllComplaintsFragment)
+        }
+        binding.logoutButtonInWardenDashboard.setOnClickListener {
+            LocalStorageAccess(
+                this@WardenDashboardFragment,
+                requireContext(),
+                profileViewModel
+            ).deleteData()
+            findNavController().navigate(R.id.loginFragment)
         }
 
         binding.roomsCardInWardenDashboard.setOnClickListener {
@@ -150,6 +150,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 binding.nameTextInWardenDashboard.text = warden.name.toString()
                 binding.emailTextInWardenDashboard.text = warden.email.toString()
                 profileViewModel.currentWarden = warden
+                profileViewModel.username = warden.email.toString()
                 getHostelDetails()
                 getStudentsCount()
                 getNoticesCount()

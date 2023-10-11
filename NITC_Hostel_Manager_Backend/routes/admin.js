@@ -18,6 +18,8 @@ var getAllWardens = require("../controllers/admin/warden/getAllWardens");
 const getWardensCount = require("../controllers/admin/warden/getWardensCount");
 // var getWardensCount = require("../controllers/admin/getWardensCount")
 
+router.get('/profile',verifyToken,require("../controllers/admin/getProfile"));
+
 router.post("/students/add", verifyToken, addStudent);
 router.get("/students/all", verifyToken, getAllStudents);
 router.get("/students/boys", verifyToken, getBoys);

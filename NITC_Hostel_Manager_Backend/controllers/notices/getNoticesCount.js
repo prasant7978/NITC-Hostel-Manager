@@ -6,41 +6,41 @@ module.exports = async(req,res)=>{
 
     var noticeModel = new NoticeModel();
 
-    if(req.userType == "Students") {
-        noticeModel.getNoticesCountForStudents(user.hostelID).then(function(result){
-        if(result){
-            res.status(200).send(JSON.stringify(result['COUNT(*)']));
-        }else{
-            console.log("result is undefined");
-            res.status(500).send(JSON.stringify(null));
-        }
-        }).catch(function(exc){
-            console.log(exc);
-            res.status(500).send(JSON.stringify(null));
-        });
-    }else if(req.userType == "Warden"){
-        noticeModel.getNoticesCountForWarden(user.hostelID).then(function(result){
-            if(result){
-                res.status(200).send(JSON.stringify(result["COUNT(*)"]));
+    // if(req.userType == "Students") {
+    //     noticeModel.getNoticesCountForStudents(user.hostelID).then(function(result){
+    //     if(result){
+    //         res.status(200).send(JSON.stringify(result['COUNT(*)']));
+    //     }else{
+    //         console.log("result is undefined");
+    //         res.status(500).send(JSON.stringify(null));
+    //     }
+    //     }).catch(function(exc){
+    //         console.log(exc);
+    //         res.status(500).send(JSON.stringify(null));
+    //     });
+    // }else if(req.userType == "Warden"){
+    //     noticeModel.getNoticesCountForWarden(user.hostelID).then(function(result){
+    //         if(result){
+    //             res.status(200).send(JSON.stringify(result["COUNT(*)"]));
+    //         }else{
+    //             console.log("result is undefined");
+    //             res.status(500).send(JSON.stringify(null));
+    //         }
+    //     }).catch(function(exc){
+    //         console.log(exc);
+    //         res.status(500).send(JSON.stringify(null));
+    //     })
+    // }else{
+        noticeModel.getNoticesCount().then(function(result){
+            if(result != undefined){
+                res.status(200).send(JSON.stringify(result));
             }else{
                 console.log("result is undefined");
-                res.status(500).send(JSON.stringify(null));
+                res.status(500).send(JSON.stringify(0));
             }
         }).catch(function(exc){
             console.log(exc);
-            res.status(500).send(JSON.stringify(null));
-        })
-    }else{
-        noticeModel.getNoticesCountForAdmin().then(function(result){
-            if(result){
-                res.status(200).send(JSON.stringify(result["COUNT(*)"]));
-            }else{
-                console.log("result is undefined");
-                res.status(500).send(JSON.stringify(null));
-            }
-        }).catch(function(exc){
-            console.log(exc);
-            res.status(500).send(JSON.stringify(null));
+            res.status(500).send(JSON.stringify(0));
         });
-    }
+    // }
 }
