@@ -36,7 +36,7 @@ class NoticeListFragment : Fragment() {
 
         val backCallback = object: OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.wardenDashboardFragment)
+                findNavController().navigate(R.id.studentDashboardFragment)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
@@ -56,8 +56,6 @@ class NoticeListFragment : Fragment() {
                 noticeListAdapter = NoticeListAdapter(noticeList)
                 binding.recyclerViewInNoticeListFragment.adapter = noticeListAdapter
             }
-            else
-                Toast.makeText(context, "No notices available", Toast.LENGTH_SHORT).show()
         }
     }
 }

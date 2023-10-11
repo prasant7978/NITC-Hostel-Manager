@@ -113,7 +113,7 @@
         tools:layout="@layout/fragment_view_all_complaints" />
     <fragment
         android:id="@+id/studentPaymentHistoryFragment"
-        android:name="com.kumar.nitchostelmanager.payments.fragments.StudentPaymentHistoryFragment"
+        android:name="com.kumar.nitchostelmanager.bills.fragments.StudentBillHistoryFragment"
         android:label="fragment_student_payment_history"
         tools:layout="@layout/fragment_student_payment_history" />
     <fragment
