@@ -133,9 +133,8 @@ db.connect(function(err){
             date VARCHAR(255),
             time VARCHAR(255),
             hostelID VARCHAR(255),
-            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
+            FOREIGN KEY(roomNumber,hostelID) REFERENCES rooms(roomNumber,hostelID) ON DELETE CASCADE,
             FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
-            FOREIGN KEY(roomNumber) REFERENCES rooms(roomNumber) ON DELETE CASCADE,
             PRIMARY KEY(complaintID)
         )`;
 

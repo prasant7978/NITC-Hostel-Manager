@@ -27,8 +27,10 @@ module.exports = class Model{
 
     async allocateRoom(studentRoll, roomNumber, hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('UPDATE rooms SET studentRoll = ? WHERE (roomNumber = ? AND hostelID = ? AND studentRoll IS NULL)', [studentRoll, roomNumber, hostelID], async(exc, result)=>{
+            console.log("\n\n\n studentROll="+studentRoll);
+            db.query('UPDATE rooms SET studentRoll=? WHERE (roomNumber = ? AND hostelID = ? AND studentRoll IS NULL)', [studentRoll, roomNumber, hostelID], async(exc, result)=>{
                 if(exc){
+                    console.log("error in allocating to student");
                     console.log("Error : "+exc);
                     reject(exc);
                 }else{
@@ -44,7 +46,8 @@ module.exports = class Model{
 
     async deallocateRoom(studentRoll, roomNumber, hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('UPDATE rooms SET studentRoll = NULL WHERE (roomNumber = ? AND hostelID = ? AND studentRoll = ?)', [roomNumber, hostelID, studentRoll], async(exc, result)=>{
+            if(roomNumber == -1) resolve(true);
+            db.query('UPDATE rooms SET studentRoll=NULL WHERE (roomNumber = ? AND hostelID = ? AND studentRoll = ?)', [roomNumber, hostelID, studentRoll], async(exc, result)=>{
                 if(exc){
                     console.log("Error : "+exc);
                     reject(exc);

@@ -66,6 +66,7 @@ class AddComplaintFragment : Fragment(), CircleLoadingDialog {
             message = complaintMessage,
             date = dateAndTime[0],
             time = dateAndTime[1],
+            roomNumber= profileViewModel.currentStudent.roomNumber,
             hostelID = profileViewModel.currentStudent.hostelID.toString()
         )
 

@@ -41,6 +41,19 @@ module.exports = class Model{
         });
     }
 
+    async decrementOccupants(hostelID){
+        return new Promise((resolve,reject)=>{
+            if(hostelID == null) resolve(true);
+            db.query('UPDATE hostels set occupants=occupants-1 WHERE hostelID=?',[hostelID],async(err,result)=>{
+                if(err){
+                    console.log(err);
+                    reject(err)
+                }else{
+                    resolve(true);
+                }
+            })
+        })
+    }
     async deleteHostel(hostelID){
         return new Promise((resolve, reject)=>{
             db.query('DELETE FROM hostels WHERE hostelID = ?', [hostelID], async(err, hostel)=>{

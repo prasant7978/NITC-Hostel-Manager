@@ -145,7 +145,9 @@ module.exports = class Model{
 
     async allocateRoom(roomID,hostelID,studentRoll){
         return new Promise((resolve,reject)=>{
-            db.query('UPDATE students SET roomNumber=? AND hostelID=? WHERE studentRoll=?',[roomID,hostelID,studentRoll],async(err,result)=>{
+            console.log("\n\n\n\nstudent = "+studentRoll);
+            console.log("roomiD = "+roomID);
+            db.query('UPDATE students SET roomNumber=?, hostelID=? WHERE studentRoll=?',[roomID,hostelID,studentRoll],async(err,result)=>{
                 if(err) {
                     console.log("error in updating hostel and room number for student"+err);
                     reject(err);
