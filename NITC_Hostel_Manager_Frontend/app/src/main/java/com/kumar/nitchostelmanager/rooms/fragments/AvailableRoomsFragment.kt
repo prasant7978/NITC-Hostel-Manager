@@ -57,9 +57,17 @@ class AvailableRoomsFragment:Fragment(),CircleLoadingDialog {
             loadingDialog.cancel()
             getRoomsCoroutineScope.cancel()
             if(!rooms.isNullOrEmpty()){
-                
-                sharedViewModel.availableRooms = rooms
+//                sharedViewModel.availableRooms = rooms
                 sharedViewModel.currentFloor = 0
+                for(room in rooms!!){
+                    if(room.roomNumber>400){
+                        sharedViewModel.fourthFloorRooms.add(room)
+                    }else if(room.roomNumber>300) sharedViewModel.thirdFloorRooms.add(room)
+                    else if(room.roomNumber>200) sharedViewModel.secondFloorRooms.add(room)
+                    else if(room.roomNumber>100) sharedViewModel.firstFloorRooms.add(room)
+                    else sharedViewModel.groundFloorRooms.add(room)
+                }
+
                 loadViewPager()
             }
         }

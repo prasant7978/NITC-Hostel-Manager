@@ -10,10 +10,10 @@ class SharedViewModel:ViewModel() {
     var updatingHostelID:String? = null
     var viewingHostelID:String? = null
 //    var availableRooms:Array<Room>? = null
-    var firstFloorRooms:Array<Room>? = null
-    var secondFloorRooms:Array<Room>? = null
-    var groundFloorRooms:Array<Room>? = null
-    var thirdFloorRooms:Array<Room>? = null
-    var fourthFloorRooms:Array<Room>? = null
+    var firstFloorRooms = arrayListOf<Room>()
+    var secondFloorRooms = arrayListOf<Room>()
+    var groundFloorRooms = arrayListOf<Room>()
+    var thirdFloorRooms = arrayListOf<Room>()
+    var fourthFloorRooms = arrayListOf<Room>()
     var currentFloor:Int = 1
 }

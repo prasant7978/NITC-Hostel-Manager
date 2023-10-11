@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.kumar.nitchostelmanager.databinding.Fragment401500RoomsBinding
 import com.kumar.nitchostelmanager.rooms.adapters.RoomsGridAdapter
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
@@ -22,11 +23,13 @@ class Rooms401To500Fragment:Fragment() {
     ): View? {
         binding = Fragment401500RoomsBinding.inflate(inflater,container,false)
 
-        binding.gridView401500InFragment.adapter = RoomsGridAdapter(
+        binding.recyclerView401500InFragment.layoutManager = GridLayoutManager(context,4)
+        binding.recyclerView401500InFragment.adapter = RoomsGridAdapter(
             requireContext(),
             profileViewModel,
-            sharedViewModel.availableRooms!!,
-            sharedViewModel.currentFloor
+            sharedViewModel.fourthFloorRooms,
+            sharedViewModel.currentFloor,
+            this@Rooms401To500Fragment
         )
         return binding.root
     }

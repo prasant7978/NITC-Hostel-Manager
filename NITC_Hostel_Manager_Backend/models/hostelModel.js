@@ -97,13 +97,14 @@ module.exports = class Model{
         });
     }
     
-    async decrementCapacity(hostelID){
+    async incrementOccupants(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('UPDATE hostels SET capacity=capacity-1 WHERE hostelID=?',[hostelID],async(exc,_)=>{
+            db.query('UPDATE hostels SET occupants=occupants+1 WHERE hostelID=? AND occupants<capacity',[hostelID],async(exc,_)=>{
                 if(exc){
                     console.log("Error : "+exc);
                     reject(exc);
                 }else{
+                    console.log("hostel updateds");
                     resolve(true);
                 }
             });

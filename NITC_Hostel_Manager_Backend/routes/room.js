@@ -12,7 +12,7 @@ const addRoom = require('../controllers/room/addRoom')
 
 router.get("/allRooms", verifyToken, getAllRooms)
 router.get("/availableRooms", verifyToken, getAvailableRooms)
-router.get("/allocateRoom", verifyToken, allocateRoom)
+router.put("/allocateRoom", verifyToken, allocateRoom)
 router.get("/deallocateRoom", verifyToken, deallocateRoom)
 router.get("/deleteRoom", verifyToken, deleteRoom)
 router.get("/addRoom", verifyToken, addRoom)

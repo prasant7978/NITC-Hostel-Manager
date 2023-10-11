@@ -143,6 +143,18 @@ module.exports = class Model{
         })
     }
 
+    async allocateRoom(roomID,hostelID,studentRoll){
+        return new Promise((resolve,reject)=>{
+            db.query('UPDATE students SET roomNumber=? AND hostelID=? WHERE studentRoll=?',[roomID,hostelID,studentRoll],async(err,result)=>{
+                if(err) {
+                    console.log("error in updating hostel and room number for student"+err);
+                    reject(err);
+                }
+                else resolve(true);
+            });
+        });
+    }
+
     async generateBill(amount,studentRoll){
         return new Promise((resolve,reject)=>{
             db.query('SELECT dues FROM students WHERE studentRoll=?',[studentRoll],async(errDues,duesResult)=>{

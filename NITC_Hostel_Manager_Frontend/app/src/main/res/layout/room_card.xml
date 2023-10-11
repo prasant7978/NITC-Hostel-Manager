@@ -5,7 +5,7 @@
     android:layout_gravity="center"
     android:layout_marginVertical="10dp"
     android:id="@+id/roomCardInRoomCard"
-    app:cardElevation="5dp"
+    app:cardElevation="2dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/ivory_wheat">
 

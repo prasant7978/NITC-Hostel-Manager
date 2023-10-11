@@ -1,40 +1,83 @@
 package com.kumar.nitchostelmanager.rooms.adapters
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.databinding.RoomCardBinding
 import com.kumar.nitchostelmanager.models.Room
+import com.kumar.nitchostelmanager.rooms.access.ManageRoomAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 class RoomsGridAdapter(
     var context: Context,
     var profileViewModel: ProfileViewModel,
-    var rooms:Array<Room>,
-    var floor:Int
-):BaseAdapter() {
-    override fun getCount(): Int {
-        return 100
+    var rooms:ArrayList<Room>,
+    var floor:Int,
+    var parentFragment:Fragment
+): RecyclerView.Adapter<RoomsGridAdapter.RoomsGridViewHolder>(),CircleLoadingDialog {
+    class RoomsGridViewHolder(val binding:RoomCardBinding):RecyclerView.ViewHolder(binding.root) {
+
     }
 
-    override fun getItem(position: Int): Any? {
-        return null
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomsGridViewHolder {
+        val binding = RoomCardBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return RoomsGridViewHolder(binding)
     }
 
-    override fun getItemId(position: Int): Long {
-        return 0
+    override fun getItemCount(): Int {
+        return rooms.size
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = LayoutInflater.from(parent!!.context).inflate(R.layout.room_card,parent,false)
+    override fun onBindViewHolder(holder: RoomsGridViewHolder, position: Int) {
+        holder.binding.roomNumberInRoomCard.text = rooms[position].roomNumber.toString()
+        holder.binding.roomCardInRoomCard.setOnClickListener {
+            AlertDialog.Builder(context)
+                .setTitle("Select this room")
+                .setPositiveButton("Yes"){dialog,which->
+                    allocateRoom(position)
+                }
+                .setNegativeButton("No"){dialog,which->
+                    dialog.cancel()
+                }
+                .create().show()
 
-        val roomNumber = view.findViewById<TextView>(R.id.roomNumberInRoomCard)
-        val roomCard = view.findViewById<CardView>(R.id.roomCardInRoomCard)
-        roomNumber.text = rooms[(floor*100) + position].roomNumber.toString()
-        return view
+        }
     }
+
+    private fun allocateRoom(position: Int){
+        val allocateRoomCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(context, parentFragment )
+        allocateRoomCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+            val allocated = ManageRoomAccess(
+                context,
+                profileViewModel.loginToken.toString(),
+                parentFragment
+            ).allocateRoom(rooms[position].roomNumber,rooms[position].hostelID)
+            loadingDialog.cancel()
+            allocateRoomCoroutineScope.cancel()
+            if(allocated){
+                Toast.makeText(context,"Allocated",Toast.LENGTH_SHORT).show()
+                if(profileViewModel.userType == "Student") parentFragment.findNavController().navigate(R.id.studentDashboardFragment)
+                else parentFragment.findNavController().navigate(R.id.allStudentsFragment)
+            }
+        }
+    }
+
 }
