@@ -6,19 +6,19 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.kumar.nitchostelmanager.R
-import com.kumar.nitchostelmanager.databinding.ComplaintCardBinding
+import com.kumar.nitchostelmanager.databinding.ComplaintOwnCardBinding
 import com.kumar.nitchostelmanager.models.Complaint
 
 class OwnComplaintsAdapter(
     private val complaintsList: Array<Complaint>,
     val context: Context
 ): RecyclerView.Adapter<OwnComplaintsAdapter.ComplaintsViewHolder>() {
-    class ComplaintsViewHolder(val adapterBinding: ComplaintCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
+    class ComplaintsViewHolder(val adapterBinding: ComplaintOwnCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComplaintsViewHolder {
-        val binding = ComplaintCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ComplaintOwnCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ComplaintsViewHolder(binding)
     }
 

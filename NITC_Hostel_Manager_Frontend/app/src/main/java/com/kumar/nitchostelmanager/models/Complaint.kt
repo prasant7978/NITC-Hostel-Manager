@@ -9,5 +9,6 @@ data class Complaint(
     var message: String = "",
     var date: String = "",
     var time: String = "",
-    var hostelID: String = ""
+    var hostelID: String = "",
+    var roomNumber: Int = 0
 ){}

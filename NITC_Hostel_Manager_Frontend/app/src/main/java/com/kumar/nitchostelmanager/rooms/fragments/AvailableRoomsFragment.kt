@@ -57,8 +57,6 @@ class AvailableRoomsFragment:Fragment(),CircleLoadingDialog {
             loadingDialog.cancel()
             getRoomsCoroutineScope.cancel()
             if(!rooms.isNullOrEmpty()){
-                
-                sharedViewModel.availableRooms = rooms
                 sharedViewModel.currentFloor = 0
                 loadViewPager()
             }

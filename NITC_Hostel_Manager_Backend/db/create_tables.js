@@ -128,12 +128,14 @@ db.connect(function(err){
             complaintID int NOT NULL AUTO_INCREMENT,
             status VARCHAR(25),
             studentRoll VARCHAR(10),
+            roomNumber int,
             message VARCHAR(2000),
             date VARCHAR(255),
             time VARCHAR(255),
             hostelID VARCHAR(255),
             FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
+            FOREIGN KEY(roomNumber) REFERENCES rooms(roomNumber) ON DELETE CASCADE,
             PRIMARY KEY(complaintID)
         )`;
 

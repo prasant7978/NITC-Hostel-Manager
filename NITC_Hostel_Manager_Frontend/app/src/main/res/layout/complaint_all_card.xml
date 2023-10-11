@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    android:background="@drawable/complaint_all_shape"
+    android:elevation="10dp"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/studentRollInAllComplaintCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Roll"
+        android:fontFamily="@font/inter_semibold"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/roomNoInAllComplaintCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Room No."
+        android:fontFamily="@font/inter_semibold"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/studentRollInAllComplaintCard"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/messageInAllComplaintCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Complaint Message"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/black"
+        android:layout_margin="5dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/roomNoInAllComplaintCard"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/statusInAllComplaintCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="status"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="italic|bold"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintTop_toTopOf="@id/studentRollInAllComplaintCard"
+        app:layout_constraintBottom_toBottomOf="@id/studentRollInAllComplaintCard"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
