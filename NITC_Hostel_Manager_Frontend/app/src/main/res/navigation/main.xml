@@ -131,4 +131,9 @@
         android:name="com.kumar.nitchostelmanager.complaints.fragments.AddComplaintFragment"
         android:label="fragment_add_complaint"
         tools:layout="@layout/fragment_add_complaint" />
+    <fragment
+        android:id="@+id/occupantsFragment"
+        android:name="com.kumar.nitchostelmanager.students.fragments.OccupantsFragment"
+        android:label="fragment_occupants"
+        tools:layout="@layout/fragment_occupants" />
 </navigation>

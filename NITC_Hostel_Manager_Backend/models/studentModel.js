@@ -18,9 +18,9 @@ module.exports = class Model{
         })
     }
 
-    async countHostelOccupants(email){
+    async countHostelOccupants(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT COUNT(*) FROM students WHERE email = ?',[email],async(exc,studentsCount)=>{
+            db.query('SELECT COUNT(*) FROM students WHERE hostelID = ?',[hostelID],async(exc,studentsCount)=>{
                 if(exc){
                     console.log(exc);
                     reject(exc);

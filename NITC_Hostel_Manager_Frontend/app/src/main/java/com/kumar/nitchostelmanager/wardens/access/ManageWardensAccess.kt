@@ -28,10 +28,10 @@ class ManageWardensAccess(
             var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)
             var requestCall = manageWardenService.addWarden(profileViewModel.loginToken.toString(),newWarden)
 
-            requestCall.enqueue(object: Callback<Warden?> {
+            requestCall.enqueue(object: Callback<Boolean> {
                 override fun onResponse(
-                    call: Call<Warden?>,
-                    response: Response<Warden?>
+                    call: Call<Boolean>,
+                    response: Response<Boolean>
                 ) {
                     if(response.isSuccessful){
                         continuation.resume(true)
@@ -41,7 +41,7 @@ class ManageWardensAccess(
                     }
                 }
 
-                override fun onFailure(call: Call<Warden?>, t: Throwable) {
+                override fun onFailure(call: Call<Boolean>, t: Throwable) {
                     Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
                     Log.d("addWarden","Error : $t")
                     continuation.resume(false)

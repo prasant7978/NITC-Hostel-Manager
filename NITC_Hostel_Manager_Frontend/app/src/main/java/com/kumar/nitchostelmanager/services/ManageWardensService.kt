@@ -19,7 +19,7 @@ interface ManageWardensService {
     fun getWardensCount(@Header ("auth-token") loginToken:String): Call<Int>
 
     @POST("admin/wardens/add")
-    fun addWarden(@Header("auth-token") loginToken: String, @Body warden: Warden):Call<Warden?>
+    fun addWarden(@Header("auth-token") loginToken: String, @Body warden: Warden):Call<Boolean>
 
     @POST("admin/wardens/update")
     fun updateWarden(@Header("auth-token") loginToken: String, @Query("wardenEmail") wardenEmail:String, @Body warden: Warden):Call<Warden?>

@@ -124,6 +124,21 @@ module.exports = class Model{
         });
     }
 
+    async getOccupants(hostelID){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT * FROM students WHERE hostelID = ?',[hostelID],async(exc,occupants)=>{
+                if(exc){
+                    console.log(exc);
+                    reject(exc);
+                }else{
+                    // console.log("students count = ");
+                    console.log(occupants);
+                    resolve(occupants);
+                }
+            });
+        });
+    }
+
     async addDues(amount,hostelID){
         return new Promise((resolve,reject)=>{
             db.query('UPDATE hostels SET totalDues = totalDues+? WHERE hostelID=?',[amount,hostelID],async(exc,result)=>{
