@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/constraintLayoutInWardenCard"
     android:elevation="15dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topLayout"
+        android:id="@+id/topLayoutInWardenCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#E6E6FA"
@@ -19,43 +19,47 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/wardenName"
+            android:id="@+id/wardenNameInWardenCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Warden Name"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_marginStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.03"
             android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/wardenEmail"
+            app:layout_constraintBottom_toTopOf="@+id/wardenEmailInWardenCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/wardenEmail"
+            android:id="@+id/wardenEmailInWardenCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Warden Email"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxWidth="200dp"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/wardenPhone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wardenName" />
+            app:layout_constraintBottom_toTopOf="@+id/wardenPhoneInWardenCard"
+            app:layout_constraintStart_toStartOf="@id/wardenNameInWardenCard"
+            app:layout_constraintTop_toBottomOf="@+id/wardenNameInWardenCard" />
 
         <TextView
-            android:id="@+id/wardenPhone"
+            android:id="@+id/wardenPhoneInWardenCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Warden Phone"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wardenEmail" />
+            app:layout_constraintStart_toStartOf="@id/wardenNameInWardenCard"
+            app:layout_constraintTop_toBottomOf="@+id/wardenEmailInWardenCard" />
 
         <TextView
-            android:id="@+id/hostelName"
+            android:id="@+id/hostelNameInWardenCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
@@ -77,6 +81,6 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/topLayout"/>
+    app:layout_constraintTop_toBottomOf="@+id/topLayoutInWardenCard"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,7 +69,7 @@ class WardenListFragment : Fragment() {
             if(wardenList != null){
                 wardenList.reverse()
                 binding.recyclerViewInWardenListFragment.layoutManager = LinearLayoutManager(activity)
-                wardenListAdapter = WardenListAdapter(wardenList, sharedViewModel, this@WardenListFragment)
+                wardenListAdapter = WardenListAdapter(requireContext(),profileViewModel,wardenList, sharedViewModel, this@WardenListFragment)
                 binding.recyclerViewInWardenListFragment.adapter = wardenListAdapter
             }
             else{

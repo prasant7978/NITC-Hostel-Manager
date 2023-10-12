@@ -11,8 +11,12 @@ interface ManageBillService {
     @POST("bill/generateBill")
     fun generateBill(@Header("auth-token") loginToken: String, @Body bill: Bill): Call<Boolean>
 
-    @GET("bill/getAllOwnBills")
+    @GET("bill/ownBills")
     fun getAllOwnBills(@Header("auth-token") loginToken: String): Call<ArrayList<Bill>>
+
+
+    @GET("bill/unpaidBills")
+    fun getUnpaidBills(@Header("auth-token") loginToken: String): Call<ArrayList<Bill>>
 
     @GET("bill/getAllBills")
     fun getAllBills(@Header("auth-token") loginToken: String): Call<ArrayList<Bill>>

@@ -113,7 +113,7 @@
         tools:layout="@layout/fragment_view_all_complaints" />
     <fragment
         android:id="@+id/studentPaymentHistoryFragment"
-        android:name="com.kumar.nitchostelmanager.bills.fragments.StudentBillHistoryFragment"
+        android:name="com.kumar.nitchostelmanager.bills.fragments.StudentPaymentHistoryFragment"
         android:label="fragment_student_payment_history"
         tools:layout="@layout/fragment_student_payment_history" />
     <fragment
@@ -145,4 +145,8 @@
         android:id="@+id/allBillsFragment"
         android:name="com.kumar.nitchostelmanager.bills.fragments.AllBillsFragment"
         android:label="AllBillsFragment" />
+    <fragment
+        android:id="@+id/ownBillsFragment"
+        android:name="com.kumar.nitchostelmanager.bills.fragments.OwnBillsFragment"
+        android:label="OwnBillsFragment" />
 </navigation>

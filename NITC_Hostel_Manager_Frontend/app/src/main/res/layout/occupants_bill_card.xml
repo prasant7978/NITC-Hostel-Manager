@@ -6,9 +6,7 @@
     android:id="@+id/constraintLayoutInOccupantsBillCard"
     android:background="@drawable/bill_shape"
     android:elevation="10dp"
-    android:paddingTop="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:paddingTop="10dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dueMonthTVInOccupantsBillCard"
@@ -19,7 +17,7 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.001"
+        app:layout_constraintHorizontal_bias="0.027"
         app:layout_constraintVertical_bias="0.001"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -78,7 +76,7 @@
         android:textSize="14sp"
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintTop_toTopOf="@id/amountInOccupantsBillCard"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/dueMonthTVInOccupantsBillCard"
         app:layout_constraintBottom_toBottomOf="@id/amountInOccupantsBillCard"/>
 
 
@@ -120,7 +118,8 @@
         app:layout_constraintTop_toTopOf="@id/billTypeInOccupantsBillCard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/dateInOccupantsBillCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
         android:id="@+id/statusInOccupantsBillCard"/>
 
     <com.google.android.material.textview.MaterialTextView

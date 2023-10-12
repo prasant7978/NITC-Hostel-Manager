@@ -4,6 +4,7 @@ import com.kumar.nitchostelmanager.models.Student
 import com.kumar.nitchostelmanager.models.Warden
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -25,7 +26,7 @@ interface ManageWardensService {
     fun updateWarden(@Header("auth-token") loginToken: String, @Query("wardenEmail") wardenEmail:String, @Body warden: Warden):Call<Warden?>
 
 
-    @POST("admin/wardens/delete")
+    @DELETE("admin/wardens/delete")
     fun deleteWarden(@Header("auth-token") loginToken: String, @Query("wardenEmail") wardenEmail:String):Call<Boolean>
 
 }

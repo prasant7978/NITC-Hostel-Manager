@@ -3,6 +3,7 @@ package com.kumar.nitchostelmanager.services
 import com.kumar.nitchostelmanager.models.Student
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -38,7 +39,7 @@ interface ManageStudentsService {
     @POST("admin/students/update")
     fun updateStudent(@Header("auth-token") loginToken: String,@Query("studentRoll") studentRoll:String,@Body student: Student):Call<Student?>
 
-    @POST("admin/students/delete")
+    @DELETE("admin/students/delete")
     fun deleteStudent(@Header("auth-token") loginToken: String,@Query("studentRoll") studentRoll:String):Call<Boolean>
 
 }

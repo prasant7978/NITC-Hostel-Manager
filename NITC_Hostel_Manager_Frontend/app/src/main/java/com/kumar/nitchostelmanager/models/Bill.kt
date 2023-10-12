@@ -1,7 +1,7 @@
 package com.kumar.nitchostelmanager.models
 
 data class Bill(
-    var billID: String? = null,
+    var billID: Int = 0,
     var studentRoll: String? = null,
     var amount: Double = 0.0,
     var paid: Byte = 0,

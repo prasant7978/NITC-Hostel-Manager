@@ -2,7 +2,7 @@ const StudentModel = require('../../../models/studentModel')
 
 module.exports = async(req, res) => {
     var studentModel = new StudentModel()
-    studentModel.deleteStudent(req.body.username).then(function(result){
+    studentModel.deleteStudent(req.query.studentRoll).then(function(result){
         console.log("student deleted successfully");
         res.status(200).send(true)
     }).catch(function(err){

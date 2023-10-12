@@ -126,6 +126,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 binding.hostelsRecyclerViewInAdminDashboard.layoutManager = LinearLayoutManager(context)
                 binding.hostelsRecyclerViewInAdminDashboard.adapter = HostelListAdapter(
                     requireContext(),
+                    profileViewModel.loginToken.toString(),
                     this@AdminDashboardFragment,
                     sharedViewModel,
                     hostels

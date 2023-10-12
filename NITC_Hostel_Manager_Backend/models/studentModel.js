@@ -185,6 +185,19 @@ module.exports = class Model{
         });
     }
 
+    async payDues(amount,studentRoll){
+        return new Promise((resolve,reject)=>{
+            db.query('UPDATE students set dues=dues-? WHERE studentRoll=?',[amount,studentRoll],async(errDues,duesResult)=>{
+                if(errDues){
+                    console.log("Error : "+errDues);
+                    reject(errDues);
+                }else{
+                    resolve(true)
+                }
+            });
+        });
+    }
+
     async findStudentByRollAndPassword(studentRoll, password){
         return new Promise((resolve, reject) => {
             db.query('SELECT * FROM students WHERE studentRoll = ? AND password = ?', [studentRoll.toUpperCase(), password], async(err, result) => {
