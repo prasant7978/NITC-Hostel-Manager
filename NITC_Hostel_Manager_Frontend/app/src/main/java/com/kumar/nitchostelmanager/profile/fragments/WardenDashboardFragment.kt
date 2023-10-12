@@ -93,7 +93,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 requireContext(),
                 this@WardenDashboardFragment,
                 profileViewModel.loginToken.toString()
-            ).getComplaintsCount()
+            ).getComplaintsCount(profileViewModel.currentWarden.hostelID)
 
             loadingDialog.cancel()
             complaintsCoroutineScope.cancel()

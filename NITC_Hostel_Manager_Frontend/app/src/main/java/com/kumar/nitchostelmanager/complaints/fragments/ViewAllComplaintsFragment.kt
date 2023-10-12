@@ -25,6 +25,7 @@ import com.kumar.nitchostelmanager.databinding.FragmentViewAllComplaintsBinding
 import com.kumar.nitchostelmanager.models.Complaint
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -147,7 +148,7 @@ class ViewAllComplaintsFragment : Fragment() {
                 requireContext(),
                 this@ViewAllComplaintsFragment,
                 profileViewModel.loginToken.toString()
-            ).viewAllComplaints()
+            ).viewAllComplaints(profileViewModel.currentWarden.hostelID.toString())
             complaintsCoroutineScope.cancel()
 
             if(!complaintsList.isNullOrEmpty()){

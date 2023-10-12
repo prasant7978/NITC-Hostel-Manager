@@ -21,7 +21,7 @@ import com.kumar.nitchostelmanager.models.Notice
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
 import com.kumar.nitchostelmanager.notice.adapter.NoticeListAdapter
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+//import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -49,15 +49,16 @@ class NoticeListFragment : Fragment() {
             }
         }
 
-        val backCallback = object: OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                if(profileViewModel.userType == "Student")
-                    findNavController().navigate(R.id.studentDashboardFragment)
-                else if(profileViewModel.userType == "Warden")
-                    findNavController().navigate(R.id.wardenDashboardFragment)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
+//        val backCallback = object: OnBackPressedCallback(true){
+//            override fun handleOnBackPressed() {
+////                if(profileViewModel.userType == "Student")
+////                    findNavController().navigate(R.id.studentDashboardFragment)
+////                else if(profileViewModel.userType == "Warden")
+////                    findNavController().navigate(R.id.wardenDashboardFragment)
+////                else findNavController().navigate(R.id.)
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
 
         return binding.root
     }

@@ -86,8 +86,12 @@ class RoomsGridAdapter(
             loadingDialog.cancel()
             allocateRoomCoroutineScope.cancel()
             if(allocated){
+                rooms.clear()
                 Toast.makeText(context,"Allocated",Toast.LENGTH_SHORT).show()
-                if(profileViewModel.userType == "Student") parentFragment.findNavController().navigate(R.id.studentDashboardFragment)
+                if(profileViewModel.userType == "Student"){
+
+                    parentFragment.findNavController().navigate(R.id.studentDashboardFragment)
+                }
                 else parentFragment.findNavController().navigate(R.id.allStudentsFragment)
             }
         }

@@ -78,6 +78,7 @@ db.connect(function(err){
             studentRoll VARCHAR(10),
             amount DOUBLE(9,2),
             paid BOOLEAN,
+            billType VARCHAR(300), 
             billMonth VARCHAR(10),
             billYear VARCHAR(10),
             paymentID int,
@@ -156,10 +157,10 @@ db.connect(function(err){
             PRIMARY KEY(noticeID)
         )`;
 
-        db.query(noticequery,function(errnotice,result){
-            if(errnotice) console.log(errnotice);
-            else console.log("notice created");
-        });
+        // db.query(noticequery,function(errnotice,result){
+        //     if(errnotice) console.log(errnotice);
+        //     else console.log("notice created");
+        // });
 
         var paymentquery = `CREATE TABLE payments(
             paymentID int NOT NULL AUTO_INCREMENT,
