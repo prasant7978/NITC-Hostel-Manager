@@ -27,7 +27,7 @@ module.exports = class Model{
                 }else{
                     console.log("admin found :");
                     console.log(result);
-                    resolve(result)
+                    resolve(result[0])
                 }
             });
         })
