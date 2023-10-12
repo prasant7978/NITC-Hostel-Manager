@@ -86,7 +86,7 @@ db.connect(function(err){
             paymentTime VARCHAR(255),
             hostelID VARCHAR(255),
             FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
-            FOREIGN KEY(paymentID) REFERENCES payments(paymentID) ON DELETE CASCADE,
+            FOREIGN KEY(paymentID) REFERENCES payments(paymentID) ON DELETE SET NULL,
             FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(billID)
         )`;
@@ -169,16 +169,16 @@ db.connect(function(err){
             date VARCHAR(255),
             time VARCHAR(255),
             amount DOUBLE(9,2),
-            billID VARCHAR(255),
+            billID int,
             FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
-
+            FOREIGN KEY(billID) REFERENCES bills(billID) ON DELETE SET NULL,
             PRIMARY KEY(paymentID)
         )`;
 
-        // db.query(paymentquery,function(errpayment,result){
-        //     if(errpayment) console.log(errpayment);
-        //     else console.log("payment created");
-        // });
+        db.query(paymentquery,function(errpayment,result){
+            if(errpayment) console.log(errpayment);
+            else console.log("payment created");
+        });
     
         db.query('SET FOREIGN_KEY_CHECKS = 1', (error) => {
             if (error) {

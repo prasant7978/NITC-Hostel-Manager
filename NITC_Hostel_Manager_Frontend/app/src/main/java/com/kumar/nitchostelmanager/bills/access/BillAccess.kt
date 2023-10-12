@@ -76,6 +76,41 @@ class BillAccess(var context: Context, private var profileViewModel: ProfileView
         }
     }
 
+
+    suspend fun getUnpaidBills(): ArrayList<Bill>?{
+        return suspendCoroutine { continuation ->
+            val billService = ServiceBuilder.buildService(ManageBillService::class.java)
+            val requestCall = billService.getUnpaidBills(profileViewModel.loginToken.toString())
+
+            requestCall.enqueue(object: Callback<ArrayList<Bill>>{
+                override fun onResponse(
+                    call: Call<ArrayList<Bill>>,
+                    response: Response<ArrayList<Bill>>
+                ) {
+                    if(response.isSuccessful) {
+                        if(response.body() != null)
+                            continuation.resume(response.body()!!)
+                        else{
+                            Toast.makeText(context, "No bills found", Toast.LENGTH_SHORT).show()
+                            continuation.resume(null)
+                        }
+                    }
+                    else{
+                        Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show()
+                        continuation.resume(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Bill>>, t: Throwable) {
+                    Toast.makeText(context,"Error : $t", Toast.LENGTH_SHORT).show()
+                    Log.d("getOwnBills","Error : $t")
+                    continuation.resume(null)
+                }
+
+            })
+        }
+    }
+
     suspend fun getAllBills(): ArrayList<Bill>?{
         return suspendCoroutine { continuation ->
             val billService = ServiceBuilder.buildService(ManageBillService::class.java)

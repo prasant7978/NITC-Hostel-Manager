@@ -6,5 +6,6 @@ data class Payment(
     var studentRoll: String = "",
     var date: String = "",
     var time: String = "",
-    var amount: Double = 0.0
-){}
+    var amount: Double = 0.0,
+    var billID:Int = 0
+)

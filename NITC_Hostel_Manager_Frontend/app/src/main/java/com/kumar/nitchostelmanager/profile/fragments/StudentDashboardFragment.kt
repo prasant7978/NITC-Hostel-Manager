@@ -52,7 +52,7 @@ class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
         }
 
         binding.paymentBoxInStudentDashboard.setOnClickListener {
-            findNavController().navigate(R.id.paymentFragment)
+            findNavController().navigate(R.id.ownBillsFragment)
         }
 
         binding.paymentHistoryBoxInStudentDashboard.setOnClickListener {

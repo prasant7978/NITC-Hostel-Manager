@@ -2,7 +2,7 @@ var BillModel = require("../../models/billModel")
 
 module.exports = async(req,res)=>{
     var billModel = new BillModel();
-    billModel.getStudentBills(req.username).then(function(bill){
+    billModel.getStudentUnpaidBills(req.username).then(function(bill){
         if(bill){
             res.status(200).send(JSON.stringify(bill));
             console.log("Bill fetched");
