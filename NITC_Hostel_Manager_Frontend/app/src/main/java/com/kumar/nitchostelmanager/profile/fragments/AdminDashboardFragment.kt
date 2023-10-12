@@ -38,6 +38,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAdminDashboardBinding.inflate(inflater,container,false)
+
         getProfile()
 
         binding.totalWardensCardInAdminDashboard.setOnClickListener {
@@ -51,7 +52,6 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
             findNavController().navigate(R.id.noticeListFragment)
         }
         binding.swipeRefreshLayoutInAdminDashboard.setOnRefreshListener {
-
             getProfile()
             binding.swipeRefreshLayoutInAdminDashboard.isRefreshing = false
         }
@@ -70,6 +70,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
             ).deleteData()
             findNavController().navigate(R.id.loginFragment)
         }
+
         return binding.root
     }
 
@@ -83,8 +84,10 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 requireContext(),
                 profileViewModel
             ).getAdminProfile()
+
             loadingDialog.cancel()
             getProfileCoroutineScope.cancel()
+
             if(admin!= null){
                 profileViewModel.username = admin.email.toString()
                 profileViewModel.currentAdmin = admin
