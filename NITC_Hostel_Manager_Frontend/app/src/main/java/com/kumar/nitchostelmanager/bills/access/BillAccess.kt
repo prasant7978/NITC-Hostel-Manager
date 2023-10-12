@@ -56,7 +56,7 @@ class BillAccess(var context: Context, private var profileViewModel: ProfileView
                         if(response.body() != null)
                             continuation.resume(response.body()!!)
                         else{
-                            Toast.makeText(context, "No complaints found", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "No bills found", Toast.LENGTH_SHORT).show()
                             continuation.resume(null)
                         }
                     }
@@ -90,7 +90,7 @@ class BillAccess(var context: Context, private var profileViewModel: ProfileView
                         if(response.body() != null)
                             continuation.resume(response.body()!!)
                         else{
-                            Toast.makeText(context, "No complaints found", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "No bills found", Toast.LENGTH_SHORT).show()
                             continuation.resume(null)
                         }
                     }

@@ -11,8 +11,8 @@ interface ProfileService {
     @GET("students/profile")
     fun getStudentProfile(@Header("auth-token") loginToken: String): Call<Student?>
 
-    @GET("students/getBill")
-    fun getBill(@Header("auth-token") loginToken: String): Call<Double>
+    @GET("students/getDue")
+    fun getDue(@Header("auth-token") loginToken: String): Call<Double>
 
     @GET("admin/profile")
     fun getAdminProfile(@Header("auth-token") loginToken: String): Call<Admin?>

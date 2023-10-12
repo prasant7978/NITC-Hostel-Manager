@@ -34,12 +34,12 @@ class StudentBillHistoryFragment : Fragment() {
 
         getAllOwnBills()
 
-        val backCallback = object: OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.studentDashboardFragment)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
+//        val backCallback = object: OnBackPressedCallback(true){
+//            override fun handleOnBackPressed() {
+//                findNavController().navigate(R.id.studentDashboardFragment)
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
 
         return binding.root
     }

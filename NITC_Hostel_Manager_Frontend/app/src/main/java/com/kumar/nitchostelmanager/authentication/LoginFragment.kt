@@ -131,8 +131,9 @@ class LoginFragment : Fragment() {
                     }
                 }
 
-            }else{
-                Toast.makeText(context,"Not true",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Toast.makeText(context,"Wrong credentials, please try again.",Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -7,7 +7,7 @@ module.exports = async(userType,username,password) => {
         const adminModel = new Admin()
         var authenticated = false
         await adminModel.findAdminByEmailAndPassword(username, password).then(function(admin){
-            authenticated = true
+            if(admin) authenticated = true
         }).catch(function(exc){
             console.log("Email or Password doesn't match: " + exc);
             return null;
@@ -26,7 +26,7 @@ module.exports = async(userType,username,password) => {
         var authenticated = false
         await studentModel.findStudentByRollAndPassword(username, password).then(function(student){
             console.log("hererere");
-            authenticated = true
+            if(student) authenticated = true
         }).catch(function(error){
             console.log("Rollno or Password doesn't match: " + error);
             return null
@@ -42,8 +42,8 @@ module.exports = async(userType,username,password) => {
     }else{
         const wardenModel = new WardenModel()
         var authenticated = false
-        await wardenModel.findWardenWithEmailAndPassword(username, password).then(function(_){
-            authenticated = true
+        await wardenModel.findWardenWithEmailAndPassword(username, password).then(function(warden){
+            if(warden) authenticated = true
         }).catch(function(error){
             console.log("Email or password does not match: " + error);
             return null
