@@ -64,12 +64,12 @@ class IssueNoticeFragment : Fragment(),CircleLoadingDialog {
 
         }
 
-        val backCallback = object: OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.noticeListFragment)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
+//        val backCallback = object: OnBackPressedCallback(true){
+//            override fun handleOnBackPressed() {
+//                findNavController().navigate(R.id.noticeListFragment)
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
 
         return binding.root
     }

@@ -7,8 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".wardens.fragments.WardenListFragment">
 
+<!--    <com.google.android.material.textview.MaterialTextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:text="All Wardens"-->
+<!--        android:textSize="23sp"-->
+<!--        app:layout_constraintVertical_bias="0.03"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:id="@+id/headingInWardenListFragment"/>-->
+
     <SearchView
-        android:id="@+id/search"
+        android:id="@+id/searchInWardenListFragment"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.7"
         android:layout_height="wrap_content"
@@ -32,12 +45,11 @@
         android:id="@+id/recyclerViewInWardenListFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.83"
-        app:layout_constraintVertical_bias="0.04"
+        app:layout_constraintVertical_bias="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchInWardenListFragment"
+        app:layout_constraintBottom_toTopOf="@id/addWardenButtonInWardenListFragment"
         tools:listitem="@layout/warden_card" />
 
     <com.google.android.material.button.MaterialButton
@@ -47,7 +59,6 @@
         app:layout_constraintWidth_percent="0.37"
         android:fontFamily="@font/inter_semibold"
         android:backgroundTint="@color/navy_blue"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewInWardenListFragment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

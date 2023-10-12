@@ -38,7 +38,6 @@
             android:text="Warden Email"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toTopOf="@+id/wardenPhone"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +50,6 @@
             android:text="Warden Phone"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_marginStart="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wardenEmail" />

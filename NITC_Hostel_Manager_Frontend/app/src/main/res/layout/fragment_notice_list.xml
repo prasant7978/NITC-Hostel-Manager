@@ -6,14 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".notice.fragments.NoticeListFragment">
 
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Notices"
+        android:textSize="23sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.03"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_semibold"
+        android:id="@+id/headingInNoticeListFragment"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewInNoticeListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headingInNoticeListFragment"
         tools:listitem="@layout/notice_card" />
 
 

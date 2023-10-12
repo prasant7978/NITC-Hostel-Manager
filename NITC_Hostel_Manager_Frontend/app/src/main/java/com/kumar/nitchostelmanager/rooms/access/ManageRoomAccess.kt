@@ -26,8 +26,12 @@ class ManageRoomAccess(
             requestCall.enqueue(object: Callback<Array<Room>>{
                 override fun onResponse(call: Call<Array<Room>>, response: Response<Array<Room>>) {
                     if(response.isSuccessful){
-                        if(response.body() != null)
+                        if(response.body() != null){
+                            response.body()!!.sortBy {
+                                it.roomNumber
+                            }
                             continuation.resume(response.body())
+                        }
                         else{
                             Toast.makeText(context,"No rooms found", Toast.LENGTH_SHORT).show()
                             continuation.resume(null)
@@ -59,8 +63,12 @@ class ManageRoomAccess(
             requestCall.enqueue(object: Callback<Array<Room>>{
                 override fun onResponse(call: Call<Array<Room>>, response: Response<Array<Room>>) {
                     if(response.isSuccessful){
-                        if(response.body() != null)
+                        if(response.body() != null){
+                            response.body()!!.sortBy {
+                                it.roomNumber
+                            }
                             continuation.resume(response.body())
+                        }
                         else{
                             Toast.makeText(context,"No available rooms are found", Toast.LENGTH_SHORT).show()
                             continuation.resume(null)

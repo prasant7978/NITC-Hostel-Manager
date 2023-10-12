@@ -46,6 +46,10 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         binding.totalStudentsCardInAdminDashboard.setOnClickListener {
             findNavController().navigate(R.id.allStudentsFragment)
         }
+
+        binding.noticesCardInAdminDashboard.setOnClickListener {
+            findNavController().navigate(R.id.noticeListFragment)
+        }
         binding.swipeRefreshLayoutInAdminDashboard.setOnRefreshListener {
 
             getProfile()
@@ -79,11 +83,13 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 requireContext(),
                 profileViewModel
             ).getAdminProfile()
+            loadingDialog.cancel()
+            getProfileCoroutineScope.cancel()
             if(admin!= null){
                 profileViewModel.username = admin.email.toString()
                 profileViewModel.currentAdmin = admin
                 getStudentsCount()
-                getTotalComplaints()
+//                getTotalComplaints()
                 getTotalNotices()
                 getHostels()
                 getWardensCount()
@@ -142,18 +148,18 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         }
     }
 
-    private fun getTotalComplaints() {
-        var complaintsCountCoroutineScope = CoroutineScope(Dispatchers.Main)
-        complaintsCountCoroutineScope.launch {
-            var complaintsCount = ComplaintsDataAccess(
-                requireContext(),
-                this@AdminDashboardFragment,
-                profileViewModel.loginToken.toString()
-            ).getComplaintsCount()
-                binding.complaintsTextInAdminDashboard.text = complaintsCount.toString()
-            complaintsCountCoroutineScope.cancel()
-        }
-    }
+//    private fun getTotalComplaints() {
+//        var complaintsCountCoroutineScope = CoroutineScope(Dispatchers.Main)
+//        complaintsCountCoroutineScope.launch {
+//            var complaintsCount = ComplaintsDataAccess(
+//                requireContext(),
+//                this@AdminDashboardFragment,
+//                profileViewModel.loginToken.toString()
+//            ).getComplaintsCount()
+//                binding.complaintsTextInAdminDashboard.text = complaintsCount.toString()
+//            complaintsCountCoroutineScope.cancel()
+//        }
+//    }
 
     private fun getStudentsCount() {
         var studentsCountCoroutineScope = CoroutineScope(Dispatchers.Main)

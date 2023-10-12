@@ -37,10 +37,10 @@ class WardenListFragment : Fragment() {
 
         retrieveAllWardens()
 
-        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+        binding.searchInWardenListFragment.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    binding.search.clearFocus()
+                    binding.searchInWardenListFragment.clearFocus()
                     return false
                 }
 
@@ -73,7 +73,7 @@ class WardenListFragment : Fragment() {
                 binding.recyclerViewInWardenListFragment.adapter = wardenListAdapter
             }
             else{
-                binding.search.visibility = View.INVISIBLE
+                binding.searchInWardenListFragment.visibility = View.INVISIBLE
             }
         }
     }
