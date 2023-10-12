@@ -141,4 +141,8 @@
         android:name="com.kumar.nitchostelmanager.bills.fragments.WardenGenerateBillFragment"
         android:label="fragment_warden_generate_bill"
         tools:layout="@layout/fragment_warden_generate_bill" />
+    <fragment
+        android:id="@+id/allBillsFragment"
+        android:name="com.kumar.nitchostelmanager.bills.fragments.AllBillsFragment"
+        android:label="AllBillsFragment" />
 </navigation>

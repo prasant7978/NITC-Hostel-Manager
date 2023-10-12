@@ -25,13 +25,13 @@ class GirlsListAdapter(private var studentList: ArrayList<Student>, private var 
     }
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
-        holder.adapterBinding.studentName.text = studentList[position].name
-        holder.adapterBinding.studentRoll.text = studentList[position].studentRoll
-        holder.adapterBinding.studentEmail.text = studentList[position].email
-        holder.adapterBinding.hostelName.text = studentList[position].hostelID
-        holder.adapterBinding.roomNumber.text = studentList[position].roomNumber.toString()
+        holder.adapterBinding.studentNameInStudentCard.text = studentList[position].name
+        holder.adapterBinding.studentRollInStudentCard.text = studentList[position].studentRoll
+        holder.adapterBinding.studentEmailInStudentCard.text = studentList[position].email
+        holder.adapterBinding.hostelNameInStudentCard.text = studentList[position].hostelID
+        holder.adapterBinding.roomNumberInStudentCard.text = studentList[position].roomNumber.toString()
 
-        holder.adapterBinding.constraintLayout.setOnClickListener {
+        holder.adapterBinding.constraintLayoutInStudentCard.setOnClickListener {
             sharedViewModel.viewingStudentRoll = studentList[position].studentRoll
 
             parentFragment.findNavController().navigate(R.id.viewStudentFragment)

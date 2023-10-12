@@ -14,7 +14,7 @@ class AllComplaintsAdapter(
     private val complaintList: ArrayList<Complaint>,
     val context: Context
 ): RecyclerView.Adapter<AllComplaintsAdapter.AllComplaintsViewHolder>(){
-    class AllComplaintsViewHolder(val adapterBinding: ComplaintAllCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
+    class AllComplaintsViewHolder(val binding: ComplaintAllCardBinding): RecyclerView.ViewHolder(binding.root){
 
     }
 
@@ -28,19 +28,19 @@ class AllComplaintsAdapter(
     }
 
     override fun onBindViewHolder(holder: AllComplaintsViewHolder, position: Int) {
-        holder.adapterBinding.studentRollInAllComplaintCard.text = complaintList[position].studentRoll
-        holder.adapterBinding.roomNoInAllComplaintCard.text = complaintList[position].roomNumber.toString()
-        holder.adapterBinding.messageInAllComplaintCard.text = complaintList[position].message
+        holder.binding.studentRollInAllComplaintCard.text = complaintList[position].studentRoll
+        holder.binding.roomNoInAllComplaintCard.text = complaintList[position].roomNumber.toString()
+        holder.binding.messageInAllComplaintCard.text = complaintList[position].message
 
         val status = complaintList[position].status
-        holder.adapterBinding.statusInAllComplaintCard.text = status
+        holder.binding.statusInAllComplaintCard.text = status
 
-        if(status == "pending")
-            holder.adapterBinding.statusInAllComplaintCard.setTextColor(ContextCompat.getColor(context, R.color.light_orange))
-        else if(status == "completed")
-            holder.adapterBinding.statusInAllComplaintCard.setTextColor(ContextCompat.getColor(context, R.color.light_green))
-        else if(status == "rejected")
-            holder.adapterBinding.statusInAllComplaintCard.setTextColor(ContextCompat.getColor(context, R.color.light_red))
+        if(status == "Pending")
+            holder.binding.statusInAllComplaintCard.setTextColor(ContextCompat.getColor(context, R.color.light_orange))
+        else if(status == "Resolved")
+            holder.binding.statusInAllComplaintCard.setTextColor(ContextCompat.getColor(context, R.color.light_green))
+        else if(status == "Rejected")
+            holder.binding.statusInAllComplaintCard.setTextColor(ContextCompat.getColor(context, R.color.light_red))
 
 
     }

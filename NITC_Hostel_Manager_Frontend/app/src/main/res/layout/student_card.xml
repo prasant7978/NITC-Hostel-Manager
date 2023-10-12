@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/constraintLayoutInStudentCard"
     android:layout_marginBottom="5dp"
     android:background="#DEF5E5"
     android:elevation="10dp"
     android:padding="5dp">
 
     <TextView
-        android:id="@+id/studentName"
+        android:id="@+id/studentNameInStudentCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Student Name"
@@ -19,12 +19,12 @@
         android:textSize="20sp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/studentRoll"
+        app:layout_constraintBottom_toTopOf="@+id/studentRollInStudentCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/studentRoll"
+        android:id="@+id/studentRollInStudentCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Roll No"
@@ -32,12 +32,12 @@
         android:textSize="20sp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/studentEmail"
+        app:layout_constraintBottom_toTopOf="@+id/studentEmailInStudentCard"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studentName" />
+        app:layout_constraintTop_toBottomOf="@+id/studentNameInStudentCard" />
 
     <TextView
-        android:id="@+id/studentEmail"
+        android:id="@+id/studentEmailInStudentCard"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="prashant_m210704ca@nitc.ac.in"
@@ -48,10 +48,10 @@
         android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studentRoll" />
+        app:layout_constraintTop_toBottomOf="@+id/studentRollInStudentCard" />
 
     <TextView
-        android:id="@+id/hostelName"
+        android:id="@+id/hostelNameInStudentCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hostel Name"
@@ -61,12 +61,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.774"
-        app:layout_constraintStart_toEndOf="@+id/studentRoll"
+        app:layout_constraintStart_toEndOf="@+id/studentRollInStudentCard"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.231" />
 
     <TextView
-        android:id="@+id/roomNumber"
+        android:id="@+id/roomNumberInStudentCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
@@ -74,8 +74,8 @@
         android:textColor="@color/dark_beige"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/hostelName"
-        app:layout_constraintStart_toStartOf="@+id/hostelName"
-        app:layout_constraintTop_toBottomOf="@+id/hostelName" />
+        app:layout_constraintEnd_toEndOf="@+id/hostelNameInStudentCard"
+        app:layout_constraintStart_toStartOf="@+id/hostelNameInStudentCard"
+        app:layout_constraintTop_toBottomOf="@+id/hostelNameInStudentCard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

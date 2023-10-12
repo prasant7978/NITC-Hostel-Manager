@@ -68,8 +68,8 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             findNavController().navigate(R.id.occupantsFragment)
         }
 
-        binding.generateBillBoxInWardenDashboard.setOnClickListener {
-            findNavController().navigate(R.id.wardenGenerateBillFragment)
+        binding.billsBoxInWardenDashboard.setOnClickListener {
+            findNavController().navigate(R.id.allBillsFragment)
         }
 
         val backCallback = object: OnBackPressedCallback(true){

@@ -15,7 +15,7 @@ class BoysListAdapter(
     private var sharedViewModel: SharedViewModel,
     private var parentFragment: Fragment
 ): RecyclerView.Adapter<BoysListAdapter.StudentViewHolder>() {
-    class StudentViewHolder(val adapterBinding: StudentCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
+    class StudentViewHolder(val binding: StudentCardBinding): RecyclerView.ViewHolder(binding.root){
 
     }
 
@@ -29,13 +29,13 @@ class BoysListAdapter(
     }
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
-        holder.adapterBinding.studentName.text = studentList[position].name
-        holder.adapterBinding.studentRoll.text = studentList[position].studentRoll
-        holder.adapterBinding.studentEmail.text = studentList[position].email
-        holder.adapterBinding.hostelName.text = studentList[position].hostelID
-        holder.adapterBinding.roomNumber.text = studentList[position].roomNumber.toString()
+        holder.binding.studentNameInStudentCard.text = studentList[position].name
+        holder.binding.studentRollInStudentCard.text = studentList[position].studentRoll
+        holder.binding.studentEmailInStudentCard.text = studentList[position].email
+        holder.binding.hostelNameInStudentCard.text = studentList[position].hostelID
+        holder.binding.roomNumberInStudentCard.text = studentList[position].roomNumber.toString()
 
-        holder.adapterBinding.constraintLayout.setOnClickListener {
+        holder.binding.constraintLayoutInStudentCard.setOnClickListener {
             sharedViewModel.viewingStudentRoll = studentList[position].studentRoll
 
             parentFragment.findNavController().navigate(R.id.viewStudentFragment)
