@@ -21,14 +21,14 @@ interface ManageComplaintService {
     fun viewAllComplaints(@Header("auth-token") loginToken: String,@Query("hostelID") hostelID:String): Call<ArrayList<Complaint>?>
 
     @PUT("complaints/resolve")
-    fun resolveComplaint(@Header("auth-token") loginToken: String, @Query("complaintId") complaintID: Int): Call<Boolean>
+    fun resolveComplaint(@Header("auth-token") loginToken: String, @Query("complaintID") complaintID: Int): Call<Boolean>
 
     @GET("complaints/count")
     fun getComplaintsCount(@Header ("auth-token") loginToken: String,@Query("hostelID") hostelID:String):Call<Int>
 
     @PUT("complaints/reject")
-    fun rejectComplaint(@Header("auth-token") loginToken: String, @Query("complaintId") complaintID: Int): Call<Boolean>
+    fun rejectComplaint(@Header("auth-token") loginToken: String, @Query("complaintID") complaintID: Int): Call<Boolean>
 
     @DELETE("complaints/delete")
-    fun deleteComplaint(@Header("auth-token") loginToken: String, @Query("complaintId") complaintID: Int): Call<Boolean>
+    fun deleteComplaint(@Header("auth-token") loginToken: String, @Query("complaintID") complaintID: Int): Call<Boolean>
 }

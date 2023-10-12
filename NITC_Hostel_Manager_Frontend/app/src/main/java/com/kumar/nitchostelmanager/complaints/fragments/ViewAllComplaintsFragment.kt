@@ -59,7 +59,7 @@ class ViewAllComplaintsFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                showDialogForReject(viewHolder.adapterPosition)
+                if(complaintsList!![viewHolder.absoluteAdapterPosition].status == "Pending") showDialogForReject(viewHolder.adapterPosition)
             }
 
             override fun onChildDraw(
@@ -100,7 +100,7 @@ class ViewAllComplaintsFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                showDialogForResolve(viewHolder.adapterPosition)
+                if(complaintsList!![viewHolder.absoluteAdapterPosition].status == "Pending") showDialogForResolve(viewHolder.adapterPosition)
             }
 
             override fun onChildDraw(

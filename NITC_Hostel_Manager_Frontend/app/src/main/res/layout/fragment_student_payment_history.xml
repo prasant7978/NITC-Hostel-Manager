@@ -10,7 +10,7 @@
         android:id="@+id/recyclerViewInPaymentHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/bill_card"
+        tools:listitem="@layout/own_bill_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

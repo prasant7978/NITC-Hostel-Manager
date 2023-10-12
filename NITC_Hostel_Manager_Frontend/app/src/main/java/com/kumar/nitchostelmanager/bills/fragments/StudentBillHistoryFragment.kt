@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.bills.access.BillAccess
-import com.kumar.nitchostelmanager.bills.adapter.BillAdapter
+import com.kumar.nitchostelmanager.bills.adapter.OwnBillsAdapter
 import com.kumar.nitchostelmanager.databinding.FragmentStudentPaymentHistoryBinding
 import com.kumar.nitchostelmanager.models.Bill
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 class StudentBillHistoryFragment : Fragment() {
     lateinit var binding: FragmentStudentPaymentHistoryBinding
     val profileViewModel: ProfileViewModel by activityViewModels()
-    private lateinit var billAdapter: BillAdapter
+    private lateinit var ownBillsAdapter: OwnBillsAdapter
     private var billList: ArrayList<Bill>? = null
 
     override fun onCreateView(
@@ -52,8 +52,8 @@ class StudentBillHistoryFragment : Fragment() {
             if(!billList.isNullOrEmpty()){
                 billList!!.reverse()
                 binding.recyclerViewInPaymentHistory.layoutManager = LinearLayoutManager(activity)
-                billAdapter = BillAdapter(billList!!)
-                binding.recyclerViewInPaymentHistory.adapter = billAdapter
+                ownBillsAdapter = OwnBillsAdapter(billList!!)
+                binding.recyclerViewInPaymentHistory.adapter = ownBillsAdapter
             }
             else{
                 binding.recyclerViewInPaymentHistory.visibility = View.INVISIBLE
