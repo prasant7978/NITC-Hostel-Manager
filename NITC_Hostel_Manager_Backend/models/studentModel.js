@@ -138,7 +138,7 @@ module.exports = class Model{
                     reject(err)
                 }
                 else{
-                    resolve(result[0])
+                    resolve(result[0]['dues']);
                 }
             })
         })

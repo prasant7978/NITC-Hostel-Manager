@@ -5,7 +5,7 @@ module.exports = async(req, res) => {
     var billID = req.body.billID;
     
     var paymentModel = new PaymentModel();
-    paymentModel.issuePayment(payment).then(function(result){
+    paymentModel.issuePayment(req.body).then(function(result){
         if(result == true){
             var billModel = new BillModel();
             billModel.payDues(req.username,billID).then(function(result){

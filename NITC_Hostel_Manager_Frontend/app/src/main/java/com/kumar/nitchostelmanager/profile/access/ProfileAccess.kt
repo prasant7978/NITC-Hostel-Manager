@@ -45,14 +45,18 @@ class ProfileAccess(var context: Context, private var profileViewModel: ProfileV
     suspend fun getDue(): Double{
         return suspendCoroutine { continuation ->
             val profileService = ServiceBuilder.buildService(ProfileService::class.java)
-            val requestCall = profileService.getBill(profileViewModel.loginToken.toString())
+            val requestCall = profileService.getDue(profileViewModel.loginToken.toString())
 
             requestCall.enqueue(object: Callback<Double>{
                 override fun onResponse(call: Call<Double>, response: Response<Double>) {
-                    if(response.isSuccessful && response.body() != null)
-                        continuation.resume(response.body()!!.toDouble())
-                    else
+                    if(response.isSuccessful && response.body() != null) {
+                        Log.d("totalDue", response.body().toString())
+                        continuation.resume(response.body()!!)
+                    }
+                    else {
+                        Toast.makeText(context, "Some Error Occurred", Toast.LENGTH_SHORT).show()
                         continuation.resume(0.0)
+                    }
                 }
 
                 override fun onFailure(call: Call<Double>, t: Throwable) {
