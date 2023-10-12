@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintLayoutInOccupantsBillCard"
     android:background="@drawable/bill_shape"
@@ -64,6 +64,7 @@
         android:textSize="15sp"
         android:fontFamily="@font/inter_semibold"
         android:textColor="@color/black"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintVertical_bias="0.2"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -73,9 +74,9 @@
         android:text="Student Roll"
         android:fontFamily="@font/inter_semibold"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintTop_toTopOf="@id/amountInOccupantsBillCard"
+        app:layout_constraintTop_toBottomOf="@id/dueMonthTVInOccupantsBillCard"
         app:layout_constraintStart_toStartOf="@id/dueMonthTVInOccupantsBillCard"
         app:layout_constraintBottom_toBottomOf="@id/amountInOccupantsBillCard"/>
 
@@ -87,10 +88,10 @@
         android:text="Payment ID"
         android:textStyle="italic|bold"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintTop_toBottomOf="@id/paymentDoneTextInOccupantsBillCard"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/studentRollInOccupantsBillCard"
         app:layout_constraintStart_toStartOf="@id/studentRollInOccupantsBillCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -104,7 +105,7 @@
         android:textColor="@color/dark_green"
         android:textSize="20sp"
         app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/billTypeInOccupantsBillCard"
@@ -114,6 +115,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Status"
+        android:textSize="14sp"
+        android:textStyle="italic"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintTop_toTopOf="@id/billTypeInOccupantsBillCard"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -128,7 +131,7 @@
         android:layout_height="wrap_content"
         android:text="31/10/2023"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textStyle="italic"
         app:layout_constraintVertical_bias="0.2"
         android:layout_marginEnd="10dp"
@@ -142,7 +145,7 @@
         android:layout_height="wrap_content"
         android:text="Payment date"
         android:textColor="@color/dark_grey"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/dateInOccupantsBillCard"
         app:layout_constraintEnd_toEndOf="@+id/dateInOccupantsBillCard"
         app:layout_constraintTop_toBottomOf="@+id/dateInOccupantsBillCard"

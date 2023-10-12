@@ -2,152 +2,169 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="0dp"
     android:id="@+id/billCardInOwnBillCard"
     android:background="@drawable/bill_shape"
     app:cardElevation="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:paddingHorizontal="5dp"
-    android:id="@+id/constraintLayoutInOwnBillCard">
 
-    <TextView
-        android:id="@+id/dueMonthTVInOwnBillCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:text="For:"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintVertical_bias="0.001"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/lineViewInOwnBillCard"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="8dp"
+        android:id="@+id/constraintLayoutInOwnBillCard">
 
-    <TextView
-        android:id="@+id/dueMonthInOwnBillCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_semibold"
-        android:text="October"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginStart="5dp"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/dueMonthTVInOwnBillCard"
-        app:layout_constraintTop_toTopOf="@+id/dueMonthTVInOwnBillCard"
-        app:layout_constraintBottom_toBottomOf="@+id/dueMonthTVInOwnBillCard"/>
+        <TextView
+            android:id="@+id/dueMonthTVInOwnBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
+            android:text="For:"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintVertical_bias="0.001"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/lineViewInOwnBillCard"/>
 
-    <TextView
-        android:id="@+id/dueYearInOwnBillCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_semibold"
-        android:text="2023"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:layout_marginStart="3dp"
-        app:layout_constraintVertical_bias="0.001"
-        app:layout_constraintStart_toEndOf="@+id/dueMonthInOwnBillCard"
-        app:layout_constraintTop_toTopOf="@+id/dueMonthInOwnBillCard"
-        app:layout_constraintBottom_toBottomOf="@+id/dueMonthInOwnBillCard"/>
+        <TextView
+            android:id="@+id/dueMonthInOwnBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_semibold"
+            android:text="October"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/dueMonthTVInOwnBillCard"
+            app:layout_constraintTop_toTopOf="@+id/dueMonthTVInOwnBillCard"
+            app:layout_constraintBottom_toBottomOf="@+id/dueMonthTVInOwnBillCard"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment ID : "
-        android:fontFamily="@font/inter_semibold"
-        app:layout_constraintTop_toBottomOf="@+id/dueMonthTVInOwnBillCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/lineViewInOwnBillCard"
-        android:textColor="@color/black"
-        android:id="@+id/paymentIDTVInOwnBillCard"/>
+        <TextView
+            android:id="@+id/dueYearInOwnBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_semibold"
+            android:text="2023"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginStart="3dp"
+            app:layout_constraintVertical_bias="0.001"
+            app:layout_constraintStart_toEndOf="@+id/dueMonthInOwnBillCard"
+            app:layout_constraintTop_toTopOf="@+id/dueMonthInOwnBillCard"
+            app:layout_constraintBottom_toBottomOf="@+id/dueMonthInOwnBillCard"/>
 
-
-    <TextView
-        android:id="@+id/paymentIdInOwnBillCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment ID"
-        android:textStyle="italic|bold"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintTop_toTopOf="@id/paymentIDTVInOwnBillCard"
-        app:layout_constraintBottom_toBottomOf="@id/paymentIDTVInOwnBillCard"
-        app:layout_constraintStart_toEndOf="@id/paymentIDTVInOwnBillCard"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bill type"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        android:textSize="15sp"
-        android:fontFamily="@font/inter_semibold"
-        android:id="@+id/billTypeInOwnBillCard"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment ID: "
+            android:fontFamily="@font/inter_semibold"
+            android:textSize="15sp"
+            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintTop_toBottomOf="@+id/dueMonthTVInOwnBillCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/lineViewInOwnBillCard"
+            android:textColor="@color/black"
+            android:id="@+id/paymentIDTVInOwnBillCard"/>
 
 
-    <TextView
-        android:id="@+id/amountInOwnBillCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_semibold"
-        android:text="Amount"
-        android:textColor="@color/dark_green"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/billTypeInOwnBillCard"
-        app:layout_constraintVertical_bias="0.1" />
+        <TextView
+            android:id="@+id/paymentIdInOwnBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/paymentIDTVInOwnBillCard"
+            app:layout_constraintTop_toTopOf="@+id/paymentIDTVInOwnBillCard"
+            app:layout_constraintBottom_toBottomOf="@+id/paymentIDTVInOwnBillCard"/>
 
-    <TextView
-        android:id="@+id/dateInOwnBillCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="31/10/2023"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.99"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/paymentDateTVInOwnBillCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/amountInOwnBillCard"
-        app:layout_constraintVertical_bias="0.5" />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bill type"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.25"
+            app:layout_constraintHorizontal_bias="0.55"
+            android:textSize="15sp"
+            android:fontFamily="@font/inter_semibold"
+            android:id="@+id/billTypeInOwnBillCard"/>
 
-    <TextView
-        android:id="@+id/paymentDateTVInOwnBillCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment date"
-        android:textColor="@color/dark_grey"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/dateInOwnBillCard"
-        app:layout_constraintEnd_toEndOf="@+id/dateInOwnBillCard"
-        app:layout_constraintTop_toBottomOf="@+id/dateInOwnBillCard"
-        app:layout_constraintBottom_toBottomOf="@id/amountInOwnBillCard"/>
+        <TextView
+            android:id="@+id/amountInOwnBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_semibold"
+            android:text="Amount"
+            android:textColor="@color/dark_green"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/billTypeInOwnBillCard"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias="0.55"/>
 
-    <View
-        android:id="@+id/lineViewInOwnBillCard"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_constraintWidth_percent="0.9"
-        android:layout_weight="1"
-        android:background="@color/dark_grey"
-        app:layout_constraintVertical_bias="1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/dateInOwnBillCard"
+            android:id="@+id/statusInOwnBillCard"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/dateInOwnBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="31/10/2023"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.99"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toTopOf="@+id/paymentDateTVInOwnBillCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/amountInOwnBillCard"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <TextView
+            android:id="@+id/paymentDateTVInOwnBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment date"
+            android:textColor="@color/dark_grey"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/dateInOwnBillCard"
+            app:layout_constraintEnd_toEndOf="@+id/dateInOwnBillCard"
+            app:layout_constraintTop_toBottomOf="@+id/dateInOwnBillCard"
+            app:layout_constraintBottom_toBottomOf="@id/amountInOwnBillCard"/>
+
+        <View
+            android:id="@+id/lineViewInOwnBillCard"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintWidth_percent="0.9"
+            android:layout_weight="1"
+            android:background="@color/dark_grey"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

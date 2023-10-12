@@ -30,11 +30,11 @@ class OwnComplaintsAdapter(
         val status = complaintsList[position].status
         holder.adapterBinding.complaintStatusInComplaintCard.text = status
 
-        if(status == "pending")
+        if(status == "Pending")
             holder.adapterBinding.complaintStatusInComplaintCard.setTextColor(ContextCompat.getColor(context, R.color.light_orange))
-        else if(status == "completed")
-            holder.adapterBinding.complaintStatusInComplaintCard.setTextColor(ContextCompat.getColor(context, R.color.light_green))
-        else if(status == "rejected")
+        else if(status == "Resolved")
+            holder.adapterBinding.complaintStatusInComplaintCard.setTextColor(ContextCompat.getColor(context, R.color.dark_green))
+        else if(status == "Rejected")
             holder.adapterBinding.complaintStatusInComplaintCard.setTextColor(ContextCompat.getColor(context, R.color.light_red))
 
         holder.adapterBinding.date.text = complaintsList[position].date

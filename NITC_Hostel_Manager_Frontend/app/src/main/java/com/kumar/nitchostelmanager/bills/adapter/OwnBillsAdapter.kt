@@ -45,15 +45,21 @@ class OwnBillsAdapter(
         holder.binding.dueYearInOwnBillCard.text = billList[position].billYear
         holder.binding.billTypeInOwnBillCard.text = billList[position].billType.toString()
         holder.binding.amountInOwnBillCard.text = billList[position].amount.toString()
+
         if(billList[position].paid.compareTo(1) == 0){
+            holder.binding.statusInOwnBillCard.text = "Paid"
             holder.binding.paymentIdInOwnBillCard.visibility = View.VISIBLE
             holder.binding.paymentDateTVInOwnBillCard.visibility = View.VISIBLE
             holder.binding.dateInOwnBillCard.text = billList[position].paymentDate
             holder.binding.paymentIdInOwnBillCard.text = billList[position].paymentID.toString()
         }else{
+            holder.binding.statusInOwnBillCard.text = "Pending"
             holder.binding.paymentIdInOwnBillCard.visibility = View.GONE
+            holder.binding.paymentIDTVInOwnBillCard.visibility = View.GONE
             holder.binding.paymentDateTVInOwnBillCard.visibility = View.GONE
+            holder.binding.dateInOwnBillCard.visibility = View.GONE
         }
+
         holder.binding.billCardInOwnBillCard.setOnClickListener {
             if(billList[position].paid.compareTo(1) != 0) payBill(position)
         }

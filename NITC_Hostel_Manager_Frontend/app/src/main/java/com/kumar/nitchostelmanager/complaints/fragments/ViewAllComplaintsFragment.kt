@@ -3,6 +3,7 @@ package com.kumar.nitchostelmanager.complaints.fragments
 import android.content.DialogInterface
 import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,7 +60,8 @@ class ViewAllComplaintsFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                if(complaintsList!![viewHolder.absoluteAdapterPosition].status == "Pending") showDialogForReject(viewHolder.adapterPosition)
+                if(complaintsList?.get(viewHolder.bindingAdapterPosition)!!.status == "Pending")
+                    showDialogForReject(viewHolder.bindingAdapterPosition)
             }
 
             override fun onChildDraw(
@@ -74,6 +76,7 @@ class ViewAllComplaintsFragment : Fragment() {
 
                 RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     .addSwipeLeftBackgroundColor(rejectColor)
+                    .addSwipeLeftLabel("Reject")
                     .create()
                     .decorate()
 
@@ -100,7 +103,8 @@ class ViewAllComplaintsFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                if(complaintsList!![viewHolder.absoluteAdapterPosition].status == "Pending") showDialogForResolve(viewHolder.adapterPosition)
+                if(complaintsList!![viewHolder.absoluteAdapterPosition].status == "Pending")
+                    showDialogForResolve(viewHolder.bindingAdapterPosition)
             }
 
             override fun onChildDraw(
@@ -115,6 +119,7 @@ class ViewAllComplaintsFragment : Fragment() {
 
                 RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     .addSwipeRightBackgroundColor(resolveColor)
+                    .addSwipeRightLabel("Resolve")
                     .create()
                     .decorate()
 

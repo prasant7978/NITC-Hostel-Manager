@@ -61,7 +61,7 @@ class AddComplaintFragment : Fragment(), CircleLoadingDialog {
         val dateAndTime: List<String> = currentDate.split(" ")
 
         val complaint = Complaint(
-            status = "pending",
+            status = "Pending",
             studentRoll = profileViewModel.currentStudent.studentRoll,
             message = complaintMessage,
             date = dateAndTime[0],
