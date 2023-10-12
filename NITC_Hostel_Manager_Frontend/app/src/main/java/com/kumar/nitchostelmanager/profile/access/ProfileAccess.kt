@@ -42,6 +42,31 @@ class ProfileAccess(var context: Context, private var profileViewModel: ProfileV
         }
     }
 
+    suspend fun updatePassword(newPassword:String): Boolean{
+        return suspendCoroutine { continuation ->
+            val profileService = ServiceBuilder.buildService(ProfileService::class.java)
+            val requestCall = profileService.updatePassword(profileViewModel.loginToken.toString(),newPassword)
+
+            requestCall.enqueue(object: Callback<Boolean>{
+                override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                    if(response.isSuccessful && response.body() == true)
+                        continuation.resume(true)
+                    else{
+                        Toast.makeText(context, "Some Error Occurred", Toast.LENGTH_SHORT).show()
+                        continuation.resume(false)
+                    }
+                }
+
+                override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                    Toast.makeText(context,"Error : $t",Toast.LENGTH_SHORT).show()
+                    Log.d("login","Error : $t")
+                    continuation.resume(false)
+                }
+
+            })
+        }
+    }
+
     suspend fun getDue(): Double{
         return suspendCoroutine { continuation ->
             val profileService = ServiceBuilder.buildService(ProfileService::class.java)

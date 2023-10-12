@@ -1,73 +1,655 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mint_cream"
+    android:orientation="vertical"
+    android:id="@+id/mainLayoutInStudentProfileFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".profile.fragments.StudentProfileFragment">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/profileImgInStudentProfile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/man"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/studentNameInStudentProfile"
-        android:fontFamily="@font/inter_semibold"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Student Name"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/profileImgInStudentProfile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <TextView
-        android:fontFamily="@font/inter"
-        android:id="@+id/studentNameInStudentDashboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Student Email"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="3dp"
-        app:layout_constraintTop_toBottomOf="@+id/studentNameInStudentProfile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImgInStudentProfile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/man"
+            app:layout_constraintVertical_bias="0.03"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintVertical_bias="0.1"
-        app:cardElevation="10dp"
-        android:id="@+id/detailsCardInWardenDashboard"
-        app:cardCornerRadius="10dp"
-        app:strokeWidth="0dp"
-        app:layout_constraintTop_toBottomOf="@id/studentNameInStudentDashboard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.2"
-        app:layout_constraintWidth_percent="0.85"
-        app:cardBackgroundColor="@color/beige_wheat">
+        <TextView
+            android:id="@+id/studentNameInStudentProfile"
+            android:fontFamily="@font/inter_semibold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Name"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/profileImgInStudentProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:fontFamily="@font/inter"
+            android:id="@+id/studentEmailInStudentProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Email"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
+            app:layout_constraintTop_toBottomOf="@+id/studentNameInStudentProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.1"
+            app:cardElevation="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:id="@+id/detailsCardInStudentProfile"
+            app:cardCornerRadius="10dp"
+            app:strokeWidth="0dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/studentEmailInStudentProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.85"
+            app:cardBackgroundColor="@color/beige_wheat">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="8dp">
 
+                <TextView
+                    android:id="@+id/studentRollTextViewInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Roll No."
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/studentRollInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Roll No."
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:layout_constraintEnd_toEndOf="@+id/studentRollTextViewInStudentProfileFragment"
+                    app:layout_constraintTop_toBottomOf="@id/studentRollTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@id/studentRollTextViewInStudentProfileFragment"/>
 
-    </com.google.android.material.card.MaterialCardView>
+                <View
+                    android:id="@+id/lineViewRollNoInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintWidth_percent="0.91"
+                    android:layout_weight="1"
+                    android:background="@color/cool_gray"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/studentRollInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/phoneTextViewInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lineViewRollNoInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/phoneInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:layout_constraintEnd_toEndOf="@+id/phoneTextViewInStudentProfileFragment"
+                    app:layout_constraintTop_toBottomOf="@id/phoneTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@id/phoneTextViewInStudentProfileFragment"/>
+
+                <View
+                    android:id="@+id/lineViewPhoneInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintWidth_percent="0.91"
+                    android:layout_weight="1"
+                    android:background="@color/cool_gray"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/phoneInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/parentPhoneTextViewInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Parent Phone Number"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lineViewPhoneInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/parentPhoneInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Parent Phone Number"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:layout_constraintEnd_toEndOf="@+id/parentPhoneTextViewInStudentProfileFragment"
+                    app:layout_constraintTop_toBottomOf="@id/parentPhoneTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@id/parentPhoneTextViewInStudentProfileFragment"/>
+
+                <View
+                    android:id="@+id/lineViewParentPhoneInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintWidth_percent="0.91"
+                    android:layout_weight="1"
+                    android:background="@color/cool_gray"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/parentPhoneInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/addressTextViewInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lineViewParentPhoneInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/addressInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:layout_constraintEnd_toEndOf="@+id/addressTextViewInStudentProfileFragment"
+                    app:layout_constraintTop_toBottomOf="@id/addressTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@id/addressTextViewInStudentProfileFragment"/>
+
+                <View
+                    android:id="@+id/lineViewAddressStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintWidth_percent="0.91"
+                    android:layout_weight="1"
+                    android:background="@color/cool_gray"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/addressInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/genderTextViewInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintHorizontal_bias="0.06"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lineViewAddressStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/genderInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintEnd_toEndOf="@+id/genderTextViewInStudentProfileFragment"
+                    app:layout_constraintTop_toBottomOf="@id/genderTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@id/genderTextViewInStudentProfileFragment"/>
+
+                <View
+                    android:id="@+id/lineViewGenderStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintWidth_percent="0.3"
+                    android:layout_weight="1"
+                    android:background="@color/cool_gray"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/genderInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@+id/genderInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/dobTextViewInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="D.O.B"
+                    android:textSize="14sp"
+                    app:layout_constraintWidth_percent="0.4"
+                    app:layout_constraintHorizontal_bias="0.06"
+                    android:layout_marginStart="70dp"
+                    app:layout_constraintTop_toTopOf="@+id/genderTextViewInStudentProfileFragment"
+                    app:layout_constraintBottom_toBottomOf="@+id/genderTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toEndOf="@+id/genderTextViewInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/dobInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Date Of Birth"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintWidth_percent="0.4"
+                    app:layout_constraintEnd_toEndOf="@+id/dobTextViewInStudentProfileFragment"
+                    app:layout_constraintTop_toBottomOf="@id/dobTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@id/dobTextViewInStudentProfileFragment"/>
+
+                <View
+                    android:id="@+id/lineViewDOBStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintWidth_percent="0.4"
+                    android:layout_weight="1"
+                    android:background="@color/cool_gray"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/dobInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@+id/dobInStudentProfileFragment"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.1"
+            app:cardElevation="10dp"
+            android:id="@+id/passwordCardInStudentProfile"
+            app:cardCornerRadius="10dp"
+            android:layout_marginHorizontal="20dp"
+            app:strokeWidth="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/detailsCardInStudentProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.85"
+            app:cardBackgroundColor="@color/beige_wheat">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/showPasswordConstraintLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:id="@+id/passwordTextViewInStudentProfileFragment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Password"
+                        android:layout_marginTop="5dp"
+                        android:textSize="14sp"
+                        app:layout_constraintWidth_percent="0.6"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/changePasswordTextViewInStudentProfileFragment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Change Password"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_green"
+                        android:layout_marginTop="5dp"
+                        android:textSize="12sp"
+                        android:layout_marginStart="23dp"
+                        app:layout_constraintWidth_percent="0.3"
+                        app:layout_constraintStart_toEndOf="@+id/passwordTextViewInStudentProfileFragment"
+                        app:layout_constraintBottom_toBottomOf="@+id/passwordTextViewInStudentProfileFragment"
+                        app:layout_constraintTop_toTopOf="@+id/passwordTextViewInStudentProfileFragment"/>
+
+                    <TextView
+                        android:id="@+id/PasswordInStudentProfileFragment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Password"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintWidth_percent="0.6"
+                        app:layout_constraintEnd_toEndOf="@+id/passwordTextViewInStudentProfileFragment"
+                        app:layout_constraintTop_toBottomOf="@id/passwordTextViewInStudentProfileFragment"
+                        app:layout_constraintStart_toStartOf="@id/passwordTextViewInStudentProfileFragment"/>
+
+                    <View
+                        android:id="@+id/lineViewPasswordInStudentProfileFragment"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintWidth_percent="0.91"
+                        android:layout_weight="1"
+                        android:background="@color/cool_gray"
+                        android:layout_marginTop="1dp"
+                        app:layout_constraintTop_toBottomOf="@+id/PasswordInStudentProfileFragment"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/changePasswordConstraintLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/showPasswordConstraintLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:id="@+id/newPasswordTextViewInStudentProfileFragment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="New Password"
+                        android:layout_marginTop="5dp"
+                        android:textSize="14sp"
+                        app:layout_constraintWidth_percent="0.9"
+                        app:layout_constraintHorizontal_bias="0.4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/newPasswordInStudentProfileFragment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="New Password"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintWidth_percent="0.9"
+                        app:layout_constraintEnd_toEndOf="@+id/newPasswordTextViewInStudentProfileFragment"
+                        app:layout_constraintTop_toBottomOf="@id/newPasswordTextViewInStudentProfileFragment"
+                        app:layout_constraintStart_toStartOf="@id/newPasswordTextViewInStudentProfileFragment"/>
+
+                    <TextView
+                        android:id="@+id/confirmPasswordTextViewInStudentProfileFragment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Confirm Password"
+                        android:layout_marginTop="5dp"
+                        android:textSize="14sp"
+                        app:layout_constraintWidth_percent="0.9"
+                        app:layout_constraintHorizontal_bias="0.4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/newPasswordInStudentProfileFragment"/>
+
+                    <EditText
+                        android:id="@+id/confirmPasswordInStudentProfileFragment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Confirm Password"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintWidth_percent="0.9"
+                        app:layout_constraintEnd_toEndOf="@+id/confirmPasswordTextViewInStudentProfileFragment"
+                        app:layout_constraintTop_toBottomOf="@id/confirmPasswordTextViewInStudentProfileFragment"
+                        app:layout_constraintStart_toStartOf="@id/confirmPasswordTextViewInStudentProfileFragment"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/savePasswordButtonInStudentProfile"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="Save Password"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="14sp"
+                        app:layout_constraintTop_toBottomOf="@id/confirmPasswordInStudentProfileFragment"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.9"
+                        app:layout_constraintWidth_percent="0.45"
+                        app:layout_constraintHeight_percent="0.22"
+                        android:backgroundTint="@color/dark_green"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/academyDetailsCardInStudentProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.1"
+            app:cardElevation="10dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginHorizontal="20dp"
+            app:strokeWidth="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintTop_toBottomOf="@id/passwordCardInStudentProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.85"
+            app:cardBackgroundColor="@color/beige_wheat">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/courseTextViewInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Course"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintHorizontal_bias="0.06"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/courseInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Course"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintEnd_toEndOf="@+id/courseTextViewInStudentProfileFragment"
+                    app:layout_constraintTop_toBottomOf="@id/courseTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@id/courseTextViewInStudentProfileFragment"/>
+
+                <View
+                    android:id="@+id/lineViewCourseInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintWidth_percent="0.3"
+                    android:layout_weight="1"
+                    android:background="@color/cool_gray"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/courseInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@+id/courseInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/duesTextViewInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dues"
+                    android:textSize="14sp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintHorizontal_bias="0.06"
+                    android:layout_marginStart="70dp"
+                    app:layout_constraintTop_toTopOf="@+id/courseTextViewInStudentProfileFragment"
+                    app:layout_constraintBottom_toBottomOf="@+id/courseTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toEndOf="@+id/courseTextViewInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/duesInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dues"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintEnd_toEndOf="@+id/duesTextViewInStudentProfileFragment"
+                    app:layout_constraintTop_toBottomOf="@id/duesTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@id/duesTextViewInStudentProfileFragment"/>
+
+                <View
+                    android:id="@+id/lineViewDuesInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintWidth_percent="0.3"
+                    android:layout_weight="1"
+                    android:background="@color/cool_gray"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/duesInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@+id/duesInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/hostelTextViewInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Hostel"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintHorizontal_bias="0.06"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lineViewCourseInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/hostelInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Hostel"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintEnd_toEndOf="@+id/hostelTextViewInStudentProfileFragment"
+                    app:layout_constraintTop_toBottomOf="@id/hostelTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@id/hostelTextViewInStudentProfileFragment"/>
+
+                <View
+                    android:id="@+id/lineViewHostelInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintWidth_percent="0.3"
+                    android:layout_weight="1"
+                    android:background="@color/cool_gray"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/hostelInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@+id/hostelInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/roomTextViewInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Room Number"
+                    android:textSize="14sp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintHorizontal_bias="0.06"
+                    android:layout_marginStart="70dp"
+                    app:layout_constraintTop_toTopOf="@+id/hostelTextViewInStudentProfileFragment"
+                    app:layout_constraintBottom_toBottomOf="@+id/hostelTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toEndOf="@+id/hostelTextViewInStudentProfileFragment"/>
+
+                <TextView
+                    android:id="@+id/roomInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Room No."
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintEnd_toEndOf="@+id/roomTextViewInStudentProfileFragment"
+                    app:layout_constraintTop_toBottomOf="@id/roomTextViewInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@id/roomTextViewInStudentProfileFragment"/>
+
+                <View
+                    android:id="@+id/lineViewRoomInStudentProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintWidth_percent="0.3"
+                    android:layout_weight="1"
+                    android:background="@color/cool_gray"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/roomInStudentProfileFragment"
+                    app:layout_constraintStart_toStartOf="@+id/roomInStudentProfileFragment"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</ScrollView>

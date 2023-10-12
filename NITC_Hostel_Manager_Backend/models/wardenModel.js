@@ -5,6 +5,19 @@ const config = require("config")
 module.exports = class Model{
     constructor(){
     }
+
+    async updatePassword(newPassword,wardenEmail){
+        return new Promise((resolve, reject) => {
+            db.query('UPDATE wardens set password=? where wardenEmail=?',[newPassword,wardenEmail],async(err,result)=>{
+                if(err){
+                    console.log(err);
+                    reject(err)
+                }else{
+                    resolve(true);
+                }
+            })
+        })
+    }
     async get_all(){
         return new Promise((resolve,reject)=>{
             db.query('SELECT * FROM wardens',async(err,result)=>{

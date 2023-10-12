@@ -3,6 +3,20 @@ const jwt = require("jsonwebtoken")
 const config = require("config")
 
 module.exports = class Model{
+
+    
+    async updatePassword(newPassword,studentRoll){
+        return new Promise((resolve, reject) => {
+            db.query('UPDATE students set password=? where studentRoll=?',[newPassword,studentRoll],async(err,result)=>{
+                if(err){
+                    console.log(err);
+                    reject(err)
+                }else{
+                    resolve(true);
+                }
+            })
+        })
+    }
     async getAllStudents(){
         return new Promise((resolve, reject) => {
             db.query('SELECT * FROM students',async(err,result)=>{

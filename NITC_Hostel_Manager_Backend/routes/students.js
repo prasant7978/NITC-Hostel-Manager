@@ -7,5 +7,4 @@ const getDues = require('../controllers/students/getDues')
 
 router.get('/profile', verifyToken, getProfile);
 router.get('/getDue', verifyToken, getDues);
-
 module.exports = router;
