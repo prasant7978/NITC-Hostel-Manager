@@ -3,8 +3,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_blue"
+    android:id="@+id/constraintLayoutInGenerateBillFragment"
     tools:context=".bills.fragments.WardenGenerateBillFragment">
 
+    <TextView
+        android:id="@+id/generateBillTVInGenerateBill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate Bill"
+        android:fontFamily="@font/inter_semibold"
+        android:textSize="33sp"
+        android:textColor="@color/black"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.08"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <Spinner
+        android:id="@+id/monthSpinnerInGenerateBill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/generateBillTVInGenerateBill"/>
+
+    <Spinner
+        android:id="@+id/yearSpinnerInGenerateBill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/monthSpinnerInGenerateBill"
+        app:layout_constraintBottom_toBottomOf="@+id/monthSpinnerInGenerateBill"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/billTypeCardViewInGenerateBill"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="15dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monthSpinnerInGenerateBill">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/billTypeInputLayoutInGenerateBill"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Bill Type"
+            android:textColorHint="@color/black"
+            app:boxBackgroundColor="@color/white"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:hintTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/billTypeInputInGenerateBill"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/amountCardViewInGenerateBill"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/billTypeCardViewInGenerateBill">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/amountInputLayoutInGenerateBill"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Amount"
+            android:textColorHint="@color/black"
+            app:boxBackgroundColor="@color/white"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:hintTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/amountInputInGenerateBill"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/generateBillButtonInGenerateBill"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/amountCardViewInGenerateBill"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Generate Bill"
+        app:layout_constraintWidth_percent="0.32"
+        app:layout_constraintHeight_percent="0.08"
+        android:backgroundTint="@color/card_back"
+        app:layout_constraintVertical_bias="0.25"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
