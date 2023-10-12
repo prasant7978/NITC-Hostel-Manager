@@ -60,7 +60,7 @@ class BoysListFragment : Fragment() {
             if(boysList != null){
                 boysList.reverse()
                 binding.recyclerViewInBoysListFragment.layoutManager = LinearLayoutManager(activity)
-                boysListAdapter = BoysListAdapter(boysList, sharedViewModel, this@BoysListFragment)
+                boysListAdapter = BoysListAdapter(requireContext(),profileViewModel,boysList, sharedViewModel, this@BoysListFragment)
                 binding.recyclerViewInBoysListFragment.adapter = boysListAdapter
             }
             else{

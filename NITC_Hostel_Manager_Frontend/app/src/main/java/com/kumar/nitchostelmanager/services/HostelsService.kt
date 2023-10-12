@@ -18,7 +18,7 @@ interface HostelsService {
     fun updateHostel(@Header ("auth-token") loginToken:String, @Body newHostel:Hostel): Call<Boolean>
 
     @GET("hostels/all")
-    fun getAllHostels(@Header ("auth-token") loginToken: String): Call<Array<Hostel>>
+    fun getAllHostels(@Header ("auth-token") loginToken: String): Call<ArrayList<Hostel>>
 
 
     @GET("hostels/allNames")

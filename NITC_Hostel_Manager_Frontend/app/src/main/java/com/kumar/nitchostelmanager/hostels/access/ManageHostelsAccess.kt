@@ -75,13 +75,13 @@ class ManageHostelsAccess(
         }
     }
 
-    suspend fun getHostels():Array<Hostel>?{
+    suspend fun getHostels():ArrayList<Hostel>?{
         return suspendCoroutine { continuation ->
 
             var hostelService = ServiceBuilder.buildService(HostelsService::class.java)
             val requestCall = hostelService.getAllHostels(loginToken)
-            requestCall.enqueue(object: Callback<Array<Hostel>> {
-                override fun onResponse(call: Call<Array<Hostel>>, response: Response<Array<Hostel>>) {
+            requestCall.enqueue(object: Callback<ArrayList<Hostel>> {
+                override fun onResponse(call: Call<ArrayList<Hostel>>, response: Response<ArrayList<Hostel>>) {
                     if(response.isSuccessful){
                         if(response.body() == null){
                             Toast.makeText(context,"Could not get hostels",Toast.LENGTH_SHORT).show()
@@ -93,7 +93,7 @@ class ManageHostelsAccess(
                     }
                 }
 
-                override fun onFailure(call: Call<Array<Hostel>>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<Hostel>>, t: Throwable) {
                     Log.d("getHostels","Error : $t")
                     Toast.makeText(context,"Error : $t",Toast.LENGTH_SHORT).show()
                     continuation.resume(null)
