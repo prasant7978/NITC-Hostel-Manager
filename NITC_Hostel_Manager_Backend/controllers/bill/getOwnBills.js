@@ -5,7 +5,7 @@ module.exports = async(req,res)=>{
     billModel.getStudentsBill(req.query.studentRoll).then(function(bill){
         if(bill){
             res.status(200).send(JSON.stringify(bill));
-            console.log("Bill generated");
+            console.log("Bill fetched");
         }else{
             res.status(500).send(JSON.stringify(null));
             console.log("Bill is undefined or null");

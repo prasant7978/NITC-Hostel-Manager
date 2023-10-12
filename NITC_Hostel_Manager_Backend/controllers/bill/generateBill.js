@@ -2,50 +2,68 @@ var BillModel = require("../../models/billModel");
 var HostelModel = require("../../models/hostelModel");
 var StudentModel = require("../../models/studentModel");
 
-module.exports = async(req,res)=>{
+module.exports = async(req, res)=>{
     if(req.userType == "Warden"){
-        const charges = req.query.charges;
-        const hostelID = req.query.hostelID;
+        const amount = req.body.amount;
+        const billMonth = req.body.billMonth;
+        const billYear = req.body.billYear;
+        const billType = req.body.billType;
+        const paid = req.body.paid;
+        const hostelID = req.body.hostelID;
+
         const billModel = new BillModel();
         var studentModel = new StudentModel();
-        const monthForBill = req.query.monthForBill;
-        const yearForBill = req.query.yearForBill;
+
         studentModel.getStudentsRollOfHostel(hostelID).then(function(studentsRoll){
             if(studentsRoll){
                 var generatedFlag = true;
                 
                 for(let i = 0;i<studentsRoll.length;i++){
                     billModel.generateBill({
-                        "studentRoll":studentsRoll[i],
-                        "amount":charges,
-                        "paid":false,
-                        "month":monthForBill,
-                        "year":yearForBill,
+                        "studentRoll":studentsRoll[i].studentRoll,
+                        "amount":amount,
+                        "billType":billType,
+                        "paid":paid,
+                        "billMonth":billMonth,
+                        "billYear":billYear,
                         "hostelID":hostelID
                     }).then(function(generated){
                         if(!generated || generated == false){
                             generatedFlag = false;
+                        }else{
+                            studentModel.addDues(amount,studentsRoll[i].studentRoll).then(function(added){
+                                if(!added || added == false){
+                                    generatedFlag = false;
+                                }
+                            }).catch(function(errStudentAdd){
+                                generatedFlag = false;
+                                console.log(errStudentAdd);
+                            })
                         }
                     }).catch(function(excGeneration){
                         console.log(excGeneration);
                         generatedFlag = false;
                     });
+
                     if(!generatedFlag){
-                        console.log("Bill is not generated for studentsRoll[i] = "+studentsRoll[i]);
+                        console.log("Bill is not generated for studentsRoll = "+studentsRoll[i]);
                         break;
                     }
                 }
+
                 if(!generatedFlag){
                     res.status(500).send(false);
-                }else{
+                }
+                else{
                     var hostelModel = new HostelModel();
-                    hostelModel.addDues(charges*studentsRoll.length).then(function(duesAdded){
+
+                    hostelModel.addDues(amount*studentsRoll.length, hostelID).then(function(duesAdded){
                         if(duesAdded && duesAdded == true){
-                            console.log("Dues added");
+                            console.log("Dues added to the hostel");
                             res.status(200).send(true);
                         }else{
                             res.status(500).send(false);
-                            console.log("Dues are not added");
+                            console.log("Dues are not added to the hostel");
                         }
                     });
                 }

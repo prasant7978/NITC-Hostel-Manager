@@ -31,8 +31,8 @@ class WardenGenerateBillFragment : Fragment(), AdapterView.OnItemSelectedListene
     val profileViewModel: ProfileViewModel by activityViewModels()
     private var billMonth = ""
     private var billYear = ""
-    var months: Array<String>? = null
-    var years: Array<String>? = null
+    private var months: Array<String>? = null
+    private var years: Array<String>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,12 +60,12 @@ class WardenGenerateBillFragment : Fragment(), AdapterView.OnItemSelectedListene
             showAlertDialog(billType, amount)
         }
 
-        val backCallback = object: OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.wardenDashboardFragment)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
+//        val backCallback = object: OnBackPressedCallback(true){
+//            override fun handleOnBackPressed() {
+//                findNavController().navigate(R.id.allBillsFragment)
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
 
         return binding.root
     }
@@ -81,12 +81,16 @@ class WardenGenerateBillFragment : Fragment(), AdapterView.OnItemSelectedListene
 
         months = arrayOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
         years = arrayOf(prevYear.toString(), currentYear.toString(), nextYear.toString())
-
+//        binding.monthSpinnerInGenerateBill
         binding.monthSpinnerInGenerateBill.onItemSelectedListener = this@WardenGenerateBillFragment
-        binding.monthSpinnerInGenerateBill.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, months)
+        binding.monthSpinnerInGenerateBill.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,
+            months!!
+        )
 
         binding.yearSpinnerInGenerateBill.onItemSelectedListener = this@WardenGenerateBillFragment
-        binding.yearSpinnerInGenerateBill.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, years)
+        binding.yearSpinnerInGenerateBill.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,
+            years!!
+        )
     }
 
     private fun showAlertDialog(billType: String, amount: String){
@@ -108,8 +112,8 @@ class WardenGenerateBillFragment : Fragment(), AdapterView.OnItemSelectedListene
             amount = amount.toDouble(),
             billMonth = billMonth,
             billYear = billYear,
-            billType = billYear,
-            paid = false,
+            billType = billType,
+            paid = 0,
             hostelID = profileViewModel.currentWarden.hostelID
         )
 
@@ -131,8 +135,13 @@ class WardenGenerateBillFragment : Fragment(), AdapterView.OnItemSelectedListene
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        billMonth = months?.get(position).toString()
-        billYear = years?.get(position).toString()
+        if(parent!!.id == R.id.monthSpinnerInGenerateBill){
+
+            billMonth = months?.get(position).toString()
+        }else{
+
+            billYear = years?.get(position).toString()
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

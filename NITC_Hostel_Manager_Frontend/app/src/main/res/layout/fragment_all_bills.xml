@@ -13,25 +13,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.03"
         android:textSize="23sp"
         android:id="@+id/headingInAllBillsFragment"
         android:fontFamily="@font/inter_semibold"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewInAllBillsFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:listitem="@layout/own_bill_card"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headingInAllBillsFragment"
         app:layout_constraintBottom_toTopOf="@id/generateBillButtonInAllBillsFragment"
-        android:id="@+id/recyclerViewInAllBillsFragment"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headingInAllBillsFragment"
+        tools:listitem="@layout/occupants_bill_card" />
 
     <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:text="Generate Bill"
+        android:textSize="18sp"
+        app:layout_constraintHeight_percent="0.09"
+        app:layout_constraintWidth_percent="0.4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

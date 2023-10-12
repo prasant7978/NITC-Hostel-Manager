@@ -99,7 +99,7 @@ module.exports = class Model{
                     console.log(exc);
                     reject(exc);
                 }else{
-                    resolve(students[0]);
+                    resolve(students);
                 }
             })
         })
@@ -158,24 +158,14 @@ module.exports = class Model{
         });
     }
 
-    async generateBill(amount,studentRoll){
+    async addDues(amount,studentRoll){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT dues FROM students WHERE studentRoll=?',[studentRoll],async(errDues,duesResult)=>{
+            db.query('UPDATE students set dues=dues+? WHERE studentRoll=?',[amount,studentRoll],async(errDues,duesResult)=>{
                 if(errDues){
                     console.log("Error : "+errDues);
                     reject(errDues);
                 }else{
-                    var dues = duesResult[0];
-                    var newDues = dues+amount;
-                    db.query('UPDATE students SET dues=? WHERE studentRoll=?',[newDues,studentRoll],async(errUpdate,result)=>{
-                        if(errUpdate){
-                            console.log("Error: "+errUpdate);
-                            reject(errUpdate);
-                        }else{
-                            console.log("Bill generated");
-                            resolve(true);
-                        }
-                    });
+                    resolve(true)
                 }
             });
         });

@@ -25,14 +25,16 @@ class AllBillsAdapter(private var bills: ArrayList<Bill>): RecyclerView.Adapter<
         holder.binding.dueMonthInOccupantsBillCard.text = bills[position].billMonth
         holder.binding.dueYearInOccupantsBillCard.text = bills[position].billYear
         holder.binding.amountInOccupantsBillCard.text = bills[position].amount.toString()
-        if(bills[position].paid){
+
+        if(bills[position].paid.equals(1)){
             holder.binding.paymentIdInOccupantsBillCard.visibility = View.VISIBLE
             holder.binding.dateInOccupantsBillCard.visibility = View.VISIBLE
             holder.binding.paymentDoneTextInOccupantsBillCard.visibility = View.VISIBLE
             holder.binding.statusInOccupantsBillCard.text = "Paid"
             holder.binding.paymentIdInOccupantsBillCard.text = bills[position].paymentID.toString()
             holder.binding.dateInOccupantsBillCard.text = bills[position].paymentDate
-        }else{
+        }
+        else{
             holder.binding.paymentDoneTextInOccupantsBillCard.visibility = View.GONE
             holder.binding.paymentIdInOccupantsBillCard.visibility = View.GONE
             holder.binding.dateInOccupantsBillCard.visibility = View.GONE

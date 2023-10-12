@@ -141,7 +141,7 @@ module.exports = class Model{
 
     async addDues(amount,hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('UPDATE hostels SET totalDues = totalDues+? WHERE hostelID=?',[amount,hostelID],async(exc,result)=>{
+            db.query('UPDATE hostels SET totalDues = totalDues + ? WHERE hostelID = ?',[amount,hostelID],async(exc,result)=>{
             if(exc){
                 console.log("Error: "+exc);
                 reject(exc);
