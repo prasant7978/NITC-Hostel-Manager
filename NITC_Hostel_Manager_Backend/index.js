@@ -15,7 +15,9 @@ app.use("/complaints", require("./routes/complaints"))
 app.use("/notices", require("./routes/notices"))
 
 app.use("/students", require("./routes/students"))
+
 app.use("/profile",require("./routes/profile"));
+
 app.use("/hostels", require("./routes/hostel"))
 
 app.use("/rooms", require("./routes/room"))

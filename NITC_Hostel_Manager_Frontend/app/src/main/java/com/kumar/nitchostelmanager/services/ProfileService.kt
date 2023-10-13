@@ -14,7 +14,7 @@ interface ProfileService {
     fun getStudentProfile(@Header("auth-token") loginToken: String): Call<Student?>
 
     @PUT("profile/updatePassword")
-    fun updatePassword(@Header("auth-token") loginToken: String,@Query("newPassword") newpassword:String): Call<Boolean>
+    fun updatePassword(@Header("auth-token") loginToken: String, @Query("newPassword") newpassword:String): Call<Boolean>
 
     @GET("students/getDue")
     fun getDue(@Header("auth-token") loginToken: String): Call<Double>
