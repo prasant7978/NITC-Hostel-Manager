@@ -8,7 +8,7 @@ module.exports = class Model{
 
     async updatePassword(newPassword,wardenEmail){
         return new Promise((resolve, reject) => {
-            db.query('UPDATE wardens set password=? where wardenEmail=?',[newPassword,wardenEmail],async(err,result)=>{
+            db.query('UPDATE wardens set password=? where email=?',[newPassword,wardenEmail],async(err,result)=>{
                 if(err){
                     console.log(err);
                     reject(err)

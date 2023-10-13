@@ -45,6 +45,10 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             binding.swipeRefreshLayoutInWardenDashboard.isRefreshing = false
         }
 
+        binding.changePasswordTextViewInWardenDashboardFragment.setOnClickListener {
+            findNavController().navigate(R.id.changePasswordFragment)
+        }
+
         binding.complaintsCardInWardenDashboard.setOnClickListener {
             findNavController().navigate(R.id.viewAllComplaintsFragment)
         }
