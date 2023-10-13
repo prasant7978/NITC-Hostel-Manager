@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayoutMediator
@@ -48,6 +49,27 @@ class AvailableRoomsFragment:Fragment(),CircleLoadingDialog {
             binding.hostelNameTVInAvailableRoomsFragment.text = profileViewModel.currentWarden.hostelID.toString()
             getRooms()
         }
+
+        val backCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                if(!sharedViewModel.fourthFloorRooms.isNullOrEmpty()){
+                    sharedViewModel.fourthFloorRooms.clear()
+                }
+                if(!sharedViewModel.secondFloorRooms.isNullOrEmpty()){
+                    sharedViewModel.secondFloorRooms.clear()
+                }
+                if(!sharedViewModel.thirdFloorRooms.isNullOrEmpty()){
+                    sharedViewModel.thirdFloorRooms.clear()
+                }
+                if(!sharedViewModel.groundFloorRooms.isNullOrEmpty()){
+                    sharedViewModel.groundFloorRooms.clear()
+                }
+                if(!sharedViewModel.firstFloorRooms.isNullOrEmpty()){
+                    sharedViewModel.firstFloorRooms.clear()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
         return binding.root
     }
 
