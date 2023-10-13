@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kumar.nitchostelmanager.R
@@ -41,6 +42,14 @@ class ChangeRoomFragment : Fragment() , AdapterView.OnItemSelectedListener{
             Log.d("hostelSelected",hostelSelected)
             findNavController().navigate(R.id.availableRoomsFragment)
         }
+
+        val backCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.studentDashboardFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
+
         return binding.root
     }
 

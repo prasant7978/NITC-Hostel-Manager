@@ -101,9 +101,17 @@ class StudentProfileFragment : Fragment(),CircleLoadingDialog {
                 binding.PasswordInStudentProfileFragment.text = studentProfile.password
                 binding.courseInStudentProfileFragment.text = studentProfile.course
                 binding.duesInStudentProfileFragment.text = studentProfile.dues.toString()
-                binding.hostelInStudentProfileFragment.text = studentProfile.hostelID
-                binding.roomInStudentProfileFragment.text = studentProfile.roomNumber.toString()
-                binding.studentRollInStudentProfileFragment.text = studentProfile.studentRoll
+                binding.studentRollInStudentProfileFragment.text = studentProfile.studentRoll.uppercase()
+
+                var hostel = studentProfile.hostelID
+                if(hostel.isNullOrEmpty()) {
+                    binding.hostelInStudentProfileFragment.text = "NA"
+                    binding.roomInStudentProfileFragment.text = "NA"
+                }
+                else{
+                    binding.hostelInStudentProfileFragment.text = studentProfile.hostelID
+                    binding.roomInStudentProfileFragment.text = studentProfile.roomNumber.toString()
+                }
 
                 if(studentProfile.gender == "Male"){
                     binding.profileImgInStudentProfile.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.man))
