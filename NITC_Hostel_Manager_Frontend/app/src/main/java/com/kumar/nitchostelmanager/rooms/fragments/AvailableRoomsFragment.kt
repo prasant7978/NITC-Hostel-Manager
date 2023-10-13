@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kumar.nitchostelmanager.CircleLoadingDialog
+import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentAvailableRoomsBinding
 import com.kumar.nitchostelmanager.models.Room
 import com.kumar.nitchostelmanager.rooms.access.ManageRoomAccess
@@ -66,6 +68,11 @@ class AvailableRoomsFragment:Fragment(),CircleLoadingDialog {
                 }
                 if(!sharedViewModel.firstFloorRooms.isNullOrEmpty()){
                     sharedViewModel.firstFloorRooms.clear()
+                }
+                if(profileViewModel.userType == "Student"){
+                    findNavController().navigate(R.id.changeRoomFragment)
+                }else{
+                    findNavController().navigate(R.id.wardenDashboardFragment)
                 }
             }
         }
