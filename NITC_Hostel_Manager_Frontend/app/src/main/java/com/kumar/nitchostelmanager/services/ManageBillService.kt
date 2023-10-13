@@ -14,6 +14,8 @@ interface ManageBillService {
     @GET("bill/ownBills")
     fun getAllOwnBills(@Header("auth-token") loginToken: String): Call<ArrayList<Bill>>
 
+    @GET("bill/billCount")
+    fun getBillsCount(@Header("auth-token") loginToken: String): Call<Int>
 
     @GET("bill/unpaidBills")
     fun getUnpaidBills(@Header("auth-token") loginToken: String): Call<ArrayList<Bill>>

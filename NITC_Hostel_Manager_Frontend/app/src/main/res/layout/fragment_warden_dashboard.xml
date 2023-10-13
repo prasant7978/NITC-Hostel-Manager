@@ -95,6 +95,20 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <TextView
+            android:id="@+id/changePasswordTextViewInWardenDashboardFragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Change Password"
+            android:textStyle="bold"
+            android:textColor="@color/dark_green"
+            android:textSize="14sp"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintTop_toBottomOf="@+id/detailsCardInWardenDashboard"
+            app:layout_constraintBaseline_toTopOf="@id/cardsLayoutInWardenDashboard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -378,40 +392,24 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHorizontal_bias="0.88"
-            app:layout_constraintVertical_bias="0.3"
-            app:layout_constraintTop_toBottomOf="@+id/cardsLayoutInWardenDashboard"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Logout"
+            android:elevation="10dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:id="@+id/logoutButtonInWardenDashboard"
+            android:backgroundTint="@color/wheat"
+            app:cornerRadius="5dp"
+            app:layout_constraintWidth_percent="0.25"
+            app:layout_constraintHeight_percent="0.06"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintVertical_bias="0.94"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.08"
-            app:layout_constraintWidth_percent="0.35">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Logout"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/logoutButtonInWardenDashboard"
-                android:id="@+id/logoutTVInWardenDashboard"/>
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/logout_icon_50"
-                android:backgroundTint="#00000000"
-                app:layout_constraintStart_toEndOf="@id/logoutTVInWardenDashboard"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/logoutButtonInWardenDashboard"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

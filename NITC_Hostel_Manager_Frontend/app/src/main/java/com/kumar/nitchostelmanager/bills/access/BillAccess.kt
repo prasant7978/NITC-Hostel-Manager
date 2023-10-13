@@ -144,4 +144,38 @@ class BillAccess(var context: Context, private var profileViewModel: ProfileView
             })
         }
     }
+
+    suspend fun getBillCount(): Int{
+        return suspendCoroutine { continuation ->
+            val billService = ServiceBuilder.buildService(ManageBillService::class.java)
+            val requestCall = billService.getBillsCount(profileViewModel.loginToken.toString())
+
+            requestCall.enqueue(object: Callback<Int>{
+                override fun onResponse(
+                    call: Call<Int>,
+                    response: Response<Int>
+                ) {
+                    if(response.isSuccessful) {
+                        if(response.body() != null)
+                            continuation.resume(response.body()!!)
+                        else{
+                            Toast.makeText(context, "No bills found", Toast.LENGTH_SHORT).show()
+                            continuation.resume(0)
+                        }
+                    }
+                    else{
+                        Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show()
+                        continuation.resume(0)
+                    }
+                }
+
+                override fun onFailure(call: Call<Int>, t: Throwable) {
+                    Toast.makeText(context,"Error : $t", Toast.LENGTH_SHORT).show()
+                    Log.d("getAllBills","Error : $t")
+                    continuation.resume(0)
+                }
+
+            })
+        }
+    }
 }

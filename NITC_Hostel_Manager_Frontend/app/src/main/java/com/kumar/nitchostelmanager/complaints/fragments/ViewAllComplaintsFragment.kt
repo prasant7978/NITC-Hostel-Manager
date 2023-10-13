@@ -60,7 +60,7 @@ class ViewAllComplaintsFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                if(complaintsList?.get(viewHolder.bindingAdapterPosition)!!.status == "Pending")
+//                if(complaintsList!![viewHolder.bindingAdapterPosition].status == "Pending")
                     showDialogForReject(viewHolder.bindingAdapterPosition)
             }
 
@@ -103,7 +103,7 @@ class ViewAllComplaintsFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                if(complaintsList!![viewHolder.absoluteAdapterPosition].status == "Pending")
+//                if(complaintsList!![viewHolder.absoluteAdapterPosition].status == "Pending")
                     showDialogForResolve(viewHolder.bindingAdapterPosition)
             }
 

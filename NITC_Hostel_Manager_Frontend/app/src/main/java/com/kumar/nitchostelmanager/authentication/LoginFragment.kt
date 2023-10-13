@@ -27,7 +27,7 @@ class LoginFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        binding.progressBarLogin.visibility = View.INVISIBLE
+////        binding.progressBarLogin.visibility = View.INVISIBLE
         binding.adminLoginTypeButton.setOnClickListener {
             binding.adminLoginTypeImage.setBackgroundResource(R.drawable.login_type_shape)
             binding.adminLoginTypeButton.setTextColor(Color.WHITE)
@@ -91,7 +91,7 @@ class LoginFragment : Fragment() {
 
     private fun login(username: String, password: String, userType: String) {
         binding.buttonSignin.isClickable = false
-        binding.progressBarLogin.visibility = View.VISIBLE
+//        binding.progressBarLogin.visibility = View.VISIBLE
 
         when (userType) {
             "Student" -> {
@@ -99,14 +99,14 @@ class LoginFragment : Fragment() {
                     Toast.makeText(context, "Enter a valid nitc roll Number", Toast.LENGTH_SHORT)
                         .show()
                     binding.buttonSignin.isClickable = true
-                    binding.progressBarLogin.visibility = View.INVISIBLE
+//                    binding.progressBarLogin.visibility = View.INVISIBLE
                     return
                 }
 
             }
             "" -> {
                 binding.buttonSignin.isClickable = true
-                binding.progressBarLogin.visibility = View.INVISIBLE
+//                binding.progressBarLogin.visibility = View.INVISIBLE
                 Toast.makeText(context, "Select a user type", Toast.LENGTH_SHORT).show()
                 return
             }
@@ -137,7 +137,7 @@ class LoginFragment : Fragment() {
             }
         }
 
-        binding.progressBarLogin.visibility = View.INVISIBLE
+//        binding.progressBarLogin.visibility = View.INVISIBLE
         binding.buttonSignin.isClickable = true
     }
 

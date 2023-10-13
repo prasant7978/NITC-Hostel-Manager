@@ -36,6 +36,9 @@ class AllBillsFragment:Fragment(),CircleLoadingDialog {
 
         getAllBills()
 
+        if(profileViewModel.userType == "Admin")
+            binding.generateBillButtonInAllBillsFragment.visibility = View.GONE
+
         binding.generateBillButtonInAllBillsFragment.setOnClickListener {
             findNavController().navigate(R.id.wardenGenerateBillFragment)
         }

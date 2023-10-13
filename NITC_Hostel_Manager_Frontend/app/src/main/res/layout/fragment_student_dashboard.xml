@@ -454,18 +454,21 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/exit"
-        android:scaleType="centerCrop"
-        android:backgroundTint="#00000000"
+        android:text="Logout"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         android:id="@+id/logoutButtonInStudentDashboard"
+        android:backgroundTint="@color/dark_mint_cream"
+        app:cornerRadius="3dp"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintTop_toBottomOf="@id/hostelLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.15"
-        app:layout_constraintHorizontal_bias="0.96"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

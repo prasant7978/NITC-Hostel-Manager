@@ -1,11 +1,13 @@
 package com.kumar.nitchostelmanager.profile.fragments
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -48,12 +50,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         }
 
         binding.logoutButtonInWardenDashboard.setOnClickListener {
-            LocalStorageAccess(
-                this@WardenDashboardFragment,
-                requireContext(),
-                profileViewModel
-            ).deleteData()
-            findNavController().navigate(R.id.loginFragment)
+            showDialog()
         }
 
         binding.roomsCardInWardenDashboard.setOnClickListener {
@@ -80,6 +77,25 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
 
         return binding.root
+    }
+
+    private fun showDialog(){
+        val dialog = activity?.let { AlertDialog.Builder(it) }
+        dialog?.setCancelable(false)
+        dialog?.setTitle("Logout")
+        dialog?.setMessage("Are you sure you want to log out?")
+        dialog?.setNegativeButton("No", DialogInterface.OnClickListener{ dialog, which ->
+            dialog.cancel()
+        })
+        dialog?.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
+            var deleted = LocalStorageAccess(
+                this@WardenDashboardFragment,
+                requireContext(),
+                profileViewModel
+            ).deleteData()
+            findNavController().navigate(R.id.loginFragment)
+        })
+        dialog?.create()?.show()
     }
 
     private fun getComplaintsCount(){

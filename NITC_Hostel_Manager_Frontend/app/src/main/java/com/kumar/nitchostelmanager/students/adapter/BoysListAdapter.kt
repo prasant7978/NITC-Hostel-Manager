@@ -44,14 +44,23 @@ class BoysListAdapter(
         holder.binding.studentNameInStudentCard.text = studentList[position].name
         holder.binding.studentRollInStudentCard.text = studentList[position].studentRoll
         holder.binding.studentEmailInStudentCard.text = studentList[position].email
-        holder.binding.hostelNameInStudentCard.text = studentList[position].hostelID
-        holder.binding.roomNumberInStudentCard.text = studentList[position].roomNumber.toString()
 
-        holder.binding.constraintLayoutInStudentCard.setOnClickListener {
-            sharedViewModel.viewingStudentRoll = studentList[position].studentRoll
-
-            parentFragment.findNavController().navigate(R.id.viewStudentFragment)
+        var hostel = studentList[position].hostelID
+        if(hostel.isNullOrEmpty()) {
+            holder.binding.hostelNameInStudentCard.text = ""
+            holder.binding.roomNumberInStudentCard.text = ""
         }
+        else{
+            holder.binding.hostelNameInStudentCard.text = studentList[position].hostelID
+            holder.binding.roomNumberInStudentCard.text = studentList[position].roomNumber.toString()
+        }
+
+//        holder.binding.constraintLayoutInStudentCard.setOnClickListener {
+//            sharedViewModel.viewingStudentRoll = studentList[position].studentRoll
+//
+//            parentFragment.findNavController().navigate(R.id.viewStudentFragment)
+//        }
+
         holder.binding.constraintLayoutInStudentCard.setOnLongClickListener {
             AlertDialog.Builder(context)
                 .setTitle("Delete Student")

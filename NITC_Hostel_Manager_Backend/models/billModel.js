@@ -16,9 +16,24 @@ module.exports = class Model{
         });
     }
 
+    async getBillsCount(){
+        return new Promise((resolve,reject) => {
+            db.query('SELECT COUNT(*) FROM bills', async(err, result) => {
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    console.log("Bills Count = ");
+                    console.log(result[0]["COUNT(*)"]);
+                    resolve(result[0]["COUNT(*)"]);
+                }
+            });
+        });
+    }
+
     async getStudentBills(studentRoll){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM bills WHERE studentRoll = ?', [studentRoll], async(err, result) => {
+            db.query('SELECT * FROM bills WHERE studentRoll = ? and paid = true', [studentRoll], async(err, result) => {
                 if(err){
                     console.log(err);
                     reject(err);

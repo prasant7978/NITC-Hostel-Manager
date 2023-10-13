@@ -28,14 +28,17 @@ class GirlsListAdapter(private var studentList: ArrayList<Student>, private var 
         holder.adapterBinding.studentNameInStudentCard.text = studentList[position].name
         holder.adapterBinding.studentRollInStudentCard.text = studentList[position].studentRoll
         holder.adapterBinding.studentEmailInStudentCard.text = studentList[position].email
-        holder.adapterBinding.hostelNameInStudentCard.text = studentList[position].hostelID
-        holder.adapterBinding.roomNumberInStudentCard.text = studentList[position].roomNumber.toString()
 
-        holder.adapterBinding.constraintLayoutInStudentCard.setOnClickListener {
-            sharedViewModel.viewingStudentRoll = studentList[position].studentRoll
-
-            parentFragment.findNavController().navigate(R.id.viewStudentFragment)
+        var hostel = studentList[position].hostelID
+        if(hostel.isNullOrEmpty()) {
+            holder.adapterBinding.hostelNameInStudentCard.text = ""
+            holder.adapterBinding.roomNumberInStudentCard.text = ""
         }
+        else{
+            holder.adapterBinding.hostelNameInStudentCard.text = studentList[position].hostelID
+            holder.adapterBinding.roomNumberInStudentCard.text = studentList[position].roomNumber.toString()
+        }
+
     }
 
     fun searchByRollNo(searchList : ArrayList<Student>){

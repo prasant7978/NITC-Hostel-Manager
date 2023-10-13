@@ -1,17 +1,21 @@
 package com.kumar.nitchostelmanager.profile.fragments
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.LocalStorageAccess
+import com.kumar.nitchostelmanager.ManageBillAccess
 import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.bills.access.BillAccess
 import com.kumar.nitchostelmanager.complaints.access.ComplaintsDataAccess
 import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.databinding.FragmentAdminDashboardBinding
@@ -41,45 +45,68 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
 
         getProfile()
 
+        binding.showALlWardensButtonInAdminDashboard.visibility = View.GONE
+
         binding.totalWardensCardInAdminDashboard.setOnClickListener {
             findNavController().navigate(R.id.wardenListFragment)
         }
+
         binding.totalStudentsCardInAdminDashboard.setOnClickListener {
             findNavController().navigate(R.id.allStudentsFragment)
+        }
+
+        binding.totalBillsCardInAdminDashboard.setOnClickListener {
+            findNavController().navigate(R.id.allBillsFragment)
         }
 
         binding.noticesCardInAdminDashboard.setOnClickListener {
             findNavController().navigate(R.id.noticeListFragment)
         }
+
         binding.swipeRefreshLayoutInAdminDashboard.setOnRefreshListener {
             getProfile()
             binding.swipeRefreshLayoutInAdminDashboard.isRefreshing = false
         }
-
 
         binding.addHostelsButtonInAdminDashboard.setOnClickListener {
             findNavController().navigate(R.id.addHostelFragment)
         }
 
 
-        binding.logoutButtonInWardenDashboard.setOnClickListener {
+        binding.logoutButtonInAdminDashboard.setOnClickListener {
+            showDialog()
+        }
+
+        return binding.root
+    }
+
+    private fun showDialog(){
+        val dialog = activity?.let { AlertDialog.Builder(it) }
+        dialog?.setCancelable(false)
+        dialog?.setTitle("Logout")
+        dialog?.setMessage("Are you sure you want to log out?")
+        dialog?.setNegativeButton("No", DialogInterface.OnClickListener{ dialog, which ->
+            dialog.cancel()
+        })
+        dialog?.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
             var deleted = LocalStorageAccess(
                 this@AdminDashboardFragment,
                 requireContext(),
                 profileViewModel
             ).deleteData()
             findNavController().navigate(R.id.loginFragment)
-        }
-
-        return binding.root
+        })
+        dialog?.create()?.show()
     }
 
     private fun getProfile() {
         val getProfileCoroutineScope = CoroutineScope(Dispatchers.Main)
         val loadingDialog = getLoadingDialog(requireContext(),this@AdminDashboardFragment)
+
         getProfileCoroutineScope.launch {
             loadingDialog.create()
             loadingDialog.show()
+
             val admin = ProfileAccess(
                 requireContext(),
                 profileViewModel
@@ -92,7 +119,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 profileViewModel.username = admin.email.toString()
                 profileViewModel.currentAdmin = admin
                 getStudentsCount()
-//                getTotalComplaints()
+                getTotalBillsCount()
                 getTotalNotices()
                 getHostels()
                 getWardensCount()
@@ -152,18 +179,18 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         }
     }
 
-//    private fun getTotalComplaints() {
-//        var complaintsCountCoroutineScope = CoroutineScope(Dispatchers.Main)
-//        complaintsCountCoroutineScope.launch {
-//            var complaintsCount = ComplaintsDataAccess(
-//                requireContext(),
-//                this@AdminDashboardFragment,
-//                profileViewModel.loginToken.toString()
-//            ).getComplaintsCount()
-//                binding.complaintsTextInAdminDashboard.text = complaintsCount.toString()
-//            complaintsCountCoroutineScope.cancel()
-//        }
-//    }
+    private fun getTotalBillsCount() {
+        var totalBillsCountCoroutineScope = CoroutineScope(Dispatchers.Main)
+        totalBillsCountCoroutineScope.launch {
+            var billsCount = BillAccess(
+                requireContext(),
+                profileViewModel
+            ).getBillCount()
+
+            binding.billsTextInAdminDashboard.text = billsCount.toString()
+            totalBillsCountCoroutineScope.cancel()
+        }
+    }
 
     private fun getStudentsCount() {
         var studentsCountCoroutineScope = CoroutineScope(Dispatchers.Main)

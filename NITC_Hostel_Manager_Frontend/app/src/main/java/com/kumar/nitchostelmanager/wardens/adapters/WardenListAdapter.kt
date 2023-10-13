@@ -46,11 +46,12 @@ class WardenListAdapter(
         holder.adapterBinding.wardenPhoneInWardenCard.text = wardenList[position].phone
         holder.adapterBinding.hostelNameInWardenCard.text = wardenList[position].hostelID
 
-        holder.adapterBinding.constraintLayoutInWardenCard.setOnClickListener {
-            sharedViewModel.viewingWardenEmail = wardenList[position].email
-
-            parentFragment.findNavController().navigate(R.id.viewWardenFragment)
-        }
+//        holder.adapterBinding.constraintLayoutInWardenCard.setOnClickListener {
+//            sharedViewModel.viewingWardenEmail = wardenList[position].email
+//
+//            parentFragment.findNavController().navigate(R.id.viewWardenFragment)
+//        }
+        
         holder.adapterBinding.constraintLayoutInWardenCard.setOnLongClickListener {
 
             AlertDialog.Builder(context)
