@@ -155,7 +155,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 this@AdminDashboardFragment
             ).getHostels()
             if(!hostels.isNullOrEmpty()){
-                binding.addHostelsButtonInAdminDashboard.visibility = View.GONE
+//                binding.addHostelsButtonInAdminDashboard.visibility = View.GONE
                 binding.hostelsRecyclerViewInAdminDashboard.visibility = View.VISIBLE
                 binding.hostelsRecyclerViewInAdminDashboard.layoutManager = LinearLayoutManager(context)
                 binding.hostelsRecyclerViewInAdminDashboard.adapter = HostelListAdapter(

@@ -77,10 +77,10 @@ class HostelDataAccess(
         }
     }
 
-    suspend fun getHostelNames():Array<String>?{
+    suspend fun getHostelNames(gender:String):Array<String>?{
         return suspendCoroutine { continuation ->
             var hostelService = ServiceBuilder.buildService(HostelsService::class.java)
-            var requestCall = hostelService.getAllHostelsNames(loginToken)
+            var requestCall = hostelService.getAllHostelsNames(loginToken,gender)
             requestCall.enqueue(object:Callback<Array<String>>{
                 override fun onResponse(
                     call: Call<Array<String>>,

@@ -80,9 +80,9 @@ module.exports = class Model{
         });
     }
     
-    async getHostelsNames(){
+    async getHostelsNames(gender){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT hostelID FROM hostels',async(err, hostelNames)=>{
+            db.query('SELECT hostelID FROM hostels where occupantsGender=?',[gender],async(err, hostelNames)=>{
                 if(err){
                     console.log(err);
                     reject(err);

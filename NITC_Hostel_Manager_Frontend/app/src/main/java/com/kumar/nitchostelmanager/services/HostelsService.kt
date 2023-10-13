@@ -22,7 +22,7 @@ interface HostelsService {
 
 
     @GET("hostels/allNames")
-    fun getAllHostelsNames(@Header ("auth-token") loginToken: String): Call<Array<String>>
+    fun getAllHostelsNames(@Header ("auth-token") loginToken: String,@Query("gender") gender:String): Call<Array<String>>
 
     @GET("hostels/details")
     fun getHostelDetails(@Header ("auth-token") loginToken: String, @Query("hostelID") hostelID:String): Call<Hostel>

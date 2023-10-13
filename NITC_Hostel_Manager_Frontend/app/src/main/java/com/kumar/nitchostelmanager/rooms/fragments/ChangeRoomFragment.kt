@@ -35,7 +35,7 @@ class ChangeRoomFragment : Fragment() , AdapterView.OnItemSelectedListener{
     ): View? {
         binding = FragmentChangeRoomBinding.inflate(inflater,container,false)
 
-        getHostels()
+        getHostels(profileViewModel.currentStudent.gender.toString())
 
         binding.searchRoomsButtonInChangeRoomFragment.setOnClickListener {
             sharedViewModel.viewingHostelID = hostelSelected
@@ -53,14 +53,14 @@ class ChangeRoomFragment : Fragment() , AdapterView.OnItemSelectedListener{
         return binding.root
     }
 
-    private fun getHostels() {
+    private fun getHostels(gender:String) {
         val getNamesCoroutineScope = CoroutineScope(Dispatchers.Main)
         getNamesCoroutineScope.launch {
             hostelNames = HostelDataAccess(
                 requireContext(),
                 this@ChangeRoomFragment,
                 profileViewModel.loginToken.toString()
-            ).getHostelNames()
+            ).getHostelNames(gender)
             getNamesCoroutineScope.cancel()
             if(!hostelNames.isNullOrEmpty()){
                 binding.spinnerInChangeRoomFragment.onItemSelectedListener = this@ChangeRoomFragment

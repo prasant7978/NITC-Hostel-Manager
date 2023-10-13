@@ -75,10 +75,10 @@ class LoginFragment : Fragment() {
             }
         }
 
-        binding.textViewForgotPassword.setOnClickListener {
-//            val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
-//            startActivity(intent)
-        }
+//        binding.textViewForgotPassword.setOnClickListener {
+////            val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
+////            startActivity(intent)
+//        }
 
         val backCallback = object: OnBackPressedCallback(true){
             override fun handleOnBackPressed() {

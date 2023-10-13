@@ -3,7 +3,7 @@ var HostelModel = require("../../models/hostelModel");
 module.exports = async(req,res)=>{
     if(req.username){
         var hostelModel = new HostelModel();
-        hostelModel.getHostelsNames().then(function(hostelsNames){
+        hostelModel.getHostelsNames(req.query.gender).then(function(hostelsNames){
             res.status(200).send(JSON.stringify(hostelsNames));
             console.log(hostelsNames);
         }).catch(function(exc){
