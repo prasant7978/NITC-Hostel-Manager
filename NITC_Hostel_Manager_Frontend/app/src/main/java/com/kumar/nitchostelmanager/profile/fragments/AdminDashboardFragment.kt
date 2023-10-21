@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -78,12 +77,6 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
             showDialog()
         }
 
-        val backCallback = object: OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                requireActivity().finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
         return binding.root
     }
 
@@ -155,7 +148,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 this@AdminDashboardFragment
             ).getHostels()
             if(!hostels.isNullOrEmpty()){
-//                binding.addHostelsButtonInAdminDashboard.visibility = View.GONE
+                binding.addHostelsButtonInAdminDashboard.visibility = View.GONE
                 binding.hostelsRecyclerViewInAdminDashboard.visibility = View.VISIBLE
                 binding.hostelsRecyclerViewInAdminDashboard.layoutManager = LinearLayoutManager(context)
                 binding.hostelsRecyclerViewInAdminDashboard.adapter = HostelListAdapter(

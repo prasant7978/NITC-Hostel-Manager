@@ -49,20 +49,20 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
             }
             val occupantsGender = binding.occupantsGenderInputInAddHostelFragment.text?.trim().toString()
             if(occupantsGender.isEmpty()){
-                binding.occupantsGenderInputInAddHostelFragment.error = "Enter hostel name"
+                binding.occupantsGenderInputInAddHostelFragment.error = "Enter gender"
                 binding.occupantsGenderInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
             val chargesString = binding.chargesInputInAddHostelFragment.text?.trim().toString()
             if(chargesString.isEmpty()){
-                binding.chargesInputInAddHostelFragment.error = "Enter hostel name"
+                binding.chargesInputInAddHostelFragment.error = "Enter hostel charge"
                 binding.chargesInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
 
             val capacityString = binding.capacityInputInAddHostelFragment.text?.trim().toString()
             if(capacityString.isEmpty()){
-                binding.capacityInputInAddHostelFragment.error = "Enter hostel name"
+                binding.capacityInputInAddHostelFragment.error = "Enter hostel capacity"
                 binding.capacityInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
