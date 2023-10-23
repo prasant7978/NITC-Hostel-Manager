@@ -70,6 +70,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         }
 
         binding.addHostelsButtonInAdminDashboard.setOnClickListener {
+            sharedViewModel.updatingHostelID = null
             findNavController().navigate(R.id.addHostelFragment)
         }
 
