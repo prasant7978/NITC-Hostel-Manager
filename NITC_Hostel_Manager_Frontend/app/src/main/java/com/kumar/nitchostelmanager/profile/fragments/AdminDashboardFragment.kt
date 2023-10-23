@@ -149,7 +149,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 this@AdminDashboardFragment
             ).getHostels()
             if(!hostels.isNullOrEmpty()){
-                binding.addHostelsButtonInAdminDashboard.visibility = View.GONE
+//                binding.addHostelsButtonInAdminDashboard.visibility = View.GONE
                 binding.hostelsRecyclerViewInAdminDashboard.visibility = View.VISIBLE
                 binding.hostelsRecyclerViewInAdminDashboard.layoutManager = LinearLayoutManager(context)
                 binding.hostelsRecyclerViewInAdminDashboard.adapter = HostelListAdapter(
@@ -161,7 +161,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 )
             }else{
                 binding.hostelsRecyclerViewInAdminDashboard.visibility = View.GONE
-                binding.addHostelsButtonInAdminDashboard.visibility = View.VISIBLE
+//                binding.addHostelsButtonInAdminDashboard.visibility = View.VISIBLE
                 Toast.makeText(context,"No wardens till now",Toast.LENGTH_SHORT).show()
             }
             getwardenCoroutineScope.cancel()
