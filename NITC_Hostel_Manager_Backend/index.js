@@ -24,6 +24,7 @@ app.use("/rooms", require("./routes/room"))
 
 app.use("/warden", require("./routes/warden"))
 
+
 app.use("/payment", require("./routes/payment"))
 
 app.use("/bill", require("./routes/bill"))
