@@ -16,6 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.03"
         android:textSize="23sp"
+        android:textColor="@color/black"
         android:id="@+id/headingInOwnBillsFragment"
         android:fontFamily="@font/inter_semibold"/>
 
@@ -28,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headingInOwnBillsFragment"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/own_bill_card" />
+        tools:listitem="@layout/pending_bill_card" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

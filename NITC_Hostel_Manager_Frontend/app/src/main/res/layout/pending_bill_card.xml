@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/billCardInPendingBillCard"
+    android:backgroundTint="@color/ivory_beige"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="3dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="8dp"
+        android:id="@+id/constraintLayoutInPendingBillCard">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bill type"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/inter_semibold"
+            android:id="@+id/billTypeInPendingBillCard"
+            app:layout_constraintHorizontal_bias="0.03"
+            app:layout_constraintVertical_bias="0.15"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/dueMonthTVInPendingBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
+            android:text="For"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@+id/billTypeInPendingBillCard"
+            app:layout_constraintStart_toStartOf="@+id/billTypeInPendingBillCard"/>
+
+        <TextView
+            android:id="@+id/dueMonthInPendingBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
+            android:text="October"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/dueMonthTVInPendingBillCard"
+            app:layout_constraintTop_toTopOf="@+id/dueMonthTVInPendingBillCard"
+            app:layout_constraintBottom_toBottomOf="@+id/dueMonthTVInPendingBillCard"/>
+
+        <TextView
+            android:id="@+id/dueYearInPendingBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
+            android:text="2023"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:layout_marginStart="3dp"
+            app:layout_constraintVertical_bias="0.001"
+            app:layout_constraintStart_toEndOf="@+id/dueMonthInPendingBillCard"
+            app:layout_constraintTop_toTopOf="@+id/dueMonthInPendingBillCard"
+            app:layout_constraintBottom_toBottomOf="@+id/dueMonthInPendingBillCard"/>
+
+        <TextView
+            android:id="@+id/amountInPendingBillCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_semibold"
+            android:text="Amount"
+            android:textColor="@color/dark_green"
+            android:textSize="18sp"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintVertical_bias="0.45"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <View
+            android:id="@+id/lineViewInPendingBillCard"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintWidth_percent="0.9"
+            android:layout_weight="1"
+            android:background="@color/dark_grey"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
