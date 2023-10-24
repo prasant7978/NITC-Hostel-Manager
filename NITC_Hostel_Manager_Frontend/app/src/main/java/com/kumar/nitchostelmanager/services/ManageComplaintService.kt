@@ -18,13 +18,13 @@ interface ManageComplaintService {
     fun viewOwnComplaint(@Header("auth-token") loginToken: String): Call<Array<Complaint>?>
 
     @GET("complaints/all")
-    fun viewAllComplaints(@Header("auth-token") loginToken: String,@Query("hostelID") hostelID:String): Call<ArrayList<Complaint>?>
+    fun viewAllPendingComplaints(@Header("auth-token") loginToken: String,@Query("hostelID") hostelID:String): Call<ArrayList<Complaint>?>
 
     @PUT("complaints/resolve")
     fun resolveComplaint(@Header("auth-token") loginToken: String, @Query("complaintID") complaintID: Int): Call<Boolean>
 
     @GET("complaints/count")
-    fun getComplaintsCount(@Header ("auth-token") loginToken: String,@Query("hostelID") hostelID:String):Call<Int>
+    fun getPendingComplaintsCount(@Header ("auth-token") loginToken: String,@Query("hostelID") hostelID:String):Call<Int>
 
     @PUT("complaints/reject")
     fun rejectComplaint(@Header("auth-token") loginToken: String, @Query("complaintID") complaintID: Int): Call<Boolean>

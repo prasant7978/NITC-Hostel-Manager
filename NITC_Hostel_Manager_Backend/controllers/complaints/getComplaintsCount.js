@@ -1,10 +1,9 @@
 var ComplaintModel = require("../../models/complaintModel");
 
-
 module.exports = async(req,res)=>{
     if(req.userType == "Admin" || req.userType == "Warden"){
         var complaintModel = new ComplaintModel();
-        complaintModel.getComplaintsCount(req.query.hostelID).then(function(complaintsCount){
+        complaintModel.getPendingComplaintsCount(req.query.hostelID).then(function(complaintsCount){
             if(complaintsCount){
                 console.log(complaintsCount['COUNT(*)']);
                 res.status(200).send(JSON.stringify(complaintsCount['COUNT(*)']));

@@ -44,10 +44,10 @@ class ComplaintsDataAccess(
         }
     }
 
-    suspend fun viewAllComplaints(hostelID:String): ArrayList<Complaint>?{
+    suspend fun viewAllPendingComplaints(hostelID:String): ArrayList<Complaint>?{
         return suspendCoroutine { continuation ->
             val manageComplaintService = ServiceBuilder.buildService(ManageComplaintService::class.java)
-            val requestCall = manageComplaintService.viewAllComplaints(loginToken.toString(),hostelID)
+            val requestCall = manageComplaintService.viewAllPendingComplaints(loginToken.toString(),hostelID)
 
             requestCall.enqueue(object: Callback<ArrayList<Complaint>?>{
                 override fun onResponse(call: Call<ArrayList<Complaint>?>, response: Response<ArrayList<Complaint>?>) {
@@ -69,10 +69,10 @@ class ComplaintsDataAccess(
         }
     }
 
-    suspend fun getComplaintsCount(hostelID: String): Int{
+    suspend fun getPendingComplaintsCount(hostelID: String): Int{
         return suspendCoroutine { continuation ->
             val manageComplaintService = ServiceBuilder.buildService(ManageComplaintService::class.java)
-            val requestCall = manageComplaintService.getComplaintsCount(loginToken.toString(),hostelID)
+            val requestCall = manageComplaintService.getPendingComplaintsCount(loginToken.toString(),hostelID)
 
             requestCall.enqueue(object: Callback<Int> {
                 override fun onResponse(call: Call<Int>, response: Response<Int>) {

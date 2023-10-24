@@ -102,7 +102,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         dialog?.create()?.show()
     }
 
-    private fun getComplaintsCount(){
+    private fun getPendingComplaintsCount(){
         var complaintsCoroutineScope = CoroutineScope(Dispatchers.Main)
         complaintsCoroutineScope.launch {
             var loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
@@ -113,7 +113,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 requireContext(),
                 this@WardenDashboardFragment,
                 profileViewModel.loginToken.toString()
-            ).getComplaintsCount(profileViewModel.currentWarden.hostelID)
+            ).getPendingComplaintsCount(profileViewModel.currentWarden.hostelID)
 
             loadingDialog.cancel()
             complaintsCoroutineScope.cancel()
@@ -181,7 +181,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 getHostelDetails()
                 getStudentsCount()
                 getNoticesCount()
-                getComplaintsCount()
+                getPendingComplaintsCount()
             }else{
                 findNavController().navigate(R.id.loginFragment)
             }

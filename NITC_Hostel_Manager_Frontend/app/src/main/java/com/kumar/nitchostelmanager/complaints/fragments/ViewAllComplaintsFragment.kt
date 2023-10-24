@@ -45,7 +45,7 @@ class ViewAllComplaintsFragment : Fragment() {
     ): View? {
         binding = FragmentViewAllComplaintsBinding.inflate(inflater, container, false)
 
-        getAllComplaints()
+        getAllPendingComplaints()
 
         val rejectColor = ContextCompat.getColor(requireContext(), R.color.light_red)
         val resolveColor = ContextCompat.getColor(requireContext(), R.color.light_green)
@@ -146,14 +146,14 @@ class ViewAllComplaintsFragment : Fragment() {
         return binding.root
     }
 
-    private fun getAllComplaints(){
+    private fun getAllPendingComplaints(){
         val complaintsCoroutineScope = CoroutineScope(Dispatchers.Main)
         complaintsCoroutineScope.launch {
             complaintsList = ComplaintsDataAccess(
                 requireContext(),
                 this@ViewAllComplaintsFragment,
                 profileViewModel.loginToken.toString()
-            ).viewAllComplaints(profileViewModel.currentWarden.hostelID.toString())
+            ).viewAllPendingComplaints(profileViewModel.currentWarden.hostelID.toString())
             complaintsCoroutineScope.cancel()
 
             if(!complaintsList.isNullOrEmpty()){
@@ -164,7 +164,7 @@ class ViewAllComplaintsFragment : Fragment() {
             }
             else {
                 binding.recyclerViewInViewAllComplaints.visibility = View.INVISIBLE
-                Toast.makeText(context, "No complaints are available", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "No complaints are available", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -197,7 +197,7 @@ class ViewAllComplaintsFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).setAction("Close", View.OnClickListener { }).show()
 
-                    getAllComplaints()
+                    getAllPendingComplaints()
                 }
             }
         }
@@ -231,7 +231,7 @@ class ViewAllComplaintsFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).setAction("Close", View.OnClickListener { }).show()
 
-                    getAllComplaints()
+                    getAllPendingComplaints()
                 }
             }
         }

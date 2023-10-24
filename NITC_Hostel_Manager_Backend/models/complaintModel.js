@@ -41,9 +41,9 @@ module.exports = class Complaint{
         });
     }
 
-    async getComplaintsCount(hostelID){
+    async getPendingComplaintsCount(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT COUNT(*) FROM complaints WHERE hostelID=?',[hostelID],async(err,result)=>{
+            db.query('SELECT COUNT(*) FROM complaints WHERE hostelID = ? AND status = ?', [hostelID, "Pending"], async(err, result)=>{
                 if(err){
                     console.log(err);
                     reject(err);
@@ -53,9 +53,10 @@ module.exports = class Complaint{
             });
         });
     }
-    async getComplaints(hostelID){
+    
+    async getPendingComplaints(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM complaints WHERE hostelID=?',[hostelID],async(err,result)=>{
+            db.query('SELECT * FROM complaints WHERE hostelID = ? AND status = ?', [hostelID, "Pending"], async(err, result)=>{
                 if(err){
                     console.log(err);
                     reject(err);
