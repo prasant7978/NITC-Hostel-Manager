@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="5dp"
     tools:context=".bills.fragments.StudentPaymentHistoryFragment">
 
     <com.google.android.material.textview.MaterialTextView

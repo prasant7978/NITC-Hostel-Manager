@@ -42,30 +42,17 @@ class OwnBillsAdapter(
         holder.binding.billTypeInPendingBillCard.text = billList[position].billType.toString()
         holder.binding.amountInPendingBillCard.text = billList[position].amount.toString()
 
-//        if(billList[position].paid.compareTo(1) == 0){
-//            holder.binding.statusInOwnBillCard.text = "Paid"
-//            holder.binding.paymentIdInOwnBillCard.visibility = View.VISIBLE
-//            holder.binding.paymentDateTVInOwnBillCard.visibility = View.VISIBLE
-//            holder.binding.dateInOwnBillCard.text = billList[position].paymentDate
-//            holder.binding.paymentIdInOwnBillCard.text = billList[position].paymentID.toString()
-//        }else{
-//            holder.binding.statusInOwnBillCard.text = "Pending"
-//            holder.binding.paymentIdInOwnBillCard.visibility = View.GONE
-//            holder.binding.paymentIDTVInOwnBillCard.visibility = View.GONE
-//            holder.binding.paymentDateTVInOwnBillCard.visibility = View.GONE
-//            holder.binding.dateInOwnBillCard.visibility = View.GONE
-//        }
-
         holder.binding.billCardInPendingBillCard.setOnClickListener {
             if(billList[position].paid.compareTo(1) != 0)
-                payBill(position)
+                payBill(position, billList[position].amount)
         }
     }
 
-    private fun payBill(position: Int) {
+    private fun payBill(position: Int, amount: Double) {
 
         AlertDialog.Builder(context)
             .setTitle("Pay this bill")
+            .setMessage("A amount of " + amount + " will be credited from your bank account")
             .setPositiveButton("Yes"){dialog,which->
 
                 val simpleDate = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
@@ -87,7 +74,9 @@ class OwnBillsAdapter(
                     issueBillCoroutineScope.cancel()
 
                     if(payBill){
-                        Toast.makeText(context,"Paid",Toast.LENGTH_SHORT).show()
+                        billList.removeAt(position)
+                        notifyDataSetChanged()
+                        Toast.makeText(context,"Amount paid successfully",Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -97,4 +86,5 @@ class OwnBillsAdapter(
             .create().show()
 
     }
+
 }
