@@ -6,34 +6,27 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:background="@color/cool_gray"
     tools:context=".authentication.LoginFragment">
 
-    <com.google.android.material.textview.MaterialTextView
+    <ImageView
+        android:id="@+id/nitcLogo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NITC Hostel Manager"
-        android:textSize="25sp"
-        android:layout_marginTop="70dp"
-        android:textColor="@color/black"
-        android:fontFamily="@font/inter_semibold"
-        android:id="@+id/headingInLoginFragment"/>
-
-
+        android:layout_height="260dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/nitc_hostel_manager_logo_transparent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_marginHorizontal="15dp"
         android:background="@drawable/login_shape"
         android:elevation="10dp"
         android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/loginTypeChooseCard"
