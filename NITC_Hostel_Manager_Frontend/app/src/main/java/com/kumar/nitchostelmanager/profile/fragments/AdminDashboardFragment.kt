@@ -162,7 +162,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
             }else{
                 binding.hostelsRecyclerViewInAdminDashboard.visibility = View.GONE
 //                binding.addHostelsButtonInAdminDashboard.visibility = View.VISIBLE
-                Toast.makeText(context,"No wardens till now",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"No hostels till now",Toast.LENGTH_SHORT).show()
             }
             getwardenCoroutineScope.cancel()
         }

@@ -3,8 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".hostels.fragments.ViewHostelFragment">
 
+    <TextView
+        android:id="@+id/hostelTVInViewHostelFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Our Hostels"
+        android:textSize="32sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_semibold"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewInViewHostelFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="3dp"
+        tools:listitem="@layout/hostel_card_student"
+        app:layout_constraintTop_toBottomOf="@+id/hostelTVInViewHostelFragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
