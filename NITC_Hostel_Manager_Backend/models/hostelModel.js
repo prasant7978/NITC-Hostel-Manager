@@ -15,9 +15,9 @@ module.exports = class Model{
         });
     }
 
-    async updateHostel(hostel){
+    async updateHostel(hostel, hostelID){
         return new Promise((resolve, reject) => {
-            db.query('UPDATE hostels SET ? WHERE hostelID = ?', [hostel, hostel.hostelID], async(err, hostel) => {
+            db.query('UPDATE hostels SET ? WHERE hostelID = ?', [hostel, hostelID], async(err, hostel) => {
                 if(err){
                     console.log(err);
                     reject(err);

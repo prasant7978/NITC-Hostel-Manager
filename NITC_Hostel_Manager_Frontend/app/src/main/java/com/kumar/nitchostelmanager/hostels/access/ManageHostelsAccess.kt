@@ -47,11 +47,11 @@ class ManageHostelsAccess(
             })
         }
     }
-    suspend fun updateHostel(newHostel: Hostel):Boolean{
+    suspend fun updateHostel(newHostel: Hostel, hostelId: String):Boolean{
         return suspendCoroutine { continuation ->
 
             var hostelService = ServiceBuilder.buildService(HostelsService::class.java)
-            val requestCall = hostelService.updateHostel(loginToken, newHostel)
+            val requestCall = hostelService.updateHostel(loginToken, newHostel, hostelId)
             requestCall.enqueue(object: Callback<Boolean> {
                 override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                     if(response.isSuccessful){
@@ -62,6 +62,10 @@ class ManageHostelsAccess(
                             Toast.makeText(context,"Hostel Updated",Toast.LENGTH_SHORT).show()
                             continuation.resume(response.body()!!)
                         }
+                    }
+                    else{
+                        Toast.makeText(context,"Server Error, please try again",Toast.LENGTH_SHORT).show()
+                        continuation.resume(false)
                     }
                 }
 

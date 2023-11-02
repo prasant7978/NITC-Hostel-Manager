@@ -104,10 +104,10 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 requireContext(),
                 profileViewModel.loginToken.toString(),
                 this@AddHostelFragment
-            ).updateHostel(newHostel)
+            ).updateHostel(newHostel, sharedViewModel.updatingHostelID.toString())
             loadingDialog.cancel()
             if(added){
-                clearAll()
+                getData(newHostel.hostelID)
             }
         }
     }

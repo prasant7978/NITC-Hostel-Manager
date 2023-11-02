@@ -15,7 +15,7 @@ interface HostelsService {
     fun addHostel(@Header ("auth-token") loginToken:String, @Body newHostel:Hostel): Call<Boolean>
 
     @POST("hostels/update")
-    fun updateHostel(@Header ("auth-token") loginToken:String, @Body newHostel:Hostel): Call<Boolean>
+    fun updateHostel(@Header ("auth-token") loginToken:String, @Body newHostel:Hostel, @Query("hostelID") hostelID: String): Call<Boolean>
 
     @GET("hostels/all")
     fun getAllHostels(@Header ("auth-token") loginToken: String): Call<ArrayList<Hostel>>
