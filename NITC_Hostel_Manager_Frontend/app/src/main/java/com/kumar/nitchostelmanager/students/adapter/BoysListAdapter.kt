@@ -42,7 +42,7 @@ class BoysListAdapter(
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
         holder.binding.studentNameInStudentCard.text = studentList[position].name
-        holder.binding.studentRollInStudentCard.text = studentList[position].studentRoll
+        holder.binding.studentRollInStudentCard.text = studentList[position].studentRoll.uppercase()
         holder.binding.studentEmailInStudentCard.text = studentList[position].email
 
         var hostel = studentList[position].hostelID

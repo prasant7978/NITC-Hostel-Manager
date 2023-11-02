@@ -112,7 +112,7 @@ class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
                 profileViewModel.currentStudent = studentProfile
 
                 binding.studentNameInStudentDashboard.text = studentProfile.name
-                binding.studentRollInStudentDashboard.text = studentProfile.studentRoll
+                binding.studentRollInStudentDashboard.text = studentProfile.studentRoll.uppercase()
 
                 if(studentProfile.hostelID != null)
                     binding.hostelNameInStudentDashboard.text = studentProfile.hostelID

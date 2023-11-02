@@ -48,8 +48,8 @@ class RoomsGridAdapter(
         holder.binding.roomNumberInRoomCard.text = rooms[position].roomNumber.toString()
 
         if(profileViewModel.userType == "Warden"){
-            if(rooms[position].studentRoll != null) holder.binding.roomCardInRoomCard.setBackgroundColor(ContextCompat.getColor(context,R.color.ivory_wheat))
-            else holder.binding.roomCardInRoomCard.setBackgroundColor(ContextCompat.getColor(context,R.color.light_green))
+            if(rooms[position].studentRoll != null) holder.binding.roomCardLayout.setBackgroundColor(ContextCompat.getColor(context,R.color.light_red))
+            else holder.binding.roomCardLayout.setBackgroundColor(ContextCompat.getColor(context,R.color.light_green))
 
             holder.binding.roomCardInRoomCard.setOnClickListener {
                 if(rooms[position].studentRoll != null){

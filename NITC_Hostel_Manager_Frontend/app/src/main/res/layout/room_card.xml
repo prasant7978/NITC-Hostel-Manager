@@ -7,9 +7,11 @@
     android:id="@+id/roomCardInRoomCard"
     app:cardElevation="2dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/ivory_wheat">
+    app:cardCornerRadius="7dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/roomCardLayout"
+        android:background="@color/light_green"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
