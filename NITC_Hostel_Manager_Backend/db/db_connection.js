@@ -6,4 +6,4 @@ let db = mysql.createConnection({
     database:"nitc_hostel_manager"
 });
 
-module.exports =db;
+module.exports = db;

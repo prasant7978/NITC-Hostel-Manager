@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/parentLayoutInAdminDashboard"
-    android:background="@color/ivory_wheat">
+    android:background="@color/blue_cream">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/headingTVInAdminDashboard"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="Welcome Admin"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:layout_marginTop="5dp"
         app:fontFamily="@font/inter_semibold"
         app:layout_constraintBottom_toBottomOf="parent"

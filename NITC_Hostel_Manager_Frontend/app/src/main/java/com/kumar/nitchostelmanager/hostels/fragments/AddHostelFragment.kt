@@ -131,7 +131,7 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 binding.hostelNameInputInAddHostelFragment.setText(hostel.hostelID.toString())
                 binding.addHostelButtonInAddHostelFragment.setText("Update Hostel")
                 binding.occupantsGenderInputInAddHostelFragment.setText(hostel.occupantsGender.toString())
-                binding.headingInAddHostelFragment.setText("Update")
+                binding.headingInAddHostelFragment.setText("Update Hostel")
             }
         }
     }

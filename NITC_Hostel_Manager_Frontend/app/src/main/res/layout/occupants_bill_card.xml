@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintLayoutInOccupantsBillCard"
     android:background="@drawable/bill_shape"
-    android:elevation="10dp"
-    android:paddingTop="10dp">
+    android:paddingTop="8dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/billTypeInOccupantsBillCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Purpose"
+        android:textSize="14sp"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="@color/black"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dueMonthTVInOccupantsBillCard"
@@ -16,20 +28,15 @@
         android:text="For:"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
-        app:layout_constraintVertical_bias="0.001"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/lineViewInOccupantsBillCard"/>
+        app:layout_constraintStart_toStartOf="@+id/billTypeInOccupantsBillCard"
+        app:layout_constraintTop_toBottomOf="@+id/billTypeInOccupantsBillCard"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dueMonthInOccupantsBillCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_semibold"
+        android:fontFamily="@font/inter"
         android:text="October"
-        android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginStart="5dp"
         android:textSize="12sp"
@@ -41,9 +48,8 @@
         android:id="@+id/dueYearInOccupantsBillCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_semibold"
+        android:fontFamily="@font/inter"
         android:text="2023"
-        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="12sp"
         android:layout_marginStart="3dp"
@@ -53,63 +59,28 @@
         app:layout_constraintBottom_toBottomOf="@+id/dueMonthInOccupantsBillCard"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Purpose"
-        android:id="@+id/billTypeInOccupantsBillCard"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="15sp"
-        android:fontFamily="@font/inter_semibold"
-        android:textColor="@color/black"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintVertical_bias="0.2"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/studentRollInOccupantsBillCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Student Roll"
-        android:fontFamily="@font/inter_semibold"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@id/dueMonthTVInOccupantsBillCard"
-        app:layout_constraintStart_toStartOf="@id/dueMonthTVInOccupantsBillCard"
-        app:layout_constraintBottom_toBottomOf="@id/amountInOccupantsBillCard"/>
-
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/paymentIdInOccupantsBillCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment ID"
-        android:textStyle="italic|bold"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintTop_toBottomOf="@id/studentRollInOccupantsBillCard"
-        app:layout_constraintStart_toStartOf="@id/studentRollInOccupantsBillCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/amountInOccupantsBillCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_semibold"
         android:text="Amount"
         android:textColor="@color/dark_green"
-        android:textSize="20sp"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/billTypeInOccupantsBillCard"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@+id/dueMonthTVInOccupantsBillCard"
+        app:layout_constraintTop_toBottomOf="@id/dueMonthTVInOccupantsBillCard"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/paymentIdInOccupantsBillCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Payment ID"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@id/amountInOccupantsBillCard"
+        app:layout_constraintStart_toStartOf="@id/amountInOccupantsBillCard"
+        app:layout_constraintBottom_toTopOf="@+id/lineViewInOccupantsBillCard"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
@@ -126,6 +97,18 @@
         android:id="@+id/statusInOccupantsBillCard"/>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/studentRollInOccupantsBillCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Roll"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@id/statusInOccupantsBillCard"
+        app:layout_constraintEnd_toEndOf="@+id/statusInOccupantsBillCard"/>
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dateInOccupantsBillCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -133,11 +116,9 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="italic"
-        app:layout_constraintVertical_bias="0.2"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/amountInOccupantsBillCard"
-        app:layout_constraintBottom_toTopOf="@id/dateInOccupantsBillCard"/>
+        android:layout_marginTop="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/studentRollInOccupantsBillCard"
+        app:layout_constraintEnd_toEndOf="@+id/studentRollInOccupantsBillCard"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/paymentDoneTextInOccupantsBillCard"
@@ -146,16 +127,14 @@
         android:text="Payment date"
         android:textColor="@color/dark_grey"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/dateInOccupantsBillCard"
         app:layout_constraintEnd_toEndOf="@+id/dateInOccupantsBillCard"
-        app:layout_constraintTop_toBottomOf="@+id/dateInOccupantsBillCard"
-        app:layout_constraintBottom_toBottomOf="@id/amountInOccupantsBillCard"/>
+        app:layout_constraintTop_toBottomOf="@+id/dateInOccupantsBillCard"/>
 
     <View
         android:id="@+id/lineViewInOccupantsBillCard"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintWidth_percent="0.95"
         android:layout_weight="1"
         android:background="@color/dark_grey"
         app:layout_constraintVertical_bias="1"
