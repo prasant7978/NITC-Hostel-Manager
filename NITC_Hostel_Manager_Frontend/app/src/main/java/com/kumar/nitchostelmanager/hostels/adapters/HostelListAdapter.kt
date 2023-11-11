@@ -63,12 +63,11 @@ class HostelListAdapter(
         val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
         deleteCoroutineScope.launch {
             val deleted = ManageHostelsAccess(context,loginToken,parentFragment).deleteHostel(hostels[position].hostelID)
-
             deleteCoroutineScope.cancel()
             if(deleted){
-                Toast.makeText(context,"Deleted",Toast.LENGTH_SHORT).show()
                 hostels.removeAt(position)
                 notifyDataSetChanged()
+                Toast.makeText(context,"Hostel deleted",Toast.LENGTH_SHORT).show()
             }
         }
     }

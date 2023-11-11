@@ -1,4 +1,5 @@
 const HostelModel = require('../../../models/hostelModel')
+const RoomModel = require('../../../models/roomModel')
 var db = require("../../../db/db_connection");
 
 module.exports = async(req, res)=>{

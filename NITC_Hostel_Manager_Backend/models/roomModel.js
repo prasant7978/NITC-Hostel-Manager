@@ -78,6 +78,24 @@ module.exports = class Model{
         })
     }
 
+    async deleteAllRooms(hostelID){
+        return new Promise((resolve,reject)=>{
+            db.query('DELETE FROM rooms WHERE hostelID = ?', [hostelID], async(exc, result)=>{
+                if(exc){
+                    console.log("Error : "+exc);
+                    reject(exc);
+                }else{
+                    if(result){
+                        console.log("rooms deleted");
+                        resolve(true);
+                    }
+                    else 
+                        reject("Not deleted without any exception");
+                }
+            })
+        })
+    }
+
     async createRoom(roomNumber, hostelID, roomType){
         return new Promise((resolve, reject)=>{
             db.query('INSERT INTO rooms(roomNumber,hostelID,roomType) VALUES(?,?,?)',[roomNumber, hostelID, roomType], async(exc, result)=>{
@@ -116,6 +134,4 @@ module.exports = class Model{
             });
         });
     }
-
-
 }

@@ -35,7 +35,9 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
         binding.buttonClearAllInAddHostelFragment.setOnClickListener {
             clearAll()
         }
+
         if(sharedViewModel.updatingHostelID != null){
+            binding.hostelNameInputInAddHostelFragment.isEnabled = false
             binding.wardenEmailInputCardInAddHostelFragment.visibility = View.VISIBLE
             getData(sharedViewModel.updatingHostelID.toString())
         }
@@ -47,12 +49,14 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 binding.hostelNameInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
+
             val occupantsGender = binding.occupantsGenderInputInAddHostelFragment.text?.trim().toString()
             if(occupantsGender.isEmpty()){
                 binding.occupantsGenderInputInAddHostelFragment.error = "Enter gender"
                 binding.occupantsGenderInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
+
             val chargesString = binding.chargesInputInAddHostelFragment.text?.trim().toString()
             if(chargesString.isEmpty()){
                 binding.chargesInputInAddHostelFragment.error = "Enter hostel charge"
@@ -66,6 +70,9 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 binding.capacityInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
+
+            val wardenEmail = binding.wardenEmailInputInAddHostelFragment.text?.trim().toString()
+
             val charges = chargesString.toInt()
             val capacity = capacityString.toInt()
             if(charges<=0){
@@ -78,6 +85,7 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 binding.capacityInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
+
             var newHostel = Hostel(
                 hostelName,
                 capacity,
@@ -87,16 +95,20 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 occupantsGender,
                 null
             )
-            if(sharedViewModel.updatingHostelID != null) updateHostel(newHostel)
+
+            if(sharedViewModel.updatingHostelID != null) updateHostel(newHostel, wardenEmail)
             else addHostel(newHostel)
         }
 
         return binding.root
     }
 
-    private fun updateHostel(newHostel: Hostel) {
+    private fun updateHostel(newHostel: Hostel, wardenEmail: String) {
+        newHostel.wardenEmail = wardenEmail
+
         val updateHostelCoroutineScope = CoroutineScope(Dispatchers.Main)
         val loadingDialog = getLoadingDialog(requireContext(),this@AddHostelFragment)
+
         updateHostelCoroutineScope.launch {
             loadingDialog.create()
             loadingDialog.show()
