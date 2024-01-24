@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -36,6 +37,13 @@ class AllStudentsFragment:Fragment() {
             binding.swipeRefreshLayoutInAllStudentsFragment.isRefreshing = false
         }
 
+        val backCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                sharedViewModel.viewingStudentRoll = null
+                if(profileViewModel.userType == "Admin") findNavController().navigate(R.id.adminDashboardFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
         return binding.root
     }
 

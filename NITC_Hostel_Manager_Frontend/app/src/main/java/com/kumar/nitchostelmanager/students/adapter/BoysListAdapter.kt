@@ -24,8 +24,9 @@ class BoysListAdapter(
     var context:Context,
     var profileViewModel: ProfileViewModel,
     private var studentList: ArrayList<Student>,
-    private var sharedViewModel: SharedViewModel,
-    private var parentFragment: Fragment
+    private var parentFragment: Fragment,
+    var clickCallback:(Int)->Unit,
+    var longClickCallback:(Int)->Unit
 ): RecyclerView.Adapter<BoysListAdapter.StudentViewHolder>() {
     class StudentViewHolder(val binding: StudentCardBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -44,7 +45,13 @@ class BoysListAdapter(
         holder.binding.studentNameInStudentCard.text = studentList[position].name
         holder.binding.studentRollInStudentCard.text = studentList[position].studentRoll.uppercase()
         holder.binding.studentEmailInStudentCard.text = studentList[position].email
-
+        holder.binding.constraintLayoutInStudentCard.setOnClickListener {
+            clickCallback(position)
+        }
+        holder.binding.constraintLayoutInStudentCard.setOnLongClickListener{
+            longClickCallback(position)
+            return@setOnLongClickListener true
+        }
         var hostel = studentList[position].hostelID
         if(hostel.isNullOrEmpty()) {
             holder.binding.hostelNameInStudentCard.text = ""
@@ -55,17 +62,11 @@ class BoysListAdapter(
             holder.binding.roomNumberInStudentCard.text = studentList[position].roomNumber.toString()
         }
 
-//        holder.binding.constraintLayoutInStudentCard.setOnClickListener {
-//            sharedViewModel.viewingStudentRoll = studentList[position].studentRoll
-//
-//            parentFragment.findNavController().navigate(R.id.viewStudentFragment)
-//        }
-
         holder.binding.constraintLayoutInStudentCard.setOnLongClickListener {
             AlertDialog.Builder(context)
                 .setTitle("Delete Student")
                 .setPositiveButton("Yes"){dialog,which->
-                    deleteStudent(position)
+                    longClickCallback(position)
                 }
                 .setNegativeButton("No"){dialog,which->
                     dialog.dismiss()
@@ -75,20 +76,6 @@ class BoysListAdapter(
         }
     }
 
-    private fun deleteStudent(position: Int) {
-        val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
-        deleteCoroutineScope.launch {
-            val deleted = ManageStudentAccess(context,parentFragment, profileViewModel).deleteStudent(studentList[position].studentRoll)
-
-            deleteCoroutineScope.cancel()
-            if(deleted){
-                Toast.makeText(context,"Deleted", Toast.LENGTH_SHORT).show()
-                studentList.removeAt(position)
-                notifyDataSetChanged()
-            }
-        }
-
-    }
 
     fun searchByRollNo(searchList : ArrayList<Student>){
         studentList = searchList

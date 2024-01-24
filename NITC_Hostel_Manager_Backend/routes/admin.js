@@ -9,6 +9,7 @@ var updateStudent = require("../controllers/students/updateStudent");
 var getAllStudents = require("../controllers/admin/student/getAllStudents")
 var getBoys = require("../controllers/admin/student/getBoys")
 var getGirls = require("../controllers/admin/student/getGirls")
+var getStudent = require("../controllers/admin/student/getStudent")
 var getStudentsCount = require("../controllers/admin/student/getStudentsCount")
 
 var addWarden = require("../controllers/admin/warden/addWarden");
@@ -25,8 +26,9 @@ router.get("/students/all", verifyToken, getAllStudents);
 router.get("/students/boys", verifyToken, getBoys);
 router.get("/students/girls", verifyToken, getGirls);
 router.get("/students/count", verifyToken, getStudentsCount);
-router.put("/students/update", verifyToken, updateStudent);
+router.post("/students/update", verifyToken, updateStudent);
 router.delete("/students/delete", verifyToken, deleteStudent);
+router.get("/students/details", verifyToken, getStudent);
 
 router.post("/wardens/add", verifyToken, addWarden);
 

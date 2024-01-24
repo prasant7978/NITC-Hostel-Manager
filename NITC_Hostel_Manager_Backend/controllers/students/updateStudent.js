@@ -2,7 +2,7 @@ const StudentModel = require('../../models/studentModel')
 
 module.exports = async (req, res) => {
     var studentModel = new StudentModel()
-    studentModel.updateStudent(req.body.username, req.body).then(function(result){
+    studentModel.updateStudent(req.query.studentRoll, req.body).then(function(result){
         console.log("Student updated successfully")
         res.status(200).send(JSON.stringify(result))
     }).catch(function(err){

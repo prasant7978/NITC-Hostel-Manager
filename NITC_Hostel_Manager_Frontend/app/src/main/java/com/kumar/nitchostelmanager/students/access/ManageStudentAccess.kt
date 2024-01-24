@@ -233,5 +233,37 @@ class ManageStudentAccess(
         }
     }
 
+    suspend fun getStudent(viewingStudentRoll: String): Student?{
+        return suspendCoroutine { continuation ->
+            var isResumed = false
+            var manageStudentService = ServiceBuilder.buildService(ManageStudentsService::class.java)
+            var requestCall = manageStudentService.getStudent(profileViewModel.loginToken.toString(),viewingStudentRoll)
+            requestCall.enqueue(object:Callback<Student>{
+                override fun onResponse(call: Call<Student>, response: Response<Student>) {
+                    if(response.isSuccessful && response.body() != null){
+                        if(!isResumed){
+                            isResumed = true
+                            continuation.resume(response.body())
+                        }
+                    }else{
+                        if(!isResumed){
+                            isResumed = true
+                            continuation.resume(null)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<Student>, t: Throwable) {
+                    Toast.makeText(context,"Error in getting student details",Toast.LENGTH_SHORT).show()
+                    Log.d("getStudent","Error in getting student details : $t")
+                    if(!isResumed){
+                        isResumed = true
+                        continuation.resume(null)
+                    }
+                }
+            })
+        }
+    }
+
 
 }

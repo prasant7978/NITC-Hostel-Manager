@@ -1,5 +1,6 @@
 package com.kumar.nitchostelmanager.students.fragments
 
+import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
@@ -8,35 +9,72 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.kumar.nitchostelmanager.CircleLoadingDialog
+import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.databinding.FragmentAddStudentBinding
 import com.kumar.nitchostelmanager.models.Student
+import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
-class AddStudentFragment : Fragment() {
+class AddStudentFragment : Fragment(),CircleLoadingDialog {
     private lateinit var binding: FragmentAddStudentBinding
     private val profileViewModel: ProfileViewModel by activityViewModels()
-
+    private val sharedViewModel:SharedViewModel by activityViewModels()
+    var genderList:Array<String>? =null
+    var genderSelected = "NA"
+    var dob = "NA"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddStudentBinding.inflate(inflater, container, false)
 
-        binding.addStudentButton.setOnClickListener {
+        if(sharedViewModel.viewingStudentRoll != null){
+            binding.addStudentButtonInAddStudentFragment.text = "Update Student"
+            getStudentDetails(sharedViewModel.viewingStudentRoll!!)
+        }else{
+            binding.addStudentButtonInAddStudentFragment.text = "Add"
+        }
+        genderList = resources.getStringArray(R.array.gender)
+        binding.genderButtonInAddStudentFragment.setOnClickListener {
+            getGender()
+        }
+        binding.dobButtonInAddStudentFragment.setOnClickListener {
+            val c = Calendar.getInstance()
+
+            // on below line we are getting
+            // our day, month and year.
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+            DatePickerDialog(
+                requireContext(),
+                {view,yearChosen,monthChosen,dayChosen->
+                    if(monthChosen >= 9)dob = (dayChosen.toString() + "/" + (monthChosen + 1) + "/" + yearChosen)
+                    else dob = (dayChosen.toString() + "/0" + (monthChosen + 1) + "/" + yearChosen)
+                    binding.dobButtonInAddStudentFragment.text = dob
+                },
+                year,
+                month,
+                day
+            ).show()
+        }
+        binding.addStudentButtonInAddStudentFragment.setOnClickListener {
             val studentName = binding.nameInputInAddStudentFragment.text.toString()
             val studentEmail = binding.emailInputInAddStudentFragment.text.toString()
             val studentPhone = binding.phoneInputInAddStudentFragment.text.toString()
             val studentParentPhone = binding.parentPhoneInAddStudentFragment.text.toString()
-            val studentGender = binding.genderInputInAddStudentFragment.text.toString()
-            val studentDOB = binding.dobInputInAddStudentFragment.text.toString()
             val studentAddress = binding.addressInputInAddStudentFragment.text.toString()
 
             // obtain rollno from email
@@ -52,7 +90,7 @@ class AddStudentFragment : Fragment() {
 
             val studentPassword = studentRoll
 
-            if(studentName!!.isEmpty() || studentEmail!!.isEmpty() || studentPhone!!.isEmpty() || studentParentPhone!!.isEmpty() || studentGender!!.isEmpty() || studentDOB!!.isEmpty() || studentAddress!!.isEmpty()){
+            if(studentName!!.isEmpty() || studentEmail!!.isEmpty() || studentPhone!!.isEmpty() || studentParentPhone!!.isEmpty() || genderSelected == "NA" || dob == "NA" || studentAddress!!.isEmpty()){
                 Toast.makeText(activity,"Please provide complete information", Toast.LENGTH_SHORT).show()
             }
             else {
@@ -60,7 +98,7 @@ class AddStudentFragment : Fragment() {
                     Toast.makeText(context,"Enter a valid nitc email id", Toast.LENGTH_SHORT).show()
                 }
                 else {
-                    binding.addStudentButton.isCheckable = false
+                    binding.addStudentButtonInAddStudentFragment.isCheckable = false
                     binding.progressBarInAddStudentFragment.visibility = View.VISIBLE
 
                     val student: Student = Student(
@@ -70,16 +108,20 @@ class AddStudentFragment : Fragment() {
                         studentName,
                         studentPhone,
                         studentParentPhone,
-                        studentGender,
-                        studentDOB,
+                        genderSelected,
+                        dob,
                         0.0,
                         studentAddress,
                         courseEnrolled
                     )
 
-                    showAlertMessageForAdd(student)
+                    if(sharedViewModel.viewingStudentRoll != null) showAlertMessageForUpdate(
+                        sharedViewModel.viewingStudentRoll!!,
+                        student
+                    )
+                    else showAlertMessageForAdd(student)
 
-                    binding.addStudentButton.isCheckable = true
+                    binding.addStudentButtonInAddStudentFragment.isCheckable = true
                     binding.progressBarInAddStudentFragment.visibility = View.INVISIBLE
                 }
             }
@@ -89,7 +131,94 @@ class AddStudentFragment : Fragment() {
             clearAllTextArea()
         }
 
+        val backCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                sharedViewModel.viewingStudentRoll = null
+                if(profileViewModel.userType == "Admin") findNavController().navigate(R.id.allStudentsFragment)
+                else findNavController().navigate(R.id.occupantsFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
         return binding.root
+    }
+
+    private fun getStudentDetails(viewingStudentRoll: String) {
+        val studentCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(),this@AddStudentFragment)
+        studentCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+            val student = ManageStudentAccess(
+                requireContext(),
+                this@AddStudentFragment,
+                profileViewModel
+            ).getStudent(viewingStudentRoll)
+            loadingDialog.cancel()
+            studentCoroutineScope.cancel()
+            if(student != null){
+                binding.dobButtonInAddStudentFragment.text = student.dob
+                binding.genderButtonInAddStudentFragment.text = student.gender
+                genderSelected = student.gender
+                dob = student.dob
+                binding.nameInputInAddStudentFragment.setText(student.name)
+                binding.emailInputInAddStudentFragment.setText(student.email)
+                binding.parentPhoneInAddStudentFragment.setText(student.parentPhone)
+                binding.phoneInputInAddStudentFragment.setText(student.phone)
+                binding.addressInputInAddStudentFragment.setText(student.address)
+            }
+        }
+    }
+
+    private fun getGender() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Choose Gender")
+            .setSingleChoiceItems(genderList!!,-1){dialog,selected->
+                genderSelected = genderList!![selected]
+            }
+            .setPositiveButton("Select"){dialog,which->
+                if(genderSelected != "NA"){
+                    binding.genderButtonInAddStudentFragment.text = genderSelected
+                    dialog.dismiss()
+                }else Toast.makeText(context,"Select Gender",Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("No"){dialog,which->
+                genderSelected = "NA"
+                binding.genderButtonInAddStudentFragment.text = "Gender"
+            }
+            .create().show()
+    }
+
+    private fun showAlertMessageForUpdate(studentRoll: String,student: Student){
+        val dialog = activity?.let { AlertDialog.Builder(it) }
+        dialog?.setCancelable(false)
+        dialog?.setTitle("Update Student")
+        dialog?.setMessage("Are you sure you want to update this student?")
+        dialog?.setNegativeButton("No", DialogInterface.OnClickListener{ dialog, which ->
+            dialog.cancel()
+        })
+        dialog?.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
+            updateStudent(studentRoll,student)
+        })
+        dialog?.create()?.show()
+    }
+
+    private fun updateStudent(studentRoll:String,student: Student) {
+        val manageStudentCoroutineScope = CoroutineScope(Dispatchers.Main)
+        manageStudentCoroutineScope.launch {
+            val updatedStudent = ManageStudentAccess(
+                requireContext(),
+                this@AddStudentFragment,
+                profileViewModel
+            ).updateStudent(studentRoll,student)
+            manageStudentCoroutineScope.cancel()
+
+            if(updatedStudent != null){
+                Snackbar.make(binding.linearLayout,"Student account updated", Snackbar.LENGTH_LONG).setAction("close",View.OnClickListener { }).show()
+                findNavController().navigate(R.id.allStudentsFragment)
+            }
+            else
+                Snackbar.make(binding.linearLayout,"Oops! We encountered a problem while updating student, please try again", Snackbar.LENGTH_LONG).setAction("close",View.OnClickListener { }).show()
+        }
     }
 
     private fun showAlertMessageForAdd(student: Student){
@@ -150,8 +279,10 @@ class AddStudentFragment : Fragment() {
         binding.emailInputInAddStudentFragment.setText("")
         binding.phoneInputInAddStudentFragment.setText("")
         binding.parentPhoneInAddStudentFragment.setText("")
-        binding.genderInputInAddStudentFragment.setText("")
-        binding.dobInputInAddStudentFragment.setText("")
+        binding.dobButtonInAddStudentFragment.setText("Date fo Birth")
+        binding.genderButtonInAddStudentFragment.setText("Gender")
         binding.addressInputInAddStudentFragment.setText("")
+        genderSelected = "NA"
+        dob = "NA"
     }
 }

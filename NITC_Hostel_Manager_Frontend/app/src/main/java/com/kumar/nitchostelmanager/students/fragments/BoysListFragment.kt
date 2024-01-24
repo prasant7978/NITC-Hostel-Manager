@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.students.adapter.BoysListAdapter
 import com.kumar.nitchostelmanager.databinding.FragmentBoysListBinding
@@ -60,7 +63,21 @@ class BoysListFragment : Fragment() {
             if(boysList != null){
                 boysList.reverse()
                 binding.recyclerViewInBoysListFragment.layoutManager = LinearLayoutManager(activity)
-                boysListAdapter = BoysListAdapter(requireContext(),profileViewModel,boysList, sharedViewModel, this@BoysListFragment)
+                boysListAdapter = BoysListAdapter(
+                    requireContext(),
+                    profileViewModel,
+                    boysList,
+                    this@BoysListFragment,
+                    {studentIndex->
+                        if(boysList.size> studentIndex) {
+                            sharedViewModel.viewingStudentRoll = boysList[studentIndex].studentRoll
+                            findNavController().navigate(R.id.addStudentFragment)
+                        }
+                    },
+                    {studentIndex->
+                        if(boysList.size> studentIndex) deleteStudent(boysList[studentIndex].studentRoll)
+                    }
+                )
                 binding.recyclerViewInBoysListFragment.adapter = boysListAdapter
             }
             else{
@@ -69,6 +86,24 @@ class BoysListFragment : Fragment() {
         }
     }
 
+    private fun deleteStudent(studentRoll:String) {
+        val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
+        deleteCoroutineScope.launch {
+            val deleted = ManageStudentAccess(
+                requireContext(),
+                this@BoysListFragment,
+                profileViewModel
+            ).deleteStudent(
+                studentRoll
+            )
+
+            deleteCoroutineScope.cancel()
+            if(deleted){
+                Toast.makeText(context,"Deleted", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
     private fun searchList(text: String){
         val searchList = ArrayList<Student>()
         for(student in boysList){

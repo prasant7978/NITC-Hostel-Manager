@@ -42,4 +42,7 @@ interface ManageStudentsService {
     @DELETE("admin/students/delete")
     fun deleteStudent(@Header("auth-token") loginToken: String,@Query("studentRoll") studentRoll:String):Call<Boolean>
 
+    @GET("admin/students/details")
+    fun getStudent(@Header("auth-token") loginToken: String, @Query("studentRoll") viewingStudentRoll: String): Call<Student>
+
 }
