@@ -19,7 +19,7 @@ interface ManageStudentsService {
 
 
     @GET("warden/students/all")
-    fun getOccupants(@Header("auth-token") loginToken:String, @Query ("hostelID") hostelID:String): Call<Array<Student>>
+    fun getOccupants(@Header("auth-token") loginToken:String, @Query ("hostelID") hostelID:String): Call<List<Student>>
 
 
     @GET("admin/students/all")

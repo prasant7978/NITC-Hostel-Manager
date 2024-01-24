@@ -11,9 +11,8 @@ import com.kumar.nitchostelmanager.models.Student
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 
 class OccupantsAdapter(
-    private var studentList: Array<Student>,
-    private var sharedViewModel: SharedViewModel,
-    private var parentFragment: Fragment
+    private var studentList: List<Student>,
+    var clickCallback:(Int)->Unit
 ): RecyclerView.Adapter<OccupantsAdapter.OccupantsViewHolder>() {
     class OccupantsViewHolder(val adapterBinding: StudentCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
 
@@ -36,13 +35,11 @@ class OccupantsAdapter(
         holder.adapterBinding.roomNumberInStudentCard.text = studentList[position].roomNumber.toString()
 
         holder.adapterBinding.constraintLayoutInStudentCard.setOnClickListener {
-            sharedViewModel.viewingStudentRoll = studentList[position].studentRoll
-
-            parentFragment.findNavController().navigate(R.id.viewStudentFragment)
+            clickCallback(position)
         }
     }
 
-    fun searchByRollNo(searchList : Array<Student>){
+    fun searchByRollNo(searchList: List<Student>){
         studentList = searchList
         notifyDataSetChanged()
     }

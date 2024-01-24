@@ -42,6 +42,28 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
 
         if(sharedViewModel.viewingStudentRoll != null){
             binding.addStudentButtonInAddStudentFragment.text = "Update Student"
+            if(profileViewModel.userType == "Admin"){
+                binding.addStudentButtonInAddStudentFragment.visibility = View.VISIBLE
+                binding.buttonClearAll.visibility = View.VISIBLE
+                binding.dobButtonInAddStudentFragment.isEnabled = true
+                binding.nameInputInAddStudentFragment.isEnabled = true
+                binding.phoneInputInAddStudentFragment.isEnabled = true
+                binding.parentPhoneInAddStudentFragment.isEnabled = true
+                binding.emailInputInAddStudentFragment.isEnabled = true
+                binding.addressInputInAddStudentFragment.isEnabled = true
+                binding.genderButtonInAddStudentFragment.isEnabled = true
+            }else{
+
+                binding.addStudentButtonInAddStudentFragment.visibility = View.GONE
+                binding.buttonClearAll.visibility = View.GONE
+                binding.dobButtonInAddStudentFragment.isEnabled = false
+                binding.nameInputInAddStudentFragment.isEnabled = false
+                binding.phoneInputInAddStudentFragment.isEnabled = false
+                binding.parentPhoneInAddStudentFragment.isEnabled = false
+                binding.emailInputInAddStudentFragment.isEnabled = false
+                binding.addressInputInAddStudentFragment.isEnabled = false
+                binding.genderButtonInAddStudentFragment.isEnabled = false
+            }
             getStudentDetails(sharedViewModel.viewingStudentRoll!!)
         }else{
             binding.addStudentButtonInAddStudentFragment.text = "Add"

@@ -49,15 +49,15 @@ class HostelDataAccess(
         }
     }
 
-    suspend fun getHostelOccupants(hostelID: String):Array<Student>?{
+    suspend fun getHostelOccupants(hostelID: String):List<Student>?{
         return suspendCoroutine { continuation ->
             var manageStudentsService = ServiceBuilder.buildService(ManageStudentsService::class.java)
             var requestCall = manageStudentsService.getOccupants(loginToken,hostelID)
 
-            requestCall.enqueue(object: Callback<Array<Student>> {
+            requestCall.enqueue(object: Callback<List<Student>> {
                 override fun onResponse(
-                    call: Call<Array<Student>>,
-                    response: Response<Array<Student>>
+                    call: Call<List<Student>>,
+                    response: Response<List<Student>>
                 ) {
                     if(response.isSuccessful && response.body() != null){
                         continuation.resume(response.body()!!)
@@ -68,7 +68,7 @@ class HostelDataAccess(
                     }
                 }
 
-                override fun onFailure(call: Call<Array<Student>>, t: Throwable) {
+                override fun onFailure(call: Call<List<Student>>, t: Throwable) {
                     Toast.makeText(context,"Error: $t", Toast.LENGTH_SHORT).show()
                     Log.d("getOccupants","Error : $t")
                     continuation.resume(null)
