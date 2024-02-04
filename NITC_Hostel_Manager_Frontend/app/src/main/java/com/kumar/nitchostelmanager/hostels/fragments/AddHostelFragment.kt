@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -24,7 +26,8 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
     private val profileViewModel:ProfileViewModel by activityViewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
     private lateinit var binding:FragmentAddHostelBinding
-
+    var genderList:Array<String>? = null
+    var genderSelected = "Male"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,19 +44,15 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
             binding.wardenEmailInputCardInAddHostelFragment.visibility = View.VISIBLE
             getData(sharedViewModel.updatingHostelID.toString())
         }
-
+        genderList = resources.getStringArray(R.array.gender)
+        binding.genderButtonInAddHostelFragment.setOnClickListener {
+            getGender()
+        }
         binding.addHostelButtonInAddHostelFragment.setOnClickListener {
             val hostelName = binding.hostelNameInputInAddHostelFragment.text?.trim().toString()
             if(hostelName.isEmpty()){
                 binding.hostelNameInputInAddHostelFragment.error = "Enter hostel name"
                 binding.hostelNameInputInAddHostelFragment.requestFocus()
-                return@setOnClickListener
-            }
-
-            val occupantsGender = binding.occupantsGenderInputInAddHostelFragment.text?.trim().toString()
-            if(occupantsGender.isEmpty()){
-                binding.occupantsGenderInputInAddHostelFragment.error = "Enter gender"
-                binding.occupantsGenderInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
 
@@ -92,7 +91,7 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 charges,
                 0.0,
                 0,
-                occupantsGender,
+                genderSelected,
                 null
             )
 
@@ -101,6 +100,25 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
         }
 
         return binding.root
+    }
+
+    private fun getGender() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Choose Gender")
+            .setSingleChoiceItems(genderList!!,-1){dialog,selected->
+                genderSelected = genderList!![selected]
+            }
+            .setPositiveButton("Select"){dialog,which->
+                if(genderSelected != "NA"){
+                    binding.genderButtonInAddHostelFragment.text = genderSelected
+                    dialog.dismiss()
+                }else Toast.makeText(context,"Select Gender", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("No"){dialog,which->
+                binding.genderButtonInAddHostelFragment.text = genderSelected
+                dialog.dismiss()
+            }
+            .create().show()
     }
 
     private fun updateHostel(newHostel: Hostel, wardenEmail: String) {
@@ -119,7 +137,7 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
             ).updateHostel(newHostel, sharedViewModel.updatingHostelID.toString())
             loadingDialog.cancel()
             if(added){
-                getData(newHostel.hostelID)
+
             }
         }
     }
@@ -142,8 +160,9 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 binding.capacityInputInAddHostelFragment.setText(hostel.capacity.toString())
                 binding.hostelNameInputInAddHostelFragment.setText(hostel.hostelID.toString())
                 binding.addHostelButtonInAddHostelFragment.setText("Update Hostel")
-                binding.occupantsGenderInputInAddHostelFragment.setText(hostel.occupantsGender.toString())
+                binding.genderButtonInAddHostelFragment.setText(hostel.occupantsGender.toString())
                 binding.headingInAddHostelFragment.setText("Update Hostel")
+                binding.capacityInputInAddHostelFragment.isEnabled = false
             }
         }
     }
@@ -152,7 +171,7 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
         binding.hostelNameInputInAddHostelFragment.setText("")
         binding.chargesInputInAddHostelFragment.setText("")
         binding.capacityInputInAddHostelFragment.setText("")
-        binding.occupantsGenderInputInAddHostelFragment.setText("")
+        binding.genderButtonInAddHostelFragment.setText("Male")
     }
 
     private fun addHostel(newHostel:Hostel) {

@@ -24,8 +24,8 @@ class WardenListAdapter(
     var context:Context,
     var profileViewModel: ProfileViewModel,
     private var wardenList: ArrayList<Warden>,
-    private var sharedViewModel: SharedViewModel,
-    private var parentFragment: Fragment
+    var clickCallback:(String)->Unit,
+    var deleteCallback:(String)->Unit
 ): RecyclerView.Adapter<WardenListAdapter.WardenViewHolder>() {
     class WardenViewHolder(val adapterBinding: WardenCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
 
@@ -46,6 +46,9 @@ class WardenListAdapter(
         holder.adapterBinding.wardenPhoneInWardenCard.text = wardenList[position].phone
         holder.adapterBinding.hostelNameInWardenCard.text = wardenList[position].hostelID
 
+        holder.adapterBinding.constraintLayoutInWardenCard.setOnClickListener {
+            clickCallback(wardenList[position].email)
+        }
 //        holder.adapterBinding.constraintLayoutInWardenCard.setOnClickListener {
 //            sharedViewModel.viewingWardenEmail = wardenList[position].email
 //
@@ -57,7 +60,7 @@ class WardenListAdapter(
             AlertDialog.Builder(context)
                 .setTitle("Delete Warden")
                 .setPositiveButton("Yes"){dialog,which->
-                    deleteWarden(position)
+                    deleteCallback(wardenList[position].email)
                 }
                 .setNegativeButton("No"){dialog,which->
                     dialog.dismiss()
@@ -67,21 +70,6 @@ class WardenListAdapter(
         }
     }
 
-    private fun deleteWarden(position: Int) {
-
-        val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
-        deleteCoroutineScope.launch {
-            val deleted = ManageWardensAccess(context,parentFragment, profileViewModel).deleteWarden(wardenList[position].email)
-
-            deleteCoroutineScope.cancel()
-            if(deleted){
-                Toast.makeText(context,"Deleted", Toast.LENGTH_SHORT).show()
-                wardenList.removeAt(position)
-                notifyDataSetChanged()
-            }
-        }
-
-    }
 
     fun searchByWardenName(searchList : ArrayList<Warden>){
         wardenList = searchList

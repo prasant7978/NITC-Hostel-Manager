@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -26,6 +27,7 @@ import com.kumar.nitchostelmanager.notice.access.NoticeAccess
 import com.kumar.nitchostelmanager.profile.access.ProfileAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import com.kumar.nitchostelmanager.wardens.access.ManageWardensAccess
 import com.kumar.nitchostelmanager.wardens.access.WardensDataAccess
 import kotlinx.coroutines.CoroutineScope
@@ -37,16 +39,21 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
     private lateinit var binding:FragmentAdminDashboardBinding
     private val profileViewModel:ProfileViewModel by activityViewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
+    private val viewsViewModel:ViewsViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAdminDashboardBinding.inflate(inflater,container,false)
-
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_admin_dashboard,container,false)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
         getProfile()
 
-        binding.showALlWardensButtonInAdminDashboard.visibility = View.GONE
+        binding.showAllHostelsButtonInAdminDashboard.setOnClickListener {
+            findNavController().navigate(R.id.allHostelsFragment)
+        }
 
         binding.totalWardensCardInAdminDashboard.setOnClickListener {
             findNavController().navigate(R.id.wardenListFragment)
@@ -67,11 +74,6 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         binding.swipeRefreshLayoutInAdminDashboard.setOnRefreshListener {
             getProfile()
             binding.swipeRefreshLayoutInAdminDashboard.isRefreshing = false
-        }
-
-        binding.addHostelsButtonInAdminDashboard.setOnClickListener {
-            sharedViewModel.updatingHostelID = null
-            findNavController().navigate(R.id.addHostelFragment)
         }
 
         binding.logoutButtonInAdminDashboard.setOnClickListener {
@@ -114,13 +116,11 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         getProfileCoroutineScope.launch {
             loadingDialog.create()
             loadingDialog.show()
-
+            viewsViewModel.updateLoadingState(true)
             val admin = ProfileAccess(
                 requireContext(),
                 profileViewModel
             ).getAdminProfile()
-
-            loadingDialog.cancel()
             getProfileCoroutineScope.cancel()
 
             if(admin!= null){
@@ -131,6 +131,15 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 getTotalNotices()
                 getHostels()
                 getWardensCount()
+                loadingDialog.cancel()
+            }else{
+                Toast.makeText(context,"Error in logging you in. Login Again",Toast.LENGTH_SHORT).show()
+                LocalStorageAccess(
+                    this@AdminDashboardFragment,
+                    requireContext(),
+                    profileViewModel
+                ).deleteData()
+                findNavController().navigate(R.id.loginFragment)
             }
         }
     }
@@ -142,6 +151,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 requireContext(),
                 profileViewModel.loginToken.toString()
             ).getWardensCount(binding.parentLayoutInAdminDashboard)
+            viewsViewModel.updateLoadingState(false)
             getWardensCoroutineScope.cancel()
             binding.totalWardensTextInAdminDashboard.text = wardensCount.toString()
         }
@@ -164,7 +174,14 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                     profileViewModel.loginToken.toString(),
                     this@AdminDashboardFragment,
                     sharedViewModel,
-                    hostels
+                    hostels,
+                    {hostelID->
+                        sharedViewModel.updatingHostelID = hostelID
+                        findNavController().navigate(R.id.addHostelFragment)
+                    },
+                    {hostelID->
+                        deleteHostel(hostelID)
+                    }
                 )
             }else{
                 binding.hostelsRecyclerViewInAdminDashboard.visibility = View.GONE
@@ -175,6 +192,21 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         }
     }
 
+    private fun deleteHostel(hostelID:String) {
+        val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
+        deleteCoroutineScope.launch {
+            val deleted = ManageHostelsAccess(
+                requireContext(),
+                profileViewModel.loginToken.toString(),
+                this@AdminDashboardFragment
+            ).deleteHostel(hostelID)
+            deleteCoroutineScope.cancel()
+            if(deleted){
+                Toast.makeText(context,"Hostel deleted",Toast.LENGTH_SHORT).show()
+                getHostels()
+            }
+        }
+    }
     private fun getTotalNotices() {
         var noticesCountCoroutineScope = CoroutineScope(Dispatchers.Main)
         noticesCountCoroutineScope.launch {

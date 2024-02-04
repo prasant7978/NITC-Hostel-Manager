@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ import com.kumar.nitchostelmanager.hostels.access.HostelDataAccess
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
 import com.kumar.nitchostelmanager.services.HostelsService
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -29,14 +31,17 @@ import kotlinx.coroutines.launch
 class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
     private lateinit var binding: FragmentWardenDashboardBinding
     private val profileViewModel:ProfileViewModel by activityViewModels()
+    private val viewsViewModel:ViewsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentWardenDashboardBinding.inflate(inflater,container,false)
-
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_warden_dashboard,container,false)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
         getProfile()
 
         binding.swipeRefreshLayoutInWardenDashboard.setOnRefreshListener {
@@ -167,13 +172,13 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             var loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
             loadingDialog.create()
             loadingDialog.show()
-
+            viewsViewModel.updateLoadingState(true)
             val warden = ProfileAccess(requireContext(),profileViewModel).getWardenProfile()
 
-            loadingDialog.cancel()
             getProfileCoroutineScope.cancel()
 
             if(warden != null){
+
                 binding.nameTextInWardenDashboard.text = warden.name.toString()
                 binding.emailTextInWardenDashboard.text = warden.email.toString()
                 profileViewModel.currentWarden = warden
@@ -182,6 +187,8 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 getStudentsCount()
                 getNoticesCount()
                 getPendingComplaintsCount()
+                viewsViewModel.updateLoadingState(false)
+                loadingDialog.cancel()
             }else{
                 findNavController().navigate(R.id.loginFragment)
             }

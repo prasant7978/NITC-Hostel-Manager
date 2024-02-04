@@ -44,6 +44,7 @@ class ViewHostelFragment : Fragment() {
                 profileViewModel.loginToken.toString(),
                 this@ViewHostelFragment
             ).getHostels()
+            getHostelsCoroutineScope.cancel()
             if(!hostelList.isNullOrEmpty()){
                 binding.recyclerViewInViewHostelFragment.layoutManager = LinearLayoutManager(context)
                 hostelListAdapter = HostelListStudentAdapter(hostelList)
@@ -53,7 +54,6 @@ class ViewHostelFragment : Fragment() {
                 binding.recyclerViewInViewHostelFragment.visibility = View.GONE
                 Toast.makeText(context, "No hostels are available", Toast.LENGTH_SHORT).show()
             }
-            getHostelsCoroutineScope.cancel()
         }
     }
 }

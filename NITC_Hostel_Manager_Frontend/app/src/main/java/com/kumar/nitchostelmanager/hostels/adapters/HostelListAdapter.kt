@@ -23,7 +23,9 @@ class HostelListAdapter(
     var loginToken:String,
     var parentFragment: Fragment,
     private var sharedViewModel: SharedViewModel,
-    var hostels:ArrayList<Hostel>
+    var hostels:ArrayList<Hostel>,
+    var clickCallback:(String)->Unit,
+    var deleteCallback:(String)->Unit
 ) :RecyclerView.Adapter<HostelListAdapter.HostelListViewHolder>(){
     class HostelListViewHolder(val binding:HostelCardBinding):RecyclerView.ViewHolder(binding.root){
 
@@ -41,15 +43,14 @@ class HostelListAdapter(
     override fun onBindViewHolder(holder: HostelListViewHolder, position: Int) {
         holder.binding.hostelNameInHostelCard.text = hostels[position].hostelID.toString()
         holder.binding.wardenNameInHostelCard.text = hostels[position].wardenEmail.toString()
-        holder.binding.updateWardenButtonInHostelCard.setOnClickListener {
-            sharedViewModel.updatingHostelID = hostels[position].hostelID.toString()
-            parentFragment.findNavController().navigate(R.id.addHostelFragment)
+        holder.binding.hostelCardInHostelCard.setOnClickListener {
+            clickCallback(hostels[position].hostelID)
         }
         holder.binding.hostelCardInHostelCard.setOnLongClickListener {
             AlertDialog.Builder(context)
                 .setTitle("Delete Hostel")
                 .setPositiveButton("Yes"){dialog,which->
-                    deleteHostel(position)
+                    deleteCallback(hostels[position].hostelID)
                 }
                 .setNegativeButton("No"){dialog,which->
                     dialog.dismiss()
@@ -59,16 +60,4 @@ class HostelListAdapter(
         }
     }
 
-    private fun deleteHostel(position: Int) {
-        val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
-        deleteCoroutineScope.launch {
-            val deleted = ManageHostelsAccess(context,loginToken,parentFragment).deleteHostel(hostels[position].hostelID)
-            deleteCoroutineScope.cancel()
-            if(deleted){
-                hostels.removeAt(position)
-                notifyDataSetChanged()
-                Toast.makeText(context,"Hostel deleted",Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 }

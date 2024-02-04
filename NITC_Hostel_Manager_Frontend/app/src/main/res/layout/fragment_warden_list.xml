@@ -42,6 +42,20 @@
 
     </SearchView>
 
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Wardens Found"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_semibold"
+        android:id="@+id/noWardensTVInWardenListFragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewInWardenListFragment"
         android:layout_width="match_parent"
@@ -55,10 +69,9 @@
         tools:listitem="@layout/warden_card" />
 
     <com.google.android.material.button.MaterialButton
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Warden"
-        app:layout_constraintWidth_percent="0.37"
         android:fontFamily="@font/inter_semibold"
         android:backgroundTint="@color/navy_blue"
         app:layout_constraintStart_toStartOf="parent"

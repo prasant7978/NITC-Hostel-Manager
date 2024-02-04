@@ -7,13 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentStudentProfileBinding
 import com.kumar.nitchostelmanager.profile.access.ProfileAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -21,17 +24,20 @@ import kotlinx.coroutines.launch
 
 class StudentProfileFragment : Fragment(),CircleLoadingDialog {
     private lateinit var binding:FragmentStudentProfileBinding
-    val profileViewModel: ProfileViewModel by activityViewModels()
+    private val profileViewModel: ProfileViewModel by activityViewModels()
+    private val viewsViewModel:ViewsViewModel by activityViewModels()
     var expanded:Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStudentProfileBinding.inflate(inflater,container,false)
-
-        binding.changePasswordConstraintLayout.visibility = View.GONE
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_student_profile,container,false)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
 
         getAndSetProfileDetails()
+        binding.changePasswordConstraintLayout.visibility = View.GONE
 
         binding.changePasswordTextViewInStudentProfileFragment.setOnClickListener {
             expanded = !expanded
@@ -86,11 +92,15 @@ class StudentProfileFragment : Fragment(),CircleLoadingDialog {
 
     private fun getAndSetProfileDetails() {
         val profileCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(),this@StudentProfileFragment)
         profileCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+            viewsViewModel.updateLoadingState(true)
             val studentProfile = ProfileAccess(requireContext(), profileViewModel).getStudentProfile()
             profileCoroutineScope.cancel()
-
             if(studentProfile != null){
+                viewsViewModel.updateLoadingState(false)
                 binding.studentNameInStudentProfile.text = studentProfile.name
                 binding.studentEmailInStudentProfile.text = studentProfile.email
                 binding.phoneInStudentProfileFragment.text = studentProfile.phone
@@ -119,6 +129,9 @@ class StudentProfileFragment : Fragment(),CircleLoadingDialog {
                 else{
                     binding.profileImgInStudentProfile.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.woman))
                 }
+            }else{
+                Toast.makeText(context,"Error in loading your details",Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.studentDashboardFragment)
             }
         }
     }

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
@@ -18,6 +20,7 @@ import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentStudentDashboardBinding
 import com.kumar.nitchostelmanager.profile.access.ProfileAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,14 +28,17 @@ import kotlinx.coroutines.launch
 class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
     private lateinit var binding:FragmentStudentDashboardBinding
     private val profileViewModel: ProfileViewModel by activityViewModels()
+    private val viewsViewModel:ViewsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStudentDashboardBinding.inflate(inflater,container,false)
-
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_student_dashboard,container,false)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
         getStudentProfile()
 
         binding.studentProfileBoxInStudentDashboard.setOnClickListener {
@@ -105,7 +111,11 @@ class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
 
     private fun getStudentProfile(){
         val profileCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(),this@StudentDashboardFragment)
         profileCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+            viewsViewModel.updateLoadingState(true)
             val studentProfile = ProfileAccess(requireContext(), profileViewModel).getStudentProfile()
 
             if(studentProfile != null){
@@ -123,12 +133,17 @@ class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
                     binding.roomNumberInStudentDashboard.text = studentProfile.roomNumber.toString()
                 else
                     binding.roomNumberInStudentDashboard.text = "NA"
+                viewsViewModel.updateLoadingState(false)
             }
             else{
-                binding.studentNameInStudentDashboard.text = ""
-                binding.studentRollInStudentDashboard.text = ""
-                binding.hostelNameInStudentDashboard.text = ""
-                binding.roomNumberInStudentDashboard.text = ""
+                Toast.makeText(context,"Error in logging you in. Try again",Toast.LENGTH_SHORT).show()
+                LocalStorageAccess(
+                    this@StudentDashboardFragment,
+                    requireContext(),
+                    profileViewModel
+                ).deleteData()
+                findNavController().navigate(R.id.loginFragment)
+
             }
         }
     }

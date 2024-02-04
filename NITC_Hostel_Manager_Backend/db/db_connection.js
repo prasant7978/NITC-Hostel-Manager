@@ -9,12 +9,18 @@ var mysql = require("mysql2");
 //     port:20480,
 //     connectTimeout: 15000,
 // });
-
-const fs = require('fs');
-const path = require("path");
-// console.log("dir -= "+__dirname);
-const cafilepath = path.resolve(__dirname,"./ca.pem");
-const ca = fs.readFileSync(cafilepath)
+let db = mysql.createConnection({
+  host:"localhost",
+  database:"nitc_hostel_manager",
+  port:"3306",
+  user:"root",
+  password:"Jkl!1020"
+});
+// const fs = require('fs');
+// const path = require("path");
+// // console.log("dir -= "+__dirname);
+// const cafilepath = path.resolve(__dirname,"./ca.pem");
+// const ca = fs.readFileSync(cafilepath)
 
 // let db = mysql.createConnection({
 //     uri:"mysql-nitc-hostel-manager-nitc-hostel-manager.a.aivencloud.com:20480",
@@ -27,12 +33,11 @@ const ca = fs.readFileSync(cafilepath)
 //         ca:ca
 //     }
 // });
-let db = mysql.createConnection(process.env.FREE_DATABASE_URL)
+// let db = mysql.createConnection(process.env.FREE_DATABASE_URL)
 // let db = mysql.createConnection({
 //     host:"localhost",
 //     user:"id21859963_hostelmanager",
 //     password:"Jkl!10200",
-
 // })
 
 // uri:"http://sql6.freemysqlhosting.net/",

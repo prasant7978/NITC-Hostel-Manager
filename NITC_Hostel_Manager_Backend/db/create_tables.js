@@ -35,6 +35,7 @@ db.connect(function(err){
             course VARCHAR(255),
             hostelID VARCHAR(255),
             roomNumber int,
+            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(studentRoll)
         )`;
 
@@ -63,6 +64,7 @@ db.connect(function(err){
             phone VARCHAR(255),
             gender VARCHAR(200),
             hostelID VARCHAR(255),
+            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(email)
         )`;
 
@@ -83,6 +85,9 @@ db.connect(function(err){
             paymentDate VARCHAR(255),
             paymentTime VARCHAR(255),
             hostelID VARCHAR(255),
+            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
+            FOREIGN KEY(paymentID) REFERENCES payments(paymentID) ON DELETE SET NULL,
+            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(billID)
         )`;
 
@@ -99,6 +104,7 @@ db.connect(function(err){
             occupantsGender VARCHAR(20),
             totalDues DOUBLE(11,2) DEFAULT 0.00,
             wardenEmail VARCHAR(255),
+            FOREIGN KEY(wardenEmail) REFERENCES wardens(email) ON DELETE SET NULL,
             PRIMARY KEY(hostelID)
         )`;
         
@@ -111,6 +117,8 @@ db.connect(function(err){
             roomNumber int,
             hostelID VARCHAR(255),
             studentRoll VARCHAR(10),
+            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
+            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE SET NULL,
             PRIMARY KEY(roomNumber,hostelID)
         )`;
 
@@ -128,6 +136,8 @@ db.connect(function(err){
             date VARCHAR(255),
             time VARCHAR(255),
             hostelID VARCHAR(255),
+            FOREIGN KEY(roomNumber,hostelID) REFERENCES rooms(roomNumber,hostelID) ON DELETE CASCADE,
+            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
             PRIMARY KEY(complaintID)
         )`;
 
@@ -143,6 +153,7 @@ db.connect(function(err){
             heading VARCHAR(500),
             message VARCHAR(2000),
             hostelID VARCHAR(255),
+            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(noticeID)
         )`;
 
@@ -159,6 +170,8 @@ db.connect(function(err){
             time VARCHAR(255),
             amount DOUBLE(9,2),
             billID int,
+            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
+            FOREIGN KEY(billID) REFERENCES bills(billID) ON DELETE SET NULL,
             PRIMARY KEY(paymentID)
         )`;
 
@@ -167,13 +180,13 @@ db.connect(function(err){
             else console.log("payment created");
         });
 
-        // db.query('INSERT INTO admin SET (`parshantrathee1020@gmail.com`,`Jkl!1020`,`Prashant`,`9306032860`)',(err,_)=>{
-        //     if(err){
-        //         console.log(err);
-        //     }else{
-        //         console.log("admin added");
-        //     }
-        // });
+        db.query("INSERT INTO admin VALUES ('parshantrathee1020@gmail.com','Jkl!1020','Prashant','9306032860')",(err,_)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log("admin added");
+            }
+        });
     
         db.query('SET FOREIGN_KEY_CHECKS = 1', (error) => {
             if (error) {

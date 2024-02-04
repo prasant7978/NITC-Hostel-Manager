@@ -24,6 +24,7 @@ class SplashFragment:Fragment() {
     ): View? {
         binding = FragmentSplashBinding.inflate(inflater,container,false)
 
+
         var loggedIn = LocalStorageAccess(
             this@SplashFragment,
             requireContext(),

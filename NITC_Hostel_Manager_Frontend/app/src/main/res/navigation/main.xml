@@ -154,4 +154,8 @@
         android:name="com.kumar.nitchostelmanager.wardens.fragments.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/allHostelsFragment"
+        android:name="com.kumar.nitchostelmanager.hostels.fragments.AllHostelsFragment"
+        android:label="AllHostelsFragment" />
 </navigation>

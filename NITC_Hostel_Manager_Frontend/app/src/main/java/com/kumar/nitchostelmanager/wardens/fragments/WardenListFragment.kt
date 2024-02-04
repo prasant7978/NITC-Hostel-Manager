@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
 class WardenListFragment : Fragment() {
     private lateinit var binding: FragmentWardenListBinding
     private lateinit var wardenListAdapter: WardenListAdapter
-    private var wardenList = ArrayList<Warden>()
+    private var wardenList:ArrayList<Warden>? = null
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
@@ -45,7 +46,7 @@ class WardenListFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newText: String): Boolean {
-                    searchList(newText)
+                    if(!wardenList.isNullOrEmpty()) searchList(newText)
                     return true
                 }
             }
@@ -57,30 +58,55 @@ class WardenListFragment : Fragment() {
         return binding.root
     }
 
+    private fun deleteWarden(wardenEmail:String) {
+
+        val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
+        deleteCoroutineScope.launch {
+            val deleted = ManageWardensAccess(requireContext(),this@WardenListFragment, profileViewModel).deleteWarden(wardenEmail)
+
+            deleteCoroutineScope.cancel()
+            if(deleted){
+                Toast.makeText(context,"Deleted", Toast.LENGTH_SHORT).show()
+                retrieveAllWardens()
+            }
+        }
+
+    }
     private fun retrieveAllWardens(){
         val manageWardenCoroutineScope = CoroutineScope(Dispatchers.Main)
         manageWardenCoroutineScope.launch {
             wardenList = WardensDataAccess(
                 requireContext(),
                 profileViewModel.loginToken.toString()
-            ).getWardens(binding.constraintLayout)!!
+            ).getWardens(binding.constraintLayout)
             manageWardenCoroutineScope.cancel()
+            if(!wardenList.isNullOrEmpty()){
+                wardenList!!.reverse()
+                binding.recyclerViewInWardenListFragment.layoutManager = LinearLayoutManager(requireContext())
+                wardenListAdapter = WardenListAdapter(
+                    requireContext(),
+                    profileViewModel,
+                    wardenList!!,
+                    {wardenEmail->
 
-            if(wardenList != null){
-                wardenList.reverse()
-                binding.recyclerViewInWardenListFragment.layoutManager = LinearLayoutManager(activity)
-                wardenListAdapter = WardenListAdapter(requireContext(),profileViewModel,wardenList, sharedViewModel, this@WardenListFragment)
+                    },
+                    {wardenEmail->
+                        deleteWarden(wardenEmail)
+                    }
+                )
+                binding.noWardensTVInWardenListFragment.visibility = View.GONE
+                binding.recyclerViewInWardenListFragment.visibility = View.VISIBLE
                 binding.recyclerViewInWardenListFragment.adapter = wardenListAdapter
-            }
-            else{
-                binding.searchInWardenListFragment.visibility = View.INVISIBLE
+            }else{
+                binding.noWardensTVInWardenListFragment.visibility = View.VISIBLE
+                binding.recyclerViewInWardenListFragment.visibility = View.GONE
             }
         }
     }
 
     private fun searchList(text: String){
         val searchList = ArrayList<Warden>()
-        for(warden in wardenList){
+        for(warden in wardenList!!){
             if(warden.name.lowercase().contains(text.lowercase())){
                 searchList.add(warden)
             }

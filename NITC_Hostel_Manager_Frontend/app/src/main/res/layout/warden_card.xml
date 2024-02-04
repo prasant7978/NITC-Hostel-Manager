@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="#E6E6FA"
+    app:strokeWidth="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintLayoutInWardenCard"
-    android:elevation="15dp">
+    app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topLayoutInWardenCard"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#E6E6FA"
-        android:padding="5dp"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintHeight_percent="0.98"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent"
+        android:layout_marginVertical="10dp"
+        android:background="#E6E6FA">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/wardenNameInWardenCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Warden Name"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:maxWidth="160dp"
+            android:fontFamily="@font/inter_semibold"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.03"
             android:layout_marginBottom="5dp"
@@ -32,55 +36,53 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/wardenEmailInWardenCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Warden Email"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:maxWidth="200dp"
+            android:maxLines="2"
+            android:textStyle="italic"
+            android:maxWidth="160dp"
+            android:fontFamily="@font/inter"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toTopOf="@+id/wardenPhoneInWardenCard"
             app:layout_constraintStart_toStartOf="@id/wardenNameInWardenCard"
             app:layout_constraintTop_toBottomOf="@+id/wardenNameInWardenCard" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/wardenPhoneInWardenCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Warden Phone"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:fontFamily="@font/inter"
+            android:maxWidth="160dp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/wardenNameInWardenCard"
             app:layout_constraintTop_toBottomOf="@+id/wardenEmailInWardenCard" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/hostelNameInWardenCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="25dp"
-            android:text="Hostel Name"
+            android:text="Hostel Nasadfh asdflksadme"
             android:textColor="#333333"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:textSize="18sp"
+            android:maxWidth="180dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.98"
+            android:fontFamily="@font/inter_semibold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-    android:id="@+id/view"
-    android:layout_width="match_parent"
-    android:layout_height="2dp"
-    android:background="@color/black"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/topLayoutInWardenCard"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
