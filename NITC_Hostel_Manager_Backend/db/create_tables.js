@@ -14,7 +14,7 @@ db.connect(function(err){
             }
         });
 
-        var databasequery = `CREATE DATABASE nitc_hostel_manager`;
+        // var databasequery = `CREATE DATABASE nitc_hostel_manager`;
         
         // db.query(databasequery,function(errDatabase,result){
         //     if(errDatabase) console.log(errDatabase);
@@ -35,14 +35,13 @@ db.connect(function(err){
             course VARCHAR(255),
             hostelID VARCHAR(255),
             roomNumber int,
-            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(studentRoll)
         )`;
 
-        // db.query(studentquery,function(errStudent,result){
-        //     if(errStudent) console.log(errStudent);
-        //     else console.log("Student created");
-        // });
+        db.query(studentquery,function(errStudent,result){
+            if(errStudent) console.log(errStudent);
+            else console.log("Student created");
+        });
 
         var adminquery = `CREATE TABLE admin(
             email VARCHAR(255),
@@ -52,10 +51,10 @@ db.connect(function(err){
             PRIMARY KEY(email)
         )`;
         
-        // db.query(adminquery,function(erradmin,result){
-        //     if(erradmin) console.log(erradmin);
-        //     else console.log("admin created");
-        // });
+        db.query(adminquery,function(erradmin,result){
+            if(erradmin) console.log(erradmin);
+            else console.log("admin created");
+        });
 
         var wardenquery = `CREATE TABLE wardens(
             email VARCHAR(255),
@@ -64,14 +63,13 @@ db.connect(function(err){
             phone VARCHAR(255),
             gender VARCHAR(200),
             hostelID VARCHAR(255),
-            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(email)
         )`;
 
-        // db.query(wardenquery,function(errwarden,result){
-        //     if(errwarden) console.log(errwarden);
-        //     else console.log("warden created");
-        // });
+        db.query(wardenquery,function(errwarden,result){
+            if(errwarden) console.log(errwarden);
+            else console.log("warden created");
+        });
 
         var billquery = `CREATE TABLE bills(
             billID int NOT NULL AUTO_INCREMENT,
@@ -85,9 +83,6 @@ db.connect(function(err){
             paymentDate VARCHAR(255),
             paymentTime VARCHAR(255),
             hostelID VARCHAR(255),
-            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
-            FOREIGN KEY(paymentID) REFERENCES payments(paymentID) ON DELETE SET NULL,
-            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(billID)
         )`;
 
@@ -104,28 +99,25 @@ db.connect(function(err){
             occupantsGender VARCHAR(20),
             totalDues DOUBLE(11,2) DEFAULT 0.00,
             wardenEmail VARCHAR(255),
-            FOREIGN KEY(wardenEmail) REFERENCES wardens(email) ON DELETE SET NULL,
             PRIMARY KEY(hostelID)
         )`;
         
-        // db.query(hostelquery,function(errhostel,result){
-        //     if(errhostel) console.log(errhostel);
-        //     else console.log("hostel created");
-        // });
+        db.query(hostelquery,function(errhostel,result){
+            if(errhostel) console.log(errhostel);
+            else console.log("hostel created");
+        });
 
         var roomquery = `CREATE TABLE rooms(
             roomNumber int,
             hostelID VARCHAR(255),
             studentRoll VARCHAR(10),
-            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
-            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE SET NULL,
             PRIMARY KEY(roomNumber,hostelID)
         )`;
 
-        // db.query(roomquery,function(errroom,result){
-        //     if(errroom) console.log(errroom);
-        //     else console.log("room created");
-        // });
+        db.query(roomquery,function(errroom,result){
+            if(errroom) console.log(errroom);
+            else console.log("room created");
+        });
 
         var complaintquery = `CREATE TABLE complaints(
             complaintID int NOT NULL AUTO_INCREMENT,
@@ -136,15 +128,13 @@ db.connect(function(err){
             date VARCHAR(255),
             time VARCHAR(255),
             hostelID VARCHAR(255),
-            FOREIGN KEY(roomNumber,hostelID) REFERENCES rooms(roomNumber,hostelID) ON DELETE CASCADE,
-            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
             PRIMARY KEY(complaintID)
         )`;
 
-        // db.query(complaintquery,function(errcomplaint,result){
-        //     if(errcomplaint) console.log(errcomplaint);
-        //     else console.log("complaint created");
-        // });
+        db.query(complaintquery,function(errcomplaint,result){
+            if(errcomplaint) console.log(errcomplaint);
+            else console.log("complaint created");
+        });
 
         var noticequery = `CREATE TABLE notices(
             noticeID int NOT NULL AUTO_INCREMENT,
@@ -153,14 +143,13 @@ db.connect(function(err){
             heading VARCHAR(500),
             message VARCHAR(2000),
             hostelID VARCHAR(255),
-            FOREIGN KEY(hostelID) REFERENCES hostels(hostelID) ON DELETE CASCADE,
             PRIMARY KEY(noticeID)
         )`;
 
-        // db.query(noticequery,function(errnotice,result){
-        //     if(errnotice) console.log(errnotice);
-        //     else console.log("notice created");
-        // });
+        db.query(noticequery,function(errnotice,result){
+            if(errnotice) console.log(errnotice);
+            else console.log("notice created");
+        });
 
         var paymentquery = `CREATE TABLE payments(
             paymentID int NOT NULL AUTO_INCREMENT,
@@ -170,8 +159,6 @@ db.connect(function(err){
             time VARCHAR(255),
             amount DOUBLE(9,2),
             billID int,
-            FOREIGN KEY(studentRoll) REFERENCES students(studentRoll) ON DELETE CASCADE,
-            FOREIGN KEY(billID) REFERENCES bills(billID) ON DELETE SET NULL,
             PRIMARY KEY(paymentID)
         )`;
 
@@ -179,6 +166,14 @@ db.connect(function(err){
             if(errpayment) console.log(errpayment);
             else console.log("payment created");
         });
+
+        // db.query('INSERT INTO admin SET (`parshantrathee1020@gmail.com`,`Jkl!1020`,`Prashant`,`9306032860`)',(err,_)=>{
+        //     if(err){
+        //         console.log(err);
+        //     }else{
+        //         console.log("admin added");
+        //     }
+        // });
     
         db.query('SET FOREIGN_KEY_CHECKS = 1', (error) => {
             if (error) {

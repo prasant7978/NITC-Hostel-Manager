@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken")
 const config = require("config")
 
 module.exports = class Model{
+
     async getAllAdmin(){
         return new Promise((resolve, reject) => {
             db.query('SELECT * FROM admin', async(err, result)=>{
