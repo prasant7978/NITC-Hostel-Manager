@@ -1,5 +1,6 @@
 require('dotenv').config()
 var mysql = require("mysql2");
+
 // let db = mysql.createConnection({
 //     host:"mysql-nitc-hostel-manager-nitc-hostel-manager.a.aivencloud.com",
 //     uri:"mysql-nitc-hostel-manager-nitc-hostel-manager.a.aivencloud.com",
@@ -9,13 +10,13 @@ var mysql = require("mysql2");
 //     port:20480,
 //     connectTimeout: 15000,
 // });
-let db = mysql.createConnection({
-  host:"localhost",
-  database:"nitc_hostel_manager",
-  port:"3306",
-  user:"root",
-  password:"Jkl!1020"
-});
+// let db = mysql.createConnection({
+//   host:"localhost",
+//   database:"nitc_hostel_manager",
+//   port:"3306",
+//   user:"root",
+//   password:"Jkl!1020"
+// });
 // const fs = require('fs');
 // const path = require("path");
 // // console.log("dir -= "+__dirname);
@@ -33,7 +34,7 @@ let db = mysql.createConnection({
 //         ca:ca
 //     }
 // });
-// let db = mysql.createConnection(process.env.FREE_DATABASE_URL)
+let db = mysql.createConnection(process.env.FREE_DATABASE_URL)
 // let db = mysql.createConnection({
 //     host:"localhost",
 //     user:"id21859963_hostelmanager",
