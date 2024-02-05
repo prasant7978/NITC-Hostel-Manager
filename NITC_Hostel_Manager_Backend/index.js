@@ -27,8 +27,7 @@ app.use("/warden", require("./routes/warden"))
 app.use("/payment", require("./routes/payment"))
 
 app.use("/bill", require("./routes/bill"))
-
-var server = app.listen(3002,function(req,res){
+ app.listen(3002,function(req,res){
     var host= server.address().address;
     var port = server.address().port;
     console.log(`Server running at http://${host}:${port}/`);
