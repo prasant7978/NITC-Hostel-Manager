@@ -121,8 +121,8 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 requireContext(),
                 profileViewModel
             ).getAdminProfile()
+            loadingDialog.cancel()
             getProfileCoroutineScope.cancel()
-
             if(admin!= null){
                 profileViewModel.username = admin.email.toString()
                 profileViewModel.currentAdmin = admin
@@ -131,7 +131,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 getTotalNotices()
                 getHostels()
                 getWardensCount()
-                loadingDialog.cancel()
+                viewsViewModel.updateLoadingState(false)
             }else{
                 Toast.makeText(context,"Error in logging you in. Login Again",Toast.LENGTH_SHORT).show()
                 LocalStorageAccess(

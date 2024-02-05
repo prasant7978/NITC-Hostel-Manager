@@ -174,7 +174,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             loadingDialog.show()
             viewsViewModel.updateLoadingState(true)
             val warden = ProfileAccess(requireContext(),profileViewModel).getWardenProfile()
-
+            loadingDialog.cancel()
             getProfileCoroutineScope.cancel()
 
             if(warden != null){
@@ -188,7 +188,6 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 getNoticesCount()
                 getPendingComplaintsCount()
                 viewsViewModel.updateLoadingState(false)
-                loadingDialog.cancel()
             }else{
                 findNavController().navigate(R.id.loginFragment)
             }

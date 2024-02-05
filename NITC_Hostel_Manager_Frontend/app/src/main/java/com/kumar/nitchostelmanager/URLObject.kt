@@ -1,5 +1,5 @@
 package com.kumar.nitchostelmanager
 
 object URLObject {
-    const val URL = "http://192.168.212.64:3001"
+    const val URL = "https://nitc-hostel-manager.onrender.com:3002"
 }

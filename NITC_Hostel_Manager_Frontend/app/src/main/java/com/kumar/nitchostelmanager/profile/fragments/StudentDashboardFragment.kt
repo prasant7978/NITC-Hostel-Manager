@@ -117,7 +117,7 @@ class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
             loadingDialog.show()
             viewsViewModel.updateLoadingState(true)
             val studentProfile = ProfileAccess(requireContext(), profileViewModel).getStudentProfile()
-
+            loadingDialog.cancel()
             if(studentProfile != null){
                 profileViewModel.currentStudent = studentProfile
 

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.authentication.access.LoginAccess
@@ -20,7 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(),CircleLoadingDialog {
     private lateinit var binding: FragmentLoginBinding
     private var userType: String = "Student"
     private val profileViewModel: ProfileViewModel by activityViewModels()
@@ -113,13 +114,16 @@ class LoginFragment : Fragment() {
         }
 
         val loginCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(),this@LoginFragment)
         loginCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
             val loggedIn = LoginAccess(requireContext(),this@LoginFragment,profileViewModel).login(
                 username,
                 password,
                 userType
             )
-
+            loadingDialog.cancel()
             loginCoroutineScope.cancel()
 
             if(loggedIn){
