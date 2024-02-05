@@ -34,6 +34,10 @@ class AllHostelsFragment:Fragment() {
 
         getHostels()
 
+        binding.addHostelButtonInAllHostelsFragment.setOnClickListener{
+            findNavController().navigate(R.id.addHostelFragment)
+        }
+
         return binding.root
     }
 

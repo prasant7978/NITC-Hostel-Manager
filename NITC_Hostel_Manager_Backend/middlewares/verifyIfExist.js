@@ -35,6 +35,7 @@ module.exports = async(req, res, next) => {
             console.log(warden);
             req.userType = req.body.userType;
             req.username = req.body.username;
+            next();
         }).catch(function(exc){
             console.log("error in verifying warden"+exc);
             res.status(400).send(false);

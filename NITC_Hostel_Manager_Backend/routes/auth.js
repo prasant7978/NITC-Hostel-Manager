@@ -8,6 +8,6 @@ const verifyIfExist = require('../middlewares/verifyIfExist')
 
 router.post('/login/admin', verifyIfExist, loginAdmin)
 router.post('/login/student', verifyIfExist, loginStudent)
-router.post('/login/warden', loginWarden)
+router.post('/login/warden', verifyIfExist,loginWarden)
 
 module.exports = router;
