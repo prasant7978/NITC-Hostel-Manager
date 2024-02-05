@@ -28,7 +28,5 @@ app.use("/payment", require("./routes/payment"))
 
 app.use("/bill", require("./routes/bill"))
  app.listen(3002,function(req,res){
-    var host= server.address().address;
-    var port = server.address().port;
-    console.log(`Server running at http://${host}:${port}/`);
+
 });
