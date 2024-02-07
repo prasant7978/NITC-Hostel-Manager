@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_large">26sp</dimen>
+    <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="text_size_small">18sp</dimen>
+    <dimen name="text_size_xsmall">14sp</dimen>
+    <dimen name="text_size_xxsmall">10sp</dimen>
+
+    <dimen name="padding_large">20dp</dimen>
+    <dimen name="padding_medium">10dp</dimen>
+    <dimen name="padding_small">5dp</dimen>
+
+    <dimen name="margin_xxlarge">70dp</dimen>
+    <dimen name="margin_xlarge">50dp</dimen>
+    <dimen name="margin_large">20dp</dimen>
+    <dimen name="margin_medium">10dp</dimen>
+    <dimen name="margin_small">5dp</dimen>
+    <dimen name="margin_xxsmall">1dp</dimen>
+
+    <dimen name="elevation_medium">10dp</dimen>
+    <dimen name="elevation_small">5dp</dimen>
+    <dimen name="elevation_xsmall">3dp</dimen>
+
+    <dimen name="corner_radius_large">25dp</dimen>
+    <dimen name="corner_radius_medium">10dp</dimen>
+    <dimen name="corner_radius_small">5dp</dimen>
+
+    <dimen name="dimension_xxlarge">350dp</dimen>
+    <dimen name="dimension_xlarge">250dp</dimen>
+    <dimen name="dimension_large">170dp</dimen>
+    <dimen name="dimension_medium">100dp</dimen>
+    <dimen name="dimension_small">60dp</dimen>
+    <dimen name="dimension_xsmall">50dp</dimen>
+
+    <dimen name="tab_height">3dp</dimen>
+
+</resources>

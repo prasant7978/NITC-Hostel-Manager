@@ -3,16 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="5dp"
+    app:cardCornerRadius="@dimen/corner_radius_small"
     android:id="@+id/billCardInOwnBillCard"
     android:backgroundTint="@color/cream"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="5dp"
-        android:paddingHorizontal="8dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/padding_small"
+        android:paddingHorizontal="@dimen/padding_small"
         android:id="@+id/constraintLayoutInOwnBillCard">
 
         <com.google.android.material.textview.MaterialTextView
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bill type"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_small"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
             android:fontFamily="@font/inter"
             android:text="For:"
             android:textColor="@color/black"
-            android:textSize="13sp"
+            android:textSize="@dimen/text_size_xsmall"
             app:layout_constraintStart_toStartOf="@+id/billTypeInOwnBillCard"
             app:layout_constraintTop_toBottomOf="@+id/billTypeInOwnBillCard"/>
 
@@ -47,8 +47,9 @@
             android:fontFamily="@font/inter"
             android:text="October"
             android:textColor="@color/black"
-            android:layout_marginStart="3dp"
-            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.02"
+            android:textSize="@dimen/text_size_xsmall"
             app:layout_constraintStart_toEndOf="@+id/dueMonthTVInOwnBillCard"
             app:layout_constraintTop_toTopOf="@+id/dueMonthTVInOwnBillCard"
             app:layout_constraintBottom_toBottomOf="@+id/dueMonthTVInOwnBillCard"/>
@@ -60,8 +61,8 @@
             android:fontFamily="@font/inter"
             android:text="2023"
             android:textColor="@color/black"
-            android:textSize="13sp"
-            android:layout_marginStart="3dp"
+            android:textSize="@dimen/text_size_xsmall"
+            android:layout_marginStart="@dimen/margin_small"
             app:layout_constraintVertical_bias="0.001"
             app:layout_constraintStart_toEndOf="@+id/dueMonthInOwnBillCard"
             app:layout_constraintTop_toTopOf="@+id/dueMonthInOwnBillCard"
@@ -74,7 +75,7 @@
             android:fontFamily="@font/inter_semibold"
             android:text="Amount"
             android:textColor="@color/dark_green"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_small"
             app:layout_constraintStart_toStartOf="@+id/billTypeInOwnBillCard"
             app:layout_constraintTop_toBottomOf="@+id/dueMonthTVInOwnBillCard"/>
 
@@ -84,7 +85,7 @@
             android:layout_height="wrap_content"
             android:text="Payment ID"
             android:fontFamily="@font/inter_semibold"
-            android:textSize="13sp"
+            android:textSize="@dimen/text_size_xsmall"
             android:textColor="@color/black"
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintTop_toTopOf="parent"
@@ -97,7 +98,7 @@
             android:layout_height="wrap_content"
             android:text="GSDFG56FDGS65"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_size_xsmall"
             app:layout_constraintEnd_toEndOf="@+id/paymentIDTVInOwnBillCard"
             app:layout_constraintTop_toBottomOf="@+id/paymentIDTVInOwnBillCard"/>
 
@@ -107,8 +108,8 @@
             android:layout_height="wrap_content"
             android:text="31/10/2023"
             android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_marginTop="3dp"
+            android:textSize="@dimen/text_size_xsmall"
+            android:layout_marginTop="@dimen/margin_small"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.99"
             android:textStyle="italic"
@@ -121,11 +122,10 @@
             android:layout_height="wrap_content"
             android:text="Payment date"
             android:textColor="@color/dark_grey"
-            android:textSize="10sp"
+            android:textSize="@dimen/text_size_xxsmall"
             app:layout_constraintStart_toStartOf="@+id/dateInOwnBillCard"
             app:layout_constraintEnd_toEndOf="@+id/dateInOwnBillCard"
-            app:layout_constraintTop_toBottomOf="@+id/dateInOwnBillCard"
-            app:layout_constraintBottom_toBottomOf="@id/amountInOwnBillCard"/>
+            app:layout_constraintTop_toBottomOf="@+id/dateInOwnBillCard"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

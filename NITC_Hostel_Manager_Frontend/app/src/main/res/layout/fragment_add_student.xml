@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
+
 <LinearLayout
     android:orientation="vertical"
     android:id="@+id/linearLayout"
@@ -19,18 +20,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Student"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_large"
         android:textColor="@color/black"
         android:fontFamily="@font/inter_semibold"
-        android:textSize="25sp"
+        android:textSize="@dimen/text_size_large"
         android:id="@+id/headingTVInAddStudentFragment"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewNameInAddStudentFragment"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/margin_xlarge"
         app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="25dp">
+        app:cardCornerRadius="@dimen/corner_radius_large">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameInputLayoutInAddStudentFragment"
@@ -52,21 +54,21 @@
                 android:layout_height="match_parent"
                 android:inputType="text"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_size_medium" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/genderButtonInAddStudentFragment"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="wrap_content"
         android:text="Gender"
-        android:layout_marginTop="10dp"
-        android:elevation="10dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:elevation="@dimen/elevation_medium"
         android:backgroundTint="@color/add_student_input_bg"
         android:textColor="@color/black"
-        app:cardCornerRadius="25dp"/>
+        app:cardCornerRadius="@dimen/corner_radius_large"/>
 
 
 <!--        <com.google.android.material.textfield.TextInputLayout-->
@@ -89,29 +91,29 @@
 <!--                android:layout_height="match_parent"-->
 <!--                android:inputType="text"-->
 <!--                android:textColor="@color/black"-->
-<!--                android:textSize="20sp" />-->
+<!--                android:textSize="@dimen/text_size_medium" />-->
 <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/dobButtonInAddStudentFragment"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_medium"
         android:text="Date of Birth"
         android:textColor="@color/black"
-        android:textSize="18sp"
-        app:elevation="10dp"
+        android:textSize="@dimen/text_size_small"
+        app:elevation="@dimen/elevation_medium"
         android:backgroundTint="@color/add_student_input_bg"
-        app:cardCornerRadius="25dp"/>
+        app:cardCornerRadius="@dimen/corner_radius_large"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewEmail"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_medium"
         app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="25dp">
+        app:cardCornerRadius="@dimen/corner_radius_large">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
@@ -135,18 +137,18 @@
                 android:layout_height="match_parent"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_size_medium" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewPhone"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_medium"
         app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="25dp">
+        app:cardCornerRadius="@dimen/corner_radius_large">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout5"
@@ -168,18 +170,18 @@
                 android:layout_height="match_parent"
                 android:inputType="number"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_size_medium" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewParentPhone"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_medium"
         app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="25dp">
+        app:cardCornerRadius="@dimen/corner_radius_large">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout3"
@@ -203,7 +205,7 @@
                 android:layout_height="match_parent"
                 android:inputType="number"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_size_medium" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.cardview.widget.CardView>
@@ -211,11 +213,11 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewAddress"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_medium"
         app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="25dp">
+        app:cardCornerRadius="@dimen/corner_radius_large">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout4"
@@ -239,35 +241,35 @@
                 android:layout_height="match_parent"
                 android:inputType="textImeMultiLine"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_size_medium" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addStudentButtonInAddStudentFragment"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="@dimen/dimension_xlarge"
+        android:layout_height="@dimen/dimension_small"
+        android:layout_marginTop="@dimen/margin_large"
         android:letterSpacing="0"
         android:text="Add Student"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size_medium"
         app:backgroundTint="@color/button_add"
         app:strokeWidth="0dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonClearAll"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/dimension_xlarge"
+        android:layout_height="@dimen/dimension_small"
         android:letterSpacing="0"
         android:text="Clear All"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size_medium"
         app:backgroundTint="@color/primary_button"
         app:strokeWidth="0dp" />
 
@@ -276,7 +278,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_large"
         android:visibility="invisible" />
 
 </LinearLayout>

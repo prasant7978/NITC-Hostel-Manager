@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="5dp"
+    android:layout_margin="@dimen/margin_small"
     android:background="@drawable/complaint_all_shape"
-    android:elevation="10dp"
-    android:padding="5dp">
+    android:elevation="@dimen/elevation_medium"
+    android:padding="@dimen/padding_small">
 
     <TextView
         android:id="@+id/studentRollInAllComplaintCard"
@@ -16,8 +16,8 @@
         android:fontFamily="@font/inter_semibold"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginStart="5dp"
+        android:textSize="@dimen/text_size_small"
+        android:layout_marginStart="@dimen/margin_small"
         app:layout_constraintBaseline_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintTop_toBottomOf="@id/studentRollInAllComplaintCard"
-        android:layout_marginTop="3dp"/>
+        android:layout_marginTop="@dimen/margin_small"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/roomNoInAllComplaintCard"
@@ -43,7 +43,7 @@
         android:fontFamily="@font/inter"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_size_xsmall"
         app:layout_constraintTop_toTopOf="@id/roomNumberTVInComplaintCard"
         app:layout_constraintBottom_toBottomOf="@id/roomNumberTVInComplaintCard"
         app:layout_constraintStart_toEndOf="@id/roomNumberTVInComplaintCard"/>
@@ -55,8 +55,8 @@
         android:text="Complaint Message"
         android:fontFamily="@font/inter"
         android:textColor="@color/black"
-        android:layout_margin="5dp"
-        android:textSize="16sp"
+        android:layout_margin="@dimen/margin_small"
+        android:textSize="@dimen/text_size_xsmall"
         app:layout_constraintTop_toBottomOf="@+id/roomNumberTVInComplaintCard"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -67,7 +67,7 @@
         android:text="status"
         android:fontFamily="@font/inter_semibold"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_size_xsmall"
         android:textStyle="italic|bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.97"

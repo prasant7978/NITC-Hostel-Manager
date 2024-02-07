@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="Generate Bill"
         android:fontFamily="@font/inter_semibold"
-        android:textSize="33sp"
+        android:textSize="@dimen/text_size_large"
         android:textColor="@color/black"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintVertical_bias="0.08"
@@ -27,7 +27,7 @@
         android:id="@+id/monthSpinnerInGenerateBill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/margin_xlarge"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,18 +37,18 @@
         android:id="@+id/yearSpinnerInGenerateBill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="@dimen/margin_xxlarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/monthSpinnerInGenerateBill"
         app:layout_constraintBottom_toBottomOf="@+id/monthSpinnerInGenerateBill"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/billTypeCardViewInGenerateBill"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="15dp"
-        android:layout_marginTop="30dp"
+        app:cardCornerRadius="@dimen/corner_radius_medium"
+        android:layout_marginTop="@dimen/margin_large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monthSpinnerInGenerateBill">
@@ -71,18 +71,18 @@
                 android:layout_height="match_parent"
                 android:inputType="text"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_size_medium" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/amountCardViewInGenerateBill"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10dp"
-        android:layout_marginTop="20dp"
+        app:cardCornerRadius="@dimen/corner_radius_medium"
+        android:layout_marginTop="@dimen/margin_large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/billTypeCardViewInGenerateBill">
@@ -105,7 +105,7 @@
                 android:layout_height="match_parent"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_size_medium" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.cardview.widget.CardView>
@@ -122,6 +122,6 @@
         app:layout_constraintWidth_percent="0.34"
         app:layout_constraintHeight_percent="0.08"
         android:backgroundTint="@color/card_back"
-        app:layout_constraintVertical_bias="0.25"/>
+        app:layout_constraintVertical_bias="0.2"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

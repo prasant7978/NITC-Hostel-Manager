@@ -25,7 +25,7 @@
         app:tabTextColor="@color/black"
         app:tabSelectedTextColor="@color/navy_blue"
         app:tabIndicatorColor="@android:color/black"
-        app:tabIndicatorHeight="3dp"
+        app:tabIndicatorHeight="@dimen/tab_height"
         style="@style/CustomTabLayout"
         app:tabTextAppearance="@style/CustomTabTextAppearance"
         app:tabMode="fixed"
@@ -54,7 +54,6 @@
         android:text="Add Student"
         android:backgroundTint="@color/navy_blue"
         android:id="@+id/addStudentButtonInAllStudents"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

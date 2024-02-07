@@ -2,18 +2,18 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardElevation="10dp"
+    android:layout_margin="@dimen/margin_small"
+    app:cardElevation="@dimen/elevation_medium"
     app:strokeWidth="0dp"
     app:cardBackgroundColor="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/hostelCardInHostelCard"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="@dimen/corner_radius_medium">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="@dimen/margin_large"
         android:background="@color/white">
 
         <com.google.android.material.textview.MaterialTextView
@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.07"
-            android:maxWidth="170dp"
+            android:maxWidth="@dimen/dimension_large"
             android:id="@+id/hostelNameInHostelCard"/>
 
 
@@ -36,10 +36,10 @@
             android:layout_height="wrap_content"
             android:text="parshantrathee102@gmail.com"
             android:textColor="@color/black"
-            android:maxWidth="160dp"
+            android:maxWidth="@dimen/dimension_large"
             android:ellipsize="end"
             android:maxLines="2"
-            app:layout_constraintHorizontal_bias="0.93"
+            app:layout_constraintHorizontal_bias="0.8"
             android:fontFamily="@font/inter_semibold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

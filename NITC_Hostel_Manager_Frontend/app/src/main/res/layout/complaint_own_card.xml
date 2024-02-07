@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintLayoutInComplaintCard"
-    android:layout_margin="5dp"
+    android:layout_margin="@dimen/margin_small"
     android:background="@drawable/complaint_own_shape"
-    android:elevation="5dp"
-    android:padding="5dp">
+    android:elevation="@dimen/elevation_small"
+    android:padding="@dimen/padding_small">
 
     <TextView
         android:id="@+id/complaintStatusInComplaintCard"
@@ -17,8 +17,8 @@
         android:fontFamily="@font/inter_semibold"
         android:textStyle="italic"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginStart="5dp"
+        android:textSize="@dimen/text_size_xsmall"
+        android:layout_marginStart="@dimen/margin_small"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/complaintMessageInComplaintCard"/>
@@ -30,8 +30,8 @@
         android:text="Complaint Message"
         android:fontFamily="@font/inter"
         android:textColor="@color/black"
-        android:layout_margin="5dp"
-        android:textSize="18sp"
+        android:layout_margin="@dimen/margin_small"
+        android:textSize="@dimen/text_size_small"
         app:layout_constraintTop_toBottomOf="@+id/complaintStatusInComplaintCard"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -42,9 +42,9 @@
         android:text="21/09/2023"
         android:fontFamily="@font/inter"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_xxsmall"
         android:textStyle="italic"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="@dimen/margin_small"
         app:layout_constraintTop_toTopOf="@+id/complaintStatusInComplaintCard"
         app:layout_constraintBottom_toBottomOf="@+id/complaintStatusInComplaintCard"
         app:layout_constraintEnd_toEndOf="parent"/>

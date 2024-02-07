@@ -10,10 +10,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/totalDueTopLayout"
-        android:layout_width="380dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="30dp"
-        android:elevation="10dp"
+        android:layout_width="@dimen/dimension_xxlarge"
+        android:layout_height="@dimen/dimension_medium"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:elevation="@dimen/elevation_medium"
         android:background="@drawable/outline_black"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,10 +24,10 @@
             android:id="@+id/textViewTotalDueText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/margin_large"
             android:text="Total Dues Upto Month: "
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_small"
             android:textStyle="bold"
             app:layout_constraintVertical_bias="0.3"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,17 +38,17 @@
             android:id="@+id/textViewMonthName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="@dimen/margin_large"
             android:text="Month Name"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_small"
             android:textStyle="bold|italic"
             app:layout_constraintBottom_toBottomOf="@+id/textViewTotalDueText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/textViewTotalDueText"
             app:layout_constraintTop_toTopOf="@+id/textViewTotalDueText"
-            app:layout_goneMarginBottom="30dp" />
+            app:layout_goneMarginBottom="@dimen/margin_large" />
 
         <TextView
             android:id="@+id/textViewTotalDue"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:text="Balance To Pay"
             android:textColor="@color/dark_green"
-            android:textSize="24sp"
+            android:textSize="@dimen/text_size_large"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,16 +66,15 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="wrap_content"
         android:background="@drawable/payment_shape"
-        android:elevation="10dp"
+        android:elevation="@dimen/margin_medium"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:padding="@dimen/padding_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -87,36 +86,36 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_medium"
             android:gravity="center"
             android:text="Amount Wish To Pay"
             android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:textSize="@dimen/text_size_large" />
 
         <EditText
             android:id="@+id/editTextAmount"
-            android:layout_width="150dp"
+            android:layout_width="@dimen/dimension_large"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:background="@drawable/outline_black"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="@dimen/padding_small"
             android:textColor="@color/black"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/buttonPayBill"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="40dp"
+            android:layout_width="@dimen/dimension_large"
+            android:layout_height="@dimen/dimension_small"
+            android:layout_marginTop="@dimen/margin_large"
             android:backgroundTint="@color/primary_button"
-            android:elevation="5dp"
+            android:elevation="@dimen/elevation_xsmall"
             android:text="Pay Bill"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/text_size_medium" />
 
     </LinearLayout>
 
@@ -125,7 +124,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="77dp"
+        android:layout_marginTop="@dimen/margin_xxlarge"
         app:layout_constraintVertical_bias="0.1"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

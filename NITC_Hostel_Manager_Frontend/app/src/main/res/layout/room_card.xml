@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="60dp"
-    android:layout_height="60dp"
+    android:layout_width="@dimen/dimension_small"
+    android:layout_height="@dimen/dimension_small"
     android:layout_gravity="center"
-    android:layout_marginVertical="10dp"
+    android:layout_marginVertical="@dimen/margin_medium"
     android:id="@+id/roomCardInRoomCard"
-    app:cardElevation="2dp"
+    app:cardElevation="@dimen/elevation_xsmall"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="7dp">
+    app:cardCornerRadius="@dimen/corner_radius_small">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/roomCardLayout"
@@ -18,7 +18,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="024"
+            android:text="015"
             android:id="@+id/roomNumberInRoomCard"
             android:textColor="@color/black"
             android:fontFamily="@font/inter_semibold"
@@ -26,7 +26,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

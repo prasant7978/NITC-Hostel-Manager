@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintLayout"
-    android:layout_margin="5dp"
+    android:layout_margin="@dimen/margin_small"
     android:background="@drawable/notice_shape"
-    android:elevation="10dp"
-    android:padding="5dp">
+    android:elevation="@dimen/elevation_medium"
+    android:padding="@dimen/padding_small">
 
     <TextView
         android:id="@+id/noticeTitle"
@@ -16,11 +16,11 @@
         android:text="Notice Title"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="18sp"
-        android:maxWidth="290dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="5dp"
+        android:textSize="@dimen/text_size_small"
+        android:maxWidth="@dimen/dimension_xlarge"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_small"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -30,10 +30,10 @@
         android:layout_height="wrap_content"
         android:text="Notice Body"
         android:textColor="@color/black"
-        android:textSize="14sp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="5dp"
+        android:textSize="@dimen/text_size_xsmall"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noticeTitle" />
@@ -44,10 +44,10 @@
         android:layout_height="wrap_content"
         android:text="21/09/2023"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_xsmall"
         android:textStyle="italic"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 

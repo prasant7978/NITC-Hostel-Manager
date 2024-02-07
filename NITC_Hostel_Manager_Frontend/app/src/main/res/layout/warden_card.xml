@@ -3,19 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="15dp"
+    android:layout_margin="@dimen/margin_small"
+    app:cardCornerRadius="@dimen/corner_radius_medium"
     app:cardBackgroundColor="#E6E6FA"
     app:strokeWidth="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintLayoutInWardenCard"
-    app:cardElevation="5dp">
+    app:cardElevation="@dimen/elevation_small">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topLayoutInWardenCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="@dimen/margin_medium"
         android:background="#E6E6FA">
 
         <com.google.android.material.textview.MaterialTextView
@@ -26,12 +26,12 @@
             android:textColor="@color/black"
             android:ellipsize="end"
             android:maxLines="2"
-            android:maxWidth="160dp"
+            android:maxWidth="@dimen/dimension_large"
             android:fontFamily="@font/inter_semibold"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_size_xsmall"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.03"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="@dimen/margin_small"
             app:layout_constraintBottom_toTopOf="@+id/wardenEmailInWardenCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -44,11 +44,11 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textStyle="italic"
-            android:maxWidth="160dp"
+            android:maxWidth="@dimen/dimension_large"
             android:fontFamily="@font/inter"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:layout_marginBottom="5dp"
+            android:textSize="@dimen/text_size_xsmall"
+            android:layout_marginBottom="@dimen/margin_small"
             app:layout_constraintBottom_toTopOf="@+id/wardenPhoneInWardenCard"
             app:layout_constraintStart_toStartOf="@id/wardenNameInWardenCard"
             app:layout_constraintTop_toBottomOf="@+id/wardenNameInWardenCard" />
@@ -62,8 +62,8 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:fontFamily="@font/inter"
-            android:maxWidth="160dp"
-            android:textSize="15sp"
+            android:maxWidth="@dimen/dimension_large"
+            android:textSize="@dimen/text_size_xsmall"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/wardenNameInWardenCard"
             app:layout_constraintTop_toBottomOf="@+id/wardenEmailInWardenCard" />
@@ -74,8 +74,8 @@
             android:layout_height="wrap_content"
             android:text="Hostel Nasadfh asdflksadme"
             android:textColor="#333333"
-            android:textSize="18sp"
-            android:maxWidth="180dp"
+            android:textSize="@dimen/text_size_medium"
+            android:maxWidth="@dimen/dimension_large"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.98"
             android:fontFamily="@font/inter_semibold"
