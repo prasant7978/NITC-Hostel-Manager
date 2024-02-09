@@ -70,31 +70,6 @@
         android:textColor="@color/black"
         app:cardCornerRadius="@dimen/corner_radius_large"/>
 
-
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/textInputLayout6"-->
-<!--            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:hint="Gender"-->
-<!--            android:textColorHint="@color/black"-->
-<!--            app:boxBackgroundColor="@color/add_student_input_bg"-->
-<!--            app:boxStrokeColor="@color/black"-->
-<!--            app:boxStrokeWidth="0dp"-->
-<!--            app:endIconMode="clear_text"-->
-<!--            app:endIconTint="@color/black"-->
-<!--            app:hintTextColor="@color/black">-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/genderInputInAddStudentFragment"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:inputType="text"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="@dimen/text_size_medium" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/dobButtonInAddStudentFragment"
         android:layout_width="@dimen/dimension_xxlarge"

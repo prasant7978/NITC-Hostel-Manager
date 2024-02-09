@@ -31,7 +31,7 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
     private lateinit var binding: FragmentAddStudentBinding
     private val profileViewModel: ProfileViewModel by activityViewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
-    var genderList:Array<String>? =null
+    private var genderList:Array<String>? =null
     var genderSelected = "NA"
     var dob = "NA"
     override fun onCreateView(
@@ -42,6 +42,7 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
 
         if(sharedViewModel.viewingStudentRoll != null){
             binding.addStudentButtonInAddStudentFragment.text = "Update Student"
+            binding.headingTVInAddStudentFragment.text = "Update Student"
             if(profileViewModel.userType == "Admin"){
                 binding.addStudentButtonInAddStudentFragment.visibility = View.VISIBLE
                 binding.buttonClearAll.visibility = View.VISIBLE
@@ -66,7 +67,8 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
             }
             getStudentDetails(sharedViewModel.viewingStudentRoll!!)
         }else{
-            binding.addStudentButtonInAddStudentFragment.text = "Add"
+            binding.addStudentButtonInAddStudentFragment.text = "Add Student"
+            binding.headingTVInAddStudentFragment.text = "Add Student"
         }
         genderList = resources.getStringArray(R.array.gender)
         binding.genderButtonInAddStudentFragment.setOnClickListener {
@@ -99,27 +101,33 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
             val studentParentPhone = binding.parentPhoneInAddStudentFragment.text.toString()
             val studentAddress = binding.addressInputInAddStudentFragment.text.toString()
 
-            // obtain rollno from email
-            val str: List<String>? = studentEmail?.split("_")
-            val roll = str?.get(1)?.split("@")
-            val studentRoll = roll?.get(0).toString()
-            Log.d("roll", studentRoll)
-
-            // obtain course from email
-            var courseEnrolled = studentRoll.substring(0, 1) + studentRoll.substring(studentRoll.length - 2)
-            courseEnrolled = courseEnrolled.uppercase()
-            Log.d("course", courseEnrolled)
-
-            val studentPassword = studentRoll
-
             if(studentName!!.isEmpty() || studentEmail!!.isEmpty() || studentPhone!!.isEmpty() || studentParentPhone!!.isEmpty() || genderSelected == "NA" || dob == "NA" || studentAddress!!.isEmpty()){
                 Toast.makeText(activity,"Please provide complete information", Toast.LENGTH_SHORT).show()
+            }
+            else if(studentPhone.length != 10 || studentParentPhone.length != 10){
+                Toast.makeText(activity,"Phone number should be of length 10", Toast.LENGTH_SHORT).show()
+            }
+            else if(studentPhone[0] == '0' || studentParentPhone[0] == '0'){
+                Toast.makeText(activity,"Please enter a valid phone number", Toast.LENGTH_SHORT).show()
             }
             else {
                 if(!checkConstraints(studentEmail)){
                     Toast.makeText(context,"Enter a valid nitc email id", Toast.LENGTH_SHORT).show()
                 }
                 else {
+                    // obtain rollno from email
+                    val str: List<String>? = studentEmail?.split("_")
+                    val roll = str?.get(1)?.split("@")
+                    val studentRoll = roll?.get(0).toString()
+                    Log.d("roll", studentRoll)
+
+                    // obtain course from email
+                    var courseEnrolled = studentRoll.substring(0, 1) + studentRoll.substring(studentRoll.length - 2)
+                    courseEnrolled = courseEnrolled.uppercase()
+                    Log.d("course", courseEnrolled)
+
+                    val studentPassword = studentRoll
+
                     binding.addStudentButtonInAddStudentFragment.isCheckable = false
                     binding.progressBarInAddStudentFragment.visibility = View.VISIBLE
 

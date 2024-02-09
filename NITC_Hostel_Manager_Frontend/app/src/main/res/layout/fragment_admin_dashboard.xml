@@ -70,7 +70,7 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="9324"
+                            android:text="0"
                             android:textSize="@dimen/text_size_small"
                             app:layout_constraintVertical_bias="0.3"
                             app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +125,7 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="9324"
+                            android:text="0"
                             android:textSize="@dimen/text_size_small"
                             app:layout_constraintVertical_bias="0.3"
                             app:layout_constraintStart_toStartOf="parent"
@@ -309,7 +309,7 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="9324"
+                            android:text="0"
                             android:textSize="@dimen/text_size_small"
                             app:layout_constraintVertical_bias="0.3"
                             app:layout_constraintStart_toStartOf="parent"

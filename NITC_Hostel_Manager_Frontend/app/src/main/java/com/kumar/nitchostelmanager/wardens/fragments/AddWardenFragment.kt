@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -22,6 +24,8 @@ import kotlinx.coroutines.launch
 class AddWardenFragment:Fragment(),CircleLoadingDialog {
     private val profileViewModel:ProfileViewModel by activityViewModels()
     private lateinit var binding:FragmentAddWardenBinding
+    private lateinit var genderSelected: String
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,31 +36,44 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog {
         binding.buttonAddWardenInAddWardenFragment.setOnClickListener {
             var wardenName = binding.textInputNameInAddWardenFragment.text?.trim().toString()
             if(wardenName.isEmpty()){
-                binding.textInputNameInAddWardenFragment.error = "Enter name"
+                binding.textInputNameInAddWardenFragment.error = "Enter Name"
                 binding.textInputNameInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
             var wardenEmail = binding.textInputEmailInAddWardenFragment.text?.trim().toString()
             if(wardenEmail.isEmpty()){
-                binding.textInputEmailInAddWardenFragment.error = "Enter email"
+                binding.textInputEmailInAddWardenFragment.error = "Enter Email"
                 binding.textInputEmailInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
             var wardenPhone = binding.textInputPhoneInAddWardenFragment.text?.trim().toString()
             if(wardenPhone.isEmpty()){
-                binding.textInputPhoneInAddWardenFragment.error = "Enter name"
+                binding.textInputPhoneInAddWardenFragment.error = "Enter Phone Number"
                 binding.textInputPhoneInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
-            var wardenGender = binding.textInputGenderInAddWardenFragment.text?.trim().toString()
-            if(wardenGender.isEmpty()){
-                binding.textInputGenderInAddWardenFragment.error = "Enter name"
-                binding.textInputGenderInAddWardenFragment.requestFocus()
+            else if(wardenPhone.length != 10 || wardenPhone[0] == '0'){
+                binding.textInputPhoneInAddWardenFragment.error = "Enter Valid Phone Number"
+                binding.textInputPhoneInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
+
+            binding.checkBoxMale.setOnClickListener {
+                if(binding.checkBoxMale.isChecked){
+                    genderSelected = "Male"
+                    binding.checkBoxFemale.isChecked=false
+                }
+            }
+            binding.checkBoxFemale.setOnClickListener {
+                if(binding.checkBoxFemale.isChecked){
+                    genderSelected = "Female"
+                    binding.checkBoxMale.isChecked=false
+                }
+            }
+
             var wardenHostelID = binding.hostelInputInAddWardenFragment.text?.trim().toString()
             if(wardenHostelID.isEmpty()){
-                binding.hostelInputInAddWardenFragment.error = "Enter name"
+                binding.hostelInputInAddWardenFragment.error = "Enter Hostel ID"
                 binding.hostelInputInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
@@ -65,11 +82,14 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog {
                 wardenEmail,
                 wardenName,
                 wardenPhone,
-                wardenGender,
+                genderSelected,
                 wardenHostelID
             )
             addWarden(newWarden)
+        }
 
+        binding.buttonClearAllInAddWardenFragment.setOnClickListener {
+            clearAllTextArea()
         }
 
         return binding.root
@@ -92,5 +112,13 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog {
                 findNavController().navigate(R.id.wardenListFragment)
             }
         }
+    }
+
+    private fun clearAllTextArea(){
+        binding.textInputNameInAddWardenFragment.setText("")
+        binding.textInputEmailInAddWardenFragment.setText("")
+        binding.textInputPhoneInAddWardenFragment.setText("")
+        binding.hostelInputInAddWardenFragment.setText("")
+        genderSelected = "NA"
     }
 }
