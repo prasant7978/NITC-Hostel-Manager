@@ -98,6 +98,7 @@ class StudentProfileFragment : Fragment(),CircleLoadingDialog {
             loadingDialog.show()
             viewsViewModel.updateLoadingState(true)
             val studentProfile = ProfileAccess(requireContext(), profileViewModel).getStudentProfile()
+            loadingDialog.cancel()
             profileCoroutineScope.cancel()
             if(studentProfile != null){
                 viewsViewModel.updateLoadingState(false)

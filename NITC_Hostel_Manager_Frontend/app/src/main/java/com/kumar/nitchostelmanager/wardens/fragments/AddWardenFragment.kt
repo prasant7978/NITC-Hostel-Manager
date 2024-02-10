@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -33,6 +34,8 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog {
     ): View? {
         binding = FragmentAddWardenBinding.inflate(inflater,container,false)
 
+
+
         binding.buttonAddWardenInAddWardenFragment.setOnClickListener {
             var wardenName = binding.textInputNameInAddWardenFragment.text?.trim().toString()
             if(wardenName.isEmpty()){
@@ -57,20 +60,7 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog {
                 binding.textInputPhoneInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
-
-            binding.checkBoxMale.setOnClickListener {
-                if(binding.checkBoxMale.isChecked){
-                    genderSelected = "Male"
-                    binding.checkBoxFemale.isChecked=false
-                }
-            }
-            binding.checkBoxFemale.setOnClickListener {
-                if(binding.checkBoxFemale.isChecked){
-                    genderSelected = "Female"
-                    binding.checkBoxMale.isChecked=false
-                }
-            }
-
+            genderSelected = (requireActivity().findViewById<RadioButton>(binding.genderRadioGroupInAddWardenFragment.checkedRadioButtonId)).text.toString()
             var wardenHostelID = binding.hostelInputInAddWardenFragment.text?.trim().toString()
             if(wardenHostelID.isEmpty()){
                 binding.hostelInputInAddWardenFragment.error = "Enter Hostel ID"
