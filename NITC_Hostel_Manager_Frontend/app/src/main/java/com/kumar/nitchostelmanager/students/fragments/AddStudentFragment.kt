@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.Validation
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.databinding.FragmentAddStudentBinding
@@ -28,12 +29,12 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-class AddStudentFragment : Fragment(),CircleLoadingDialog {
+class AddStudentFragment : Fragment(), CircleLoadingDialog, Validation {
     private lateinit var binding: FragmentAddStudentBinding
     private val profileViewModel: ProfileViewModel by activityViewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
-    var genderSelected = "Male"
-    var dob = "NA"
+    private var genderSelected = "Male"
+    private var dob = "NA"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,6 +44,7 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
         if(sharedViewModel.viewingStudentRoll != null){
             binding.addStudentButtonInAddStudentFragment.text = "Update Student"
             binding.headingTVInAddStudentFragment.text = "Update Student"
+
             if(profileViewModel.userType == "Admin"){
                 binding.addStudentButtonInAddStudentFragment.visibility = View.VISIBLE
                 binding.buttonClearAll.visibility = View.VISIBLE
@@ -54,7 +56,6 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
                 binding.addressInputInAddStudentFragment.isEnabled = true
                 binding.genderRadioGroupInAddStudentFragment.visibility = View.VISIBLE
             }else{
-
                 binding.addStudentButtonInAddStudentFragment.visibility = View.GONE
                 binding.buttonClearAll.visibility = View.GONE
                 binding.dobButtonInAddStudentFragment.isEnabled = false
@@ -65,6 +66,7 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
                 binding.addressInputInAddStudentFragment.isEnabled = false
                 binding.genderRadioGroupInAddStudentFragment.visibility = View.GONE
             }
+
             getStudentDetails(sharedViewModel.viewingStudentRoll!!)
         }else{
             binding.addStudentButtonInAddStudentFragment.text = "Add Student"
@@ -91,6 +93,7 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
                 day
             ).show()
         }
+
         binding.addStudentButtonInAddStudentFragment.setOnClickListener {
             val studentName = binding.nameInputInAddStudentFragment.text.toString()
             val studentEmail = binding.emailInputInAddStudentFragment.text.toString()
@@ -102,56 +105,54 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
             if(studentName!!.isEmpty() || studentEmail!!.isEmpty() || studentPhone!!.isEmpty() || studentParentPhone!!.isEmpty() || dob == "NA" || studentAddress!!.isEmpty()){
                 Toast.makeText(activity,"Please provide complete information", Toast.LENGTH_SHORT).show()
             }
-            else if(studentPhone.length != 10 || studentParentPhone.length != 10){
-                Toast.makeText(activity,"Phone number should be of length 10", Toast.LENGTH_SHORT).show()
+            else if(!(checkValidPhoneNumber(studentPhone)) || !(checkValidPhoneNumber(studentParentPhone))){
+                Toast.makeText(activity,"Please Enter A Valid Phone Number", Toast.LENGTH_SHORT).show()
             }
-            else if(studentPhone[0] == '0' || studentParentPhone[0] == '0'){
-                Toast.makeText(activity,"Please enter a valid phone number", Toast.LENGTH_SHORT).show()
+            else if(!checkValidEmail(studentEmail) && !checkValidNITCEmail(studentEmail)){
+                Toast.makeText(context,"Enter a valid NITC email id", Toast.LENGTH_SHORT).show()
+            }
+            else if(!checkValidName(studentName)){
+                Toast.makeText(context,"Enter A Valid Name", Toast.LENGTH_SHORT).show()
             }
             else {
-                if(!checkConstraints(studentEmail)){
-                    Toast.makeText(context,"Enter a valid nitc email id", Toast.LENGTH_SHORT).show()
-                }
-                else {
-                    // obtain rollno from email
-                    val str: List<String>? = studentEmail?.split("_")
-                    val roll = str?.get(1)?.split("@")
-                    val studentRoll = roll?.get(0).toString()
-                    Log.d("roll", studentRoll)
+                // obtain rollno from email
+                val str: List<String>? = studentEmail?.split("_")
+                val roll = str?.get(1)?.split("@")
+                val studentRoll = roll?.get(0).toString()
+                Log.d("roll", studentRoll)
 
-                    // obtain course from email
-                    var courseEnrolled = studentRoll.substring(0, 1) + studentRoll.substring(studentRoll.length - 2)
-                    courseEnrolled = courseEnrolled.uppercase()
-                    Log.d("course", courseEnrolled)
+                // obtain course from email
+                var courseEnrolled = studentRoll.substring(0, 1) + studentRoll.substring(studentRoll.length - 2)
+                courseEnrolled = courseEnrolled.uppercase()
+                Log.d("course", courseEnrolled)
 
-                    val studentPassword = studentRoll
+                val studentPassword = studentRoll
 
-                    binding.addStudentButtonInAddStudentFragment.isCheckable = false
-                    binding.progressBarInAddStudentFragment.visibility = View.VISIBLE
+                binding.addStudentButtonInAddStudentFragment.isCheckable = false
+                binding.progressBarInAddStudentFragment.visibility = View.VISIBLE
 
-                    val student: Student = Student(
-                        studentRoll,
-                        studentEmail,
-                        studentPassword,
-                        studentName,
-                        studentPhone,
-                        studentParentPhone,
-                        genderSelected,
-                        dob,
-                        0.0,
-                        studentAddress,
-                        courseEnrolled
-                    )
+                val student: Student = Student(
+                    studentRoll,
+                    studentEmail,
+                    studentPassword,
+                    studentName,
+                    studentPhone,
+                    studentParentPhone,
+                    genderSelected,
+                    dob,
+                    0.0,
+                    studentAddress,
+                    courseEnrolled
+                )
 
-                    if(sharedViewModel.viewingStudentRoll != null) showAlertMessageForUpdate(
-                        sharedViewModel.viewingStudentRoll!!,
-                        student
-                    )
-                    else showAlertMessageForAdd(student)
+                if(sharedViewModel.viewingStudentRoll != null) showAlertMessageForUpdate(
+                    sharedViewModel.viewingStudentRoll!!,
+                    student
+                )
+                else showAlertMessageForAdd(student)
 
-                    binding.addStudentButtonInAddStudentFragment.isCheckable = true
-                    binding.progressBarInAddStudentFragment.visibility = View.INVISIBLE
-                }
+                binding.addStudentButtonInAddStudentFragment.isCheckable = true
+                binding.progressBarInAddStudentFragment.visibility = View.INVISIBLE
             }
         }
 
@@ -280,26 +281,6 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
             }
             else
                 Snackbar.make(binding.linearLayout,"Oops! We encountered a problem while creating your account, please try again", Snackbar.LENGTH_LONG).setAction("close",View.OnClickListener { }).show()
-        }
-    }
-
-    private fun checkConstraints(email: String): Boolean {
-        if(email.contains('_')) {
-            val roll = email.substring(email.indexOf("_") + 1, email.length)
-            if (roll[0] == 'm' || roll[0] == 'b' || roll[0] == 'p') {
-                if(roll.contains('@')) {
-                    val domain = roll.substring(roll.indexOf("@") + 1, roll.length)
-                    return domain == "nitc.ac.in"
-                }
-                else{
-                    return false
-                }
-            } else {
-                return false
-            }
-        }
-        else{
-            return false
         }
     }
 

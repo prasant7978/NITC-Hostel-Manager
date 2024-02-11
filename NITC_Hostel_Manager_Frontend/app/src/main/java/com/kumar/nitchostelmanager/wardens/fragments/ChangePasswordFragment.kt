@@ -38,6 +38,11 @@ class ChangePasswordFragment : Fragment(), CircleLoadingDialog {
                 binding.newPasswordInWardenChangePasswordFragment.requestFocus()
                 return@setOnClickListener
             }
+            else if(newPassword.length < 8){
+                binding.newPasswordInWardenChangePasswordFragment.error = "Password must be at least 8 characters long"
+                binding.newPasswordInWardenChangePasswordFragment.requestFocus()
+                return@setOnClickListener
+            }
 
             val confirmPassword = binding.confirmPasswordInWardenChangePasswordFragment.text.toString()
             if(confirmPassword.isEmpty()){
@@ -47,7 +52,6 @@ class ChangePasswordFragment : Fragment(), CircleLoadingDialog {
             }
 
             if(newPassword != confirmPassword){
-
                 binding.confirmPasswordInWardenChangePasswordFragment.error = "Password don't match"
                 binding.confirmPasswordInWardenChangePasswordFragment.requestFocus()
                 return@setOnClickListener

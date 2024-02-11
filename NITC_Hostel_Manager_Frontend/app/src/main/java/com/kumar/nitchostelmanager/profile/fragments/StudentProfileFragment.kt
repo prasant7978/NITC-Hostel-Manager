@@ -48,22 +48,29 @@ class StudentProfileFragment : Fragment(),CircleLoadingDialog {
         binding.savePasswordButtonInStudentProfile.setOnClickListener {
             val newpassword = binding.newPasswordInStudentProfileFragment.text.toString()
             if(newpassword.isEmpty()){
-                binding.newPasswordInStudentProfileFragment.error = "Enter password first"
+                binding.newPasswordInStudentProfileFragment.error = "Enter The New Password"
                 binding.newPasswordInStudentProfileFragment.requestFocus()
                 return@setOnClickListener
             }
+            else if(newpassword.length < 8){
+                binding.newPasswordInStudentProfileFragment.error = "Password must be at least 8 characters long"
+                binding.newPasswordInStudentProfileFragment.requestFocus()
+                return@setOnClickListener
+            }
+
             val confirmpassword = binding.confirmPasswordInStudentProfileFragment.text.toString()
             if(confirmpassword.isEmpty()){
-                binding.confirmPasswordInStudentProfileFragment.error = "Enter password first"
+                binding.confirmPasswordInStudentProfileFragment.error = "Enter Confirm Password"
                 binding.confirmPasswordInStudentProfileFragment.requestFocus()
                 return@setOnClickListener
             }
-            if(newpassword != confirmpassword){
 
+            if(newpassword != confirmpassword){
                 binding.confirmPasswordInStudentProfileFragment.error = "Password don't match"
                 binding.confirmPasswordInStudentProfileFragment.requestFocus()
                 return@setOnClickListener
             }
+
             updatePassword(newpassword)
         }
 

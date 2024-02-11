@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.Validation
 import com.kumar.nitchostelmanager.databinding.FragmentAddStudentBinding
 import com.kumar.nitchostelmanager.databinding.FragmentAddWardenBinding
 import com.kumar.nitchostelmanager.models.Warden
@@ -22,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class AddWardenFragment:Fragment(),CircleLoadingDialog {
+class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
     private val profileViewModel:ProfileViewModel by activityViewModels()
     private lateinit var binding:FragmentAddWardenBinding
     private lateinit var genderSelected: String
@@ -34,8 +35,6 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog {
     ): View? {
         binding = FragmentAddWardenBinding.inflate(inflater,container,false)
 
-
-
         binding.buttonAddWardenInAddWardenFragment.setOnClickListener {
             var wardenName = binding.textInputNameInAddWardenFragment.text?.trim().toString()
             if(wardenName.isEmpty()){
@@ -43,30 +42,45 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog {
                 binding.textInputNameInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
+            else if(!checkValidName(wardenName)){
+                binding.textInputNameInAddWardenFragment.error = "Enter Valid Name"
+                binding.textInputNameInAddWardenFragment.requestFocus()
+                return@setOnClickListener
+            }
+
             var wardenEmail = binding.textInputEmailInAddWardenFragment.text?.trim().toString()
             if(wardenEmail.isEmpty()){
                 binding.textInputEmailInAddWardenFragment.error = "Enter Email"
                 binding.textInputEmailInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
+            else if(!checkValidEmail(wardenEmail)){
+                binding.textInputEmailInAddWardenFragment.error = "Enter Valid Email"
+                binding.textInputEmailInAddWardenFragment.requestFocus()
+                return@setOnClickListener
+            }
+
             var wardenPhone = binding.textInputPhoneInAddWardenFragment.text?.trim().toString()
             if(wardenPhone.isEmpty()){
                 binding.textInputPhoneInAddWardenFragment.error = "Enter Phone Number"
                 binding.textInputPhoneInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
-            else if(wardenPhone.length != 10 || wardenPhone[0] == '0'){
+            else if(!checkValidPhoneNumber(wardenPhone)){
                 binding.textInputPhoneInAddWardenFragment.error = "Enter Valid Phone Number"
                 binding.textInputPhoneInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
+
             genderSelected = (requireActivity().findViewById<RadioButton>(binding.genderRadioGroupInAddWardenFragment.checkedRadioButtonId)).text.toString()
+
             var wardenHostelID = binding.hostelInputInAddWardenFragment.text?.trim().toString()
             if(wardenHostelID.isEmpty()){
                 binding.hostelInputInAddWardenFragment.error = "Enter Hostel ID"
                 binding.hostelInputInAddWardenFragment.requestFocus()
                 return@setOnClickListener
             }
+
             var newWarden = Warden(
                 wardenEmail,
                 wardenEmail,

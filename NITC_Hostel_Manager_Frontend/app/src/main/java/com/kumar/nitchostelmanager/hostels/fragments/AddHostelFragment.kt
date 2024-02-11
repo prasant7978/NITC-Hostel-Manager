@@ -5,13 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.kumar.nitchostelmanager.CircleLoadingDialog
-import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.Validation
 import com.kumar.nitchostelmanager.databinding.FragmentAddHostelBinding
 import com.kumar.nitchostelmanager.hostels.access.HostelDataAccess
 import com.kumar.nitchostelmanager.hostels.access.ManageHostelsAccess
@@ -22,12 +19,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddHostelFragment:Fragment(),CircleLoadingDialog {
+class AddHostelFragment: Fragment(), CircleLoadingDialog, Validation {
 
     private val profileViewModel:ProfileViewModel by activityViewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
     private lateinit var binding:FragmentAddHostelBinding
-    var genderSelected = "Male"
+    private var genderSelected = "Male"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,6 +45,7 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
 //        binding.genderButtonInAddHostelFragment.setOnClickListener {
 //            getGender()
 //        }
+
         binding.addHostelButtonInAddHostelFragment.setOnClickListener {
             val hostelName = binding.hostelNameInputInAddHostelFragment.text?.trim().toString()
             if(hostelName.isEmpty()){
@@ -57,9 +55,15 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
             }
 
             genderSelected = (requireActivity().findViewById<RadioButton>(binding.genderRadioGroupInAddHostelFragment.checkedRadioButtonId)).text.toString()
+
             val chargesString = binding.chargesInputInAddHostelFragment.text?.trim().toString()
             if(chargesString.isEmpty()){
                 binding.chargesInputInAddHostelFragment.error = "Enter hostel charge"
+                binding.chargesInputInAddHostelFragment.requestFocus()
+                return@setOnClickListener
+            }
+            else if(!checkValidAmount(chargesString)){
+                binding.chargesInputInAddHostelFragment.error = "Enter valid amount"
                 binding.chargesInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
@@ -70,26 +74,18 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
                 binding.capacityInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
-
-            val wardenEmail = binding.wardenEmailInputInAddHostelFragment.text?.trim().toString()
-
-            val charges = chargesString.toInt()
-            val capacity = capacityString.toInt()
-            if(charges<=0){
-                binding.chargesInputInAddHostelFragment.error = "Hostel Charges should be greater than 0"
-                binding.chargesInputInAddHostelFragment.requestFocus()
-                return@setOnClickListener
-            }
-            if(capacity<=0){
-                binding.capacityInputInAddHostelFragment.error = "Hostel Capacity should be greater than 0"
+            else if(!checkValidAmount(capacityString)){
+                binding.capacityInputInAddHostelFragment.error = "Enter valid capacity"
                 binding.capacityInputInAddHostelFragment.requestFocus()
                 return@setOnClickListener
             }
 
+            val wardenEmail = binding.wardenEmailInputInAddHostelFragment.text?.trim().toString()
+
             var newHostel = Hostel(
                 hostelName,
-                capacity,
-                charges,
+                capacityString.toInt(),
+                chargesString.toInt(),
                 0.0,
                 0,
                 genderSelected,
@@ -102,7 +98,7 @@ class AddHostelFragment:Fragment(),CircleLoadingDialog {
 
         return binding.root
     }
-//
+
 //    private fun getGender() {
 //        AlertDialog.Builder(requireContext())
 //            .setTitle("Choose Gender")

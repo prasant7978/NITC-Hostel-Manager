@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.Validation
 import com.kumar.nitchostelmanager.authentication.access.LoginAccess
 import com.kumar.nitchostelmanager.databinding.FragmentLoginBinding
 import kotlinx.coroutines.CoroutineScope
@@ -21,14 +22,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class LoginFragment : Fragment(),CircleLoadingDialog {
+class LoginFragment : Fragment(), CircleLoadingDialog, Validation {
     private lateinit var binding: FragmentLoginBinding
     private var userType: String = "Student"
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-////        binding.progressBarLogin.visibility = View.INVISIBLE
         binding.adminLoginTypeButton.setOnClickListener {
             binding.adminLoginTypeImage.setBackgroundResource(R.drawable.login_type_shape)
             binding.adminLoginTypeButton.setTextColor(Color.WHITE)
@@ -63,22 +63,23 @@ class LoginFragment : Fragment(),CircleLoadingDialog {
         }
 
         binding.buttonSignin.setOnClickListener {
-            Log.d("emailEntered","Email = ${binding.editTextLoginEmail.text.toString()} and password = ${binding.editTextLoginPassword.text.toString()}")
-            val userEmail = binding.editTextLoginEmail.text.toString()
+//            Log.d("emailEntered","Email = ${binding.editTextLoginEmail.text.toString()} and password = ${binding.editTextLoginPassword.text.toString()}")
+
+            val userRollNo = binding.editTextLoginEmail.text.toString()
             val userPassword = binding.editTextLoginPassword.text.toString()
 
-            if(userEmail.isEmpty() || userPassword.isEmpty()){
-                Toast.makeText(context, "Please enter both email $userEmail and password = $userPassword to login.", Toast.LENGTH_SHORT).show()
+            if(userRollNo.isEmpty() || userPassword.isEmpty()){
+                Toast.makeText(context, "Please enter both email and password", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             else {
-                login(userEmail, userPassword, userType)
+                login(userRollNo, userPassword, userType)
             }
         }
 
 //        binding.textViewForgotPassword.setOnClickListener {
-////            val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
-////            startActivity(intent)
+//            val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
+//            startActivity(intent)
 //        }
 
         val backCallback = object: OnBackPressedCallback(true){
@@ -87,27 +88,25 @@ class LoginFragment : Fragment(),CircleLoadingDialog {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
+
         return binding.root
     }
 
-    private fun login(username: String, password: String, userType: String) {
+    private fun login(rollno: String, password: String, userType: String) {
         binding.buttonSignin.isClickable = false
-//        binding.progressBarLogin.visibility = View.VISIBLE
 
         when (userType) {
             "Student" -> {
-                if (!checkConstraints(username)) {
-                    Toast.makeText(context, "Enter a valid nitc roll Number", Toast.LENGTH_SHORT)
+                if (!checkRollNoConstraints(rollno)) {
+                    Toast.makeText(context, "Enter a valid NITC roll number", Toast.LENGTH_SHORT)
                         .show()
                     binding.buttonSignin.isClickable = true
-//                    binding.progressBarLogin.visibility = View.INVISIBLE
                     return
                 }
 
             }
             "" -> {
                 binding.buttonSignin.isClickable = true
-//                binding.progressBarLogin.visibility = View.INVISIBLE
                 Toast.makeText(context, "Select a user type", Toast.LENGTH_SHORT).show()
                 return
             }
@@ -119,7 +118,7 @@ class LoginFragment : Fragment(),CircleLoadingDialog {
             loadingDialog.create()
             loadingDialog.show()
             val loggedIn = LoginAccess(requireContext(),this@LoginFragment,profileViewModel).login(
-                username,
+                rollno,
                 password,
                 userType
             )
@@ -141,28 +140,7 @@ class LoginFragment : Fragment(),CircleLoadingDialog {
             }
         }
 
-//        binding.progressBarLogin.visibility = View.INVISIBLE
         binding.buttonSignin.isClickable = true
     }
 
-    private fun checkConstraints(roll: String): Boolean {
-//        if(email.contains('_')) {
-//            val roll = email.substring(email.indexOf("_") + 1, email.length)
-            if (roll[0] == 'm' || roll[0] == 'b' || roll[0] == 'p') {
-//                if(roll.contains('@')) {
-//                    val domain = roll.substring(roll.indexOf("@") + 1, roll.length)
-//                    return domain == "nitc.ac.in"
-//                }
-//                else{
-//                    return false
-//                }
-                return roll.length == 9
-            } else {
-                return false
-            }
-//        }
-//        else{
-//            return false
-//        }
-    }
 }

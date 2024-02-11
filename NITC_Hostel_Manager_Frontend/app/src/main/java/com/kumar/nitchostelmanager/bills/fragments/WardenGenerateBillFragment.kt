@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.kumar.nitchostelmanager.R
+import com.kumar.nitchostelmanager.Validation
 import com.kumar.nitchostelmanager.bills.access.BillAccess
 import com.kumar.nitchostelmanager.databinding.FragmentWardenGenerateBillBinding
 import com.kumar.nitchostelmanager.models.Bill
@@ -26,7 +27,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class WardenGenerateBillFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class WardenGenerateBillFragment : Fragment(), AdapterView.OnItemSelectedListener, Validation {
     lateinit var binding: FragmentWardenGenerateBillBinding
     val profileViewModel: ProfileViewModel by activityViewModels()
     private var billMonth = ""
@@ -47,12 +48,18 @@ class WardenGenerateBillFragment : Fragment(), AdapterView.OnItemSelectedListene
             val amount = binding.amountInputInGenerateBill.text.toString()
 
             if(billType.isEmpty()){
-                binding.billTypeInputInGenerateBill.error = "Enter bill type"
+                binding.billTypeInputInGenerateBill.error = "Enter The Bill Type"
                 binding.billTypeInputInGenerateBill.requestFocus()
                 return@setOnClickListener
             }
+
             if(amount.isEmpty()){
-                binding.amountInputInGenerateBill.error = "Enter amount"
+                binding.amountInputInGenerateBill.error = "Enter The Amount"
+                binding.amountInputInGenerateBill.requestFocus()
+                return@setOnClickListener
+            }
+            else if(!checkValidAmount(amount)){
+                binding.amountInputInGenerateBill.error = "Enter Valid Amount"
                 binding.amountInputInGenerateBill.requestFocus()
                 return@setOnClickListener
             }
@@ -128,18 +135,14 @@ class WardenGenerateBillFragment : Fragment(), AdapterView.OnItemSelectedListene
                     "Bill has been generated for $billMonth $billYear",
                     Snackbar.LENGTH_SHORT
                 ).setAction("Close", View.OnClickListener { }).show()
-
-
             }
         }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if(parent!!.id == R.id.monthSpinnerInGenerateBill){
-
             billMonth = months?.get(position).toString()
         }else{
-
             billYear = years?.get(position).toString()
         }
     }

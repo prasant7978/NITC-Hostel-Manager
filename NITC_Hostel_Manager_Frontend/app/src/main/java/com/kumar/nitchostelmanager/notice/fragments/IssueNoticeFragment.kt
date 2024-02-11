@@ -39,14 +39,14 @@ class IssueNoticeFragment : Fragment(),CircleLoadingDialog {
         binding.publishNoticeButtonInIssueNoticeFragment.setOnClickListener {
             val headingText = binding.headingInputInIssueNoticeFragment.text.toString()
             if(headingText.isEmpty()){
-                binding.headingInputInIssueNoticeFragment.error = "Enter heading"
+                binding.headingInputInIssueNoticeFragment.error = "Enter The Notice Title"
                 binding.headingInputInIssueNoticeFragment.requestFocus()
                 return@setOnClickListener
             }
 
             val messageText = binding.editTextNoticeMessage.text.toString()
             if(messageText.isEmpty()){
-                binding.editTextNoticeMessage.error = "Enter heading"
+                binding.editTextNoticeMessage.error = "Enter The Notice Description"
                 binding.editTextNoticeMessage.requestFocus()
                 return@setOnClickListener
             }

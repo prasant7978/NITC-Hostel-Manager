@@ -32,7 +32,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-
 class ViewAllComplaintsFragment : Fragment() {
     private lateinit var binding: FragmentViewAllComplaintsBinding
     private lateinit var complaintsAdapter: AllComplaintsAdapter
