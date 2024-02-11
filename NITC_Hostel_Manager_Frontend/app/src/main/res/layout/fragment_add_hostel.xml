@@ -59,16 +59,48 @@
         </androidx.cardview.widget.CardView>
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/genderButtonInAddHostelFragment"
+        <LinearLayout
             android:layout_width="@dimen/dimension_xxlarge"
             android:layout_height="wrap_content"
-            android:text="Male"
-            android:layout_marginTop="@dimen/margin_small"
-            android:elevation="@dimen/elevation_medium"
-            android:backgroundTint="@color/add_student_input_bg"
-            android:textColor="@color/black"
-            app:cardCornerRadius="@dimen/corner_radius_large"/>
+            android:layout_marginVertical="@dimen/margin_small"
+            android:paddingHorizontal="@dimen/padding_medium"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/genderTVInAddHostelFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose gender: "
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_medium" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderRadioGroupInAddHostelFragment"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/checkBoxMaleInAddHostelFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:checked="true"
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_marginStart="@dimen/margin_small"/>
+
+                <RadioButton
+                    android:id="@+id/checkBoxFemaleInAddHostelFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_marginStart="@dimen/margin_xlarge"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
 
 
         <androidx.cardview.widget.CardView

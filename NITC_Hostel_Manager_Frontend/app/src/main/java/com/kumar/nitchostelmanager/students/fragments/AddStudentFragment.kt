@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -31,8 +32,7 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
     private lateinit var binding: FragmentAddStudentBinding
     private val profileViewModel: ProfileViewModel by activityViewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
-    private var genderList:Array<String>? =null
-    var genderSelected = "NA"
+    var genderSelected = "Male"
     var dob = "NA"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +52,7 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
                 binding.parentPhoneInAddStudentFragment.isEnabled = true
                 binding.emailInputInAddStudentFragment.isEnabled = true
                 binding.addressInputInAddStudentFragment.isEnabled = true
-                binding.genderButtonInAddStudentFragment.isEnabled = true
+                binding.genderRadioGroupInAddStudentFragment.visibility = View.VISIBLE
             }else{
 
                 binding.addStudentButtonInAddStudentFragment.visibility = View.GONE
@@ -63,17 +63,14 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
                 binding.parentPhoneInAddStudentFragment.isEnabled = false
                 binding.emailInputInAddStudentFragment.isEnabled = false
                 binding.addressInputInAddStudentFragment.isEnabled = false
-                binding.genderButtonInAddStudentFragment.isEnabled = false
+                binding.genderRadioGroupInAddStudentFragment.visibility = View.GONE
             }
             getStudentDetails(sharedViewModel.viewingStudentRoll!!)
         }else{
             binding.addStudentButtonInAddStudentFragment.text = "Add Student"
             binding.headingTVInAddStudentFragment.text = "Add Student"
         }
-        genderList = resources.getStringArray(R.array.gender)
-        binding.genderButtonInAddStudentFragment.setOnClickListener {
-            getGender()
-        }
+
         binding.dobButtonInAddStudentFragment.setOnClickListener {
             val c = Calendar.getInstance()
 
@@ -100,8 +97,9 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
             val studentPhone = binding.phoneInputInAddStudentFragment.text.toString()
             val studentParentPhone = binding.parentPhoneInAddStudentFragment.text.toString()
             val studentAddress = binding.addressInputInAddStudentFragment.text.toString()
+            genderSelected = (requireActivity().findViewById<RadioButton>(binding.genderRadioGroupInAddStudentFragment.checkedRadioButtonId)).text.toString()
 
-            if(studentName!!.isEmpty() || studentEmail!!.isEmpty() || studentPhone!!.isEmpty() || studentParentPhone!!.isEmpty() || genderSelected == "NA" || dob == "NA" || studentAddress!!.isEmpty()){
+            if(studentName!!.isEmpty() || studentEmail!!.isEmpty() || studentPhone!!.isEmpty() || studentParentPhone!!.isEmpty() || dob == "NA" || studentAddress!!.isEmpty()){
                 Toast.makeText(activity,"Please provide complete information", Toast.LENGTH_SHORT).show()
             }
             else if(studentPhone.length != 10 || studentParentPhone.length != 10){
@@ -187,7 +185,8 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
             studentCoroutineScope.cancel()
             if(student != null){
                 binding.dobButtonInAddStudentFragment.text = student.dob
-                binding.genderButtonInAddStudentFragment.text = student.gender
+                if(student.gender == "Male") binding.checkBoxMaleInAddStudentFragment.isChecked = true
+                else binding.checkBoxFemaleInAddStudentFragment.isChecked = true
                 genderSelected = student.gender
                 dob = student.dob
                 binding.nameInputInAddStudentFragment.setText(student.name)
@@ -198,25 +197,25 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
             }
         }
     }
-
-    private fun getGender() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Choose Gender")
-            .setSingleChoiceItems(genderList!!,-1){dialog,selected->
-                genderSelected = genderList!![selected]
-            }
-            .setPositiveButton("Select"){dialog,which->
-                if(genderSelected != "NA"){
-                    binding.genderButtonInAddStudentFragment.text = genderSelected
-                    dialog.dismiss()
-                }else Toast.makeText(context,"Select Gender",Toast.LENGTH_SHORT).show()
-            }
-            .setNegativeButton("No"){dialog,which->
-                genderSelected = "NA"
-                binding.genderButtonInAddStudentFragment.text = "Gender"
-            }
-            .create().show()
-    }
+//
+//    private fun getGender() {
+//        AlertDialog.Builder(requireContext())
+//            .setTitle("Choose Gender")
+//            .setSingleChoiceItems(genderList!!,-1){dialog,selected->
+//                genderSelected = genderList!![selected]
+//            }
+//            .setPositiveButton("Select"){dialog,which->
+//                if(genderSelected != "NA"){
+//                    binding.genderButtonInAddStudentFragment.text = genderSelected
+//                    dialog.dismiss()
+//                }else Toast.makeText(context,"Select Gender",Toast.LENGTH_SHORT).show()
+//            }
+//            .setNegativeButton("No"){dialog,which->
+//                genderSelected = "NA"
+//                binding.genderButtonInAddStudentFragment.text = "Gender"
+//            }
+//            .create().show()
+//    }
 
     private fun showAlertMessageForUpdate(studentRoll: String,student: Student){
         val dialog = activity?.let { AlertDialog.Builder(it) }
@@ -310,7 +309,7 @@ class AddStudentFragment : Fragment(),CircleLoadingDialog {
         binding.phoneInputInAddStudentFragment.setText("")
         binding.parentPhoneInAddStudentFragment.setText("")
         binding.dobButtonInAddStudentFragment.setText("Date fo Birth")
-        binding.genderButtonInAddStudentFragment.setText("Gender")
+        binding.checkBoxMaleInAddStudentFragment.isChecked = true
         binding.addressInputInAddStudentFragment.setText("")
         genderSelected = "NA"
         dob = "NA"
