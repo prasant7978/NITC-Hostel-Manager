@@ -30,6 +30,7 @@ class LoginFragment : Fragment(), CircleLoadingDialog, Validation {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.adminLoginTypeButton.setOnClickListener {
+            binding.usernameInputLayoutInLoginFragment.setHint("Username")
             binding.adminLoginTypeImage.setBackgroundResource(R.drawable.login_type_shape)
             binding.adminLoginTypeButton.setTextColor(Color.WHITE)
             binding.studentLoginTypeImage.setBackgroundResource(R.drawable.login_type_transparent_bg_shape)
@@ -41,6 +42,7 @@ class LoginFragment : Fragment(), CircleLoadingDialog, Validation {
         }
 
         binding.studentLoginTypeButton.setOnClickListener {
+            binding.usernameInputLayoutInLoginFragment.setHint("Roll No")
             binding.adminLoginTypeImage.setBackgroundResource(R.drawable.login_type_transparent_bg_shape)
             binding.adminLoginTypeButton.setTextColor(Color.BLACK)
             binding.studentLoginTypeImage.setBackgroundResource(R.drawable.login_type_shape)
@@ -52,6 +54,7 @@ class LoginFragment : Fragment(), CircleLoadingDialog, Validation {
         }
 
         binding.contractorLoginTypeButton.setOnClickListener {
+            binding.usernameInputLayoutInLoginFragment.setHint("Username")
             binding.adminLoginTypeImage.setBackgroundResource(R.drawable.login_type_transparent_bg_shape)
             binding.adminLoginTypeButton.setTextColor(Color.BLACK)
             binding.studentLoginTypeImage.setBackgroundResource(R.drawable.login_type_transparent_bg_shape)

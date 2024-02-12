@@ -32,27 +32,14 @@ interface Validation {
     }
 
     fun checkValidName(str: String): Boolean{
-        return !(str.contains('@') ||
-                str.contains('#') ||
-                str.contains('$') ||
-                str.contains('%') ||
-                str.contains('^') ||
-                str.contains('&') ||
-                str.contains('*') ||
-                str.contains('(') ||
-                str.contains(')') ||
-                str.contains('_') ||
-                str.contains('+') ||
-                str.contains('-') ||
-                str.contains('=') ||
-                str.contains('!') ||
-                str.contains('/') ||
-                str.contains('.') ||
-                str.contains('`'))
+            val regex = Regex("^[a-zA-Z ]*$")
+            return regex.matches(str)
     }
 
     fun checkValidPhoneNumber(phone: String): Boolean{
-        return !(phone[0] == '0' || phone.length != 10)
+//        return !(phone[0] == '0' || phone.length != 10)
+        val regex = Regex("^[789]\\d{9}$")
+        return regex.matches(phone)
     }
 
     fun checkValidAmount(amount: String): Boolean{
@@ -61,5 +48,7 @@ interface Validation {
 
     fun checkValidEmail(email: String): Boolean{
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+//        val emailRegex = Regex("""^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$""")
+//        return emailRegex.matches(email)
     }
 }
