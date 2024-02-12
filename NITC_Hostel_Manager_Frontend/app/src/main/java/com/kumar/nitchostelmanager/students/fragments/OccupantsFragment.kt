@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -62,6 +63,13 @@ class OccupantsFragment:Fragment(),CircleLoadingDialog {
 
         })
 
+        val backCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                sharedViewModel.viewingStudentRoll = null
+                findNavController().navigate(R.id.wardenDashboardFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
 
         return binding.root
     }
