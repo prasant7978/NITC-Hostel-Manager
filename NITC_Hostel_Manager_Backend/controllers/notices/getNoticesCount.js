@@ -9,7 +9,7 @@ module.exports = async(req,res)=>{
     // if(req.userType == "Students") {
     //     noticeModel.getNoticesCountForStudents(user.hostelID).then(function(result){
     //     if(result){
-    //         res.status(200).send(JSON.stringify(result['COUNT(*)']));
+    //         res.status(200).send(JSON.stringify(result['count(*)']));
     //     }else{
     //         console.log("result is undefined");
     //         res.status(500).send(JSON.stringify(null));
@@ -21,7 +21,7 @@ module.exports = async(req,res)=>{
     // }else if(req.userType == "Warden"){
     //     noticeModel.getNoticesCountForWarden(user.hostelID).then(function(result){
     //         if(result){
-    //             res.status(200).send(JSON.stringify(result["COUNT(*)"]));
+    //             res.status(200).send(JSON.stringify(result["count(*)"]));
     //         }else{
     //             console.log("result is undefined");
     //             res.status(500).send(JSON.stringify(null));

@@ -96,14 +96,15 @@ module.exports = class Model{
 
     async getWardensCount(){
         return new Promise((resolve, reject) => {
-            db.query('SELECT COUNT(*) FROM wardens',async(err,result)=>{
+            db.query('SELECT count(*) FROM wardens',async(err,result)=>{
                 if(err){
                     console.log("Error : "+err);
                     reject(err)
                 }else{
                     console.log("Wardens total :");
-                    console.log(result[0]["COUNT(*)"]);
-                    resolve(result[0]["COUNT(*)"])
+                    console.log(result);
+                    console.log(result[0]["count(*)"]);
+                    resolve(result[0]["count(*)"])
                 }
             });
         })

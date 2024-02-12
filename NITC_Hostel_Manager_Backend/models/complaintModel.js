@@ -43,7 +43,7 @@ module.exports = class Complaint{
 
     async getPendingComplaintsCount(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT COUNT(*) FROM complaints WHERE hostelID = ? AND status = ?', [hostelID, "Pending"], async(err, result)=>{
+            db.query('SELECT count(*) FROM complaints WHERE hostelID = ? AND status = ?', [hostelID, "Pending"], async(err, result)=>{
                 if(err){
                     console.log(err);
                     reject(err);

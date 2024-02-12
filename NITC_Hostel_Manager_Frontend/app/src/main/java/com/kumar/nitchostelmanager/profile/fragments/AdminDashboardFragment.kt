@@ -239,10 +239,10 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 this@AdminDashboardFragment,
                 profileViewModel = profileViewModel
             ).getAllStudentsCount()
-            if(studentsCount != null){
+            if(studentsCount != null && studentsCount["BoysCount"] != null && studentsCount["GirlsCount"]!= null){
                 binding.totalStudentsTextInAdminDashboard.text = ((studentsCount["BoysCount"]!! + studentsCount["GirlsCount"]!!)).toString()
             }else{
-//                Toast.makeText(requireContext(),"Error in getting students count", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"Error in getting students count", Toast.LENGTH_SHORT).show()
             }
             studentsCountCoroutineScope.cancel()
         }

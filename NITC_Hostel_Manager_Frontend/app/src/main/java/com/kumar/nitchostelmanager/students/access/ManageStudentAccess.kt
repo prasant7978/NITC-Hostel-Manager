@@ -46,7 +46,7 @@ class ManageStudentAccess(
                 }
 
                 override fun onFailure(call: Call<HashMap<String, Int>>, t: Throwable) {
-                    Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"Error: in getting students count :$t",Toast.LENGTH_SHORT).show()
                     Log.d("getStudentsCount","Error : $t")
                     continuation.resume(null)
                 }

@@ -110,7 +110,7 @@ class ProfileAccess(var context: Context, private var profileViewModel: ProfileV
                 }
 
                 override fun onFailure(call: Call<Admin?>, t: Throwable) {
-                    Toast.makeText(context,"Error : $t",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"Error in getting admin profile: $t",Toast.LENGTH_SHORT).show()
                     Log.d("login","Error : $t")
                     continuation.resume(null)
                 }

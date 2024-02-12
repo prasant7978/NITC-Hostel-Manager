@@ -18,14 +18,14 @@ module.exports = class Model{
 
     async getBillsCount(){
         return new Promise((resolve,reject) => {
-            db.query('SELECT COUNT(*) FROM bills', async(err, result) => {
+            db.query('SELECT count(*) FROM bills', async(err, result) => {
                 if(err){
                     console.log(err);
                     reject(err);
                 }else{
                     console.log("Bills Count = ");
-                    console.log(result[0]["COUNT(*)"]);
-                    resolve(result[0]["COUNT(*)"]);
+                    console.log(result[0]["count(*)"]);
+                    resolve(result[0]["count(*)"]);
                 }
             });
         });

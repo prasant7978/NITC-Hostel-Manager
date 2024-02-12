@@ -33,15 +33,15 @@ module.exports = class Model{
 
     async countHostelOccupants(hostelID){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT COUNT(*) FROM students WHERE hostelID = ?',[hostelID],async(exc,studentsCount)=>{
+            db.query('SELECT count(*) FROM students WHERE hostelID = ?',[hostelID],async(exc,studentsCount)=>{
                 if(exc){
                     console.log(exc);
                     reject(exc);
                 }else{
                     console.log("students count = ");
                     console.log(studentsCount);
-                    console.log(studentsCount[0]['COUNT(*)']);
-                    resolve(studentsCount[0]['COUNT(*)']);
+                    console.log(studentsCount[0]['count(*)']);
+                    resolve(studentsCount[0]['count(*)']);
                 }
             });
         });
@@ -63,14 +63,14 @@ module.exports = class Model{
     
     async getBoysCount(){
         return new Promise((resolve, reject) => {
-            db.query('SELECT COUNT(*) FROM students WHERE gender=?',["Male"],async(err,result)=>{
+            db.query('SELECT count(*) FROM students WHERE gender=?',["Male"],async(err,result)=>{
                 if(err){
                     console.log("Error : "+err);
                     reject(err)
                 }else{
                     console.log("Boys total :");
-                    console.log(result[0]["COUNT(*)"]);
-                    resolve(result[0]["COUNT(*)"])
+                    console.log(result[0]["count(*)"]);
+                    resolve(result[0]["count(*)"])
                 }
             });
         })
@@ -93,14 +93,14 @@ module.exports = class Model{
     
     async getGirlsCount(){
         return new Promise((resolve, reject) => {
-            db.query('SELECT COUNT(*) FROM students WHERE gender=?',["Female"],async(err,result)=>{
+            db.query('SELECT count(*) FROM students WHERE gender=?',["Female"],async(err,result)=>{
                 if(err){
                     console.log("Error : "+err);
                     reject(err)
                 }else{
                     console.log("Girls count :");
-                    console.log(result[0]["COUNT(*)"]);
-                    resolve(result[0]["COUNT(*)"])
+                    console.log(result[0]["count(*)"]);
+                    resolve(result[0]["count(*)"])
                 }
             });
         });

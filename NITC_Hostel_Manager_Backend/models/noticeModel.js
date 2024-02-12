@@ -56,13 +56,13 @@ module.exports = class Notice{
 
     async getNoticesCount(){
         return new Promise((resolve,reject)=>{
-            db.query('SELECT COUNT(*) FROM notices',async(err,result)=>{
+            db.query('SELECT count(*) FROM notices',async(err,result)=>{
                 if(err){
                     console.log(err);
                     reject(err);
                 }else{
-                    console.log(result[0]['COUNT(*)']);
-                    resolve(result[0]['COUNT(*)']);
+                    console.log(result[0]['count(*)']);
+                    resolve(result[0]['count(*)']);
                 }
             })
         });
@@ -70,7 +70,7 @@ module.exports = class Notice{
     
     // async getNoticesCountForWarden(hostelID){
     //     return new Promise((resolve,reject)=>{
-    //         db.query('SELECT COUNT(*) FROM notices WHERE (hostelID=NULL OR hostelID=?) and (referTo=? OR referTo=?)',[hostelID,"Warden","Students"],async(err,result)=>{
+    //         db.query('SELECT count(*) FROM notices WHERE (hostelID=NULL OR hostelID=?) and (referTo=? OR referTo=?)',[hostelID,"Warden","Students"],async(err,result)=>{
     //             if(err){  
     //                 console.log(err);
     //                 reject(err);
@@ -96,7 +96,7 @@ module.exports = class Notice{
     
     // async getNoticesCountForAdmin(){
     //     return new Promise((resolve,reject)=>{
-    //         db.query('SELECT COUNT(*) FROM notices',async(err,result)=>{
+    //         db.query('SELECT count(*) FROM notices',async(err,result)=>{
     //             if(err){
     //                 console.log(err);
     //                 reject(err);

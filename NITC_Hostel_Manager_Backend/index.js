@@ -30,6 +30,6 @@ app.use("/payment", require("./routes/payment"))
 
 app.use("/bill", require("./routes/bill"))
 
-app.listen(3002, function(req,res){
+app.listen(3002,function(req,res){
 
 });

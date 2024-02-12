@@ -5,9 +5,9 @@ module.exports = async(req,res)=>{
         var complaintModel = new ComplaintModel();
         complaintModel.getPendingComplaintsCount(req.query.hostelID).then(function(complaintsCount){
             if(complaintsCount){
-                console.log(complaintsCount['COUNT(*)']);
-                res.status(200).send(JSON.stringify(complaintsCount['COUNT(*)']));
-                console.log("ComplaintsCount = "+complaintsCount['COUNT(*)']);
+                console.log(complaintsCount['count(*)']);
+                res.status(200).send(JSON.stringify(complaintsCount['count(*)']));
+                console.log("ComplaintsCount = "+complaintsCount['count(*)']);
             }else{
                 res.status(500).send(JSON.stringify(0));
                 console.log("ComplaintsCount is undefined");
