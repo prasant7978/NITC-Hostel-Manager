@@ -59,6 +59,7 @@ class WardenListAdapter(
 
             AlertDialog.Builder(context)
                 .setTitle("Delete Warden")
+                .setMessage("Are you sure, you want to delete the warden?")
                 .setPositiveButton("Yes"){dialog,which->
                     deleteCallback(wardenList[position].email)
                 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,7 +17,9 @@ import com.kumar.nitchostelmanager.Validation
 import com.kumar.nitchostelmanager.databinding.FragmentAddStudentBinding
 import com.kumar.nitchostelmanager.databinding.FragmentAddWardenBinding
 import com.kumar.nitchostelmanager.models.Warden
+import com.kumar.nitchostelmanager.profile.access.ProfileAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
+import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import com.kumar.nitchostelmanager.wardens.access.ManageWardensAccess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +28,7 @@ import kotlinx.coroutines.launch
 
 class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
     private val profileViewModel:ProfileViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var binding:FragmentAddWardenBinding
     private lateinit var genderSelected: String
 
@@ -34,6 +38,12 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddWardenBinding.inflate(inflater,container,false)
+
+        if(sharedViewModel.viewingWardenEmail != null){
+            binding.headingInAddWardenFragment.text = "Update Warden"
+            binding.buttonAddWardenInAddWardenFragment.text = "Update Warden"
+            getWardenData(sharedViewModel.viewingWardenEmail.toString())
+        }
 
         binding.buttonAddWardenInAddWardenFragment.setOnClickListener {
             var wardenName = binding.textInputNameInAddWardenFragment.text?.trim().toString()
@@ -89,14 +99,65 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
                 genderSelected,
                 wardenHostelID
             )
-            addWarden(newWarden)
+
+            if(sharedViewModel.viewingWardenEmail != null) {
+                var updateWarden = Warden(
+                    email = wardenEmail,
+                    name = wardenName,
+                    phone = wardenPhone,
+                    gender = genderSelected,
+                    hostelID = wardenHostelID
+                )
+                updateWarden(sharedViewModel.viewingWardenEmail.toString(), updateWarden)
+            }
+                else
+                    addWarden(newWarden)
         }
 
         binding.buttonClearAllInAddWardenFragment.setOnClickListener {
             clearAllTextArea()
         }
 
+        val backCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                sharedViewModel.viewingWardenEmail = null
+                findNavController().navigate(R.id.wardenListFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
+
         return binding.root
+    }
+
+    private fun getWardenData(wardenEmail: String){
+        val getWardenCoroutineScope = CoroutineScope(Dispatchers.Main)
+        getWardenCoroutineScope.launch {
+            var loadingDialog = getLoadingDialog(requireContext(),this@AddWardenFragment)
+            loadingDialog.create()
+            loadingDialog.show()
+            val warden = ManageWardensAccess(requireContext(), this@AddWardenFragment, profileViewModel)
+                .getWardenDetails(wardenEmail)
+            loadingDialog.cancel()
+            getWardenCoroutineScope.cancel()
+
+            if(warden != null){
+                binding.textInputNameInAddWardenFragment.setText(warden.name)
+                binding.textInputEmailInAddWardenFragment.setText(warden.email)
+                binding.textInputPhoneInAddWardenFragment.setText(warden.phone)
+                binding.hostelInputInAddWardenFragment.setText(warden.hostelID)
+
+                if(warden.gender == "Male") {
+                    binding.checkBoxMaleInAddWardenFragment.isChecked = true
+                    binding.checkBoxFemaleInAddWardenFragment.isChecked = false
+                }
+                else {
+                    binding.checkBoxFemaleInAddWardenFragment.isChecked = true
+                    binding.checkBoxMaleInAddWardenFragment.isChecked = false
+                }
+            }else{
+                findNavController().navigate(R.id.adminDashboardFragment)
+            }
+        }
     }
 
     private fun addWarden(newWarden: Warden) {
@@ -115,6 +176,25 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
             if(added){
                 findNavController().navigate(R.id.wardenListFragment)
             }
+        }
+    }
+
+    private fun updateWarden(wardenEmail: String, newWarden: Warden){
+        val updateWardenCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(), this@AddWardenFragment)
+
+        updateWardenCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+
+            val updatesWarden = ManageWardensAccess(requireContext(), this@AddWardenFragment, profileViewModel)
+                .updateWarden(wardenEmail, newWarden)
+
+            loadingDialog.cancel()
+            updateWardenCoroutineScope.cancel()
+
+            if(updatesWarden != null)
+                getWardenData(wardenEmail)
         }
     }
 

@@ -49,6 +49,7 @@ class HostelListAdapter(
         holder.binding.hostelCardInHostelCard.setOnLongClickListener {
             AlertDialog.Builder(context)
                 .setTitle("Delete Hostel")
+                .setMessage("Are you sure, you want to delete the hostel?")
                 .setPositiveButton("Yes"){dialog,which->
                     deleteCallback(hostels[position].hostelID)
                 }

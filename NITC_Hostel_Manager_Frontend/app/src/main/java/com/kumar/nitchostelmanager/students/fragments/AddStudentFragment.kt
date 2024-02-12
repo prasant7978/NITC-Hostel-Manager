@@ -198,25 +198,6 @@ class AddStudentFragment : Fragment(), CircleLoadingDialog, Validation {
             }
         }
     }
-//
-//    private fun getGender() {
-//        AlertDialog.Builder(requireContext())
-//            .setTitle("Choose Gender")
-//            .setSingleChoiceItems(genderList!!,-1){dialog,selected->
-//                genderSelected = genderList!![selected]
-//            }
-//            .setPositiveButton("Select"){dialog,which->
-//                if(genderSelected != "NA"){
-//                    binding.genderButtonInAddStudentFragment.text = genderSelected
-//                    dialog.dismiss()
-//                }else Toast.makeText(context,"Select Gender",Toast.LENGTH_SHORT).show()
-//            }
-//            .setNegativeButton("No"){dialog,which->
-//                genderSelected = "NA"
-//                binding.genderButtonInAddStudentFragment.text = "Gender"
-//            }
-//            .create().show()
-//    }
 
     private fun showAlertMessageForUpdate(studentRoll: String,student: Student){
         val dialog = activity?.let { AlertDialog.Builder(it) }

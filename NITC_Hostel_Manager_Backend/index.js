@@ -2,10 +2,13 @@ const express = require('express');
 
 //Create connection
 const db= require('./db/db_connection');
+
 const app = express();
+
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
+
 app.use(express.json());
 
 app.use("/auth", require('./routes/auth'));
@@ -30,6 +33,6 @@ app.use("/payment", require("./routes/payment"))
 
 app.use("/bill", require("./routes/bill"))
 
-app.listen(3002,function(req,res){
+app.listen(3002, function(req,res){
 
 });

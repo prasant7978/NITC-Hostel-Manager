@@ -35,6 +35,7 @@ class AllHostelsFragment:Fragment() {
         getHostels()
 
         binding.addHostelButtonInAllHostelsFragment.setOnClickListener{
+            sharedViewModel.updatingHostelID = null
             findNavController().navigate(R.id.addHostelFragment)
         }
 
@@ -65,9 +66,8 @@ class AllHostelsFragment:Fragment() {
                 this@AllHostelsFragment
             ).getHostels()
             if(!hostels.isNullOrEmpty()){
-//                binding.addHostelsButtonInAdminDashboard.visibility = View.GONE
                 binding.hostelsRecyclerViewInAllHostelsFragment.visibility = View.VISIBLE
-                binding.noHostelsTVInAllHostelsFragment.visibility = View.VISIBLE
+                binding.noHostelsTVInAllHostelsFragment.visibility = View.INVISIBLE
                 binding.hostelsRecyclerViewInAllHostelsFragment.layoutManager = LinearLayoutManager(context)
                 binding.hostelsRecyclerViewInAllHostelsFragment.adapter = HostelListAdapter(
                     requireContext(),
@@ -76,7 +76,7 @@ class AllHostelsFragment:Fragment() {
                     sharedViewModel,
                     hostels,
                     {hostelID->
-                        sharedViewModel.viewingHostelID = hostelID
+                        sharedViewModel.updatingHostelID = hostelID
                         findNavController().navigate(R.id.addHostelFragment)
                     },
                     {hostelID->
@@ -86,7 +86,6 @@ class AllHostelsFragment:Fragment() {
             }else{
                 binding.hostelsRecyclerViewInAllHostelsFragment.visibility = View.GONE
                 binding.noHostelsTVInAllHostelsFragment.visibility = View.VISIBLE
-//                binding.addHostelsButtonInAdminDashboard.visibility = View.VISIBLE
                 Toast.makeText(context,"No hostels till now", Toast.LENGTH_SHORT).show()
             }
             getwardenCoroutineScope.cancel()

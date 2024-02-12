@@ -41,10 +41,6 @@ class AddHostelFragment: Fragment(), CircleLoadingDialog, Validation {
             binding.wardenEmailInputCardInAddHostelFragment.visibility = View.VISIBLE
             getData(sharedViewModel.updatingHostelID.toString())
         }
-//        genderList = resources.getStringArray(R.array.gender)
-//        binding.genderButtonInAddHostelFragment.setOnClickListener {
-//            getGender()
-//        }
 
         binding.addHostelButtonInAddHostelFragment.setOnClickListener {
             val hostelName = binding.hostelNameInputInAddHostelFragment.text?.trim().toString()
@@ -99,25 +95,6 @@ class AddHostelFragment: Fragment(), CircleLoadingDialog, Validation {
         return binding.root
     }
 
-//    private fun getGender() {
-//        AlertDialog.Builder(requireContext())
-//            .setTitle("Choose Gender")
-//            .setSingleChoiceItems(genderList!!,-1){dialog,selected->
-//                genderSelected = genderList!![selected]
-//            }
-//            .setPositiveButton("Select"){dialog,which->
-//                if(genderSelected != "NA"){
-//                    binding.genderButtonInAddHostelFragment.text = genderSelected
-//                    dialog.dismiss()
-//                }else Toast.makeText(context,"Select Gender", Toast.LENGTH_SHORT).show()
-//            }
-//            .setNegativeButton("No"){dialog,which->
-//                binding.genderButtonInAddHostelFragment.text = genderSelected
-//                dialog.dismiss()
-//            }
-//            .create().show()
-//    }
-
     private fun updateHostel(newHostel: Hostel, wardenEmail: String) {
         newHostel.wardenEmail = wardenEmail
 
@@ -134,7 +111,7 @@ class AddHostelFragment: Fragment(), CircleLoadingDialog, Validation {
             ).updateHostel(newHostel, sharedViewModel.updatingHostelID.toString())
             loadingDialog.cancel()
             if(added){
-
+                sharedViewModel.updatingHostelID = null
             }
         }
     }
@@ -164,6 +141,7 @@ class AddHostelFragment: Fragment(), CircleLoadingDialog, Validation {
                 binding.capacityInputInAddHostelFragment.isEnabled = false
             }
         }
+
     }
 
     private fun clearAll() {

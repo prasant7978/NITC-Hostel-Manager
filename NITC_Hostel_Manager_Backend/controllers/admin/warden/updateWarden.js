@@ -6,19 +6,18 @@ module.exports = async(req,res)=>{
         console.log("User is not admin to update a warden");
     }else{
         var wardenModel = new WardenModel();
-        wardenModel.updateWarden(req.query.wardenEmail,req.body).then(function(result){
+        wardenModel.updateWarden(req.query.wardenEmail, req.body).then(function(result){
             if(result){
-                console.log("After updating warden");
-                console.log(result);
-                res.status(200).send(true);
-                console.log("Warden is updated");
+                console.log("Sending updated warden");
+                // console.log(result);
+                res.status(200).send(JSON.stringify(result));
             }else{
-                res.status(500).send(false);
+                res.status(500).send(null);
                 console.log("Warden is not updated");
             }
         }).catch(function(exc){
             console.log(exc);
-            res.status(500).send(false);
+            res.status(500).send(null);
         });
     }
 }

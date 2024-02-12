@@ -22,7 +22,6 @@ class ManageWardensAccess(
     var parentFragment: Fragment,
     var profileViewModel: ProfileViewModel
 ) {
-
     suspend fun addWarden(newWarden: Warden): Boolean{
         return suspendCoroutine { continuation ->
             var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)
@@ -50,10 +49,10 @@ class ManageWardensAccess(
         }
     }
 
-    suspend fun updateWarden(wardenEmail: String,newWarden: Warden): Warden?{
+    suspend fun updateWarden(wardenEmail: String, newWarden: Warden): Warden?{
         return suspendCoroutine { continuation ->
             var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)
-            var requestCall = manageWardenService.updateWarden(profileViewModel.loginToken.toString(),wardenEmail,newWarden)
+            var requestCall = manageWardenService.updateWarden(profileViewModel.loginToken.toString(), wardenEmail, newWarden)
             requestCall.enqueue(object: Callback<Warden?> {
                 override fun onResponse(
                     call: Call<Warden?>,
@@ -76,7 +75,30 @@ class ManageWardensAccess(
         }
     }
 
+    suspend fun getWardenDetails(wardenEmail: String): Warden?{
+        return  suspendCoroutine { continuation ->
+            var manageWardensService = ServiceBuilder.buildService(ManageWardensService::class.java)
+            var requestCall = manageWardensService.getWarden(profileViewModel.loginToken.toString(), wardenEmail)
 
+            requestCall.enqueue(object : Callback<Warden?> {
+                override fun onResponse(call: Call<Warden?>, response: Response<Warden?>) {
+                    if(response.isSuccessful && response.body() != null){
+                        continuation.resume(response.body())
+                    }
+                    else{
+                        continuation.resume(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<Warden?>, t: Throwable) {
+                    Toast.makeText(context,"Error in getting warden details",Toast.LENGTH_SHORT).show()
+                    Log.d("getStudent","Error in getting warden details : $t")
+                    continuation.resume(null)
+                }
+
+            })
+        }
+    }
 
     suspend fun deleteWarden(wardenEmail:String):Boolean{
         return suspendCoroutine { continuation ->

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,15 +52,22 @@ class WardenListFragment : Fragment() {
                 }
             }
         )
+
         binding.addWardenButtonInWardenListFragment.setOnClickListener {
             findNavController().navigate(R.id.addWardenFragment)
         }
+
+        val backCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.adminDashboardFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
 
         return binding.root
     }
 
     private fun deleteWarden(wardenEmail:String) {
-
         val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
         deleteCoroutineScope.launch {
             val deleted = ManageWardensAccess(requireContext(),this@WardenListFragment, profileViewModel).deleteWarden(wardenEmail)
@@ -88,7 +96,8 @@ class WardenListFragment : Fragment() {
                     profileViewModel,
                     wardenList!!,
                     {wardenEmail->
-
+                        sharedViewModel.viewingWardenEmail = wardenEmail
+                        findNavController().navigate(R.id.addWardenFragment)
                     },
                     {wardenEmail->
                         deleteWarden(wardenEmail)

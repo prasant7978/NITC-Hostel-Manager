@@ -182,6 +182,7 @@
                         android:layout_height="wrap_content"
                         android:text="Hostels"
                         android:textSize="@dimen/text_size_small"
+                        android:textColor="@color/black"
                         android:fontFamily="@font/inter_semibold"
                         app:layout_constraintHorizontal_bias="0.05"
                         app:layout_constraintTop_toTopOf="parent"

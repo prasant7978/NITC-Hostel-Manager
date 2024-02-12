@@ -23,8 +23,8 @@ module.exports = class Model{
                     console.log("Error : "+err);
                     reject(err)
                 }else{
-                    console.log("students :");
-                    console.log(result);
+                    // console.log("students :");
+                    // console.log(result);
                     resolve(result)
                 }
             });
@@ -38,9 +38,9 @@ module.exports = class Model{
                     console.log(exc);
                     reject(exc);
                 }else{
-                    console.log("students count = ");
-                    console.log(studentsCount);
-                    console.log(studentsCount[0]['count(*)']);
+                    // console.log("students count = ");
+                    // console.log(studentsCount);
+                    // console.log(studentsCount[0]['count(*)']);
                     resolve(studentsCount[0]['count(*)']);
                 }
             });
@@ -53,8 +53,8 @@ module.exports = class Model{
                     console.log("Error : "+err);
                     reject(err)
                 }else{
-                    console.log("students :");
-                    console.log(result);
+                    // console.log("students :");
+                    // console.log(result);
                     resolve(result)
                 }
             });
@@ -68,8 +68,8 @@ module.exports = class Model{
                     console.log("Error : "+err);
                     reject(err)
                 }else{
-                    console.log("Boys total :");
-                    console.log(result[0]["count(*)"]);
+                    // console.log("Boys total :");
+                    // console.log(result[0]["count(*)"]);
                     resolve(result[0]["count(*)"])
                 }
             });
@@ -83,8 +83,8 @@ module.exports = class Model{
                     console.log("Error : "+err);
                     reject(err)
                 }else{
-                    console.log("students :");
-                    console.log(result);
+                    // console.log("students :");
+                    // console.log(result);
                     resolve(result)
                 }
             });
@@ -98,8 +98,8 @@ module.exports = class Model{
                     console.log("Error : "+err);
                     reject(err)
                 }else{
-                    console.log("Girls count :");
-                    console.log(result[0]["count(*)"]);
+                    // console.log("Girls count :");
+                    // console.log(result[0]["count(*)"]);
                     resolve(result[0]["count(*)"])
                 }
             });
@@ -159,14 +159,15 @@ module.exports = class Model{
 
     async allocateRoom(roomID,hostelID,studentRoll){
         return new Promise((resolve,reject)=>{
-            console.log("\n\n\n\nstudent = "+studentRoll);
-            console.log("roomiD = "+roomID);
+            // console.log("\n\n\n\nstudent = "+studentRoll);
+            // console.log("roomiD = "+roomID);
             db.query('UPDATE students SET roomNumber=?, hostelID=? WHERE studentRoll=?',[roomID,hostelID,studentRoll],async(err,result)=>{
                 if(err) {
                     console.log("error in updating hostel and room number for student"+err);
                     reject(err);
                 }
-                else resolve(true);
+                else 
+                    resolve(true);
             });
         });
     }
@@ -205,8 +206,8 @@ module.exports = class Model{
                     reject(err)
                 }
                 else{
-                    console.log("\n\nstudent found :")
-                    console.log(result)
+                    // console.log("\n\nstudent found :")
+                    // console.log(result)
                     resolve(result[0])
                 }
             });
@@ -220,8 +221,8 @@ module.exports = class Model{
                     console.log("Error : "+err);
                     reject(err)
                 }else{
-                    console.log("student added :");
-                    console.log(result[0]);
+                    // console.log("student added :");
+                    // console.log(result[0]);
                     resolve(result)
                 }
             });
@@ -235,8 +236,8 @@ module.exports = class Model{
               console.log("Error : " + err);
               reject(err); // Reject the promise with the error
             } else {
-              console.log("student updated :");
-              console.log(result);
+            //   console.log("student updated :");
+            //   console.log(result);
               resolve(result); // Resolve the promise with the result
             }
           });
@@ -250,8 +251,8 @@ module.exports = class Model{
                     console.log("Error : "+err);
                     reject(err);
                 }else{
-                    console.log("student deleted :");
-                    console.log(result);
+                    // console.log("student deleted :");
+                    // console.log(result);
                     resolve(result);
                 }
             })

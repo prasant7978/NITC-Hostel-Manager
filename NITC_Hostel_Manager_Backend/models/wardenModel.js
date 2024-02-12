@@ -25,8 +25,8 @@ module.exports = class Model{
                 console.log("Error : "+err);
                 reject(err);
             }else{
-                console.log("wardens : \n");
-                console.log(result);
+                // console.log("wardens : \n");
+                // console.log(result);
                 resolve(result);
             }
         });
@@ -36,14 +36,13 @@ module.exports = class Model{
     
     async findWarden(email){
         return new Promise((resolve,reject)=>{
-            // console.log("email: " + email);
             db.query('SELECT * FROM wardens WHERE email = ?',[email],async(err,result)=>{
             if(err){
                 console.log("Error : "+err);
                 reject(err);
             }else{
-                console.log("warden found : \n");
-                console.log(result);
+                // console.log("warden found : \n");
+                // console.log(result);
                 resolve(result[0]);
             }
         });
@@ -57,8 +56,8 @@ module.exports = class Model{
                 console.log("Error : "+err);
                 reject(err);
             }else{
-                console.log("warden found : \n");
-                console.log(result);
+                // console.log("warden found : \n");
+                // console.log(result);
                 resolve(result[0]);
             }
         });
@@ -72,26 +71,27 @@ module.exports = class Model{
                 console.log("Error : "+err);
                 reject(err);
             }else{
-                console.log("warden added : \n");
-                console.log(result);
+                // console.log("warden added : \n");
+                // console.log(result);
                 resolve(true);
             }
         });
     });
     }
+
     async updateWarden(email,data){
-        return new Promise((resolve,reject)=>{
-            db.query('UPDATE wardens SET ? WHERE email=?',[data,email],async(err,result)=>{
-            if(err){
-                console.log("Error : "+err);
-                reject
-            }else{
-                console.log("warden updated : \n");
-                console.log(result);
-                resolve(result[0]);
-            }
+        return new Promise((resolve, reject)=>{
+            db.query('UPDATE wardens SET ? WHERE email=?', [data, email], async(err, result) => {
+                if(err){
+                    console.log("Error: " + err);
+                    reject
+                }else{
+                    // console.log("warden updated:");
+                    // console.log(result);
+                    resolve(result);
+                }
+            });
         });
-    });
     }
 
     async getWardensCount(){
@@ -101,9 +101,9 @@ module.exports = class Model{
                     console.log("Error : "+err);
                     reject(err)
                 }else{
-                    console.log("Wardens total :");
-                    console.log(result);
-                    console.log(result[0]["count(*)"]);
+                    // console.log("Wardens total :");
+                    // console.log(result);
+                    // console.log(result[0]["count(*)"]);
                     resolve(result[0]["count(*)"])
                 }
             });
@@ -116,8 +116,8 @@ module.exports = class Model{
                 console.log("Error : "+err);
                 reject(err);
             }else{
-                console.log("warden deleted : \n");
-                console.log(true);
+                // console.log("warden deleted : \n");
+                // console.log(true);
                 resolve(true);
             }
         });
