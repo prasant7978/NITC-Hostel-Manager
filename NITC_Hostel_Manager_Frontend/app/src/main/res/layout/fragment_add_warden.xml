@@ -180,37 +180,21 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/hostelInputCardInAddWardenFragment"
+
+    <com.google.android.material.button.MaterialButton
         android:layout_width="@dimen/dimension_xxlarge"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_small"
-        app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="@dimen/corner_radius_large">
+        android:layout_height="@dimen/dimension_small"
+        android:text="Hostel Name"
+        android:id="@+id/hostelNameButtonInAddWardenFragment"
+        android:fontFamily="@font/inter_semibold"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_marginTop="@dimen/margin_small"
+        android:letterSpacing="0"
+        android:textColor="@color/black"
+        app:cornerRadius="@dimen/corner_radius_large"
+        android:elevation="@dimen/elevation_xsmall"
+        app:backgroundTint="@color/ivory_wheat"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/hostelInputLayoutInAddWardenFragment"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Hostel ID"
-            android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/add_student_input_bg"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="0dp"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:hintTextColor="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/hostelInputInAddWardenFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_medium" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonAddWardenInAddWardenFragment"

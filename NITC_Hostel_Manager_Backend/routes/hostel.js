@@ -18,6 +18,6 @@ router.get("/details", verifyToken, getHostelDetails)
 router.get("/all", verifyToken, getAllHostel)
 router.get("/gender", verifyToken,getHostelsWithGender)
 router.delete("/delete", verifyToken, deleteHostel)
-router.get("/allNames",verifyToken,getHostelsNames);
+router.get("/allNames/gender",verifyToken,getHostelsNames);
 
 module.exports = router
