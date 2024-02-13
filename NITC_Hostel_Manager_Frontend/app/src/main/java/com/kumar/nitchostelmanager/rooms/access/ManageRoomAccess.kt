@@ -209,4 +209,74 @@ class ManageRoomAccess(
             })
         }
     }
+
+    suspend fun getAllRoomsFromTo(hostelID: String, start: Int,end: Int): Array<Room>? {
+        return suspendCoroutine { continuation ->
+            val roomServices = ServiceBuilder.buildService(ManageRoomsService::class.java)
+            val requestCall = roomServices.getAllRoomsFromTo(loginToken, hostelID,start,end)
+
+            requestCall.enqueue(object: Callback<Array<Room>>{
+                override fun onResponse(call: Call<Array<Room>>, response: Response<Array<Room>>) {
+                    if(response.isSuccessful){
+                        if(response.body() != null){
+                            response.body()!!.sortBy {
+                                it.roomNumber
+                            }
+                            continuation.resume(response.body())
+                        }
+                        else{
+                            Toast.makeText(context,"No rooms found", Toast.LENGTH_SHORT).show()
+                            continuation.resume(null)
+                        }
+                    }
+                    else{
+                        Toast.makeText(context, "Could not get rooms", Toast.LENGTH_SHORT).show()
+                        continuation.resume(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<Array<Room>>, t: Throwable) {
+                    Log.d("getAllRooms","Error : $t")
+                    Toast.makeText(context,"Error : $t", Toast.LENGTH_SHORT).show()
+                    continuation.resume(null)
+                }
+
+            })
+        }
+    }
+
+    suspend fun getAvailableRoomsFromTo(hostelID: String, start: Int,end: Int): Array<Room>? {
+        return suspendCoroutine { continuation ->
+            val roomServices = ServiceBuilder.buildService(ManageRoomsService::class.java)
+            val requestCall = roomServices.getAvailableRoomsFromTo(loginToken, hostelID,start,end)
+
+            requestCall.enqueue(object: Callback<Array<Room>>{
+                override fun onResponse(call: Call<Array<Room>>, response: Response<Array<Room>>) {
+                    if(response.isSuccessful){
+                        if(response.body() != null){
+                            response.body()!!.sortBy {
+                                it.roomNumber
+                            }
+                            continuation.resume(response.body())
+                        }
+                        else{
+                            Toast.makeText(context,"No rooms found", Toast.LENGTH_SHORT).show()
+                            continuation.resume(null)
+                        }
+                    }
+                    else{
+                        Toast.makeText(context, "Could not get rooms", Toast.LENGTH_SHORT).show()
+                        continuation.resume(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<Array<Room>>, t: Throwable) {
+                    Log.d("getAllRooms","Error : $t")
+                    Toast.makeText(context,"Error : $t", Toast.LENGTH_SHORT).show()
+                    continuation.resume(null)
+                }
+
+            })
+        }
+    }
 }

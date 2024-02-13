@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentChangeRoomBinding
 import com.kumar.nitchostelmanager.hostels.access.HostelDataAccess
+import com.kumar.nitchostelmanager.models.Hostel
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -27,8 +28,8 @@ class ChangeRoomFragment : Fragment() , AdapterView.OnItemSelectedListener{
     private val sharedViewModel:SharedViewModel by activityViewModels()
     private val profileViewModel:ProfileViewModel by activityViewModels()
     private lateinit var binding:FragmentChangeRoomBinding
-    var hostelNames:Array<String>? = null
-    var hostelSelected = "NA"
+    var hostels:ArrayList<Hostel>? = arrayListOf()
+    var hostelSelected = -1
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,8 +39,7 @@ class ChangeRoomFragment : Fragment() , AdapterView.OnItemSelectedListener{
         getHostels(profileViewModel.currentStudent.gender.toString())
 
         binding.searchRoomsButtonInChangeRoomFragment.setOnClickListener {
-            sharedViewModel.viewingHostelID = hostelSelected
-            Log.d("hostelSelected",hostelSelected)
+            if(!hostels.isNullOrEmpty() && hostels!!.size>hostelSelected) sharedViewModel.viewingHostel = hostels!![hostelSelected]
             findNavController().navigate(R.id.availableRoomsFragment)
         }
 
@@ -56,25 +56,25 @@ class ChangeRoomFragment : Fragment() , AdapterView.OnItemSelectedListener{
     private fun getHostels(gender:String) {
         val getNamesCoroutineScope = CoroutineScope(Dispatchers.Main)
         getNamesCoroutineScope.launch {
-            hostelNames = HostelDataAccess(
+            hostels = HostelDataAccess(
                 requireContext(),
                 this@ChangeRoomFragment,
                 profileViewModel.loginToken.toString()
-            ).getHostelNames(gender)
+            ).getHostels(gender)
             getNamesCoroutineScope.cancel()
-            if(!hostelNames.isNullOrEmpty()){
+            if(!hostels.isNullOrEmpty()){
                 binding.spinnerInChangeRoomFragment.onItemSelectedListener = this@ChangeRoomFragment
                 binding.spinnerInChangeRoomFragment.adapter = ArrayAdapter(
                     requireContext(),
                     android.R.layout.simple_spinner_item,
-                    hostelNames!!
+                    hostels!!.map{it.hostelID}
                 )
             }
         }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        if(!hostelNames.isNullOrEmpty()) hostelSelected = hostelNames?.get(position).toString()
+        if(!hostels.isNullOrEmpty()) hostelSelected = position
         else Toast.makeText(context,"Hostel names are empty",Toast.LENGTH_SHORT).show()
     }
 

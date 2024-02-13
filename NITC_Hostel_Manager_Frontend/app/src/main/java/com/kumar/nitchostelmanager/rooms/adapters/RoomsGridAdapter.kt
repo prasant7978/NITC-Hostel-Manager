@@ -26,10 +26,9 @@ import kotlinx.coroutines.launch
 
 class RoomsGridAdapter(
     var context: Context,
-    var profileViewModel: ProfileViewModel,
-    var rooms:ArrayList<Room>,
-    var floor:Int,
-    var parentFragment:Fragment
+    val isStudent:Boolean,
+    var rooms:Array<Room>,
+    var callback:(Int)->Unit
 ): RecyclerView.Adapter<RoomsGridAdapter.RoomsGridViewHolder>(),CircleLoadingDialog {
     class RoomsGridViewHolder(val binding:RoomCardBinding):RecyclerView.ViewHolder(binding.root) {
 
@@ -47,7 +46,7 @@ class RoomsGridAdapter(
     override fun onBindViewHolder(holder: RoomsGridViewHolder, position: Int) {
         holder.binding.roomNumberInRoomCard.text = rooms[position].roomNumber.toString()
 
-        if(profileViewModel.userType == "Warden"){
+        if(!isStudent){
             if(rooms[position].studentRoll != null) holder.binding.roomCardLayout.setBackgroundColor(ContextCompat.getColor(context,R.color.light_red))
             else holder.binding.roomCardLayout.setBackgroundColor(ContextCompat.getColor(context,R.color.light_green))
 
@@ -62,7 +61,7 @@ class RoomsGridAdapter(
                 AlertDialog.Builder(context)
                     .setTitle("Select this room")
                     .setPositiveButton("Yes"){dialog,which->
-                        allocateRoom(position)
+                        callback(rooms[position].roomNumber)
                     }
                     .setNegativeButton("No"){dialog,which->
                         dialog.cancel()
@@ -72,29 +71,5 @@ class RoomsGridAdapter(
         }
     }
 
-    private fun allocateRoom(position: Int){
-        val allocateRoomCoroutineScope = CoroutineScope(Dispatchers.Main)
-        val loadingDialog = getLoadingDialog(context, parentFragment )
-        allocateRoomCoroutineScope.launch {
-            loadingDialog.create()
-            loadingDialog.show()
-            val allocated = ManageRoomAccess(
-                context,
-                profileViewModel.loginToken.toString(),
-                parentFragment
-            ).allocateRoom(rooms[position].roomNumber,rooms[position].hostelID)
-            loadingDialog.cancel()
-            allocateRoomCoroutineScope.cancel()
-            if(allocated){
-                rooms.clear()
-                Toast.makeText(context,"Allocated",Toast.LENGTH_SHORT).show()
-                if(profileViewModel.userType == "Student"){
-
-                    parentFragment.findNavController().navigate(R.id.studentDashboardFragment)
-                }
-                else parentFragment.findNavController().navigate(R.id.allStudentsFragment)
-            }
-        }
-    }
 
 }

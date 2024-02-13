@@ -25,6 +25,31 @@ module.exports = class Model{
         })
     }
 
+    async getAllRoomsFromTo(hostelID,start,end){
+        return new Promise((resolve, reject) => {
+            db.query('SELECT * from rooms WHERE hostelID=? AND roomNumber>=? AND roomNumber<=?', [hostelID,start,end], async(err, result) => {
+                if(err)
+                    reject(err)
+                else{
+                    console.log(result);
+                    resolve(result)
+                }
+            });
+        });
+    }
+    async getAvailableRoomsFromTo(hostelID,start,end){
+        return new Promise((resolve, reject) => {
+            db.query('SELECT * from rooms WHERE hostelID=? AND studentRoll IS NULL AND roomNumber>=? AND roomNumber<=?', [hostelID,start,end], async(err, result) => {
+                if(err)
+                    reject(err)
+                else{
+                    console.log(result);
+                    resolve(result)
+                }
+            })
+        })
+    }
+
     async allocateRoom(studentRoll, roomNumber, hostelID){
         return new Promise((resolve,reject)=>{
             console.log("\n\n\n studentROll="+studentRoll);

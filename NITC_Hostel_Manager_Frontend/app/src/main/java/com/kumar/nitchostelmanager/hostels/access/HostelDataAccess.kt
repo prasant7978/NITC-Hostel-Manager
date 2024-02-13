@@ -132,4 +132,31 @@ class HostelDataAccess(
         }
     }
 
+    suspend fun getHostels(gender:String):ArrayList<Hostel>?{
+        return suspendCoroutine { continuation ->
+            var hostelService = ServiceBuilder.buildService(HostelsService::class.java)
+            var requestCall = hostelService.getHostels(loginToken,gender)
+            requestCall.enqueue(object:Callback<ArrayList<Hostel>>{
+                override fun onResponse(
+                    call: Call<ArrayList<Hostel>>,
+                    response: Response<ArrayList<Hostel>>
+                ) {
+                    if(response.isSuccessful && response.body() != null){
+                        continuation.resume(response.body())
+                    }else{
+                        Toast.makeText(context,"Could not get hostels",Toast.LENGTH_SHORT).show()
+                        continuation.resume(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Hostel>>, t: Throwable) {
+                    Log.d("getHostelNames","Error : $t")
+                    Toast.makeText(context,"Error : $t",Toast.LENGTH_SHORT).show()
+                    continuation.resume(null)
+                }
+
+            })
+        }
+    }
+
 }

@@ -33,4 +33,10 @@ interface ManageRoomsService {
     @POST("rooms/addRoom")
     fun addRoom(@Header("auth-token") loginToken: String, @Body room: Room): Call<Boolean>
 
+    @GET("rooms/allRooms/limit")
+    fun getAllRoomsFromTo(@Header("auth-token") loginToken: String,@Query("hostelID") hostelID: String, @Query("start") start: Int,@Query("end") end: Int): Call<Array<Room>>
+
+    @GET("rooms/availableRooms/limit")
+    fun getAvailableRoomsFromTo(@Header("auth-token") loginToken: String,@Query("hostelID") hostelID: String, @Query("start") start: Int,@Query("end") end: Int): Call<Array<Room>>
+
 }

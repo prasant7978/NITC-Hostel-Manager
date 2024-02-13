@@ -43,6 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:scrollbars="horizontal"
         app:layout_constraintHeight_percent="0.08"
         app:layout_constraintVertical_bias="0.03"
         app:tabTextColor="@color/black"
@@ -51,7 +52,7 @@
         app:tabIndicatorHeight="@dimen/tab_height"
         style="@style/CustomTabLayout"
         app:tabTextAppearance="@style/CustomTabTextAppearance"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabGravity="fill"/>
 
     <androidx.viewpager2.widget.ViewPager2

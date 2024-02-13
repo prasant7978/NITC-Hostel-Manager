@@ -80,6 +80,20 @@ module.exports = class Model{
         });
     }
     
+    async getHostelsWithGender(gender){
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT * FROM hostels where occupantsGender=?',[gender],async(err,hostels)=>{
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    resolve(hostels);
+                }
+            });
+        });
+    }
+
+    
     async getHostelsNames(gender){
         return new Promise((resolve,reject)=>{
             db.query('SELECT hostelID FROM hostels where occupantsGender=?',[gender],async(err, hostelNames)=>{
