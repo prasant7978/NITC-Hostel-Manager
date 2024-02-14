@@ -67,10 +67,10 @@ class WardenListFragment : Fragment() {
         return binding.root
     }
 
-    private fun deleteWarden(wardenEmail:String) {
+    private fun deleteWarden(wardenEmail:String,hostelID:String) {
         val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
         deleteCoroutineScope.launch {
-            val deleted = ManageWardensAccess(requireContext(),this@WardenListFragment, profileViewModel).deleteWarden(wardenEmail)
+            val deleted = ManageWardensAccess(requireContext(),this@WardenListFragment, profileViewModel).deleteWarden(wardenEmail,hostelID)
 
             deleteCoroutineScope.cancel()
             if(deleted){
@@ -99,8 +99,8 @@ class WardenListFragment : Fragment() {
                         sharedViewModel.viewingWardenEmail = wardenEmail
                         findNavController().navigate(R.id.addWardenFragment)
                     },
-                    {wardenEmail->
-                        deleteWarden(wardenEmail)
+                    {wardenPos->
+                        deleteWarden(wardenList!![wardenPos].email,wardenList!![wardenPos].hostelID!!)
                     }
                 )
                 binding.noWardensTVInWardenListFragment.visibility = View.GONE

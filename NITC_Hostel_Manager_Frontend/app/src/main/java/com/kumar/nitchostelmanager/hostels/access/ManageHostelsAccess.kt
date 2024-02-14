@@ -107,10 +107,10 @@ class ManageHostelsAccess(
         }
     }
 
-    suspend fun deleteHostel(hostelId: String): Boolean{
+    suspend fun deleteHostel(hostelId: String,wardenEmail:String?): Boolean{
         return suspendCoroutine { continuation ->
             var hostelService = ServiceBuilder.buildService(HostelsService::class.java)
-            val requestCall = hostelService.deleteHostel(loginToken, hostelId)
+            val requestCall = hostelService.deleteHostel(loginToken, hostelId, wardenEmail)
 
             requestCall.enqueue(object: Callback<Boolean>{
                 override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {

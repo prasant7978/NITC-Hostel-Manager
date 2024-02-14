@@ -32,8 +32,9 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var binding:FragmentAddWardenBinding
     var genderSelected: String = "Male"
-    var hostelNames = arrayListOf<String>()
+    var hostelNames : Array<String>? = null
     var hostelSelected:Int = -1
+    var warden:Warden? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -102,7 +103,7 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
                 wardenName,
                 wardenPhone,
                 genderSelected,
-                hostelNames[hostelSelected]
+                hostelNames!![hostelSelected]
             )
 
             if(sharedViewModel.viewingWardenEmail != null) {
@@ -111,9 +112,9 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
                     name = wardenName,
                     phone = wardenPhone,
                     gender = genderSelected,
-                    hostelID = hostelNames[hostelSelected]
+                    hostelID = hostelNames!![hostelSelected]
                 )
-                updateWarden(sharedViewModel.viewingWardenEmail.toString(), updateWarden)
+                updateWarden(sharedViewModel.viewingWardenEmail.toString(), updateWarden,warden!!.hostelID)
             }
                 else
                     addWarden(newWarden)
@@ -140,7 +141,7 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
         hostelCoroutineScope.launch {
             loadingDialog.create()
             loadingDialog.show()
-            val hostelNames = HostelDataAccess(
+            hostelNames = HostelDataAccess(
                 requireContext(),
                 this@AddWardenFragment,
                 profileViewModel.loginToken!!
@@ -151,15 +152,17 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
                 hostelSelected = -1
                 AlertDialog.Builder(requireContext())
                     .setTitle("Choose Hostel")
-                    .setSingleChoiceItems(hostelNames,-1){dialog,which->
+                    .setSingleChoiceItems(hostelNames,hostelSelected){dialog,which->
                         hostelSelected = which
                     }
                     .setPositiveButton("Select"){dialog,which->
-                        binding.hostelNameButtonInAddWardenFragment.text = hostelNames[hostelSelected]
+                        binding.hostelNameButtonInAddWardenFragment.text = hostelNames!![hostelSelected]
                         dialog.dismiss()
                     }
                     .setNegativeButton("No"){dialog,which->
-                        if(hostelSelected != -1) binding.hostelNameButtonInAddWardenFragment.text = hostelNames[hostelSelected]
+//                        if(hostelSelected != -1) binding.hostelNameButtonInAddWardenFragment.text = hostelNames!![hostelSelected]
+                        hostelSelected = -1
+                        binding.hostelNameButtonInAddWardenFragment.text = "Hostel Name"
                         dialog.dismiss()
                     }
                     .create().show()
@@ -176,18 +179,18 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
             var loadingDialog = getLoadingDialog(requireContext(),this@AddWardenFragment)
             loadingDialog.create()
             loadingDialog.show()
-            val warden = ManageWardensAccess(requireContext(), this@AddWardenFragment, profileViewModel)
+            warden = ManageWardensAccess(requireContext(), this@AddWardenFragment, profileViewModel)
                 .getWardenDetails(wardenEmail)
             loadingDialog.cancel()
             getWardenCoroutineScope.cancel()
 
             if(warden != null){
-                binding.textInputNameInAddWardenFragment.setText(warden.name)
-                binding.textInputEmailInAddWardenFragment.setText(warden.email)
-                binding.textInputPhoneInAddWardenFragment.setText(warden.phone)
-                binding.hostelNameButtonInAddWardenFragment.setText(warden.hostelID)
+                binding.textInputNameInAddWardenFragment.setText(warden!!.name)
+                binding.textInputEmailInAddWardenFragment.setText(warden!!.email)
+                binding.textInputPhoneInAddWardenFragment.setText(warden!!.phone)
+                binding.hostelNameButtonInAddWardenFragment.setText(warden!!.hostelID)
 
-                if(warden.gender == "Male") {
+                if(warden!!.gender == "Male") {
                     binding.checkBoxMaleInAddWardenFragment.isChecked = true
                     binding.checkBoxFemaleInAddWardenFragment.isChecked = false
                 }
@@ -220,7 +223,7 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
         }
     }
 
-    private fun updateWarden(wardenEmail: String, newWarden: Warden){
+    private fun updateWarden(wardenEmail: String, newWarden: Warden,hostelID:String){
         val updateWardenCoroutineScope = CoroutineScope(Dispatchers.Main)
         val loadingDialog = getLoadingDialog(requireContext(), this@AddWardenFragment)
 
@@ -229,13 +232,12 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
             loadingDialog.show()
 
             val updatesWarden = ManageWardensAccess(requireContext(), this@AddWardenFragment, profileViewModel)
-                .updateWarden(wardenEmail, newWarden)
+                .updateWarden(wardenEmail, newWarden, hostelID)
 
             loadingDialog.cancel()
             updateWardenCoroutineScope.cancel()
 
-            if(updatesWarden != null)
-                getWardenData(wardenEmail)
+            if(updatesWarden) getWardenData(wardenEmail)
         }
     }
 

@@ -118,6 +118,22 @@ module.exports = class Model{
                     console.log("Error : "+exc);
                     reject(exc);
                 }else{
+                    console.log("assigning for hostel"+hostelID);
+                    resolve(true);
+                }
+            });
+        });
+    }
+    
+    async removeWarden(hostelID){
+        return new Promise((resolve,reject)=>{
+            console.log("hostelID for removing warden = "+hostelID);
+            db.query('UPDATE hostels SET wardenEmail=NULL WHERE hostelID=?',[hostelID],async(exc,hostel)=>{
+                if(exc){
+                    console.log("Error : "+exc);
+                    reject(exc);
+                }else{
+                    console.log("new hostel"+hostel);
                     resolve(true);
                 }
             });

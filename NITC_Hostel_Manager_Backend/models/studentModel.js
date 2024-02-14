@@ -15,6 +15,18 @@ module.exports = class Model{
             })
         })
     }
+    async removeHostel(hostelID){
+        return new Promise((resolve,reject)=>{
+            db.query('UPDATE students as st LEFT JOIN hostels as hostel on (st.hostelID=hostel.hostelID)  set st.hostelID=NULL,st.roomNumber=NULL where st.hostelID=?',[hostelID],async(err,_)=>{
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    resolve(true);
+                }
+            });
+        })
+    }
 
     async getAllStudents(){
         return new Promise((resolve, reject) => {

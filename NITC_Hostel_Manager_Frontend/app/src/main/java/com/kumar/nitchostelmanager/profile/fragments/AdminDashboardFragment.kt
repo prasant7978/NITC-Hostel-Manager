@@ -179,8 +179,8 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                         sharedViewModel.updatingHostelID = hostelID
                         findNavController().navigate(R.id.addHostelFragment)
                     },
-                    {hostelID->
-                        deleteHostel(hostelID)
+                    {hostelID,wardenEmail->
+                        deleteHostel(hostelID,wardenEmail)
                     }
                 )
             }else{
@@ -192,14 +192,14 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         }
     }
 
-    private fun deleteHostel(hostelID:String) {
+    private fun deleteHostel(hostelID:String,wardenEmail:String?) {
         val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
         deleteCoroutineScope.launch {
             val deleted = ManageHostelsAccess(
                 requireContext(),
                 profileViewModel.loginToken.toString(),
                 this@AdminDashboardFragment
-            ).deleteHostel(hostelID)
+            ).deleteHostel(hostelID,wardenEmail)
             deleteCoroutineScope.cancel()
             if(deleted){
                 Toast.makeText(context,"Hostel deleted",Toast.LENGTH_SHORT).show()

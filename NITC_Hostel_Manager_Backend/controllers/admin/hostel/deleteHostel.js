@@ -1,6 +1,7 @@
 const HostelModel = require('../../../models/hostelModel')
 const RoomModel = require('../../../models/roomModel')
-
+const WardenModel = require('../../../models/wardenModel')
+const StudentModel = require("../../../models/studentModel");
 module.exports = async(req, res)=>{
     if(req.userType == "Admin"){
         var hostelModel = new HostelModel();
@@ -10,8 +11,33 @@ module.exports = async(req, res)=>{
                 var roomModel = new RoomModel();
                 roomModel.deleteAllRooms(req.query.hostelID).then(function(deleteAllRooms){
                     if(deleteAllRooms == true){
-                        console.log("All rooms deleted");
-                        res.status(200).send(true)
+                        var studentModel = new StudentModel();
+                        studentModel.removeHostel(req.query.hostelID).then(function(studentUpdated){
+                            if(studentUpdated == true){
+                                if(req.query.wardenEmail && req.query.wardenEmail != null){
+
+                                    var wardenModel = new WardenModel();
+                                    wardenModel.removeHostel(req.query.wardenEmail).then(function(removed){
+                                        if(removed == true){
+                                            console.log("hostel removed from warden");
+                                            res.status(200).send(true)
+                                        }else{
+                                            console.log("error in removing hostel from warden");
+                                            res.status(500).send(false);
+                                        }
+                                    }).catch(function(errRemoving){
+                                        console.log(errRemoving);
+                                        res.status(500).send(false);
+                                    });
+                                }else{
+                                    console.log("All rooms deleted");
+                                    res.status(200).send(true)
+                                }
+                            }    
+                        }).catch(function(excStudent){
+                            console.log(excStudent);
+                            res.status(500).send(false);
+                        });
                     }
                     else{
                         console.log("Rooms are not deleted");

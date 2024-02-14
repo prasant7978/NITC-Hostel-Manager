@@ -49,27 +49,27 @@ class ManageWardensAccess(
         }
     }
 
-    suspend fun updateWarden(wardenEmail: String, newWarden: Warden): Warden?{
+    suspend fun updateWarden(wardenEmail: String, newWarden: Warden,hostelID:String): Boolean{
         return suspendCoroutine { continuation ->
             var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)
-            var requestCall = manageWardenService.updateWarden(profileViewModel.loginToken.toString(), wardenEmail, newWarden)
-            requestCall.enqueue(object: Callback<Warden?> {
+            var requestCall = manageWardenService.updateWarden(profileViewModel.loginToken.toString(), wardenEmail, newWarden,hostelID)
+            requestCall.enqueue(object: Callback<Boolean> {
                 override fun onResponse(
-                    call: Call<Warden?>,
-                    response: Response<Warden?>
+                    call: Call<Boolean>,
+                    response: Response<Boolean>
                 ) {
                     if(response.isSuccessful){
-                        continuation.resume(response.body())
+                        continuation.resume(true)
                     }else{
                         Toast.makeText(context,"Some error occurred",Toast.LENGTH_SHORT).show()
-                        continuation.resume(null)
+                        continuation.resume(false)
                     }
                 }
 
-                override fun onFailure(call: Call<Warden?>, t: Throwable) {
+                override fun onFailure(call: Call<Boolean>, t: Throwable) {
                     Toast.makeText(context,"Error: $t",Toast.LENGTH_SHORT).show()
                     Log.d("updateWarden","Error : $t")
-                    continuation.resume(null)
+                    continuation.resume(false)
                 }
             })
         }
@@ -100,10 +100,10 @@ class ManageWardensAccess(
         }
     }
 
-    suspend fun deleteWarden(wardenEmail:String):Boolean{
+    suspend fun deleteWarden(wardenEmail:String,hostelID:String):Boolean{
         return suspendCoroutine { continuation ->
             var manageWardenService = ServiceBuilder.buildService(ManageWardensService::class.java)
-            var requestCall = manageWardenService.deleteWarden(profileViewModel.loginToken.toString(),wardenEmail)
+            var requestCall = manageWardenService.deleteWarden(profileViewModel.loginToken.toString(),wardenEmail,hostelID)
 
             requestCall.enqueue(object: Callback<Boolean> {
                 override fun onResponse(

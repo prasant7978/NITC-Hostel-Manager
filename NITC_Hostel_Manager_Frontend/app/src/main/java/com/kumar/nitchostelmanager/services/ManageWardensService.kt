@@ -26,9 +26,9 @@ interface ManageWardensService {
     fun addWarden(@Header("auth-token") loginToken: String, @Body warden: Warden):Call<Boolean>
 
     @PUT("admin/wardens/update")
-    fun updateWarden(@Header("auth-token") loginToken: String, @Query("wardenEmail") wardenEmail:String, @Body warden: Warden):Call<Warden?>
+    fun updateWarden(@Header("auth-token") loginToken: String, @Query("wardenEmail") wardenEmail:String, @Body warden: Warden,@Query("hostelID") hostelID:String):Call<Boolean>
 
     @DELETE("admin/wardens/delete")
-    fun deleteWarden(@Header("auth-token") loginToken: String, @Query("wardenEmail") wardenEmail:String):Call<Boolean>
+    fun deleteWarden(@Header("auth-token") loginToken: String, @Query("wardenEmail") wardenEmail:String,@Query("hostelID") hostelID:String):Call<Boolean>
 
 }

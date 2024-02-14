@@ -25,7 +25,7 @@ class WardenListAdapter(
     var profileViewModel: ProfileViewModel,
     private var wardenList: ArrayList<Warden>,
     var clickCallback:(String)->Unit,
-    var deleteCallback:(String)->Unit
+    var deleteCallback:(Int)->Unit
 ): RecyclerView.Adapter<WardenListAdapter.WardenViewHolder>() {
     class WardenViewHolder(val adapterBinding: WardenCardBinding): RecyclerView.ViewHolder(adapterBinding.root){
 
@@ -61,7 +61,7 @@ class WardenListAdapter(
                 .setTitle("Delete Warden")
                 .setMessage("Are you sure, you want to delete the warden?")
                 .setPositiveButton("Yes"){dialog,which->
-                    deleteCallback(wardenList[position].email)
+                    deleteCallback(position)
                 }
                 .setNegativeButton("No"){dialog,which->
                     dialog.dismiss()

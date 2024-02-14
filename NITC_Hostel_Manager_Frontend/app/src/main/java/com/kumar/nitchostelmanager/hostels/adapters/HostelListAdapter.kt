@@ -25,7 +25,7 @@ class HostelListAdapter(
     private var sharedViewModel: SharedViewModel,
     var hostels:ArrayList<Hostel>,
     var clickCallback:(String)->Unit,
-    var deleteCallback:(String)->Unit
+    var deleteCallback:(String,String?)->Unit
 ) :RecyclerView.Adapter<HostelListAdapter.HostelListViewHolder>(){
     class HostelListViewHolder(val binding:HostelCardBinding):RecyclerView.ViewHolder(binding.root){
 
@@ -51,7 +51,7 @@ class HostelListAdapter(
                 .setTitle("Delete Hostel")
                 .setMessage("Are you sure, you want to delete the hostel?")
                 .setPositiveButton("Yes"){dialog,which->
-                    deleteCallback(hostels[position].hostelID)
+                    deleteCallback(hostels[position].hostelID,hostels[position].wardenEmail)
                 }
                 .setNegativeButton("No"){dialog,which->
                     dialog.dismiss()

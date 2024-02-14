@@ -27,7 +27,7 @@ interface HostelsService {
     fun getHostelDetails(@Header ("auth-token") loginToken: String, @Query("hostelID") hostelID:String): Call<Hostel>
 
     @DELETE("hostels/delete")
-    fun deleteHostel(@Header ("auth-token") loginToken: String, @Query("hostelID") hostelID: String): Call<Boolean>
+    fun deleteHostel(@Header ("auth-token") loginToken: String, @Query("hostelID") hostelID: String, @Query("wardenEmail") wardenEmail: String?): Call<Boolean>
 
     @GET("hostels/gender")
     fun getHostels(@Header ("auth-token") loginToken: String,@Query("gender") gender: String): Call<ArrayList<Hostel>>

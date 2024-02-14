@@ -6,6 +6,18 @@ module.exports = class Model{
     constructor(){
     }
 
+    async removeHostel(wardenEmail){
+        return new Promise((resolve,reject)=>{
+            db.query('UPDATE wardens set hostelID=NULL where email=?',[wardenEmail],async(err,_)=>{
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else resolve(true);
+            });
+        });
+    }
+
+
     async updatePassword(newPassword,wardenEmail){
         return new Promise((resolve, reject) => {
             db.query('UPDATE wardens set password=? where email=?',[newPassword,wardenEmail],async(err,result)=>{
@@ -88,7 +100,7 @@ module.exports = class Model{
                 }else{
                     // console.log("warden updated:");
                     // console.log(result);
-                    resolve(result);
+                    resolve(true);
                 }
             });
         });
