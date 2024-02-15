@@ -53,6 +53,9 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
         binding.hostelNameButtonInAddWardenFragment.setOnClickListener {
             getHostels()
         }
+
+
+
         binding.buttonAddWardenInAddWardenFragment.setOnClickListener {
             var wardenName = binding.textInputNameInAddWardenFragment.text?.trim().toString()
             if(wardenName.isEmpty()){
@@ -136,6 +139,7 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
     }
 
     private fun getHostels(){
+        genderSelected = (requireActivity().findViewById<RadioButton>(binding.genderRadioGroupInAddWardenFragment.checkedRadioButtonId)).text.toString()
         val hostelCoroutineScope = CoroutineScope(Dispatchers.Main)
         val loadingDialog = getLoadingDialog(requireContext(),this@AddWardenFragment)
         hostelCoroutineScope.launch {

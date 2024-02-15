@@ -70,7 +70,7 @@
             android:id="@+id/genderTVInAddWardenFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose gender: "
+            android:text="Choose Hostel Type: "
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_medium" />
 
@@ -184,7 +184,7 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="@dimen/dimension_xxlarge"
         android:layout_height="@dimen/dimension_small"
-        android:text="Hostel Name"
+        android:text="Choose Hostel Name"
         android:id="@+id/hostelNameButtonInAddWardenFragment"
         android:fontFamily="@font/inter_semibold"
         style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -193,6 +193,7 @@
         android:textColor="@color/black"
         app:cornerRadius="@dimen/corner_radius_large"
         android:elevation="@dimen/elevation_xsmall"
+        android:textAllCaps="false"
         app:backgroundTint="@color/ivory_wheat"/>
 
 

@@ -64,7 +64,7 @@ class AddStudentFragment : Fragment(), CircleLoadingDialog, Validation {
                 binding.parentPhoneInAddStudentFragment.isEnabled = false
                 binding.emailInputInAddStudentFragment.isEnabled = false
                 binding.addressInputInAddStudentFragment.isEnabled = false
-                binding.genderRadioGroupInAddStudentFragment.visibility = View.GONE
+                binding.genderLayoutInAddStudent.visibility = View.GONE
             }
 
             getStudentDetails(sharedViewModel.viewingStudentRoll!!)
