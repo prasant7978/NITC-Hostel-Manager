@@ -160,7 +160,8 @@ class AddWardenFragment:Fragment(),CircleLoadingDialog, Validation {
                         hostelSelected = which
                     }
                     .setPositiveButton("Select"){dialog,which->
-                        binding.hostelNameButtonInAddWardenFragment.text = hostelNames!![hostelSelected]
+                        if(hostelSelected != -1)
+                            binding.hostelNameButtonInAddWardenFragment.text = hostelNames!![hostelSelected]
                         dialog.dismiss()
                     }
                     .setNegativeButton("No"){dialog,which->

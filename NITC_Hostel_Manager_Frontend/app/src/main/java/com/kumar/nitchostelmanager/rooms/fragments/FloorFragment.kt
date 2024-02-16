@@ -1,5 +1,6 @@
 package com.kumar.nitchostelmanager.rooms.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kumar.nitchostelmanager.CircleLoadingDialog
@@ -19,12 +22,18 @@ import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class FloorFragment:Fragment(),CircleLoadingDialog {
     private lateinit var binding:FragmentFloorBinding
     private val sharedViewModel:SharedViewModel by activityViewModels()
     private val profileViewModel:ProfileViewModel by activityViewModels()
+    var isReady = false
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        isReady = true
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,83 +56,113 @@ class FloorFragment:Fragment(),CircleLoadingDialog {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if(isAdded){
-            if(profileViewModel.userType == "Student") getAvailableRooms(sharedViewModel.viewingHostel!!.hostelID,sharedViewModel.currentFloor)
-            else getAllRooms(profileViewModel.currentWarden.hostelID,sharedViewModel.currentFloor)
+        viewLifecycleOwnerLiveData.observe(viewLifecycleOwner){lo->
+            lo.lifecycleScope.launch {
+                if(isReady) loadRooms()
+                else Toast.makeText(context,"Refresh it",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+    private fun loadRooms() {
+        if (isReady && context != null) {
+            // Your loading logic goes here
+            if (profileViewModel.userType == "Student") {
+                getAvailableRooms(sharedViewModel.viewingHostel!!.hostelID, sharedViewModel.currentFloor)
+            } else {
+                getAllRooms(profileViewModel.currentWarden.hostelID, sharedViewModel.currentFloor)
+            }
         }
     }
 
     private fun getAllRooms(hostelID:String,currentFloor: Int) {
 
-        if(!isAdded){
-            getAllRooms(hostelID, currentFloor)
-            return
-        }
-        val roomsCoroutineScope = CoroutineScope(Dispatchers.Main)
-        roomsCoroutineScope.launch {
-            if(!isAdded) {
-                roomsCoroutineScope.cancel()
-                getAllRooms(hostelID,currentFloor)
-                return@launch
-            }
-            val rooms = ManageRoomAccess(
-                requireContext(),
-                profileViewModel.loginToken!!,
-                this@FloorFragment
-            ).getAllRoomsFromTo(hostelID,(currentFloor*100)+1,(currentFloor+1)*100)
-            roomsCoroutineScope.cancel()
-            if(!rooms.isNullOrEmpty()){
-                if(!isAdded) {
-                    roomsCoroutineScope.cancel()
-                    getAllRooms(hostelID,currentFloor)
-                    return@launch
-                }
-                binding.recyclerViewFloorFragment.layoutManager = GridLayoutManager(context,4)
-                binding.recyclerViewFloorFragment.adapter = RoomsGridAdapter(
+        try{
+
+            val roomsCoroutineScope = CoroutineScope(Dispatchers.Main)
+            roomsCoroutineScope.launch(viewLifecycleOwner.lifecycleScope.coroutineContext) {
+//            if(!isAdded) {
+//                roomsCoroutineScope.cancel()
+//                getAllRooms(hostelID,currentFloor)
+//                return@launch
+//            }
+                val rooms = ManageRoomAccess(
                     requireContext(),
-                    profileViewModel.userType == "Student",
-                    rooms
-                ){roomNumber->
-                    allocateRoom(hostelID,roomNumber)
+                    profileViewModel.loginToken!!,
+                    this@FloorFragment
+                ).getAllRoomsFromTo(hostelID,(currentFloor*100)+1,(currentFloor+1)*100)
+//                roomsCoroutineScope.cancel()
+                if(!rooms.isNullOrEmpty()){
+//                if(!isAdded) {
+//                    roomsCoroutineScope.cancel()
+//                    getAllRooms(hostelID,currentFloor)
+//                    return@launch
+//                }
+                    binding.recyclerViewFloorFragment.layoutManager = GridLayoutManager(context,4)
+                    binding.recyclerViewFloorFragment.adapter = RoomsGridAdapter(
+                        requireContext(),
+                        profileViewModel.userType == "Student",
+                        rooms
+                    ){roomNumber->
+                        allocateRoom(hostelID,roomNumber)
+                    }
                 }
             }
+        }catch(exc:java.lang.IllegalStateException){
+            exc.printStackTrace()
+            getAllRooms(hostelID,currentFloor)
         }
+//        if(!isAdded){
+//            getAllRooms(hostelID, currentFloor)
+//            return
+//        }
 
     }
     private fun getAvailableRooms(hostelID:String,currentFloor: Int) {
 
-        if(!isAdded) {
-            getAvailableRooms(hostelID,currentFloor)
-            return
-        }
-        val roomsCoroutineScope = CoroutineScope(Dispatchers.Main)
-        roomsCoroutineScope.launch {
-            if(!isAdded) {
-                roomsCoroutineScope.cancel()
-                getAvailableRooms(hostelID,currentFloor)
-                return@launch
-            }
-            val rooms = ManageRoomAccess(
-                requireContext(),
-                profileViewModel.loginToken!!,
-                this@FloorFragment
-            ).getAvailableRoomsFromTo(hostelID,(currentFloor*100)+1,(currentFloor+1)*100)
-            roomsCoroutineScope.cancel()
-            if(!rooms.isNullOrEmpty()){
-                if(!isAdded) {
-                    roomsCoroutineScope.cancel()
-                    getAvailableRooms(hostelID,currentFloor)
-                    return@launch
-                }
-                binding.recyclerViewFloorFragment.layoutManager = GridLayoutManager(context,4)
-                binding.recyclerViewFloorFragment.adapter = RoomsGridAdapter(
+//        if(!isAdded) {
+//            getAvailableRooms(hostelID,currentFloor)
+//            return
+//        }
+        try {
+
+            val roomsCoroutineScope = CoroutineScope(Dispatchers.Main)
+            roomsCoroutineScope.launch(viewLifecycleOwner.lifecycleScope.coroutineContext) {
+//            if(!isAdded) {
+//                roomsCoroutineScope.cancel()
+//                getAvailableRooms(hostelID,currentFloor)
+//                return@launch
+//            }
+                val rooms = ManageRoomAccess(
                     requireContext(),
-                    profileViewModel.userType == "Student",
-                    rooms
-                ){roomNumber->
-                    allocateRoom(hostelID,roomNumber)
+                    profileViewModel.loginToken!!,
+                    this@FloorFragment
+                ).getAvailableRoomsFromTo(
+                    hostelID,
+                    (currentFloor * 100) + 1,
+                    (currentFloor + 1) * 100
+                )
+//                roomsCoroutineScope.cancel()
+                if (!rooms.isNullOrEmpty()) {
+//                if(!isAdded) {
+//                    roomsCoroutineScope.cancel()
+//                    getAvailableRooms(hostelID,currentFloor)
+//                    return@launch
+//                }
+                    binding.recyclerViewFloorFragment.layoutManager = GridLayoutManager(context, 4)
+                    binding.recyclerViewFloorFragment.adapter = RoomsGridAdapter(
+                        requireContext(),
+                        profileViewModel.userType == "Student",
+                        rooms
+                    ) { roomNumber ->
+                        allocateRoom(hostelID, roomNumber)
+                    }
                 }
             }
+        }catch(exc:java.lang.IllegalStateException){
+            exc.printStackTrace()
+            getAvailableRooms(hostelID, currentFloor)
         }
 
     }
