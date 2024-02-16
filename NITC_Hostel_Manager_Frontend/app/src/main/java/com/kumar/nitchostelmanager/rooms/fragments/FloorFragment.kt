@@ -41,10 +41,16 @@ class FloorFragment:Fragment(),CircleLoadingDialog {
 //            }else if(room.roomNumber>200) break
 //        }
 
-        if(profileViewModel.userType == "Student") getAvailableRooms(sharedViewModel.viewingHostel!!.hostelID,sharedViewModel.currentFloor)
-        else getAllRooms(profileViewModel.currentWarden.hostelID,sharedViewModel.currentFloor)
+
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        if(isAdded){
+            if(profileViewModel.userType == "Student") getAvailableRooms(sharedViewModel.viewingHostel!!.hostelID,sharedViewModel.currentFloor)
+            else getAllRooms(profileViewModel.currentWarden.hostelID,sharedViewModel.currentFloor)
+        }
     }
 
     private fun getAllRooms(hostelID:String,currentFloor: Int) {

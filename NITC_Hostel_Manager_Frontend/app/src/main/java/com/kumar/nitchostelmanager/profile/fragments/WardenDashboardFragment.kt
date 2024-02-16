@@ -111,8 +111,8 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         var complaintsCoroutineScope = CoroutineScope(Dispatchers.Main)
         complaintsCoroutineScope.launch {
             var loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
-            loadingDialog.create()
-            loadingDialog.show()
+//            loadingDialog.create()
+//            loadingDialog.show()
 
             var complaintsCount = ComplaintsDataAccess(
                 requireContext(),
@@ -120,7 +120,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 profileViewModel.loginToken.toString()
             ).getPendingComplaintsCount(profileViewModel.currentWarden.hostelID)
 
-            loadingDialog.cancel()
+//            loadingDialog.cancel()
             complaintsCoroutineScope.cancel()
 
             binding.totalComplaintsTextInWardenDashboard.text = complaintsCount.toString()
@@ -130,8 +130,8 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         var noticesCountCoroutineScope = CoroutineScope(Dispatchers.Main)
         noticesCountCoroutineScope.launch {
             var loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
-            loadingDialog.create()
-            loadingDialog.show()
+//            loadingDialog.create()
+//            loadingDialog.show()
 
             var noticesCount = NoticeAccess(
                 profileViewModel,
@@ -140,7 +140,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
 
             binding.totalNoticesTextInWardenDashboard.text = noticesCount.toString()
 
-            loadingDialog.cancel()
+//            loadingDialog.cancel()
             noticesCountCoroutineScope.cancel()
         }
     }
@@ -148,8 +148,8 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         val studentsCountCoroutineScope = CoroutineScope(Dispatchers.Main)
         studentsCountCoroutineScope.launch {
             var loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
-            loadingDialog.create()
-            loadingDialog.show()
+//            loadingDialog.create()
+//            loadingDialog.show()
 
             var studentsCount = HostelDataAccess(
                 requireContext(),
@@ -157,7 +157,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 profileViewModel.loginToken.toString()
             ).getHostelOccupantsCount(profileViewModel.currentWarden.hostelID.toString())
 
-            loadingDialog.cancel()
+//            loadingDialog.cancel()
             studentsCountCoroutineScope.cancel()
 
             if(studentsCount>=0){
@@ -174,7 +174,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             loadingDialog.show()
             viewsViewModel.updateLoadingState(true)
             val warden = ProfileAccess(requireContext(),profileViewModel).getWardenProfile()
-            loadingDialog.cancel()
+
             getProfileCoroutineScope.cancel()
 
             if(warden != null){
@@ -187,8 +187,10 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 getStudentsCount()
                 getNoticesCount()
                 getPendingComplaintsCount()
+                loadingDialog.cancel()
                 viewsViewModel.updateLoadingState(false)
             }else{
+                loadingDialog.cancel()
                 findNavController().navigate(R.id.loginFragment)
             }
         }
@@ -199,13 +201,13 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         val loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
         loadingDialog.create()
         getHostelCoroutineScope.launch {
-            loadingDialog.show()
+//            loadingDialog.show()
             val hostel = HostelDataAccess(
                 requireContext(),
                 this@WardenDashboardFragment,
                 profileViewModel.loginToken.toString()
             ).getHostelDetails(profileViewModel.currentWarden.hostelID.toString())
-            loadingDialog.cancel()
+//            loadingDialog.cancel()
             getHostelCoroutineScope.cancel()
             if(hostel != null){
                 binding.hostelNameTextInWardenDashboard.text = hostel.hostelID.toString()
