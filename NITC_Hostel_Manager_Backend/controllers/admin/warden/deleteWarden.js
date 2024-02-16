@@ -10,7 +10,7 @@ module.exports = async(req,res)=>{
             if(result == true){
                 if(req.query.hostelID && req.query.hostelID != null ){
                     var hostelModel = new HostelModel();
-                    hostelModel.removeWarden(req.body.hostelID).then(function(assigned){
+                    hostelModel.removeWarden(req.query.hostelID).then(function(assigned){
                         if(assigned == true){
                             res.status(200).send(true);
                             console.log("Warden is removed");

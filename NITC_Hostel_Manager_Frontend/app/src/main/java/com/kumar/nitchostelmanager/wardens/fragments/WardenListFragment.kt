@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 class WardenListFragment : Fragment() {
     private lateinit var binding: FragmentWardenListBinding
     private lateinit var wardenListAdapter: WardenListAdapter
-    private var wardenList:ArrayList<Warden>? = null
+    private var wardenList: ArrayList<Warden>? = null
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
@@ -39,48 +39,54 @@ class WardenListFragment : Fragment() {
 
         retrieveAllWardens()
 
-        binding.searchInWardenListFragment.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+        binding.searchInWardenListFragment.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    binding.searchInWardenListFragment.clearFocus()
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String): Boolean {
-                    if(!wardenList.isNullOrEmpty()) searchList(newText)
-                    return true
-                }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                binding.searchInWardenListFragment.clearFocus()
+                return false
             }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (!wardenList.isNullOrEmpty()) searchList(newText)
+                return true
+            }
+        }
         )
 
         binding.addWardenButtonInWardenListFragment.setOnClickListener {
             findNavController().navigate(R.id.addWardenFragment)
         }
 
-        val backCallback = object: OnBackPressedCallback(true){
+        val backCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().navigate(R.id.adminDashboardFragment)
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backCallback)
 
         return binding.root
     }
 
-    private fun deleteWarden(wardenEmail:String,hostelID:String) {
+    private fun deleteWarden(wardenEmail: String, hostelID: String) {
         val deleteCoroutineScope = CoroutineScope(Dispatchers.Main)
         deleteCoroutineScope.launch {
-            val deleted = ManageWardensAccess(requireContext(),this@WardenListFragment, profileViewModel).deleteWarden(wardenEmail,hostelID)
+            val deleted = ManageWardensAccess(
+                requireContext(),
+                this@WardenListFragment,
+                profileViewModel
+            ).deleteWarden(wardenEmail, hostelID)
 
             deleteCoroutineScope.cancel()
-            if(deleted){
-                Toast.makeText(context,"Deleted", Toast.LENGTH_SHORT).show()
+            if (deleted) {
+                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
                 retrieveAllWardens()
             }
         }
 
     }
-    private fun retrieveAllWardens(){
+
+    private fun retrieveAllWardens() {
         val manageWardenCoroutineScope = CoroutineScope(Dispatchers.Main)
         manageWardenCoroutineScope.launch {
             wardenList = WardensDataAccess(
@@ -88,35 +94,39 @@ class WardenListFragment : Fragment() {
                 profileViewModel.loginToken.toString()
             ).getWardens(binding.constraintLayout)
             manageWardenCoroutineScope.cancel()
-            if(!wardenList.isNullOrEmpty()){
+            if (!wardenList.isNullOrEmpty()) {
                 wardenList!!.reverse()
-                binding.recyclerViewInWardenListFragment.layoutManager = LinearLayoutManager(requireContext())
+                binding.recyclerViewInWardenListFragment.layoutManager =
+                    LinearLayoutManager(requireContext())
                 wardenListAdapter = WardenListAdapter(
                     requireContext(),
                     profileViewModel,
                     wardenList!!,
-                    {wardenEmail->
+                    { wardenEmail ->
                         sharedViewModel.viewingWardenEmail = wardenEmail
                         findNavController().navigate(R.id.addWardenFragment)
                     },
-                    {wardenPos->
-                        deleteWarden(wardenList!![wardenPos].email,wardenList!![wardenPos].hostelID!!)
+                    { wardenPos ->
+                        deleteWarden(
+                            wardenList!![wardenPos].email,
+                            wardenList!![wardenPos].hostelID
+                        )
                     }
                 )
                 binding.noWardensTVInWardenListFragment.visibility = View.GONE
                 binding.recyclerViewInWardenListFragment.visibility = View.VISIBLE
                 binding.recyclerViewInWardenListFragment.adapter = wardenListAdapter
-            }else{
+            } else {
                 binding.noWardensTVInWardenListFragment.visibility = View.VISIBLE
                 binding.recyclerViewInWardenListFragment.visibility = View.GONE
             }
         }
     }
 
-    private fun searchList(text: String){
+    private fun searchList(text: String) {
         val searchList = ArrayList<Warden>()
-        for(warden in wardenList!!){
-            if(warden.name.lowercase().contains(text.lowercase())){
+        for (warden in wardenList!!) {
+            if (warden.name.lowercase().contains(text.lowercase())) {
                 searchList.add(warden)
             }
         }
