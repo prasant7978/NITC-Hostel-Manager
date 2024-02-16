@@ -34,7 +34,7 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
     private val profileViewModel: ProfileViewModel by activityViewModels()
     private lateinit var binding: FragmentAvailableRoomsBinding
 
-        var totalRooms = 0
+    var totalRooms = 0
     var rooms: Array<Room>? = null
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +44,6 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
         binding = FragmentAvailableRoomsBinding.inflate(inflater, container, false)
 
         if (profileViewModel.userType == "Student") {
-
             if (sharedViewModel.viewingHostel != null) {
                 binding.hostelNameTVInAvailableRoomsFragment.text =
                     sharedViewModel.viewingHostel!!.hostelID.toString()
@@ -58,7 +57,7 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
             }else{
                 findNavController().navigate(R.id.studentDashboardFragment)
             }
-            } else {
+        } else {
             binding.availableRoomsTVInAvailableRoomsFragment.text = "All Rooms"
             binding.hostelNameTVInAvailableRoomsFragment.text =
                 profileViewModel.currentWarden.hostelID.toString()
@@ -97,10 +96,13 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
     private fun getHostel(hostelID: String){
         val hostelCoroutine = CoroutineScope(Dispatchers.Main)
         val loadingDialog = getLoadingDialog(requireContext(),this@AvailableRoomsFragment)
+
         hostelCoroutine.launch {
             val hostel = HostelDataAccess(requireContext(),this@AvailableRoomsFragment,profileViewModel.loginToken.toString()).getHostelDetails(hostelID)
+
             loadingDialog.cancel()
             hostelCoroutine.cancel()
+
             if(hostel != null){
                 binding.hostelNameTVInAvailableRoomsFragment.text = hostel.hostelID.toString()
                 totalRooms = hostel.capacity
@@ -109,6 +111,7 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
                     binding.floorsRecyclerViewInAvailableRoomsFragment.adapter = FloorsAdapter(
                         totalRooms/100
                     ){floorSelected->
+
                         if(profileViewModel.userType == "Student"){
                             getAvailableRooms(hostelID,floorSelected)
                         }else{
@@ -127,13 +130,21 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
     private fun getAllRooms(hostelID: String, currentFloor: Int) {
 
         val roomsCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(), this@AvailableRoomsFragment)
+
         roomsCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+
             val rooms = ManageRoomAccess(
                 requireContext(),
                 profileViewModel.loginToken!!,
                 this@AvailableRoomsFragment
             ).getAllRoomsFromTo(hostelID, (currentFloor * 100) + 1, (currentFloor + 1) * 100)
+
+            loadingDialog.cancel()
             roomsCoroutineScope.cancel()
+
             if (!rooms.isNullOrEmpty()) {
                 binding.roomsRecyclerViewInAvailableRoomsFragment.layoutManager =
                     GridLayoutManager(context, 4)
@@ -151,7 +162,12 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
     private fun getAvailableRooms(hostelID: String, currentFloor: Int) {
 
         val roomsCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(), this@AvailableRoomsFragment)
+
         roomsCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+
             val rooms = ManageRoomAccess(
                 requireContext(),
                 profileViewModel.loginToken!!,
@@ -161,7 +177,9 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
                 (currentFloor * 100) + 1,
                 (currentFloor + 1) * 100
             )
+
             roomsCoroutineScope.cancel()
+
             if (!rooms.isNullOrEmpty()) {
                 binding.roomsRecyclerViewInAvailableRoomsFragment.layoutManager =
                     GridLayoutManager(context, 4)
@@ -173,6 +191,8 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
                     allocateRoom(hostelID, roomNumber)
                 }
             }
+
+            loadingDialog.cancel()
         }
     }
 

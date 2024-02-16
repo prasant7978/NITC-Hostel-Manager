@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/corner_radius_small"
+    android:layout_marginTop="@dimen/margin_small"
     android:id="@+id/billCardInOwnBillCard"
     android:backgroundTint="@color/cream"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -11,8 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/padding_small"
-        android:paddingHorizontal="@dimen/padding_small"
+        android:padding="@dimen/padding_small"
         android:id="@+id/constraintLayoutInOwnBillCard">
 
         <com.google.android.material.textview.MaterialTextView
