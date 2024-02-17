@@ -107,9 +107,13 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
                 binding.hostelNameTVInAvailableRoomsFragment.text = hostel.hostelID.toString()
                 totalRooms = hostel.capacity
                 if(totalRooms > 0){
+                    val selectedFloors = Array<Boolean>(totalRooms/100){false}
+                    selectedFloors[0] = true
                     binding.floorsRecyclerViewInAvailableRoomsFragment.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
                     binding.floorsRecyclerViewInAvailableRoomsFragment.adapter = FloorsAdapter(
-                        totalRooms/100
+                        requireContext(),
+                        totalRooms/100,
+                        selectedFloors,
                     ){floorSelected->
 
                         if(profileViewModel.userType == "Student"){
