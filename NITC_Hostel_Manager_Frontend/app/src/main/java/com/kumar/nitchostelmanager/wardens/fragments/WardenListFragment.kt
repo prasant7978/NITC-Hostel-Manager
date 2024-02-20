@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.wardens.access.ManageWardensAccess
 import com.kumar.nitchostelmanager.wardens.adapters.WardenListAdapter
@@ -18,24 +20,30 @@ import com.kumar.nitchostelmanager.databinding.FragmentWardenListBinding
 import com.kumar.nitchostelmanager.models.Warden
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import com.kumar.nitchostelmanager.wardens.access.WardensDataAccess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class WardenListFragment : Fragment() {
+class WardenListFragment : Fragment(), CircleLoadingDialog {
     private lateinit var binding: FragmentWardenListBinding
     private lateinit var wardenListAdapter: WardenListAdapter
     private var wardenList: ArrayList<Warden>? = null
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
+    private val viewsViewModel: ViewsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentWardenListBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_warden_list, container, false)
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
 
         retrieveAllWardens()
 
@@ -88,12 +96,23 @@ class WardenListFragment : Fragment() {
 
     private fun retrieveAllWardens() {
         val manageWardenCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(), this)
+
+
         manageWardenCoroutineScope.launch {
+            viewsViewModel.updateLoadingState(true)
+            loadingDialog.create()
+            loadingDialog.show()
+
             wardenList = WardensDataAccess(
                 requireContext(),
                 profileViewModel.loginToken.toString()
             ).getWardens(binding.constraintLayout)
+
+            loadingDialog.cancel()
+            viewsViewModel.updateLoadingState(false)
             manageWardenCoroutineScope.cancel()
+
             if (!wardenList.isNullOrEmpty()) {
                 wardenList!!.reverse()
                 binding.recyclerViewInWardenListFragment.layoutManager =

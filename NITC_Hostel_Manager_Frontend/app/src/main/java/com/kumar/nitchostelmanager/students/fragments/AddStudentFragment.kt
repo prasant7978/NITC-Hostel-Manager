@@ -12,6 +12,8 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -23,6 +25,7 @@ import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.databinding.FragmentAddStudentBinding
 import com.kumar.nitchostelmanager.models.Student
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -33,13 +36,19 @@ class AddStudentFragment : Fragment(), CircleLoadingDialog, Validation {
     private lateinit var binding: FragmentAddStudentBinding
     private val profileViewModel: ProfileViewModel by activityViewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
+    private val viewsViewModel: ViewsViewModel by activityViewModels()
     private var genderSelected = "Male"
+    var student:Student? = null
     private var dob = "NA"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAddStudentBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_student, container, false)
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
 
         if(sharedViewModel.viewingStudentRoll != null){
             binding.addStudentButtonInAddStudentFragment.text = "Update Student"
@@ -69,6 +78,7 @@ class AddStudentFragment : Fragment(), CircleLoadingDialog, Validation {
 
             getStudentDetails(sharedViewModel.viewingStudentRoll!!)
         }else{
+            viewsViewModel.updateLoadingState(false)
             binding.addStudentButtonInAddStudentFragment.text = "Add Student"
             binding.headingTVInAddStudentFragment.text = "Add Student"
         }
@@ -131,7 +141,7 @@ class AddStudentFragment : Fragment(), CircleLoadingDialog, Validation {
                 binding.addStudentButtonInAddStudentFragment.isCheckable = false
                 binding.progressBarInAddStudentFragment.visibility = View.VISIBLE
 
-                val student: Student = Student(
+                val newStudent: Student = Student(
                     studentRoll,
                     studentEmail,
                     studentPassword,
@@ -144,12 +154,17 @@ class AddStudentFragment : Fragment(), CircleLoadingDialog, Validation {
                     studentAddress,
                     courseEnrolled
                 )
+                if(student != null){
+                    newStudent.dues = student!!.dues
+                    newStudent.hostelID = student!!.hostelID
+                    newStudent.roomNumber = student!!.roomNumber
+                }
 
                 if(sharedViewModel.viewingStudentRoll != null) showAlertMessageForUpdate(
                     sharedViewModel.viewingStudentRoll!!,
-                    student
+                    newStudent
                 )
-                else showAlertMessageForAdd(student)
+                else showAlertMessageForAdd(newStudent)
 
                 binding.addStudentButtonInAddStudentFragment.isCheckable = true
                 binding.progressBarInAddStudentFragment.visibility = View.INVISIBLE
@@ -174,27 +189,37 @@ class AddStudentFragment : Fragment(), CircleLoadingDialog, Validation {
     private fun getStudentDetails(viewingStudentRoll: String) {
         val studentCoroutineScope = CoroutineScope(Dispatchers.Main)
         val loadingDialog = getLoadingDialog(requireContext(),this@AddStudentFragment)
+
         studentCoroutineScope.launch {
+            viewsViewModel.updateLoadingState(true)
             loadingDialog.create()
             loadingDialog.show()
-            val student = ManageStudentAccess(
+
+            student = ManageStudentAccess(
                 requireContext(),
                 this@AddStudentFragment,
                 profileViewModel
             ).getStudent(viewingStudentRoll)
+
             loadingDialog.cancel()
+            viewsViewModel.updateLoadingState(false)
             studentCoroutineScope.cancel()
+
             if(student != null){
-                binding.dobButtonInAddStudentFragment.text = student.dob
-                if(student.gender == "Male") binding.checkBoxMaleInAddStudentFragment.isChecked = true
+                binding.dobButtonInAddStudentFragment.text = student!!.dob
+                if(student!!.gender == "Male") binding.checkBoxMaleInAddStudentFragment.isChecked = true
                 else binding.checkBoxFemaleInAddStudentFragment.isChecked = true
-                genderSelected = student.gender
-                dob = student.dob
-                binding.nameInputInAddStudentFragment.setText(student.name)
-                binding.emailInputInAddStudentFragment.setText(student.email)
-                binding.parentPhoneInAddStudentFragment.setText(student.parentPhone)
-                binding.phoneInputInAddStudentFragment.setText(student.phone)
-                binding.addressInputInAddStudentFragment.setText(student.address)
+                genderSelected = student!!.gender
+                dob = student!!.dob
+                binding.checkBoxMaleInAddStudentFragment.isEnabled = false
+                binding.checkBoxFemaleInAddStudentFragment.isEnabled = false
+                binding.emailInputInAddStudentFragment.isEnabled = false
+                binding.cardViewEmail.setBackgroundResource(R.color.light_gray)
+                binding.nameInputInAddStudentFragment.setText(student!!.name)
+                binding.emailInputInAddStudentFragment.setText(student!!.email)
+                binding.parentPhoneInAddStudentFragment.setText(student!!.parentPhone)
+                binding.phoneInputInAddStudentFragment.setText(student!!.phone)
+                binding.addressInputInAddStudentFragment.setText(student!!.address)
             }
         }
     }

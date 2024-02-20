@@ -52,7 +52,7 @@ class OwnBillsAdapter(
 
         AlertDialog.Builder(context)
             .setTitle("Pay this bill")
-            .setMessage("A amount of " + amount + " will be credited from your bank account")
+            .setMessage("A amount of " + amount + " will be debited from your bank account")
             .setPositiveButton("Yes"){dialog,which->
 
                 val simpleDate = SimpleDateFormat("dd/M/yyyy hh:mm:ss")

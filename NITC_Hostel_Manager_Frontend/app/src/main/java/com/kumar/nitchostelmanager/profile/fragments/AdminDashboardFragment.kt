@@ -1,5 +1,6 @@
 package com.kumar.nitchostelmanager.profile.fragments
 
+import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,10 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.LocalStorageAccess
-import com.kumar.nitchostelmanager.ManageBillAccess
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.bills.access.BillAccess
-import com.kumar.nitchostelmanager.complaints.access.ComplaintsDataAccess
 import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.databinding.FragmentAdminDashboardBinding
 import com.kumar.nitchostelmanager.hostels.access.ManageHostelsAccess
@@ -28,7 +27,6 @@ import com.kumar.nitchostelmanager.profile.access.ProfileAccess
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
 import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
-import com.kumar.nitchostelmanager.wardens.access.ManageWardensAccess
 import com.kumar.nitchostelmanager.wardens.access.WardensDataAccess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -121,7 +119,6 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 requireContext(),
                 profileViewModel
             ).getAdminProfile()
-            loadingDialog.cancel()
             getProfileCoroutineScope.cancel()
             if(admin!= null){
                 profileViewModel.username = admin.email.toString()
@@ -130,8 +127,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 getTotalBillsCount()
                 getTotalNotices()
                 getHostels()
-                getWardensCount()
-                viewsViewModel.updateLoadingState(false)
+                getWardensCount(loadingDialog)
             }else{
                 Toast.makeText(context,"Error in logging you in. Login Again",Toast.LENGTH_SHORT).show()
                 LocalStorageAccess(
@@ -144,7 +140,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
         }
     }
 
-    private fun getWardensCount() {
+    private fun getWardensCount(loadingDialog: Dialog) {
         var getWardensCoroutineScope = CoroutineScope(Dispatchers.Main)
         getWardensCoroutineScope.launch {
             var wardensCount = WardensDataAccess(
@@ -152,6 +148,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                 profileViewModel.loginToken.toString()
             ).getWardensCount(binding.parentLayoutInAdminDashboard)
             viewsViewModel.updateLoadingState(false)
+            loadingDialog.cancel()
             getWardensCoroutineScope.cancel()
             binding.totalWardensTextInAdminDashboard.text = wardensCount.toString()
         }

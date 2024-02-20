@@ -26,6 +26,8 @@ class AllStudentsFragment:Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAllStudentsBinding.inflate(inflater,container,false)
+        
+        binding.swipeRefreshLayoutInAllStudentsFragment.isEnabled = false
 
         loadViewPager()
 

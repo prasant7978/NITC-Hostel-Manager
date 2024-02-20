@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,7 @@ import com.kumar.nitchostelmanager.bills.adapter.AllBillsAdapter
 import com.kumar.nitchostelmanager.databinding.FragmentAllBillsBinding
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -25,6 +27,7 @@ class AllBillsFragment:Fragment(),CircleLoadingDialog {
 
     private val sharedViewModel:SharedViewModel by activityViewModels()
     private val profileViewModel:ProfileViewModel by activityViewModels()
+    private val viewsViewModel: ViewsViewModel by activityViewModels()
 
     private lateinit var binding:FragmentAllBillsBinding
     override fun onCreateView(
@@ -32,7 +35,11 @@ class AllBillsFragment:Fragment(),CircleLoadingDialog {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAllBillsBinding.inflate(inflater,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_all_bills, container,false)
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
 
         getAllBills()
 
@@ -51,12 +58,14 @@ class AllBillsFragment:Fragment(),CircleLoadingDialog {
         val loadingDialog = getLoadingDialog(requireContext(),this@AllBillsFragment)
 
         getBillsCoroutineScope.launch {
+            viewsViewModel.updateLoadingState(true)
             loadingDialog.create()
             loadingDialog.show()
 
             val bills = BillAccess(requireContext(), profileViewModel).getAllBills()
 
             loadingDialog.cancel()
+            viewsViewModel.updateLoadingState(false)
             getBillsCoroutineScope.cancel()
 
             if(bills!= null){

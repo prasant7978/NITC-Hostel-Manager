@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:paddingTop="@dimen/padding_small"
-    tools:context=".bills.fragments.StudentPaymentHistoryFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment History"
-        android:layout_marginTop="@dimen/margin_small"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_large"
-        android:id="@+id/headingInPaymentHistory"
-        android:fontFamily="@font/inter_semibold"/>
+    <data>
+        <variable
+            name="mainViewModel"
+            type="com.kumar.nitchostelmanager.viewModel.ViewsViewModel" />
+    </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewInPaymentHistory"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginHorizontal="@dimen/margin_large"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/bill_history_card"/>
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="@{mainViewModel.isLoading()?mainViewModel.invisibleView:mainViewModel.visibleView}"
+        android:paddingTop="@dimen/padding_small"
+        tools:context=".bills.fragments.StudentPaymentHistoryFragment">
 
-</LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment History"
+            android:layout_marginTop="@dimen/margin_small"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_large"
+            android:id="@+id/headingInPaymentHistory"
+            android:fontFamily="@font/inter_semibold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewInPaymentHistory"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginHorizontal="@dimen/margin_large"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/bill_history_card" />
+
+    </LinearLayout>
+</layout>

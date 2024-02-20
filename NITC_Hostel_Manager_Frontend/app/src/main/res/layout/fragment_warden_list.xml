@@ -1,67 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingHorizontal="5dp"
-    tools:context=".wardens.fragments.WardenListFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <SearchView
-        android:id="@+id/searchInWardenListFragment"
-        android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.7"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        android:background="@drawable/search_shape"
-        android:elevation="@dimen/elevation_medium"
-        android:focusable="false"
-        app:closeIcon="@drawable/icon_close"
-        app:iconifiedByDefault="false"
-        app:queryBackground="@android:color/transparent"
-        app:queryHint="Search by food type"
-        app:searchHintIcon="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
+        <variable
+            name="mainViewModel"
+            type="com.kumar.nitchostelmanager.viewModel.ViewsViewModel" />
+    </data>
 
-    </SearchView>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No Wardens Found"
-        android:textColor="@color/black"
-        android:fontFamily="@font/inter_semibold"
-        android:id="@+id/noWardensTVInWardenListFragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewInWardenListFragment"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_small"
-        app:layout_constraintVertical_bias="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchInWardenListFragment"
-        app:layout_constraintBottom_toTopOf="@id/addWardenButtonInWardenListFragment"
-        tools:listitem="@layout/warden_card" />
+        android:layout_height="match_parent"
+        android:paddingHorizontal="5dp"
+        android:visibility="@{mainViewModel.isLoading()?mainViewModel.invisibleView:mainViewModel.visibleView}"
+        tools:context=".wardens.fragments.WardenListFragment">
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Warden"
-        android:fontFamily="@font/inter_semibold"
-        android:backgroundTint="@color/navy_blue"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/addWardenButtonInWardenListFragment"/>
+        <SearchView
+            android:id="@+id/searchInWardenListFragment"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.7"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:background="@drawable/search_shape"
+            android:elevation="@dimen/elevation_medium"
+            android:focusable="false"
+            app:closeIcon="@drawable/icon_close"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="Search by food type"
+            app:searchHintIcon="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </SearchView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Wardens Found"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_semibold"
+            android:id="@+id/noWardensTVInWardenListFragment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewInWardenListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_small"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchInWardenListFragment"
+            app:layout_constraintBottom_toTopOf="@id/addWardenButtonInWardenListFragment"
+            tools:listitem="@layout/warden_card" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Warden"
+            android:fontFamily="@font/inter_semibold"
+            android:backgroundTint="@color/navy_blue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/addWardenButtonInWardenListFragment" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

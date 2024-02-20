@@ -6,23 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.tabs.TabLayoutMediator
 import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentAvailableRoomsBinding
 import com.kumar.nitchostelmanager.hostels.access.HostelDataAccess
 import com.kumar.nitchostelmanager.models.Room
 import com.kumar.nitchostelmanager.rooms.access.ManageRoomAccess
-import com.kumar.nitchostelmanager.rooms.adapters.AvailableRoomsPagerAdapter
 import com.kumar.nitchostelmanager.rooms.adapters.FloorsAdapter
 import com.kumar.nitchostelmanager.rooms.adapters.RoomsGridAdapter
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -32,6 +32,7 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
+    private val viewsViewModel: ViewsViewModel by activityViewModels()
     private lateinit var binding: FragmentAvailableRoomsBinding
 
     var totalRooms = 0
@@ -41,18 +42,16 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAvailableRoomsBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_available_rooms, container, false)
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
 
         if (profileViewModel.userType == "Student") {
             if (sharedViewModel.viewingHostel != null) {
                 binding.hostelNameTVInAvailableRoomsFragment.text =
                     sharedViewModel.viewingHostel!!.hostelID.toString()
-//                totalRooms = sharedViewModel.viewingHostel!!.capacity
-//                getAvailableRooms()
-//            binding.swipeRefreshLayoutInAvailableRoomsFragment.setOnRefreshListener {
-//                getRooms()
-//                binding.swipeRefreshLayoutInAvailableRoomsFragment.isRefreshing = false
-//            }
                 getHostel(sharedViewModel.viewingHostel!!.hostelID)
             }else{
                 findNavController().navigate(R.id.studentDashboardFragment)
@@ -66,21 +65,6 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
 
         val backCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-//                if(!sharedViewModel.fourthFloorRooms.isNullOrEmpty()){
-//                    sharedViewModel.fourthFloorRooms.clear()
-//                }
-//                if(!sharedViewModel.secondFloorRooms.isNullOrEmpty()){
-//                    sharedViewModel.secondFloorRooms.clear()
-//                }
-//                if(!sharedViewModel.thirdFloorRooms.isNullOrEmpty()){
-//                    sharedViewModel.thirdFloorRooms.clear()
-//                }
-//                if(!sharedViewModel.groundFloorRooms.isNullOrEmpty()){
-//                    sharedViewModel.groundFloorRooms.clear()
-//                }
-//                if(!sharedViewModel.firstFloorRooms.isNullOrEmpty()){
-//                    sharedViewModel.firstFloorRooms.clear()
-//                }
                 if (profileViewModel.userType == "Student") {
                     findNavController().navigate(R.id.changeRoomFragment)
                 } else {
@@ -98,9 +82,14 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
         val loadingDialog = getLoadingDialog(requireContext(),this@AvailableRoomsFragment)
 
         hostelCoroutine.launch {
+            viewsViewModel.updateLoadingState(true)
+            loadingDialog.create()
+            loadingDialog.show()
+
             val hostel = HostelDataAccess(requireContext(),this@AvailableRoomsFragment,profileViewModel.loginToken.toString()).getHostelDetails(hostelID)
 
             loadingDialog.cancel()
+            viewsViewModel.updateLoadingState(false)
             hostelCoroutine.cancel()
 
             if(hostel != null){
@@ -146,7 +135,6 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
                 this@AvailableRoomsFragment
             ).getAllRoomsFromTo(hostelID, (currentFloor * 100) + 1, (currentFloor + 1) * 100)
 
-            loadingDialog.cancel()
             roomsCoroutineScope.cancel()
 
             if (!rooms.isNullOrEmpty()) {
@@ -160,6 +148,8 @@ class AvailableRoomsFragment : Fragment(), CircleLoadingDialog {
                     allocateRoom(hostelID, roomNumber)
                 }
             }
+
+            loadingDialog.cancel()
         }
     }
 

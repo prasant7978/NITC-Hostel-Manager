@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentChangeRoomBinding
 import com.kumar.nitchostelmanager.hostels.access.HostelDataAccess
@@ -23,7 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class ChangeRoomFragment : Fragment() , AdapterView.OnItemSelectedListener{
+class ChangeRoomFragment : Fragment() , AdapterView.OnItemSelectedListener, CircleLoadingDialog{
 
     private val sharedViewModel:SharedViewModel by activityViewModels()
     private val profileViewModel:ProfileViewModel by activityViewModels()
@@ -55,13 +56,21 @@ class ChangeRoomFragment : Fragment() , AdapterView.OnItemSelectedListener{
 
     private fun getHostels(gender:String) {
         val getNamesCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(),this@ChangeRoomFragment)
+
         getNamesCoroutineScope.launch {
+            loadingDialog.create()
+            loadingDialog.show()
+
             hostels = HostelDataAccess(
                 requireContext(),
                 this@ChangeRoomFragment,
                 profileViewModel.loginToken.toString()
             ).getHostels(gender)
+
+            loadingDialog.cancel()
             getNamesCoroutineScope.cancel()
+
             if(!hostels.isNullOrEmpty()){
                 binding.spinnerInChangeRoomFragment.onItemSelectedListener = this@ChangeRoomFragment
                 binding.spinnerInChangeRoomFragment.adapter = ArrayAdapter(

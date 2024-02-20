@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,7 @@ import com.kumar.nitchostelmanager.models.Student
 import com.kumar.nitchostelmanager.students.adapter.OccupantsAdapter
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -27,6 +29,7 @@ class OccupantsFragment:Fragment(),CircleLoadingDialog {
 
     private val sharedViewModel:SharedViewModel by activityViewModels()
     private val profileViewModel:ProfileViewModel by activityViewModels()
+    private val viewsViewModel: ViewsViewModel by activityViewModels()
 
     private lateinit var binding:FragmentOccupantsBinding
     private var occupantsAdapter:OccupantsAdapter? = null
@@ -36,7 +39,11 @@ class OccupantsFragment:Fragment(),CircleLoadingDialog {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentOccupantsBinding.inflate(inflater,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_occupants, container,false)
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
 
         getOccupants()
 
@@ -78,15 +85,21 @@ class OccupantsFragment:Fragment(),CircleLoadingDialog {
         val getOccupantsCoroutineScope = CoroutineScope(Dispatchers.Main)
         val loadingDialog = getLoadingDialog(requireContext(),this@OccupantsFragment)
         loadingDialog.create()
+
         getOccupantsCoroutineScope.launch {
+            viewsViewModel.updateLoadingState(true)
             loadingDialog.show()
+
             occupants = HostelDataAccess(
                 requireContext(),
                 this@OccupantsFragment,
                 profileViewModel.loginToken.toString()
             ).getHostelOccupants(profileViewModel.currentWarden.hostelID)
-            loadingDialog.cancel()
+
             getOccupantsCoroutineScope.cancel()
+            viewsViewModel.updateLoadingState(false)
+            loadingDialog.cancel()
+
             if(!occupants.isNullOrEmpty()){
                 binding.recyclerViewInOccupantsFragment.layoutManager = LinearLayoutManager(context)
                 occupantsAdapter = OccupantsAdapter(
@@ -100,6 +113,7 @@ class OccupantsFragment:Fragment(),CircleLoadingDialog {
                 }
                 binding.recyclerViewInOccupantsFragment.adapter = occupantsAdapter
             }
+
         }
     }
 

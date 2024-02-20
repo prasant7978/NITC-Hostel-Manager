@@ -118,6 +118,7 @@ class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
             viewsViewModel.updateLoadingState(true)
             val studentProfile = ProfileAccess(requireContext(), profileViewModel).getStudentProfile()
             loadingDialog.cancel()
+            viewsViewModel.updateLoadingState(false)
             if(studentProfile != null){
                 profileViewModel.currentStudent = studentProfile
 
@@ -133,7 +134,6 @@ class StudentDashboardFragment:Fragment() ,CircleLoadingDialog{
                     binding.roomNumberInStudentDashboard.text = studentProfile.roomNumber.toString()
                 else
                     binding.roomNumberInStudentDashboard.text = "NA"
-                viewsViewModel.updateLoadingState(false)
             }
             else{
                 Toast.makeText(context,"Error in logging you in. Try again",Toast.LENGTH_SHORT).show()

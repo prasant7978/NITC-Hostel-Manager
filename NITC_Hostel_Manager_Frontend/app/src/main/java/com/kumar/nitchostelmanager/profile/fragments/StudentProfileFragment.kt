@@ -106,9 +106,9 @@ class StudentProfileFragment : Fragment(),CircleLoadingDialog {
             viewsViewModel.updateLoadingState(true)
             val studentProfile = ProfileAccess(requireContext(), profileViewModel).getStudentProfile()
             loadingDialog.cancel()
+            viewsViewModel.updateLoadingState(false)
             profileCoroutineScope.cancel()
             if(studentProfile != null){
-                viewsViewModel.updateLoadingState(false)
                 binding.studentNameInStudentProfile.text = studentProfile.name
                 binding.studentEmailInStudentProfile.text = studentProfile.email
                 binding.phoneInStudentProfileFragment.text = studentProfile.phone

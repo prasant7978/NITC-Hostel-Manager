@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -25,6 +26,7 @@ import com.kumar.nitchostelmanager.complaints.adapters.AllComplaintsAdapter
 import com.kumar.nitchostelmanager.databinding.FragmentViewAllComplaintsBinding
 import com.kumar.nitchostelmanager.models.Complaint
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 import kotlinx.coroutines.CoroutineScope
@@ -37,12 +39,17 @@ class ViewAllComplaintsFragment : Fragment() {
     private lateinit var complaintsAdapter: AllComplaintsAdapter
     private var complaintsList: ArrayList<Complaint>? = null
     val profileViewModel: ProfileViewModel by activityViewModels()
+    private val viewsViewModel: ViewsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentViewAllComplaintsBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_view_all_complaints, container, false)
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
 
         getAllPendingComplaints()
 
@@ -147,13 +154,18 @@ class ViewAllComplaintsFragment : Fragment() {
 
     private fun getAllPendingComplaints(){
         val complaintsCoroutineScope = CoroutineScope(Dispatchers.Main)
+
         complaintsCoroutineScope.launch {
+            viewsViewModel.updateLoadingState(true)
+
             complaintsList = ComplaintsDataAccess(
                 requireContext(),
                 this@ViewAllComplaintsFragment,
                 profileViewModel.loginToken.toString()
             ).viewAllPendingComplaints(profileViewModel.currentWarden.hostelID.toString())
+
             complaintsCoroutineScope.cancel()
+            viewsViewModel.updateLoadingState(false)
 
             if(!complaintsList.isNullOrEmpty()){
                 complaintsList!!.reverse()

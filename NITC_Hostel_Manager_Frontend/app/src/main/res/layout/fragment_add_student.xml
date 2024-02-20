@@ -1,293 +1,302 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<LinearLayout
-    android:orientation="vertical"
-    android:id="@+id/linearLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    tools:context=".students.fragments.AddStudentFragment">
+    <data>
+        <variable
+            name="mainViewModel"
+            type="com.kumar.nitchostelmanager.viewModel.ViewsViewModel" />
+    </data>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Student"
-        android:layout_marginTop="@dimen/margin_large"
-        android:textColor="@color/black"
-        android:fontFamily="@font/inter_semibold"
-        android:textSize="@dimen/text_size_large"
-        android:id="@+id/headingTVInAddStudentFragment"/>
+    <ScrollView
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="@{mainViewModel.isLoading()?mainViewModel.invisibleView:mainViewModel.visibleView}"
+        android:gravity="center_horizontal">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewNameInAddStudentFragment"
-        android:layout_width="@dimen/dimension_xxlarge"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_xlarge"
-        app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="@dimen/corner_radius_large">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nameInputLayoutInAddStudentFragment"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Name"
-            android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/add_student_input_bg"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="0dp"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:hintTextColor="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nameInputInAddStudentFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_medium" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:id="@+id/genderLayoutInAddStudent"
-        android:layout_width="@dimen/dimension_xxlarge"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_small"
-        android:paddingHorizontal="@dimen/padding_medium"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/genderTVInAddStudentFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Choose gender: "
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_medium" />
-
-        <RadioGroup
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/genderRadioGroupInAddStudentFragment"
-            android:orientation="horizontal">
+            android:gravity="center_horizontal"
+            tools:context=".students.fragments.AddStudentFragment">
 
-            <RadioButton
-                android:id="@+id/checkBoxMaleInAddStudentFragment"
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Male"
-                android:checked="true"
-                android:textSize="@dimen/text_size_small"
-                android:layout_marginStart="@dimen/margin_small"/>
+                android:text="Add Student"
+                android:layout_marginTop="@dimen/margin_large"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_semibold"
+                android:textSize="@dimen/text_size_large"
+                android:id="@+id/headingTVInAddStudentFragment" />
 
-            <RadioButton
-                android:id="@+id/checkBoxFemaleInAddStudentFragment"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewNameInAddStudentFragment"
+                android:layout_width="@dimen/dimension_xxlarge"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xlarge"
+                app:cardBackgroundColor="@color/add_student_input_bg"
+                app:cardCornerRadius="@dimen/corner_radius_large">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nameInputLayoutInAddStudentFragment"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Name"
+                    android:textColorHint="@color/black"
+                    app:boxBackgroundColor="@color/add_student_input_bg"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="0dp"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:hintTextColor="@color/black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nameInputInAddStudentFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/genderLayoutInAddStudent"
+                android:layout_width="@dimen/dimension_xxlarge"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:paddingHorizontal="@dimen/padding_medium"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/genderTVInAddStudentFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose gender: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/genderRadioGroupInAddStudentFragment"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/checkBoxMaleInAddStudentFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Male"
+                        android:checked="true"
+                        android:textSize="@dimen/text_size_small"
+                        android:layout_marginStart="@dimen/margin_small" />
+
+                    <RadioButton
+                        android:id="@+id/checkBoxFemaleInAddStudentFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Female"
+                        android:textSize="@dimen/text_size_small"
+                        android:layout_marginStart="@dimen/margin_xlarge" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/dobButtonInAddStudentFragment"
+                android:layout_width="@dimen/dimension_xxlarge"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="Date of Birth"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_small"
+                app:elevation="@dimen/elevation_medium"
+                android:backgroundTint="@color/add_student_input_bg"
+                app:cardCornerRadius="@dimen/corner_radius_large" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewEmail"
+                android:layout_width="@dimen/dimension_xxlarge"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:cardBackgroundColor="@color/add_student_input_bg"
+                app:cardCornerRadius="@dimen/corner_radius_large">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout2"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Email"
+                    android:textColorHint="@color/black"
+                    app:boxBackgroundColor="@color/add_student_input_bg"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="0dp"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:hintTextColor="@color/black"
+                    app:startIconDrawable="@drawable/icon_email"
+                    app:startIconTint="@color/black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailInputInAddStudentFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewPhone"
+                android:layout_width="@dimen/dimension_xxlarge"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:cardBackgroundColor="@color/add_student_input_bg"
+                app:cardCornerRadius="@dimen/corner_radius_large">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Phone"
+                    android:textColorHint="@color/black"
+                    app:boxBackgroundColor="@color/add_student_input_bg"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="0dp"
+                    app:hintTextColor="@color/black"
+                    app:startIconDrawable="@drawable/icon_phone"
+                    app:startIconTint="@color/black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phoneInputInAddStudentFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewParentPhone"
+                android:layout_width="@dimen/dimension_xxlarge"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:cardBackgroundColor="@color/add_student_input_bg"
+                app:cardCornerRadius="@dimen/corner_radius_large">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout3"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Parent Phone"
+                    android:textColorHint="@color/black"
+                    app:boxBackgroundColor="@color/add_student_input_bg"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="0dp"
+                    app:startIconDrawable="@drawable/icon_parent_phone"
+                    app:startIconTint="@color/black"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:hintTextColor="@color/black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/parentPhoneInAddStudentFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewAddress"
+                android:layout_width="@dimen/dimension_xxlarge"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:cardBackgroundColor="@color/add_student_input_bg"
+                app:cardCornerRadius="@dimen/corner_radius_large">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout4"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Address"
+                    android:textColorHint="@color/black"
+                    app:boxBackgroundColor="@color/add_student_input_bg"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="0dp"
+                    app:startIconDrawable="@drawable/icon_home"
+                    app:startIconTint="@color/black"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:hintTextColor="@color/black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/addressInputInAddStudentFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textImeMultiLine"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addStudentButtonInAddStudentFragment"
+                android:layout_width="@dimen/dimension_xlarge"
+                android:layout_height="@dimen/dimension_small"
+                android:layout_marginTop="@dimen/margin_large"
+                android:letterSpacing="0"
+                android:text="Add Student"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                app:backgroundTint="@color/button_add"
+                app:strokeWidth="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonClearAll"
+                android:layout_width="@dimen/dimension_xlarge"
+                android:layout_height="@dimen/dimension_small"
+                android:letterSpacing="0"
+                android:text="Clear All"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                app:backgroundTint="@color/primary_button"
+                app:strokeWidth="0dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBarInAddStudentFragment"
+                style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Female"
-                android:textSize="@dimen/text_size_small"
-                android:layout_marginStart="@dimen/margin_xlarge"/>
+                android:layout_marginTop="@dimen/margin_large"
+                android:visibility="invisible" />
 
-        </RadioGroup>
-
-    </LinearLayout>
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/dobButtonInAddStudentFragment"
-        android:layout_width="@dimen/dimension_xxlarge"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:text="Date of Birth"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_small"
-        app:elevation="@dimen/elevation_medium"
-        android:backgroundTint="@color/add_student_input_bg"
-        app:cardCornerRadius="@dimen/corner_radius_large"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewEmail"
-        android:layout_width="@dimen/dimension_xxlarge"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="@dimen/corner_radius_large">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout2"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Email"
-            android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/add_student_input_bg"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="0dp"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/icon_email"
-            app:startIconTint="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailInputInAddStudentFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_medium" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewPhone"
-        android:layout_width="@dimen/dimension_xxlarge"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="@dimen/corner_radius_large">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout5"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Phone"
-            android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/add_student_input_bg"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="0dp"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/icon_phone"
-            app:startIconTint="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/phoneInputInAddStudentFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_medium" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewParentPhone"
-        android:layout_width="@dimen/dimension_xxlarge"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="@dimen/corner_radius_large">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Parent Phone"
-            android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/add_student_input_bg"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="0dp"
-            app:startIconDrawable="@drawable/icon_parent_phone"
-            app:startIconTint="@color/black"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:hintTextColor="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/parentPhoneInAddStudentFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_medium" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewAddress"
-        android:layout_width="@dimen/dimension_xxlarge"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        app:cardBackgroundColor="@color/add_student_input_bg"
-        app:cardCornerRadius="@dimen/corner_radius_large">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout4"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Address"
-            android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/add_student_input_bg"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="0dp"
-            app:startIconDrawable="@drawable/icon_home"
-            app:startIconTint="@color/black"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:hintTextColor="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addressInputInAddStudentFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textImeMultiLine"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_medium" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addStudentButtonInAddStudentFragment"
-        android:layout_width="@dimen/dimension_xlarge"
-        android:layout_height="@dimen/dimension_small"
-        android:layout_marginTop="@dimen/margin_large"
-        android:letterSpacing="0"
-        android:text="Add Student"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_medium"
-        app:backgroundTint="@color/button_add"
-        app:strokeWidth="0dp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonClearAll"
-        android:layout_width="@dimen/dimension_xlarge"
-        android:layout_height="@dimen/dimension_small"
-        android:letterSpacing="0"
-        android:text="Clear All"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_medium"
-        app:backgroundTint="@color/primary_button"
-        app:strokeWidth="0dp" />
-
-    <ProgressBar
-        android:id="@+id/progressBarInAddStudentFragment"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:visibility="invisible" />
-
-</LinearLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</layout>

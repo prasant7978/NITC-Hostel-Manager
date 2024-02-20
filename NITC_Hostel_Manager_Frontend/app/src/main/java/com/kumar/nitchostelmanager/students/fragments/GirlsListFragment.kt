@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.databinding.FragmentGirlsListBinding
 import com.kumar.nitchostelmanager.models.Student
@@ -17,15 +19,17 @@ import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.students.adapter.BoysListAdapter
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class GirlsListFragment:Fragment() {
+class GirlsListFragment:Fragment(), CircleLoadingDialog {
 
     private val sharedViewModel:SharedViewModel by activityViewModels()
     private val profileViewModel:ProfileViewModel by activityViewModels()
+    private val viewsViewModel: ViewsViewModel by activityViewModels()
     private var girlsList = ArrayList<Student>()
     private lateinit var binding:FragmentGirlsListBinding
     private lateinit var girlsListAdapter:BoysListAdapter
@@ -34,7 +38,11 @@ class GirlsListFragment:Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentGirlsListBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_girls_list, container, false)
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
 
         retrieveAllStudents()
 
@@ -57,8 +65,17 @@ class GirlsListFragment:Fragment() {
 
     private fun retrieveAllStudents(){
         val manageStudentCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(), this)
+
         manageStudentCoroutineScope.launch {
+            viewsViewModel.updateLoadingState(true)
+            loadingDialog.create()
+            loadingDialog.show()
+
             girlsList = ManageStudentAccess(requireContext(), this@GirlsListFragment, profileViewModel).getGirls(binding.constraintLayout)!!
+
+            loadingDialog.cancel()
+            viewsViewModel.updateLoadingState(false)
             manageStudentCoroutineScope.cancel()
 
             if(girlsList != null){

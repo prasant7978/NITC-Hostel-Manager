@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kumar.nitchostelmanager.CircleLoadingDialog
 import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.students.access.ManageStudentAccess
 import com.kumar.nitchostelmanager.students.adapter.BoysListAdapter
@@ -17,23 +19,29 @@ import com.kumar.nitchostelmanager.databinding.FragmentBoysListBinding
 import com.kumar.nitchostelmanager.models.Student
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class BoysListFragment : Fragment() {
+class BoysListFragment : Fragment(), CircleLoadingDialog {
     private lateinit var binding: FragmentBoysListBinding
     private lateinit var boysListAdapter: BoysListAdapter
     private var boysList = ArrayList<Student>()
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by activityViewModels()
+    private val viewsViewModel: ViewsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentBoysListBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_boys_list, container, false)
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
 
         retrieveAllStudents()
 
@@ -56,8 +64,17 @@ class BoysListFragment : Fragment() {
 
     private fun retrieveAllStudents(){
         val manageStudentCoroutineScope = CoroutineScope(Dispatchers.Main)
+        val loadingDialog = getLoadingDialog(requireContext(), this)
+
         manageStudentCoroutineScope.launch {
+            viewsViewModel.updateLoadingState(true)
+            loadingDialog.create()
+            loadingDialog.show()
+
             boysList = ManageStudentAccess(requireContext(), this@BoysListFragment, profileViewModel).getBoys(binding.constraintLayout)!!
+
+            loadingDialog.cancel()
+            viewsViewModel.updateLoadingState(false)
             manageStudentCoroutineScope.cancel()
 
             if(boysList != null){
@@ -84,6 +101,7 @@ class BoysListFragment : Fragment() {
                 binding.searchViewInBoysListFragment.visibility = View.INVISIBLE
             }
         }
+
     }
 
     private fun deleteStudent(studentRoll:String) {

@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.kumar.nitchostelmanager.CircleLoadingDialog
+import com.kumar.nitchostelmanager.R
 import com.kumar.nitchostelmanager.Validation
 import com.kumar.nitchostelmanager.databinding.FragmentAddHostelBinding
 import com.kumar.nitchostelmanager.hostels.access.HostelDataAccess
@@ -15,6 +17,7 @@ import com.kumar.nitchostelmanager.hostels.access.ManageHostelsAccess
 import com.kumar.nitchostelmanager.models.Hostel
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.SharedViewModel
+import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,6 +26,7 @@ class AddHostelFragment: Fragment(), CircleLoadingDialog, Validation {
 
     private val profileViewModel:ProfileViewModel by activityViewModels()
     private val sharedViewModel:SharedViewModel by activityViewModels()
+    private val viewsViewModel: ViewsViewModel by activityViewModels()
     private lateinit var binding:FragmentAddHostelBinding
     private var genderSelected = "Male"
     override fun onCreateView(
@@ -30,7 +34,11 @@ class AddHostelFragment: Fragment(), CircleLoadingDialog, Validation {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAddHostelBinding.inflate(inflater,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_hostel, container,false)
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewsViewModel
+        viewsViewModel.updateLoadingState(true)
 
         binding.buttonClearAllInAddHostelFragment.setOnClickListener {
             clearAll()
@@ -40,6 +48,8 @@ class AddHostelFragment: Fragment(), CircleLoadingDialog, Validation {
             binding.hostelNameInputInAddHostelFragment.isEnabled = false
             binding.wardenEmailInputCardInAddHostelFragment.visibility = View.VISIBLE
             getData(sharedViewModel.updatingHostelID.toString())
+        }else{
+            viewsViewModel.updateLoadingState(false)
         }
 
         binding.addHostelButtonInAddHostelFragment.setOnClickListener {
@@ -119,15 +129,21 @@ class AddHostelFragment: Fragment(), CircleLoadingDialog, Validation {
     private fun getData(hostelID:String) {
         val getHostelCoroutineScope = CoroutineScope(Dispatchers.Main)
         val loadingDialog = getLoadingDialog(requireContext(),this@AddHostelFragment)
+
         getHostelCoroutineScope.launch {
+            viewsViewModel.updateLoadingState(true)
             loadingDialog.create()
             loadingDialog.show()
+
             val hostel = HostelDataAccess(
                 requireContext(),
                 this@AddHostelFragment,
                 profileViewModel.loginToken.toString()
             ).getHostelDetails(hostelID)
+
+            viewsViewModel.updateLoadingState(false)
             loadingDialog.cancel()
+
             if(hostel != null){
                 binding.wardenEmailInputInAddHostelFragment.setText(hostel.wardenEmail.toString())
                 binding.chargesInputInAddHostelFragment.setText(hostel.charges.toString())
@@ -141,7 +157,6 @@ class AddHostelFragment: Fragment(), CircleLoadingDialog, Validation {
                 binding.capacityInputInAddHostelFragment.isEnabled = false
             }
         }
-
     }
 
     private fun clearAll() {

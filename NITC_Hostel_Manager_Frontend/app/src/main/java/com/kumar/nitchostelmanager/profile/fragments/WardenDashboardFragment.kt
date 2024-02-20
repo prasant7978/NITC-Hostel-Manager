@@ -1,11 +1,11 @@
 package com.kumar.nitchostelmanager.profile.fragments
 
+import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -20,7 +20,6 @@ import com.kumar.nitchostelmanager.complaints.access.ComplaintsDataAccess
 import com.kumar.nitchostelmanager.databinding.FragmentWardenDashboardBinding
 import com.kumar.nitchostelmanager.hostels.access.HostelDataAccess
 import com.kumar.nitchostelmanager.notice.access.NoticeAccess
-import com.kumar.nitchostelmanager.services.HostelsService
 import com.kumar.nitchostelmanager.viewModel.ProfileViewModel
 import com.kumar.nitchostelmanager.viewModel.ViewsViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -107,12 +106,9 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
         dialog?.create()?.show()
     }
 
-    private fun getPendingComplaintsCount(){
+    private fun getPendingComplaintsCount(loadingDialog: Dialog) {
         var complaintsCoroutineScope = CoroutineScope(Dispatchers.Main)
-        complaintsCoroutineScope.launch {
-            var loadingDialog = getLoadingDialog(requireContext(),this@WardenDashboardFragment)
-//            loadingDialog.create()
-//            loadingDialog.show()
+        complaintsCoroutineScope.launch { 
 
             var complaintsCount = ComplaintsDataAccess(
                 requireContext(),
@@ -120,7 +116,8 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 profileViewModel.loginToken.toString()
             ).getPendingComplaintsCount(profileViewModel.currentWarden.hostelID)
 
-//            loadingDialog.cancel()
+            viewsViewModel.updateLoadingState(false)
+            loadingDialog.cancel()
             complaintsCoroutineScope.cancel()
 
             binding.totalComplaintsTextInWardenDashboard.text = complaintsCount.toString()
@@ -173,12 +170,12 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
             loadingDialog.create()
             loadingDialog.show()
             viewsViewModel.updateLoadingState(true)
+
             val warden = ProfileAccess(requireContext(),profileViewModel).getWardenProfile()
 
             getProfileCoroutineScope.cancel()
 
             if(warden != null){
-
                 binding.nameTextInWardenDashboard.text = warden.name.toString()
                 binding.emailTextInWardenDashboard.text = warden.email.toString()
                 profileViewModel.currentWarden = warden
@@ -186,9 +183,7 @@ class WardenDashboardFragment:Fragment(),CircleLoadingDialog{
                 getHostelDetails()
                 getStudentsCount()
                 getNoticesCount()
-                getPendingComplaintsCount()
-                loadingDialog.cancel()
-                viewsViewModel.updateLoadingState(false)
+                getPendingComplaintsCount(loadingDialog)
             }else{
                 loadingDialog.cancel()
                 findNavController().navigate(R.id.loginFragment)
