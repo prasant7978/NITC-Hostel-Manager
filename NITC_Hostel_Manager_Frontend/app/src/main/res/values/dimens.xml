@@ -26,7 +26,7 @@
     <dimen name="corner_radius_small">5dp</dimen>
 
     <dimen name="dimension_xxlarge">300dp</dimen>
-    <dimen name="dimension_xlarge">250dp</dimen>
+    <dimen name="dimension_xlarge">180dp</dimen>
     <dimen name="dimension_large">170dp</dimen>
     <dimen name="dimension_medium">100dp</dimen>
     <dimen name="dimension_small">60dp</dimen>

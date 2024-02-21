@@ -135,6 +135,7 @@ class AdminDashboardFragment:Fragment(),CircleLoadingDialog {
                     requireContext(),
                     profileViewModel
                 ).deleteData()
+                loadingDialog.cancel()
                 findNavController().navigate(R.id.loginFragment)
             }
         }

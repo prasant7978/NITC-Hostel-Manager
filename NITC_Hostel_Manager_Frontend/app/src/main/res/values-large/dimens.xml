@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="text_size_large">33sp</dimen>
-    <dimen name="text_size_medium">25sp</dimen>
-    <dimen name="text_size_small">23sp</dimen>
-    <dimen name="text_size_xsmall">19sp</dimen>
-    <dimen name="text_size_xxsmall">15sp</dimen>
+    <dimen name="text_size_large">34sp</dimen>
+    <dimen name="text_size_medium">28sp</dimen>
+    <dimen name="text_size_small">25sp</dimen>
+    <dimen name="text_size_xsmall">21sp</dimen>
+    <dimen name="text_size_xxsmall">17sp</dimen>
 
     <dimen name="padding_large">40dp</dimen>
     <dimen name="padding_medium">25dp</dimen>
@@ -26,7 +26,7 @@
     <dimen name="corner_radius_small">15dp</dimen>
 
     <dimen name="dimension_xxlarge">600dp</dimen>
-    <dimen name="dimension_xlarge">400dp</dimen>
+    <dimen name="dimension_xlarge">320dp</dimen>
     <dimen name="dimension_large">250dp</dimen>
     <dimen name="dimension_medium">170dp</dimen>
     <dimen name="dimension_small">110dp</dimen>
