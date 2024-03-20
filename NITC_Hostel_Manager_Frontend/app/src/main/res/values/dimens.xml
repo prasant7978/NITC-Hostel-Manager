@@ -33,5 +33,6 @@
     <dimen name="dimension_xsmall">50dp</dimen>
 
     <dimen name="tab_height">3dp</dimen>
+    <dimen name="login_card_mh">16dp</dimen>
 
 </resources>
