@@ -5,7 +5,7 @@ At DormEase, we prioritize the privacy and security of your data. This Privacy P
 
 **1. Information Collection:**
 
-Our DormEase App may collect and utilize personal data such as your email for account creation and communication purposes. Additionally, in the event of errors, the App may collect information such as IP address, phone name, OS version, configuration details, and the time and date of your use through third-party products on your device, known as Log data.
+Our DormEase App may collect and utilize personal data such as your email, phone number, name, gender, hostel ID, room Number and might set an initial password for account creation and communication purposes. 
 
 **2. Internet Connectivity:**
 
@@ -19,9 +19,9 @@ The DormEase App may request and use your email for account-related communicatio
 
 In the case of errors, the App may collect Log data, including but not limited to IP address, phone name, OS version, configuration details, and the time and date of your use. This information is used for diagnostic purposes to enhance the performance and reliability of the App.
 
-**5. No Third-Party Services:**
+**5. Third-Party Services:**
 
-The DormEase App does not contain any links to third-party websites or services. Your experience within the App remains solely focused on its intended functionalities, and we do not engage with external services.
+The DormEase App does store user data to a remote database for app functionality and account management.
 
 **6. Security:**
 
